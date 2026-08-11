@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useId, useState, type CSSProperties } from "react";
 import { FONT } from "@/lib/theme";
 
 type Variant = "fill" | "outline";
@@ -38,7 +38,8 @@ export function ArrowButton({
   const isFill = variant !== "outline";
   const kf = isUp ? "m7arrowLoopUp" : "m7arrowLoop";
   const arrowAnim = hovered ? `${kf} 0.75s linear infinite` : "none";
-  const patternId = isFill ? "m7agrid-fill" : "m7agrid-outline";
+  const uid = useId();
+  const patternId = isFill ? `m7agrid-fill-${uid}` : `m7agrid-outline-${uid}`;
   const dotFill = isFill ? "rgba(18,18,18,0.16)" : "rgba(255,255,255,0.18)";
   const arrowFill = isFill ? "#121212" : "#ffffff";
 

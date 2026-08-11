@@ -154,9 +154,8 @@ export function MegaMenu({
                         justifyContent: "space-between",
                         width: "100%",
                         opacity: isActive ? 1 : 0.32,
-                        filter: isActive ? "blur(0px)" : "blur(3px)",
                         transition:
-                          "opacity .55s cubic-bezier(.22,1,.36,1),filter .55s cubic-bezier(.22,1,.36,1)",
+                          "opacity .55s cubic-bezier(.22,1,.36,1)",
                       }}
                     >
                       <div

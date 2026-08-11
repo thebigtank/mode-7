@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowButton } from "@/components/ArrowButton";
-import { CategoryCard, ProductCard } from "@/components/page/Cards";
+import { ProductCard } from "@/components/page/Cards";
 import { MediaPanel, PageHero, PageSection } from "@/components/page/Blocks";
+import { CategoryShowcase } from "@/components/smart-home/CategoryShowcase";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { FONT, stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
@@ -11,17 +12,6 @@ export const metadata: Metadata = {
   description:
     "Smart bulbs, switches, plugs, sensors, cameras and voice control — premium automation gear, vetted and sealed.",
 };
-
-const categories = [
-  { label: "Smart Lighting", sub: "Bulbs, strips & panels" },
-  { label: "Switches & Plugs", sub: "Wall switches, smart plugs" },
-  { label: "Voice & Control", sub: "Assistants, remotes, hubs" },
-  { label: "Sensors", sub: "Motion, door, temperature" },
-  { label: "Cameras & Security", sub: "Indoor, outdoor, doorbells" },
-  { label: "Climate", sub: "Thermostats & radiator valves" },
-  { label: "Hubs & Bridges", sub: "Connect every device" },
-  { label: "Accessories", sub: "Mounts, cables, power" },
-];
 
 const bestSellers = [
   { name: "Smart Bulb A60", meta: "Smart Lighting", price: "£19" },
@@ -101,19 +91,7 @@ export default function SmartHomePage() {
         overline="Shop by Category"
         title="Build your smart home, one device at a time."
       >
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4,1fr)",
-            gap: 14,
-            marginTop: 34,
-          }}
-        >
-          {categories.map((c) => (
-            <CategoryCard key={c.label} {...c} height={180} />
-          ))}
-        </div>
+        <CategoryShowcase />
       </PageSection>
 
       {/* best sellers */}

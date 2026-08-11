@@ -23,10 +23,16 @@ body {
 }
 
 /* Nothing may push the page sideways. Individually scrollable things (tables,
-   wide diagrams) opt into their own overflow rather than escaping the body. */
+   wide diagrams) opt into their own overflow rather than escaping the body.
+
+   `clip`, not `hidden`: overflow-x hidden on <body> makes overflow-y compute
+   to auto, which turns <body> into a scroll container. position: sticky then
+   sticks relative to that non-scrolling container instead of the viewport, so
+   every sticky element (the trade-in ledger, the site header) silently stops
+   sticking. `clip` clips the same overflow without creating a scroll container. */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Lenis smooth scroll ------------------------------------------------------ */
@@ -119,6 +125,11 @@ html.lenis body {
 .m7-lift-dark:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+/* Category showcase — smooth mask transition between scroll-edge states */
+.m7-cat-scroll {
+  transition: mask-image 0.35s ease, -webkit-mask-image 0.35s ease;
 }
 
 /* Shop card. The image height is a variable because the "Ask Seven" chip is
@@ -1418,7 +1429,7 @@ html.lenis body {
 /* minmax(0, 1fr) not 1fr — a bare 1fr track has a min-content floor, so a
    wide child (a long naira range, a nowrap ledger row) pushes the whole
    column past the viewport instead of being constrained by it. */
-.tradein-page .t-ws { display: grid; gap: clamp(20px, 2.5vw, 34px); grid-template-columns: minmax(0, 1fr); align-items: start; }
+.tradein-page .t-ws { display: grid; gap: clamp(20px, 2.5vw, 34px); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 940px) { .tradein-page .t-ws { grid-template-columns: minmax(0, 1fr) 404px; } }
 
 /* interview */
@@ -1532,7 +1543,7 @@ html.lenis body {
    (total + CTA) always terminates the card instead of leaving the button
    stranded on white below the black slab.
    ========================================================================= */
-.tradein-page .t-ledger { position: sticky; top: 96px; }
+.tradein-page .t-ledger { align-self: start; position: sticky; top: 96px; }
 @media (max-width: 939px) { .tradein-page .t-ledger { position: static; } }
 
 .tradein-page .t-rcpt {
