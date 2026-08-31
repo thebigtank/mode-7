@@ -21,68 +21,93 @@ export function PageHero({
   title,
   intro,
   actions,
+  centered = false,
+  titleFontSize = "clamp(41px, 5.7vw, 66px)",
+  titleLineHeight = "1",
+  titleFontWeight = "600",
 }: {
   overline: string;
   title: ReactNode;
   intro: ReactNode;
   actions?: ReactNode;
+  centered?: boolean;
+  titleFontSize?: string;
+  titleLineHeight?: string;
+  titleFontWeight?: string;
 }) {
+  const overlineStyle: CSSProperties = {
+    fontFamily: FONT.head,
+    fontSize: 12,
+    letterSpacing: 2,
+    color: "#9a9a9a",
+    textTransform: "uppercase",
+    marginBottom: 16,
+  };
+  const titleStyle: CSSProperties = {
+    fontFamily: FONT.head,
+    fontWeight: titleFontWeight,
+    fontSize: titleFontSize,
+    lineHeight: titleLineHeight,
+    letterSpacing: "-3px",
+    margin: 0,
+  };
+  const introStyle: CSSProperties = {
+    fontSize: 18,
+    lineHeight: 1.65,
+    color: "#5a5a5a",
+    margin: "0 0 24px",
+  };
+
   return (
     <section
       style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(35px, 4.6vw, 64px) var(--m7-pad) 0" }}
     >
-      <div
-        className="m7-grid-2"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.4fr 1fr",
-          gap: 48,
-          alignItems: "end",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontFamily: FONT.head,
-              fontSize: 12,
-              letterSpacing: 2,
-              color: "#9a9a9a",
-              textTransform: "uppercase",
-              marginBottom: 16,
-            }}
-          >
-            {`// ${overline}`}
-          </div>
-          <h1
-            className="m7-hero-h1"
-            style={{
-              fontFamily: FONT.head,
-              fontWeight: 600,
-              fontSize: "clamp(41px, 5.7vw, 66px)",
-              lineHeight: 1,
-              letterSpacing: "-3px",
-              margin: 0,
-            }}
-          >
+      {centered ? (
+        <div style={{ textAlign: "center" }}>
+          <div style={overlineStyle}>{`// ${overline}`}</div>
+          <h1 className="m7-hero-h1" style={{ ...titleStyle, textAlign: "center" }}>
             {title}
           </h1>
-        </div>
-        <div>
-          <p
-            style={{
-              fontSize: 18,
-              lineHeight: 1.65,
-              color: "#5a5a5a",
-              margin: "0 0 24px",
-            }}
-          >
+          <p style={{ ...introStyle, maxWidth: 640, margin: "24px auto 24px" }}>
             {intro}
           </p>
           {actions && (
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>{actions}</div>
+            <div
+              style={{
+                display: "flex",
+                gap: 12,
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              {actions}
+            </div>
           )}
         </div>
-      </div>
+      ) : (
+        <div
+          className="m7-grid-2"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.4fr 1fr",
+            gap: 48,
+            alignItems: "end",
+          }}
+        >
+          <div>
+            <div style={overlineStyle}>{`// ${overline}`}</div>
+            <h1 className="m7-hero-h1" style={titleStyle}>
+              {title}
+            </h1>
+          </div>
+          <div>
+            <p style={introStyle}>{intro}</p>
+            {actions && (
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>{actions}</div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
