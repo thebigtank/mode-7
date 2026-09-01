@@ -1,6 +1,7 @@
 import { testimonials } from "@/lib/content";
 import { V2, V2_FONT } from "@/lib/theme-v2";
-import { ArrowLink, Band, BtnFill, H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { ArrowLink, Band, H2, Mono, P } from "./Ui";
 
 /**
  * Section 9 — the reference's closing card row: a large display heading with a
@@ -46,12 +47,7 @@ export function InsightsV2() {
             it&apos;s a complete technology lifecycle engineered around you.
           </P>
         </div>
-        <BtnFill
-          label="All reviews"
-          href="/about"
-          ground={V2.ink}
-          color={V2.white}
-        />
+        <ButtonV2 label="All reviews" href="/about" variant="ink" />
       </div>
 
       <div className="v2-articles">

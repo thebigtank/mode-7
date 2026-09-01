@@ -1,6 +1,7 @@
 import { capabilities } from "@/lib/content";
 import { V2, V2_FONT } from "@/lib/theme-v2";
-import { ArrowLink, Band, BtnFill, H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { ArrowLink, Band, H2, Mono, P } from "./Ui";
 
 /**
  * Section 7 — the reference's case-study stack: a dotted mono eyebrow, a
@@ -56,12 +57,7 @@ export function WorkV2() {
           Mode 7 powers homes and pockets, curating premium hardware,
           sustainable energy and effortless upgrades under one trusted roof.
         </P>
-        <BtnFill
-          label="See all services"
-          href="/services"
-          ground={V2.ink}
-          color={V2.white}
-        />
+        <ButtonV2 label="See all services" href="/services" variant="ink" />
       </div>
 
       <div style={{ display: "grid", gap: 24 }}>

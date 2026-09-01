@@ -1,6 +1,7 @@
 import { pillars } from "@/lib/content";
 import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
-import { Band, BtnFill, H2, P } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { Band, H2, P } from "./Ui";
 
 /**
  * Section 8 — the reference's dark routing band: a mono eyebrow, a two-line
@@ -83,7 +84,7 @@ export function CtaBandV2() {
             }}
           />
 
-          <BtnFill label="Talk to our team" href="/contact" />
+          <ButtonV2 label="Talk to our team" href="/contact" variant="fill" />
         </div>
       </div>
     </Band>

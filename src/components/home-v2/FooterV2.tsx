@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { footerCols, legalLinks } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT, V2_HAIR_DARK } from "@/lib/theme-v2";
-import { BtnFill, BtnOutline, H2, Mono } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { H2, Mono } from "./Ui";
 
 /**
  * Section 10 — mirrors the reference homepage's two-part dark close: a centred
@@ -56,12 +57,12 @@ export function FooterV2() {
             marginTop: "clamp(28px,3.4vw,44px)",
           }}
         >
-          <BtnFill label="Talk to us" href="/contact" />
-          <BtnOutline
+          <ButtonV2 label="Talk to us" href="/contact" variant="fill" />
+          <ButtonV2
             label="Explore our work"
             href="/services"
-            color={V2.white}
-            border="rgba(255,255,255,0.28)"
+            variant="outline"
+            onDark
           />
         </div>
       </div>

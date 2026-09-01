@@ -49,6 +49,12 @@ const CSS = `
 /* h1: the measured 64/64/-1.28px at 1440, scaling down below it */
 .v2-hero-h1 { font-size:clamp(38px,4.45vw,64px); line-height:1.14; letter-spacing:-0.02em; }
 
+/* Header nav links. The display value MUST live here, not inline on the
+   element: the 980px rule below hides them, and an inline display:flex would
+   out-specify it and leave the links (and the Shop action) overflowing the
+   panel on mobile. */
+.v2-navlinks { display:flex; }
+
 /* the logo strip: one row at 1440, wrapping only when it must */
 .v2-logos { display:flex; align-items:center; justify-content:space-between; gap:clamp(14px,2vw,28px); flex-wrap:wrap; }
 

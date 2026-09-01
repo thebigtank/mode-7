@@ -1,10 +1,11 @@
 import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
-import { ArrowLink, BtnFill, Mono } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { Mono } from "./Ui";
 
 /**
  * Section 1 — the reference's split hero: a three-line display headline with a
- * lead paragraph and a primary/tertiary action pair on the left, a framed
+ * lead paragraph and a matched primary/secondary button pair on the left, a framed
  * video still with a centred play target on the right, and a single-row
  * "trusted by" logo strip beneath both columns.
  *
@@ -77,14 +78,22 @@ export function HeroV2() {
             <div
               style={{
                 display: "flex",
-                gap: 24,
-                alignItems: "center",
+                gap: 12,
+                /* NO `align-items` — the default `stretch` is what makes the
+                   two buttons the same height. `fill` has no border and is
+                   42px on its own content; `outline`'s 1px hairline makes it
+                   44px. v1's hero row relies on the same stretch, so both
+                   pairs land on 44px and read as one matched pair. */
                 flexWrap: "wrap",
                 marginTop: "clamp(32px,4.2vw,60px)",
               }}
             >
-              <BtnFill label="Shop now" href="/shop" />
-              <ArrowLink label="Value your device" href="/trade-in" />
+              <ButtonV2 label="Shop now" href="/shop" variant="fill" />
+              <ButtonV2
+                label="Value your device"
+                href="/trade-in"
+                variant="outline"
+              />
             </div>
           </div>
 

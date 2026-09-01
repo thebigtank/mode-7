@@ -1,5 +1,6 @@
 import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
-import { Band, BtnFill, H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "./ButtonV2";
+import { Band, H2, Mono, P } from "./Ui";
 
 /**
  * Section 5 — the reference's "why us" split: a tall square-ish image on the
@@ -71,12 +72,7 @@ export function WhyV2() {
             We do far more than supply the latest devices.
           </H2>
           <div style={{ margin: "clamp(28px,2.8vw,41px) 0 clamp(26px,2.6vw,37px)" }}>
-            <BtnFill
-              label="About us"
-              href="/about"
-              ground={V2.ink}
-              color={V2.white}
-            />
+            <ButtonV2 label="About us" href="/about" variant="ink" />
           </div>
 
           <div style={{ borderTop: V2_HAIR }}>
