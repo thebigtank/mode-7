@@ -21,37 +21,42 @@ export function BrandStrip() {
   useBrandBlur(ref);
 
   const row = (keyPrefix: string) =>
-    logos.map((l) => (
-      <div
-        key={`${keyPrefix}-${l.name}`}
-        data-logo="1"
-        style={{
-          flex: "0 0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: 158,
-          height: 48,
-          opacity: 0,
-          filter: "grayscale(1) blur(9px)",
-        }}
-      >
-        {/* plain <img>: these are tiny static marks and the marquee needs no
-            layout-shifting wrapper */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={l.src}
-          alt={l.name}
+    // `logos` also carries logo-less entries for the homepage-v2 text-only
+    // marquee (see `src/lib/content.ts`); this strip renders actual wordmark
+    // images, so it only ever shows the brands that have one.
+    logos
+      .filter((l) => l.src)
+      .map((l) => (
+        <div
+          key={`${keyPrefix}-${l.name}`}
+          data-logo="1"
           style={{
-            maxHeight: 26,
-            maxWidth: 118,
-            width: "auto",
-            height: "auto",
-            objectFit: "contain",
+            flex: "0 0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 158,
+            height: 48,
+            opacity: 0,
+            filter: "grayscale(1) blur(9px)",
           }}
-        />
-      </div>
-    ));
+        >
+          {/* plain <img>: these are tiny static marks and the marquee needs no
+              layout-shifting wrapper */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={l.src}
+            alt={l.name}
+            style={{
+              maxHeight: 26,
+              maxWidth: 118,
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      ));
 
   return (
     <section

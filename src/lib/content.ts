@@ -91,20 +91,41 @@ export const heroFeatures = [
   "Accessories",
 ];
 
-export const logos = [
-  { src: "/brands/apple.svg", name: "Apple" },
-  { src: "/brands/samsung.svg", name: "Samsung" },
-  { src: "/brands/sony.svg", name: "Sony" },
-  { src: "/brands/google.svg", name: "Google" },
-  { src: "/brands/bose.svg", name: "Bose" },
-  { src: "/brands/lenovo.svg", name: "Lenovo" },
-  { src: "/brands/dell.svg", name: "Dell" },
-  { src: "/brands/hp.svg", name: "HP" },
-  { src: "/brands/jbl.svg", name: "JBL" },
-  { src: "/brands/anker.svg", name: "Anker" },
-  { src: "/brands/dyson.svg", name: "Dyson" },
-  { src: "/brands/xiaomi.svg", name: "Xiaomi" },
-  { src: "/brands/jackery.png", name: "Jackery" },
+/**
+ * Brand marks. `src` + `name` is the original shape v1's `BrandStrip` renders
+ * as small logo images — untouched, so it still shows exactly the 13 brands it
+ * always has (`BrandStrip` filters to entries that carry a `src`). `display`
+ * is the full, properly spelled brand name for TEXT-ONLY contexts — the
+ * homepage-v2 gold marquee, which spells everything out rather than showing a
+ * wordmark, so the 7 brands added there need no logo asset and carry no `src`.
+ *
+ * `logos.length` is read by `StatsV2` for the "premium brand partners" figure
+ * (see `content rules` in the v2 CLAUDE.md) — it is derived, never asserted,
+ * so growing this array from 13 to 20 for the marquee is safe by design.
+ */
+export const logos: { src?: string; name: string; display: string }[] = [
+  { src: "/brands/apple.svg", name: "Apple", display: "Apple" },
+  { src: "/brands/samsung.svg", name: "Samsung", display: "Samsung" },
+  { src: "/brands/sony.svg", name: "Sony", display: "Sony" },
+  { src: "/brands/google.svg", name: "Google", display: "Google" },
+  { src: "/brands/bose.svg", name: "Bose", display: "Bose" },
+  { src: "/brands/lenovo.svg", name: "Lenovo", display: "Lenovo" },
+  { src: "/brands/dell.svg", name: "Dell", display: "Dell" },
+  // HP's wordmark logo stays "HP"; the marquee spells the initialism out.
+  { src: "/brands/hp.svg", name: "HP", display: "Hewlett Packard" },
+  { src: "/brands/jbl.svg", name: "JBL", display: "JBL" },
+  { src: "/brands/anker.svg", name: "Anker", display: "Anker" },
+  { src: "/brands/dyson.svg", name: "Dyson", display: "Dyson" },
+  { src: "/brands/xiaomi.svg", name: "Xiaomi", display: "Xiaomi" },
+  { src: "/brands/jackery.png", name: "Jackery", display: "Jackery" },
+  // Marquee-only additions below — text names, no logo asset.
+  { name: "LG", display: "LG" },
+  { name: "Philips Hue", display: "Philips Hue" },
+  { name: "EcoFlow", display: "EcoFlow" },
+  { name: "Sonos", display: "Sonos" },
+  { name: "Logitech", display: "Logitech" },
+  { name: "Belkin", display: "Belkin" },
+  { name: "Microsoft", display: "Microsoft" },
 ];
 
 /** Mega-menu items. `href` targets the App Router routes. */

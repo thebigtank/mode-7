@@ -2,7 +2,6 @@ import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
 import { ButtonV2 } from "./ButtonV2";
 import { HeroHeadlineV2 } from "./HeroHeadlineV2";
-import { Mono } from "./Ui";
 
 /**
  * Section 1 — the reference's split hero: a two-line ANIMATED display headline
@@ -94,13 +93,63 @@ import { Mono } from "./Ui";
  * reproduces the old inline geometry without being attached to any word.
  */
 
+/**
+ * The marquee's separator: a six-pointed sparkle built from three crossing
+ * strokes (vertical, and +-60deg) rather than a five-point star or a plain
+ * straight-edged asterisk. Six tips sit at 60deg apart, radius 10.5, around
+ * the (12,12) centre of a square 24x24 viewBox; between every pair of
+ * adjacent tips the outline is ONE cubic bezier whose two control points sit
+ * close to the centre (radius 1.2) along each tip's own radial angle. That
+ * shared "handle near the centre" is what does the work: the curve leaves
+ * each tip heading straight in along its radius (a true cusp, not a rounded
+ * corner, so the point stays sharp) and bows in close to the centre before
+ * heading back out to the next tip — a pinched, concave waist on every ray,
+ * not a straight bar. Softened ink rather than full `accentOn`, so it reads
+ * as a quieter accent than the bold brand names either side of it.
+ */
+function MarqueeSpark({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      aria-hidden
+      style={{ flex: "0 0 auto" }}
+    >
+      <path
+        d="M12 1.5 C12 10.8 13.039 11.4 21.093 6.75 C13.039 11.4 13.039 12.6 21.093 17.25 C13.039 12.6 12 13.2 12 22.5 C12 13.2 10.961 12.6 2.907 17.25 C10.961 12.6 10.961 11.4 2.907 6.75 C10.961 11.4 12 10.8 12 1.5 Z"
+        fill="rgba(28,21,15,0.6)"
+      />
+    </svg>
+  );
+}
+
+/** One name + trailing spark, repeated to build a marquee half. */
+function MarqueeItem({ name }: { name: string }) {
+  return (
+    <span className="v2-marquee-item">
+      <span className="v2-marquee-name">{name}</span>
+      <MarqueeSpark />
+    </span>
+  );
+}
+
 export function HeroV2() {
   return (
     <section style={{ background: V2.wash }}>
       <div
         style={{
           ...V2_CONTAINER,
-          padding: "clamp(44px,5.6vw,80px) clamp(20px,4vw,48px) clamp(40px,4.2vw,60px)",
+          /* bottom padding is ALSO the gap to the marquee: the gold band
+             sits right outside this div as a full-bleed sibling (see
+             below), carrying no top margin/padding of its own, so widening
+             the space above the band happens HERE, never inside
+             .v2-marquee-row's own padding — that would make the band
+             itself taller instead. clamp(48px,5vw,76px), a modest bump over
+             the old clamp(40px,4.2vw,60px): +12px at the 1440px reference
+             width, +8px at the mobile floor, so it scales down rather than
+             sitting as a fixed value that dominates a narrow screen. */
+          padding: "clamp(44px,5.6vw,80px) clamp(20px,4vw,48px) clamp(48px,5vw,76px)",
         }}
       >
         <div className="v2-hero-cols">
@@ -186,31 +235,41 @@ export function HeroV2() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* logo strip — one row, label inline at the left */}
-        <div
-          className="v2-logos"
-          style={{ marginTop: "clamp(48px,6.7vw,96px)" }}
-        >
-          <Mono style={{ flex: "0 0 auto" }}>Trusted by</Mono>
-          {logos.map((l) => (
-            /* plain <img>: tiny static brand marks, as v1's BrandStrip does */
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              key={l.name}
-              src={l.src}
-              alt={l.name}
-              style={{
-                maxHeight: 24,
-                maxWidth: 78,
-                width: "auto",
-                height: "auto",
-                objectFit: "contain",
-                filter: "grayscale(1)",
-                opacity: 0.55,
-              }}
-            />
-          ))}
+      {/* gold marquee band — brand names only, separated by the spark glyph,
+          scrolling continuously right to left, no heading or label rendered
+          beside it (the accessible name lives entirely in the `aria-label`
+          below). Full-bleed: the standard width:100vw + margin:calc(50%-50vw)
+          breakout, safe here because `.v2-marquee-wrap` is a plain block with
+          no positioned ancestor between it and the page root, and both the
+          page root (`homepage-v2/page.tsx`, inline `overflowX:"clip"`) and
+          <body> (globals.css) already clip the sub-pixel scrollbar overshoot
+          100vw can introduce — this rule needs no defensive margin of its
+          own. `.v2-marquee-wrap`'s OWN `overflow:hidden` is what crops the
+          sliding track, not a safety net (see V2Styles.tsx). */}
+      <div
+        className="v2-marquee-wrap"
+        role="group"
+        aria-label={`Trusted by ${logos.length} brands: ${logos
+          .map((l) => l.display)
+          .join(", ")}`}
+      >
+        <div className="v2-marquee-track">
+          {/* the real copy — plain content, since the accessible name is
+              already carried by the wrap's aria-label above */}
+          <div className="v2-marquee-row">
+            {logos.map((l) => (
+              <MarqueeItem key={`a-${l.name}`} name={l.display} />
+            ))}
+          </div>
+          {/* the seamless duplicate the -50% translate needs. It is a visual
+              copy only — screen readers must not announce it twice. */}
+          <div className="v2-marquee-row" aria-hidden="true">
+            {logos.map((l) => (
+              <MarqueeItem key={`b-${l.name}`} name={l.display} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

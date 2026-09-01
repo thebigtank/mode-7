@@ -374,8 +374,83 @@ const CSS = `
    panel on mobile. */
 .v2-navlinks { display:flex; }
 
-/* the logo strip: one row at 1440, wrapping only when it must */
-.v2-logos { display:flex; align-items:center; justify-content:space-between; gap:clamp(14px,2vw,28px); flex-wrap:wrap; }
+/* ── the "trusted by" marquee — a full-bleed gold band of brand names ──────
+   .v2-marquee-wrap breaks out of the 1280px container with the standard
+   width:100vw + margin:calc(50%-50vw) trick. That formula only centres
+   correctly because the wrap's containing-block chain up to the viewport is
+   a plain, symmetrically-centred flow (no positioned ancestor narrows it) —
+   true here, see the comment in HeroV2.tsx. The wrap's OWN overflow:hidden
+   is what crops the sliding track; the couple of sub-pixel scrollbar-width
+   cases 100vw is known for are additionally caught by the page root's and
+   body's overflow-x:clip, so nothing here fights the page for control of
+   horizontal scroll. */
+.v2-marquee-wrap {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  background: #F0C044; /* V2.accent — a literal here because this file cannot import the TS token, see the file banner */
+}
+.v2-marquee-track {
+  display: flex;
+  width: max-content;
+  /* -50% lands the SECOND (duplicate) row exactly where the first started,
+     which is what makes the loop seamless — see the two .v2-marquee-row
+     children below.
+
+     100s is DERIVED, not guessed: at 1440px (measured live, one
+     .v2-marquee-row of all 20 names in Alegreya 700) the row is ~3670px
+     wide, which is also the exact distance one -50% loop travels. The name's font-size
+     clamp(17px,1.85vw,22px) and the row's gap clamp(28px,3.4vw,48px) are
+     both already sitting on their vw ramp's UPPER bound at 1440 (they cap
+     out at ~1189px and ~1412px respectively), so that is the row's PLATEAU
+     width — every viewport from ~1412px up travels the same distance per
+     loop, and narrower ones travel less (smaller type, smaller gaps), never
+     more. The duration is derived from that measured width to hold the drift
+     near 36px/s, inside the 25-45px/s calm-drift range at the plateau width
+     and only ever slower below it. Re-derive it whenever the gap, the type
+     size or the number of names changes: a wider row at a fixed duration
+     runs FASTER, a tighter one runs slower. */
+  animation: v2marquee 100s linear infinite;
+}
+/* the star-to-name gap. .v2-marquee-row's gap (between ITEMS, i.e.
+   star-to-next-name) and .v2-marquee-item's gap (name-to-its-own-star) MUST
+   stay the SAME value — that symmetry is what keeps every star optically
+   centred between its two flanking names rather than drifting toward one
+   side. The row's trailing padding-right matches too: it is the same gap,
+   just at the seam where the row hands off to its duplicate. */
+.v2-marquee-row {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: clamp(28px,3.4vw,48px);
+  padding: 15px clamp(28px,3.4vw,48px) 15px 0;
+}
+.v2-marquee-item { display: flex; align-items: center; gap: clamp(28px,3.4vw,48px); flex: 0 0 auto; white-space: nowrap; }
+.v2-marquee-name {
+  /* the v2 DISPLAY face, Alegreya, same stack as V2_FONT.display in
+     theme-v2.ts and .v2-hero-h1 below — matches the headings rather than
+     the body/UI face. --font-alegreya is registered in layout.tsx alongside
+     the v1 faces, so this resolves; if it is ever removed, this whole
+     declaration goes invalid and drops to the inherited body sans rather
+     than sliding to the Georgia fallback (see the font trap in CLAUDE.md). */
+  font-family: var(--font-alegreya), Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: clamp(17px,1.85vw,22px);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  /* accentOn — ink-on-gold, 10.60:1. Never white-on-gold (1.70:1). */
+  color: #1C150F;
+}
+/* pause on hover, pure CSS — resume is simply the hover state ending, no JS
+   and no separate rule needed for mouseleave */
+.v2-marquee-wrap:hover .v2-marquee-track { animation-play-state: paused; }
+
+@keyframes v2marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
 @media (max-width: 980px) {
   .v2-hero-cols, .v2-stats-cols, .v2-why-cols, .v2-quote-cols, .v2-cta-cols, .v2-caserow { grid-template-columns:minmax(0,1fr); }
@@ -449,6 +524,13 @@ const CSS = `
   /* The band is a SURFACE, not motion: it stays exactly where and as wide as
      it is, resting on POOL[0]. Only its width transition goes. */
   .v2-hero-band { transition:none !important; }
+
+  /* the trusted-by marquee — drastically slowed rather than fully stopped,
+     so it still reads as "this scrolls" without the vestibular-trigger
+     continuous motion a 68s (36.3px/s) loop is: ~6x slower again, well
+     under 4px/s at the plateau width. Hover-pause above still applies on
+     top of this. */
+  .v2-marquee-track { animation-duration:600s; }
 }
 
 @media (max-width: 640px) {
@@ -457,7 +539,6 @@ const CSS = `
   .v2-life-fill { inset:0 -14px -1px; }
   .v2-reason { grid-template-columns:minmax(0,1fr); gap:8px; }
   .v2-headrow { align-items:flex-start; }
-  .v2-logos { justify-content:flex-start; }
 }
 `;
 
