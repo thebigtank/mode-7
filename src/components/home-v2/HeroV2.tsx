@@ -1,29 +1,98 @@
 import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
 import { ButtonV2 } from "./ButtonV2";
+import { HeroHeadlineV2 } from "./HeroHeadlineV2";
 import { Mono } from "./Ui";
 
 /**
- * Section 1 — the reference's split hero: a three-line display headline with a
- * lead paragraph and a matched primary/secondary button pair on the left, a framed
- * video still with a centred play target on the right, and a single-row
- * "trusted by" logo strip beneath both columns.
+ * Section 1 — the reference's split hero: a two-line ANIMATED display headline
+ * with a lead paragraph and a matched primary/secondary button pair on the
+ * left, a framed video still with a centred play target on the right, and a
+ * single-row "trusted by" logo strip beneath both columns.
  *
  * Measured against `01-hero.png` at 1440: h1 64/64/-1.28px starting 88px under
  * the bar, lead paragraph wrapping at ~530px, actions 60px below it, the still
  * 642x360 in the right column, the strip 108px under the fold of both columns.
  *
- * Mode 7 content: the v1 `Hero.tsx` headline "Powering your home, your pocket,
- * and your future." and its lead paragraph verbatim; the existing /shop and
- * /trade-in routes; `/hero/bleed.webp`; and the `logos` array for the strip.
+ * Mode 7 content: v1 `Hero.tsx`'s headline supplies the h1's fixed accessible
+ * name, "Powering your home, your pocket, and your future.", and its lead
+ * paragraph verbatim; the existing /shop and /trade-in routes;
+ * `/hero/bleed.webp`; and the `logos` array for the strip.
  *
- * Colour: the reference sets its final headline phrase in orange. Gold cannot
- * be TEXT on the wash ground (1.40:1), so "your future." becomes the page's
- * signature GOLD HIGHLIGHT SWASH instead — the words stay `V2.ink` and the
- * span takes a gold background. Ink on gold is 10.02:1 and the yellow still
- * carries the emphasis. The swash is `white-space: nowrap` so it always lands
- * whole on one line — split across two it reads as two unrelated marks.
+ * THE HEADLINE ITSELF LIVES IN `HeroHeadlineV2`, a client component: it sets
+ * "Powering your" over "Home. Pocket. Future." and runs a gold highlighter
+ * stroke that travels between the three words, the last of which rotates
+ * through a small pool. Everything load-bearing about it — the reserved slot
+ * width, the fixed accessible name, the motion gates — is documented there.
+ *
+ * Colour: the reference sets its final headline phrase in orange. Here the
+ * marked word is DARK TYPE over a gold stroke that covers only the lower half
+ * of the letterforms — see the band note below for the measured contrast and
+ * the geometry.
+ *
+ * Layout note: the two hero columns are the reference's 558/642 split
+ * REVERSED — the text column is now the wide one (1.45fr vs 1fr) with an 80px
+ * gutter. It was widened for the old 76px three-line headline and is KEPT at
+ * that ratio because the new line 2 is a single long line that needs the
+ * width: see `.v2-hero-h1` in `V2Styles.tsx` for the measured fit.
  */
+
+/**
+ * WHERE THE GOLD STROKE WENT.
+ *
+ * The stroke is no longer a `background-image` on one phrase of a static
+ * headline: it is a single overlay element that TRAVELS between the three
+ * words of the animated h1. It lives in `HeroHeadlineV2` and `.v2-hero-mark`
+ * in `V2Styles`, and it reuses this section's geometry unchanged. The
+ * measurements that fixed that geometry are recorded here because they are
+ * what the new marker still has to obey.
+ *
+ * WHY DARK TYPE ON GOLD RATHER THAN GOLD TYPE. The phrase used to be GOLD
+ * TYPE on the pale hero ground: #F0C044 on V2.wash, measured **1.40:1**.
+ * WCAG's floor is 3:1 for large text and 4.5:1 for body; 1.40:1 clears
+ * neither, by more than half. The accent rule in `theme-v2.ts` says gold is a
+ * GROUND, not a text colour, on anything light — so the type went back to
+ * dark and the gold became the surface underneath it.
+ *
+ * Measured contrast for the words the marker rests on (V2.ink #171D1D, which
+ * is what the animated headline uses at full opacity):
+ *
+ *   over the gold band   #171D1D on #F0C044   **10.02:1**  passes AAA body
+ *   over the page ground #171D1D on #E6EAE6   **14.05:1**  passes AAA body
+ *
+ * The two words the marker is NOT on sit at 55% opacity, which composites to
+ * #747977 on wash: **3.64:1** — short of the 4.5:1 body floor, above the
+ * 3:1 large-text floor that actually applies at this size. See the note on
+ * `.v2-hero-word` in `V2Styles`.
+ *
+ * The retired gold-text options, all on `wash`, are kept because this was the
+ * page's one documented exception to the accent rule and the numbers closed it:
+ *
+ *   #F0C044  1.40:1  the old value. Fails every threshold at every size.
+ *   #9E8235  3.03:1  passes large text only.
+ *   #8C7532  3.67:1  comfortable on large text, short of body.
+ *   #79662F  4.60:1  passes body text at any size. This is `V2.accentText`.
+ *
+ * THE BAND. A hard-stop linear gradient, so it reads as a marker stroke and
+ * not as a filled block: no padding, no radius, no shape to hold together.
+ * Percentages are relative to a box the height of the fontBoundingBox — 102
+ * above the baseline and 35 below it per 100px of font size, so 137 tall with
+ * the baseline sitting 25.5% up from its bottom. Alegreya's x-height is 45.6
+ * per 100px. The stops:
+ *
+ *   42%  band TOP  = 25.5% (baseline) + 16.6% (half the x-height, 22.8/137)
+ *   18%  band BOTTOM = 7.3% below the baseline (10 per 100px)
+ *
+ * The top stop puts the edge across the middle of the lowercase x-height, so
+ * the upper half of every letterform sits on the page ground. The bottom stop
+ * is there because a single-stop gradient runs the gold all the way to the
+ * bottom of the box — 35 per 100px below the baseline, deeper than the 24.2
+ * descenders. 18% stops the band just under the baseline, where a real marker
+ * stroke ends. `.v2-hero-word` is set to line-height 1.37 for exactly this
+ * reason: it makes the word's line box equal to that 137-unit content box, so
+ * the travelling marker reproduces the old inline geometry exactly.
+ */
+
 export function HeroV2() {
   return (
     <section style={{ background: V2.wash }}>
@@ -36,28 +105,7 @@ export function HeroV2() {
         <div className="v2-hero-cols">
           {/* left: headline, lead, actions */}
           <div>
-            <h1
-              className="v2-hero-h1"
-              style={{
-                margin: 0,
-                fontFamily: V2_FONT.display,
-                fontWeight: 400,
-                color: V2.ink,
-              }}
-            >
-              Powering your home, your pocket, and{" "}
-              <span
-                style={{
-                  color: V2.ink,
-                  background: V2.accent,
-                  padding: "0 0.08em",
-                  /* the swash reads as one mark, so it never splits a line */
-                  whiteSpace: "nowrap",
-                }}
-              >
-                your future.
-              </span>
-            </h1>
+            <HeroHeadlineV2 />
 
             <p
               style={{

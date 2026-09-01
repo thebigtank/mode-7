@@ -1,5 +1,6 @@
 import { heroFeatures } from "@/lib/content";
 import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
+import { ButtonV2 } from "./ButtonV2";
 import { ArrowLink, Band, H2 } from "./Ui";
 
 /**
@@ -18,10 +19,20 @@ import { ArrowLink, Band, H2 } from "./Ui";
  * and its route. Cell 6 points at the existing /contact route. No description
  * is written for this section that Mode 7 does not already publish.
  *
- * Colour: "Explore" is `V2.accentText` (#79662F, 5.59:1 on white) — gold as
- * text on white is 1.70:1 and forbidden at any size. The CTA tile is the gold
- * GROUND with `V2.accentOn` type (10.02:1); its link is ink, because white on
- * gold would be 1.70:1.
+ * "Explore" is a `ButtonV2` `outline`, hidden at rest and revealed on the
+ * card's `:hover` OR `:focus-within` — the latter is what keeps it reachable by
+ * keyboard, since a control that only answers the mouse is no control at all.
+ * It keeps its box in layout while hidden (opacity, not display), so the card
+ * cannot change height and the grid cannot jump. Under
+ * `prefers-reduced-motion: reduce` the transition is dropped AND the button is
+ * made permanently visible: a reveal with no motion cue is worse than none.
+ * All of that lives in `.v2-explore` / `.v2-capcard` in `V2Styles`.
+ *
+ * Colour: the outline button's label is ink on the white cards and white on
+ * the dark fifth (`onDark`) — gold as text on white is 1.70:1 and forbidden at
+ * any size. The CTA tile is the gold GROUND with `V2.accentOn` type (10.02:1);
+ * its link is ink, because white on gold would be 1.70:1. That cell's "Book a
+ * discovery call" is its only action and stays always visible.
  */
 
 /** Existing routes for the five feature cards. */
@@ -90,7 +101,16 @@ function Icon({ name, color }: { name: string; color: string }) {
 export function CapabilityGridV2() {
   return (
     <Band ground={V2.wash} pad="clamp(64px,8.7vw,126px)" padBottom="clamp(64px,6.3vw,90px)">
-      <H2 style={{ maxWidth: 680, marginBottom: "clamp(44px,6.4vw,92px)" }}>
+      {/* 56px, up from 40px, on a 1.06 line-height. The tracking scales with
+          it: the reference sets its 64px h1 at -1.28px, i.e. -0.02em, so 56px
+          takes -1.12px — rounded to the -1.1px quoted in the brief. The margin
+          below drops from 92px to 46px: the heading now carries enough weight
+          to own the grid beneath it, and 92px read as two unrelated blocks. */}
+      <H2
+        size="clamp(34px,3.9vw,56px)"
+        lineHeight={1.06}
+        style={{ maxWidth: 680, letterSpacing: "-1.1px", marginBottom: "clamp(24px,3.2vw,46px)" }}
+      >
         Built around you, from first tap to upgrade.
       </H2>
 
@@ -101,11 +121,11 @@ export function CapabilityGridV2() {
           const ground = dark ? V2.ink : V2.white;
           const title = dark ? V2.white : V2.ink;
           const body = dark ? V2.faint : V2.muted;
-          const link = dark ? V2.white : V2.accentText;
 
           return (
             <article
               key={f}
+              className="v2-capcard"
               style={{
                 background: ground,
                 borderRadius: 2,
@@ -143,12 +163,26 @@ export function CapabilityGridV2() {
                   {BLURB[f]}
                 </p>
               ) : null}
-              <ArrowLink
-                label="Explore"
-                href={HREF[f] ?? "/shop"}
-                color={link}
-                style={{ marginTop: "auto", paddingTop: 24 }}
-              />
+              {/* `outline`, not `fill`: five gold blocks across the grid would
+                  put the accent everywhere and leave the one real CTA (cell 6,
+                  a gold GROUND) with nothing to be louder than. Outline is the
+                  compact ButtonV2 — a 32px tile on 5px padding, ~42px tall —
+                  which sits inside a 40px-padded card without crowding it.
+                  `onDark` on the fifth card flips the hairline and label to
+                  white, since ink-on-ink would vanish.
+
+                  The resting state (opacity 0 + a 6px nudge) is set by
+                  `.v2-explore` in V2Styles, NOT inline: an inline `opacity` or
+                  `transform` would out-specify the stylesheet's hover and
+                  focus-within rules and the button would never appear. */}
+              <div className="v2-explore" style={{ marginTop: "auto", paddingTop: 24 }}>
+                <ButtonV2
+                  label="Explore"
+                  href={HREF[f] ?? "/shop"}
+                  variant="outline"
+                  onDark={dark}
+                />
+              </div>
             </article>
           );
         })}

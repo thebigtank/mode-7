@@ -43,6 +43,32 @@ export function unlockPageScroll() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Scroll the page back to the top.
+ *
+ * Lenis owns the page position through its own rAF loop, so a scroll it did not
+ * originate is something it has to re-sync to rather than drive. Measured, a
+ * native `scrollTo({behavior:"smooth"})` does still land on 0 here — Lenis
+ * adopts the external position — but it runs the browser's easing, not the
+ * page's, and leaves Lenis's `targetScroll` to catch up. So when the instance
+ * exists the scroll is handed to Lenis itself, which keeps one animation and
+ * one source of truth; the native calls are the no-Lenis fallback only.
+ */
+export function scrollPageToTop() {
+  if (instance) {
+    instance.scrollTo(0, { duration: 1.1 });
+    return;
+  }
+  try {
+    (document.scrollingElement || document.documentElement).scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  } catch {
+    window.scrollTo(0, 0);
+  }
+}
+
 export function useLenis() {
   const ref = useRef<Lenis | null>(null);
 

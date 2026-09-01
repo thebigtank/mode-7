@@ -13,11 +13,13 @@ import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
  * The bar itself is a full-width, 88px, TRANSPARENT sticky rail; the visible
  * "floating menu" is an inner panel inset to the 1280 container, so the wash
  * page ground shows either side of it and it reads as detached. Square corners,
- * no shadow, no border — the panel is one step lighter than the page
- * (`washSoft` over `wash`) and that lift alone is what separates it.
+ * no border — the panel is one step lighter than the page (`washSoft` over
+ * `wash`), and carries a soft ground shadow because content now passes through
+ * the 14px gap above it and the lift alone no longer separates the two.
  *
  * It hides on scroll down and returns on scroll up via the shared
- * `useHeaderHide`, which sets `translateY(-100%)` — 88px, the bar's own height.
+ * `useHeaderHide`, which sets `translateY(-100%)`. See the `GAP` note on the
+ * <header> for why the rail is 102px tall while the panel is 88px.
  *
  * Mode 7 content: the "Mode 7" wordmark; five existing-route labels drawn from
  * `menuItems` in content.ts (no new labels invented); the announcement line is
@@ -50,6 +52,10 @@ const NAV = [
 
 /** Matches v1's `Header` default so the two bars report the same bag. */
 const CART_COUNT = 12;
+
+/** The panel's own height, and the float gap above it when stuck. */
+const NAV_H = 88;
+const GAP = 14;
 
 export function HeaderV2() {
   const barRef = useRef<HTMLElement>(null);
@@ -108,10 +114,24 @@ export function HeaderV2() {
         ref={barRef}
         style={{
           position: "sticky",
-          top: 0,
+          /* THE FLOAT GAP. Stuck, the rail parks 14px down, so the panel's top
+             edge is at y=14 and page content passes visibly through the strip
+             above it — the bar reads as floating rather than pinned. */
+          top: GAP,
           zIndex: 1001,
-          height: 88,
+          /* The rail is GAP taller than the panel it carries, with the extra
+             14px as padding BELOW. That is what makes `useHeaderHide`'s
+             `translateY(-100%)` — a v1 hook this exploration must not edit —
+             equal -(88 + 14) = -102px, exactly the distance that drops the
+             panel's bottom edge to y=0. A bare `top:14` with a 88px rail would
+             translate only -88 and leave 14px of bar peeking. */
+          height: NAV_H + GAP,
+          paddingBottom: GAP,
+          boxSizing: "border-box",
           background: "transparent",
+          /* the rail is a transparent spacer either side of the panel; only the
+             panel itself should catch the pointer */
+          pointerEvents: "none",
           transform: "translateY(0)",
           transition: "transform .32s cubic-bezier(.4,0,.2,1)",
           willChange: "transform",
@@ -122,6 +142,13 @@ export function HeaderV2() {
             style={{
               background: V2.washSoft,
               height: "100%",
+              pointerEvents: "auto",
+              /* With a gap, content scrolls through the space above the panel,
+                 so the `washSoft`-over-`wash` lift alone no longer separates
+                 it. A restrained drop shadow does — 10% ink at a 24px blur is
+                 a soft ground shadow, not a card elevation, and stays inside
+                 the reference's flat register. */
+              boxShadow: "0 6px 24px rgba(23,29,29,0.10)",
               padding: "0 clamp(16px,2.2vw,32px)",
               /* three columns, not a flex row: the centre column is centred in
                  the PANEL, so it cannot drift as the side columns change width */

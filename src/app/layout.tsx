@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {
-  Instrument_Serif,
+  Alegreya,
   Inter,
   JetBrains_Mono,
   Outfit,
@@ -36,14 +36,13 @@ const spaceMono = Space_Mono({
 /* ── /homepage-v2 only ──────────────────────────────────────────────────────
  * Three extra faces, added ALONGSIDE the three above (which v1 depends on and
  * which are untouched). They stand in for the reference site's licensed type:
- * Instrument Serif for display headings, Inter for body/UI, JetBrains Mono for
+ * Alegreya for display headings, Outfit for body/UI, JetBrains Mono for
  * the small uppercase labels. Exposed via `V2_FONT` in `src/lib/theme-v2.ts`.
  */
-const instrumentSerif = Instrument_Serif({
+const alegreya = Alegreya({
   subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-alegreya",
   display: "swap",
 });
 
@@ -73,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${alegreya.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <SiteShell>{children}</SiteShell>

@@ -8,7 +8,7 @@
  * outside `src/components/home-v2`, `src/app/homepage-v2` and the single v2
  * branch in `SiteShell.tsx` should import from here.
  *
- * Typefaces: v2 uses its OWN stack, `V2_FONT` below — Instrument Serif /
+ * Typefaces: v2 uses its OWN stack, `V2_FONT` below — Alegreya /
  * Inter / JetBrains Mono, registered in `src/app/layout.tsx` alongside (never
  * instead of) the three v1 faces. v1's `FONT` is untouched.
  *
@@ -68,7 +68,7 @@ export const V2 = {
  * Typefaces for `/homepage-v2` ONLY.
  *
  * Google-Fonts stand-ins for the reference site's three licensed faces:
- *   display  Serrif Condensed w300  ->  Instrument Serif 400
+ *   display  Serrif Condensed w300  ->  Alegreya 400
  *   body/UI  ABC Oracle w300-700    ->  Inter 300/400/500/700
  *   labels   Apercu Mono Pro w400   ->  JetBrains Mono 400/700
  *
@@ -77,9 +77,9 @@ export const V2 = {
  */
 export const V2_FONT = {
   /** All display headings — h1, h2, card and row titles set in serif. */
-  display: "var(--font-instrument-serif), 'Times New Roman', serif",
+  display: "var(--font-alegreya), Georgia, 'Times New Roman', serif",
   /** Body copy, navigation, buttons, card text. */
-  body: "var(--font-inter), system-ui, -apple-system, sans-serif",
+  body: "var(--font-outfit), var(--font-inter), system-ui, sans-serif",
   /** Small uppercase labels and eyebrows. */
   mono: "var(--font-jetbrains-mono), ui-monospace, monospace",
 } as const;

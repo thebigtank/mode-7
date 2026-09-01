@@ -241,9 +241,18 @@ export function RingArrow({ color, size = 20 }: { color: string; size?: number }
 }
 
 /**
- * Display heading. Instrument Serif at the measured 40/48/-0.4px, clamping
- * down on narrow screens. `size`/`lineHeight` override it for the two places
- * the reference departs from the h2 step (the 64px h1, the 48px insights head).
+ * Display heading. `V2_FONT.display` — Noto Serif — at the measured
+ * 40/48/-0.4px, clamping down on narrow screens. `size`/`lineHeight` override
+ * it for the two places the reference departs from the h2 step (the 64px h1,
+ * the 48px insights head).
+ *
+ * The 1.2 default survives the Instrument Serif -> Noto Serif swap unchanged,
+ * and it is the one display leading on the page that needed no adjustment:
+ * Noto Serif's ink is ~1.01em tall (0.77 above the baseline, 0.24 below,
+ * measured), so 1.2 at 40px leaves 0.19em — comfortable at h2 size, where the
+ * hero's 1.16 would be too tight. The -0.4px tracking is a FIXED px value, so
+ * it relaxes to nothing as `size` clamps down; that was true of the old face
+ * too and is left alone.
  */
 export function H2({
   children,
