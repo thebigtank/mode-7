@@ -18,12 +18,13 @@
  * still the wide one (642); at display scale that set the h1 on FOUR lines. The
  * two columns are swapped — text 1.45fr, still 1fr — and the gutter set to 80px,
  * so the text column gets 710px and the still a 490x276 16:9 frame at 1440. The
- * headline is now two lines rather than three, but the ratio is UNCHANGED: its
- * second line is a single long line of three display words and 710px is what
- * sets the size that line can be. See `.v2-hero-h1` below for the measured fit.
+ * headline is three lines, and 710px is what sets the size they can be: line 1
+ * at its RESERVED slot width is the widest of the three. See `.v2-hero-h1`
+ * below for the measured fit.
  *
  * Two breakpoints throughout: ~980px collapses multi-column layouts to one (or
- * three to two), ~640px collapses whatever is left.
+ * three to two), ~640px collapses whatever is left. The hero headline resizes
+ * at the 980px one, where its column stops being 49vw and becomes ~90vw.
  */
 const CSS = `
 .v2-hero-cols  { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:clamp(32px,5.6vw,80px); align-items:center; }
@@ -195,119 +196,177 @@ const CSS = `
 .v2-headrow { display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; }
 
 /* ── the hero headline ────────────────────────────────────────────────────
-   Two lines. Line 1 "Powering your" at 0.4em; line 2 three display words with
-   a gold stroke travelling between them. The markup and the motion are in
-   HeroHeadlineV2; everything geometric is here.
+   ONE sentence, three lines, every line the SAME size and weight. Exactly one
+   word moves — the noun on line 1, which rolls vertically through a pool.
 
-   FONT SIZE: clamp(34px,4.58vw,66px), i.e. 66px at 1440. Was
-   clamp(38px,5.28vw,76px) = 76px, sized for the old THREE-LINE static
-   headline in a 710px column. 76px no longer fits, because line 2 is now one
-   long line that must hold its widest state. Measured advance widths for
+       Powering your Pocket        <- the rolling slot
+       with tech that's vetted,
+       sealed and guaranteed.
+
+   The markup, the pool and the timing are in HeroHeadlineV2; everything
+   geometric is here.
+
+   FONT SIZE: clamp(38px,5vw,72px). The display treatment this headline had
+   before any rotator existed was clamp(38px,5.28vw,76px); 76px does not fit
+   the new copy and the number had to come down. Measured advance widths for
    Alegreya 400 at letter-spacing -0.02em, per 100px of font size:
 
-       Home.      268.70        Future.     288.00   (the pool default)
-       Pocket.    284.81        Office.     262.61
-                                Studio.     284.31
-                                Workshop.   428.20   <- the widest, and the
-                                                        width the slot holds
+       "Powering your "            580.70   (the trailing space counts)
+       Pocket   256.31    Studio    259.81
+       Home     243.20    Commute   394.70   <- widest; the slot reserves it
+       Office   237.11    Future    262.50
 
-   Widest line = 268.70 + 284.81 + 428.20 + two 26 gaps = 1033.71 per 100px,
-   i.e. 10.337em. The text column is 710px at 1440, so the ceiling is
-   710 / 10.337 = 68.7px. 66px is that with 28px of slack, and 4.58vw lands on
-   65.95 at 1440 so the clamp is on its vw ramp there rather than pinned.
-   The column ratio, the gutter and the gap are all inputs to that division —
-   change any of them and re-run it.
+       line 1, at its reserved width  580.70 + 394.70 = 975.40   <- WIDEST LINE
+       line 2, "with tech that's vetted,"            875.50
+       line 3, "sealed and guaranteed."              901.50
 
-   Checked down the range, always against the WIDEST state (Workshop.):
-       1440  66.0px  ->  682px line in a 710px column
-       1280  58.6px  ->  606px in a 629px column
-       1024  46.9px  ->  485px in a 524px column
-        981  44.9px  ->  464px in a 502px column   (last multi-column width)
-        980  44.9px  ->  464px in a 901px column   (grid has collapsed)
-   Below 900 the line STACKS — see the 900px block further down.
+   Line 1 is the binding one at 9.754em, and it is that wide PERMANENTLY, not
+   only while "Commute" is showing, because the slot reserves the widest word
+   at all times. The text column is 710px at 1440, so the ceiling is
+   710 / 9.754 = 72.79px. 72px is that with 7.7px of slack. The vw ramp is
+   5vw because the text column is 49.32% of the viewport across the whole
+   multi-column range, and 710 / 9.754 / 1440 = 5.056vw; 5vw lands exactly on
+   the 72px cap at 1440 rather than fighting it.
 
-   LINE HEIGHT 1.37 ON THE WORDS is not a leading choice, it is the marker's
-   coordinate system. Alegreya's fontBoundingBox is 102 up / 35 down per
-   100px = 137 tall, and at line-height 1.37 the half-leading is zero, so a
-   word's line box IS that content box and the marker's 18%/42% stops land
-   exactly where they landed on the old inline background-image. The h1's own
-   1.04 governs nothing now that both lines set their own leading; it is kept
-   only so an unstyled fragment still looks like a headline.
+   Checked down the multi-column range, always at the reserved width:
+       1440  72.0px  ->  702px line 1 in a 710px column
+       1280  64.0px  ->  624px in a 631px column
+       1024  51.2px  ->  499px in a 505px column
+        981  49.1px  ->  479px in a 484px column   (last multi-column width)
+   Below 980 the hero grid collapses, the text column jumps to the full
+   container, and the size steps up again — see the 980px block further down.
+
+   LINE HEIGHT 1.04 is the display leading, and it now governs all three lines
+   because all three are ordinary blocks. The 1.37 that the gold band needs
+   lives on the roll cell alone (see .v2-hero-cell), where it cannot loosen the
+   headline: the mask is absolutely positioned, so it adds no height and line 1
+   measures the same 1.04em as lines 2 and 3.
 
    letter-spacing -0.02em is unchanged and still correct: it scales with the
-   font, so -1.32px at 66px is the same relative tightening measured clean at
+   font, so -1.44px at 72px is the same relative tightening measured clean at
    64 and 76px, and no pair collides. */
-.v2-hero-h1 { font-size:clamp(34px,4.58vw,66px); line-height:1.04; letter-spacing:-0.02em; }
+.v2-hero-h1 { font-size:clamp(38px,5vw,72px); line-height:1.04; letter-spacing:-0.02em; }
 
-/* line 1 — 0.4em of the display size, so ONE clamp drives both lines. 26.4px
-   at 1440. -0.01em: at a quarter of the display size the -0.02em tracking of
-   the big line reads as a defect rather than as tightening. */
-.v2-hero-l1 { display:block; font-size:0.4em; line-height:1.2; letter-spacing:-0.01em; }
+/* Each line is its own block, so "three lines" is a fact of the markup rather
+   than a hope about where the text happens to break. */
+.v2-hero-line { display:block; }
 
-/* line 2 — the three words, and the stroke's positioning context.
-   white-space:nowrap is what makes the "one line" claim true rather than
-   hopeful: if the fit calculation above is ever invalidated the line will
-   OVERFLOW visibly instead of silently wrapping and breaking the marker's
-   single-row assumption. The <=900px block turns it off along with the flex.
-   0.26em gap = 17.2px at 1440; it is part of the width sum above. */
-.v2-hero-l2 {
-  position:relative;
-  display:flex; align-items:flex-start; gap:0.26em;
-  white-space:nowrap;
-  margin-top:0.02em;
+/* ── the rolling slot ─────────────────────────────────────────────────────
+   THE RESERVED WIDTH. Every pool word is rendered once as an in-flow grid item
+   at grid-area 1/1 with visibility:hidden. A grid column sizes to its widest
+   item and hidden-visibility boxes still take part in layout, so the column is
+   always exactly as wide as "Commute" — at every viewport, before fonts load,
+   with no JS and no measurement. Deriving the reserve from the pool rather
+   than from a hard-coded longest word means adding a longer word later cannot
+   silently break it.
+
+   visibility:hidden, NOT opacity:0, and this is the load-bearing half of the
+   rule: a hidden-visibility box is never painted and never hit-tested, so the
+   sizers cannot superimpose on the visible word. An earlier build stacked
+   painted words at opacity 0 in one cell and a screenshot caught two of them
+   on the same pixels. Do not go back to opacity here. */
+.v2-hero-slot  { position:relative; display:inline-grid; justify-items:start; }
+.v2-hero-sizer { grid-area:1 / 1; visibility:hidden; }
+
+/* THE MASK. Absolutely positioned over the sizers, so it contributes no height
+   and cannot loosen line 1. overflow:hidden is the only thing keeping the
+   parked word off the screen.
+
+   ITS HEIGHT IS 1.04em — THE LINE BOX, NOT THE FONT BOX — and that is
+   load-bearing. Alegreya's font box is 1.37em, so a font-box-tall mask would
+   hang 0.165em past the line box top and bottom, into the leading of line 1's
+   neighbours. At rest nothing shows there, but mid-roll a fragment of the
+   outgoing word appears above the headline and the ascenders of the incoming
+   word cut a bar straight through "with tech that's vetted," one line down.
+   Measured, and it reads as a glitch, so the mask clips at the line box.
+
+   The pool is what makes that safe: at 72px, and proportionally at every
+   size, the ink of the widest-reaching entry clears a 1.04em box by 8.02px at
+   the top (Pocket / Office / Studio, whose t / ffi / d reach highest) and
+   12.43px at the bottom. NO POOL WORD HAS A DESCENDER, which is where the
+   bottom clearance comes from — an entry with a g, y or p would be clipped
+   here and would need this height re-derived.
+
+   left:0 right:0, so the mask is the full reserved width and a long incoming
+   word is never clipped horizontally. Centred on the slot at 50% - 0.52em,
+   which puts it exactly on line 1's own line box. */
+.v2-hero-mask {
+  position:absolute; left:0; right:0; top:50%; z-index:1;
+  height:1.04em; margin-top:-0.52em;
+  overflow:hidden;
 }
 
-/* a word. line-height 1.37 — see the note above; it is load-bearing.
-   THE RESTING OPACITY IS 0.55 and it is a documented compromise. Ink #171D1D
-   at 55% over wash #E6EAE6 composites to #747977, measured 3.64:1. That is
-   short of the 4.5:1 body floor and above the 3:1 large-text floor, which is
-   the one that applies: these words are 66px, far past WCAG's 18.66px
-   large-text threshold, and each word is also announced in the h1's
-   aria-label regardless of what the marker is doing. 0.625 is the lowest
-   opacity that reaches the body floor (4.53:1) if the 3:1 floor is ever
-   judged not good enough here; it costs the contrast BETWEEN the lit and
-   unlit words, which is the whole point of the effect. */
-.v2-hero-word {
-  position:relative; z-index:1;
-  display:block; line-height:1.37;
-  opacity:0.55;
-  transition:opacity .5s ease;
+.v2-hero-strip { display:block; transform:translateY(0); will-change:transform; }
+.v2-hero-strip.is-rolling {
+  transform:translateY(-50%);
+  transition:transform 340ms cubic-bezier(.22,.61,.36,1);
 }
-.v2-hero-word.is-lit { opacity:1; }
 
-/* the rotating slot. All four pool words occupy the SAME grid cell, so the
-   column sizes to the widest of them and a swap can never change the line's
-   width. justify-items:start keeps each word its own width rather than
-   stretching it to the column, which is what the marker measures. */
-.v2-hero-slot { display:grid; justify-items:start; }
-/* The swap is a fade OUT then a fade IN, never a cross-fade. Both words share
-   one grid cell, so overlapping them at partial opacity superimposes two
-   different words on the same pixels — measured on the Future. -> Office.
-   tick, and unreadable. The outgoing word has no delay and takes 0.22s; the
-   incoming one waits 0.24s, so the cell is empty between them. The delay is
-   declared on .is-shown ONLY, so removing the class drops it and the outgoing
-   fade starts immediately. 0.46s total, inside the 2.4s the marker spends two
-   slots away. */
-.v2-hero-pool { grid-area:1 / 1; opacity:0; transition:opacity .22s ease; }
-.v2-hero-pool.is-shown { opacity:1; transition-delay:.24s; }
+/* One cell is one line box: height 1.04em AND line-height 1.04, matching the
+   mask, so the two cells tile it exactly and the strip's 50% step lands the
+   incoming word on the outgoing one's baseline to the pixel. */
+.v2-hero-cell { display:block; height:1.04em; line-height:1.04; }
 
-/* THE TRAVELLING STROKE. Same two-stop hard-edged gradient as the static
-   headline used, over a box 1.37em tall — see HeroV2 for how 18% and 42%
-   were derived from Alegreya's metrics. 100px wide at rest so the component
-   can scale it by measuredWidth/100; the gradient runs vertically, so a
-   horizontal scale cannot distort the band. transform (not left/width) so
-   the travel composites and reflows nothing.
-   It stays invisible until the component has measured a word, so it can
-   never paint at an unmeasured position on the first frame. */
-.v2-hero-mark {
-  position:absolute; left:0; top:0; z-index:0;
-  width:100px; height:1.37em;
-  transform-origin:0 0;
-  background-image:linear-gradient(to top, transparent 18%, #F0C044 18%, #F0C044 42%, transparent 42%);
-  opacity:0;
-  transition:transform .62s cubic-bezier(.66,0,.34,1), opacity .3s ease;
+/* ── THE GOLD BAND ────────────────────────────────────────────────────────
+   ONE element, always on screen, and it never moves. It is a sibling of the
+   strip, not a child of any word, so the words roll THROUGH the marker instead
+   of each dragging its own copy of it up and out of frame.
+
+   GEOMETRY, unchanged from the two-stop gradient it replaces. That gradient
+   ran over the word's font box — 1.37em tall, Alegreya's fontBoundingBox of
+   102 up / 35 down per 100px — with hard stops at 42% (band top) and 18%
+   (band bottom) measured up from the bottom of that box. 42% is the middle of
+   the lowercase x-height, so the upper half of every letterform stays on the
+   page ground; 18% is just under the baseline, where a real marker stroke
+   ends, rather than running down past the descenders.
+
+   The band is positioned against the SLOT rather than against the mask, so
+   the mask's own height is free to be whatever the clipping needs (it is
+   1.04em; see above) without moving the marker. That 1.37em font box is
+   centred on the slot, so measuring down from the slot's centre line the band
+   starts at
+
+       -0.685em + 0.58 x 1.37em = 0.1096em      (top, i.e. 42% up from bottom)
+
+   and is 0.24 x 1.37em = 0.3288em tall (42% - 18%). Pixel-scanned against the
+   gradient it replaces, the top edge lands 0.25px lower and the bottom 0.75px
+   lower — the difference is Chrome rounding Alegreya's font box to a whole
+   98px at 72px rather than 98.64.
+
+   A FLAT FILL, not a gradient: with the band off the type it no longer needs
+   transparent stops to let the letters show through above it, and a solid
+   block is what can be resized without the fill sliding.
+
+   WIDTH TRACKS THE WORD, AND TRANSITIONS. The slot is reserved at the widest
+   word, so a slot-wide band would hang a tail of bare gold off the end of
+   "Home". The component sets width in px from the measured sizers and
+   retargets it to the INCOMING word the instant the roll starts, so the
+   marker stretches into the new word over the same 340ms and the same easing
+   as the roll rather than snapping a beat late. Only width is animated and the
+   band is absolutely positioned, so the layout outside this box cannot move.
+
+   Before that measurement lands — the server HTML, the pre-hydration paint,
+   a fonts-not-yet-loaded frame — the width comes from .v2-hero-bandsize, a
+   visibility:hidden copy of the target word inside the band. Shrink-to-fit
+   makes that exactly the right width with no JS. overflow:hidden keeps that
+   copy inside the 0.3288em block once an explicit width is in force.
+
+   Contrast, measured: ink #171D1D on this gold #F0C044 is 10.02:1 for the
+   lower half of the letterforms, and above the band the same ink on wash
+   #E6EAE6 is 14.05:1. Both pass WCAG AAA for body text, let alone display. */
+.v2-hero-band {
+  position:absolute; left:0; top:50%; z-index:0;
+  margin-top:0.1096em;
+  height:0.3288em;
+  background:#F0C044;
+  overflow:hidden;
+  transition:width 340ms cubic-bezier(.22,.61,.36,1);
 }
-.v2-hero-mark.is-ready { opacity:1; }
+.v2-hero-bandsize { visibility:hidden; white-space:nowrap; }
+
+/* The words paint OVER the band (the mask carries z-index:1 above) and carry
+   no background of their own. */
+.v2-hero-word { position:relative; }
 
 /* Header nav links. The display value MUST live here, not inline on the
    element: the 980px rule below hides them, and an inline display:flex would
@@ -332,25 +391,29 @@ const CSS = `
   .v2-quote-portrait { max-width:420px; }
 }
 
-/* Three display words do not fit one line on a tablet, let alone a phone, so
-   below 900px the line STACKS — one word per line, and the marker travels
-   DOWN the stack instead of across it (the component's transform carries a Y
-   for exactly this). Nothing is dropped, nothing overflows and no word is
-   orphaned: each word IS its own line by construction.
+/* Below 980px the hero grid has collapsed and the text column jumps from
+   ~484px to the FULL container, so the headline gets its size back: the
+   980px-and-up ramp is sized for a 49.32vw column and would leave the
+   headline absurdly small in a 90vw one.
 
-   The size steps UP at the breakpoint, clamp(38px,8.6vw,62px) against the
-   one-line 44.9px at 900px, because a stacked headline has the vertical room
-   the single line did not and 45px words would read as body copy. Widest
-   state, always "Workshop." at 4.282em:
-        900  62.0px -> 265px in an ~828px column
-        768  62.0px -> 265px in an ~700px column
-        390  38.0px -> 163px in a  ~350px column
-   nowrap is removed with the flex so a pathological narrow case can still
-   break inside a word rather than push the page sideways. */
-@media (max-width: 900px) {
-  .v2-hero-h1 { font-size:clamp(38px,8.6vw,62px); }
-  .v2-hero-l2 { display:block; white-space:normal; }
-  .v2-hero-l1 { margin-bottom:0.06em; }
+   clamp(26px,8.9vw,60px), checked at the reserved width (line 1 = 9.754em)
+   against the container, which is the viewport less clamp(20px,4vw,48px) of
+   padding on each side:
+        980  60.0px  ->  585px line 1 in a 902px column
+        810  60.0px  ->  585px in a 745px column
+        640  57.0px  ->  556px in a 589px column
+        500  44.5px  ->  434px in a 460px column
+        390  34.7px  ->  339px in a 350px column
+        320  28.5px  ->  278px in a 280px column
+   8.9vw rather than 9vw is what buys the last two rows: at 9vw the 320px
+   case overruns its column by 0.9px. The 26px floor is below the 8.9vw ramp
+   everywhere down to 292px and exists only so a pathological viewport cannot
+   drive the type to nothing.
+
+   All three lines stay three lines throughout: line 1 at its reserved width
+   is the widest of them at every size, so if it fits, they all fit. */
+@media (max-width: 980px) {
+  .v2-hero-h1 { font-size:clamp(26px,8.9vw,60px); }
 }
 
 @media (max-width: 760px) {
@@ -375,14 +438,17 @@ const CSS = `
   .v2-life-row, .v2-life-fill, .v2-life-shot, .v2-life-sub { transition:none !important; }
   .v2-life-shot { transform:translateY(-50%) !important; }
 
-  /* section 1 — the headline. No travel, no rotation, no fade. The component
-     never starts its interval under this preference, so the marker stays
-     where it was rendered (the third word, which is also the SSR state) and
-     the slot keeps showing the pool's first word. All three words go to full
-     opacity: a resting 55% is a motion cue with the motion taken away, and
-     it would leave two thirds of the headline at 3.66:1 for no reason. */
-  .v2-hero-word { opacity:1 !important; }
-  .v2-hero-word, .v2-hero-pool, .v2-hero-mark { transition:none !important; }
+  /* section 1 — the headline. No roll, no rotation. The component never arms
+     its dwell timer under this preference, so the slot rests on POOL[0],
+     "Pocket" — which is also the SSR state, so there is nothing to undo. The
+     rules below are belt-and-braces for a strip left mid-roll by a motion
+     preference flipped while the transition was in flight: transform:none
+     puts it back on the resting word, and the transition goes with it. The
+     gold band is a SURFACE, not motion, so it stays exactly where it is. */
+  .v2-hero-strip { transform:none !important; transition:none !important; }
+  /* The band is a SURFACE, not motion: it stays exactly where and as wide as
+     it is, resting on POOL[0]. Only its width transition goes. */
+  .v2-hero-band { transition:none !important; }
 }
 
 @media (max-width: 640px) {

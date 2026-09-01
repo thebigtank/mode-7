@@ -10,139 +10,196 @@ import {
 import { V2, V2_FONT } from "@/lib/theme-v2";
 
 /**
- * The hero headline — two lines, with a gold highlighter stroke that TRAVELS
- * between the three words of the second line.
+ * The hero headline — ONE ordinary three-line sentence, every line at the same
+ * size and weight, with exactly one word changing in place on line 1.
  *
- *     Powering your                 <- line 1, 0.4em, ink, normal weight
- *     Home.  Pocket.  Future.       <- line 2, the display size
- *            ~~~~~~~                <- the stroke, moving on a 2.4s step
+ *     Powering your Pocket          <- "Pocket" is the rolling slot
+ *     with tech that's vetted,
+ *     sealed and guaranteed.
+ *
+ * The word rolls vertically, split-flap style: the outgoing word travels up and
+ * out of a masked slot while the incoming word travels up from below into the
+ * same slot, both carried by one strip in one motion. Nothing else on the page
+ * moves, and nothing reflows.
  *
  * ── What is load-bearing here ───────────────────────────────────────────────
  *
- *  1. ONLY THE THIRD SLOT ROTATES. The pool is Future. / Office. / Studio. /
- *     Workshop., and it is the LAST word on the line, so a width change
- *     reflows nothing before it. The first two words are fixed BECAUSE
- *     rotating them would shove the rest of the line sideways on every tick —
- *     "Home." and "Pocket." are load-bearing anchors, not a shortage of
- *     ideas. Do not extend the rotation to them.
+ *  1. THE SLOT RESERVES THE WIDEST WORD, IN CSS, WITH NO MEASUREMENT. Every
+ *     word in POOL is rendered once as a SIZER: an in-flow grid item at
+ *     grid-area 1/1, set to `visibility: hidden`. A grid column sizes to its
+ *     widest item and `visibility: hidden` still takes part in layout, so the
+ *     slot is always exactly as wide as "Commute" — at every viewport, before
+ *     fonts load, with no JS and no measurement pass. Because the reserve is
+ *     derived from the pool rather than from a hard-coded longest word, adding
+ *     a longer word later cannot silently break it.
  *
- *  2. THE SLOT RESERVES THE WIDEST WORD, IN CSS, WITH NO MEASUREMENT. All
- *     four pool words are rendered, stacked in one grid cell (grid-area 1/1),
- *     with only the current one at opacity 1. A grid column sizes to its
- *     widest item, so the slot is always as wide as "Workshop." at whatever
- *     size the clamp has resolved to — at every viewport, before fonts load,
- *     and with no JS. Opacity does not affect layout, so the swap cannot move
- *     anything. `justify-items:start` keeps each word's own box its own
- *     width, which is what the marker measures.
+ *     `visibility: hidden` (not `opacity: 0`) is the whole point. A hidden-
+ *     visibility box is never painted and never hit-tested, so the sizers
+ *     CANNOT superimpose on the visible word the way a stack of opacity-0
+ *     words can. Do not change it to opacity.
  *
- *  3. THE MARKER IS ONE ELEMENT THAT MOVES, NOT FOUR THAT FADE. A background
- *     cannot travel between elements, so the stroke is a single absolutely
- *     positioned overlay inside the line, painted with the SAME two-stop
- *     gradient the static headline used (see `.v2-hero-mark` in `V2Styles`),
- *     and moved with `transform: translate() scaleX()`. Transform, not
- *     left/width: it composites, and because the gradient runs vertically
- *     (`to top`) a horizontal scale cannot distort the band. The element is
- *     100px wide at rest, so scaleX is simply measured-width / 100.
+ *  2. THE VISIBLE WORD LIVES IN A MASK, NOT IN THE FLOW. `.v2-hero-mask` is
+ *     absolutely positioned over the sizers, exactly one LINE box
+ *     (1.04em) tall, centred on the slot, with `overflow: hidden`. Inside it a
+ *     strip holds TWO cells — the current word and the next one, stacked. At rest
+ *     the strip sits at translateY(0), so cell 2 is parked below the mask and
+ *     is clipped away entirely: exactly one word is visible. A roll is one
+ *     transform to translateY(-50%), which is exactly one cell height, and
+ *     nothing is cross-faded — both words are fully opaque throughout, which
+ *     is what makes it read as a physical strip rather than a dissolve.
  *
- *     `translate()` carries a Y as well as an X so the same marker works when
- *     the line stacks below 900px and the stroke has to travel down instead
- *     of across.
+ *     The mask clips at the LINE box (1.04em), not at Alegreya's taller font
+ *     box (1.37em), because a font-box-tall mask spills 0.165em into the
+ *     leading above and below and mid-roll that puts a slice of the outgoing
+ *     word over the headline and a bar through line 2. Every pool word's ink
+ *     clears the line box — no entry has a descender, which is what makes the
+ *     bottom of that box safe. See `.v2-hero-mask` in `V2Styles`.
  *
- *  4. THE BAND GEOMETRY SURVIVES THE MOVE ONLY BECAUSE line-height IS 1.37.
- *     The 18% / 42% stops are measured against Alegreya's fontBoundingBox —
- *     102 up / 35 down per 100px, so 137 tall with the baseline 25.5% up from
- *     the bottom. Setting the words' line-height to exactly 1.37 makes each
- *     word's line box equal to that content box (half-leading falls to zero),
- *     so a 1.37em-tall marker with those stops lands byte-identically to the
- *     inline `background-image` it replaces. Changing that line-height moves
- *     the stroke off the x-height and the geometry has to be re-derived.
+ *     Because the mask is absolutely positioned it contributes NO height, so
+ *     line 1's line box is the same 1.04em as lines 2 and 3 and the three
+ *     lines keep even leading despite the 1.37em roll.
  *
- *  5. THE ACCESSIBLE NAME IS FIXED. Every animated span is `aria-hidden`, and
- *     the h1 carries one `aria-label` that never changes, so a screen reader
- *     announces a stable page title instead of text mutating underneath it.
+ *  3. THE ROLL RESETS WITHOUT A TRANSITION. When the 340ms is up the component
+ *     advances the index AND drops the `is-rolling` class in one commit: the
+ *     new current word is the one already on screen, and the strip snaps back
+ *     to translateY(0) with no transition because the transition is declared
+ *     only on `.is-rolling`. The eye sees one continuous roll; the DOM sees a
+ *     move and an instant rewind.
  *
- *  6. NOTHING RUNS THAT NOBODY IS WATCHING. The interval exists only while
- *     the headline intersects the viewport AND the document is visible AND
- *     the user has not asked for reduced motion; any of the three going false
+ *  4. THE GOLD BAND IS ONE ELEMENT THAT NEVER MOVES. It is a single solid
+ *     gold block, a sibling of the strip and NOT a child of any word, pinned
+ *     to the slot at the exact y the old two-stop gradient put it: top edge
+ *     across the middle of the lowercase x-height, bottom edge just under the
+ *     baseline. It does not travel vertically, it does not fade, and it is
+ *     never absent — the words roll THROUGH it.
+ *
+ *     Painting it on the words instead (as a background-image, which is what
+ *     the static headline did) would put TWO gold bands in the slot for the
+ *     whole 340ms and slide each of them away with its own word. That is the
+ *     thing this design is not: the marker is furniture, the words are what
+ *     move past it.
+ *
+ *     ITS WIDTH IS THE CURRENT WORD'S, AND IT ANIMATES. A band frozen at the
+ *     reserved "Commute" width would hang a tail of bare gold off the end of
+ *     "Home", so it tracks the word — and it retargets the INCOMING word the
+ *     moment the roll starts, over the same 340ms and the same easing, so the
+ *     marker stretches or contracts into the new word AS it arrives rather
+ *     than snapping a beat late. It is always a positive width; it never
+ *     passes through zero.
+ *
+ *     Two things set that width, and they agree. `.v2-hero-bandsize` is a
+ *     `visibility: hidden` copy of the target word INSIDE the band, so the
+ *     band's shrink-to-fit width is the right width with no JS at all — that
+ *     is what the server HTML and the pre-hydration paint use, and it is
+ *     correct before fonts load. Once mounted the component reads the same
+ *     widths off the sizers and sets them explicitly in px, purely so the
+ *     change is a length the browser can TRANSITION (a width cannot animate
+ *     to or from `auto`). The two values are the same number, so adopting the
+ *     measured one is invisible.
+ *
+ *  5. THE ACCESSIBLE NAME IS FIXED. Every span here is inside `aria-hidden`
+ *     content and the h1 carries one `aria-label` that never changes, so a
+ *     screen reader announces a stable page title instead of text mutating
+ *     underneath it.
+ *
+ *  6. NOTHING RUNS THAT NOBODY IS WATCHING. The dwell timer exists only while
+ *     the headline intersects the viewport AND the document is visible AND the
+ *     user has not asked for reduced motion; any of the three going false
  *     tears it down.
  *
- * Reduced motion: no travel, no rotation, no fade. The marker rests on the
- * third word, all three words sit at full opacity and the slot shows the
- * default `Future.`. That is also the component's INITIAL state — `active`
- * starts at 2 — so the server HTML, the pre-hydration paint and the
- * reduced-motion resting state are the same three pixels, and nothing flashes
- * on hydration.
+ * Reduced motion: no roll, no rotation. The slot shows POOL[0], "Pocket", and
+ * the band rests on it. That is also the component's INITIAL state, so the
+ * server HTML, the pre-hydration paint and the reduced-motion resting state
+ * are the same pixels and nothing flashes on hydration.
  */
-
-/** Only the third slot rotates. Index 0 is the default and the SSR value. */
-const POOL = ["Future.", "Office.", "Studio.", "Workshop."] as const;
-
-/** The two anchored words. Fixed on purpose — see note 1 above. */
-const FIXED = ["Home.", "Pocket."] as const;
-
-/** One step of the marker. The full three-word loop is 3x this. */
-const STEP_MS = 2400;
 
 /**
- * The h1's accessible name. This is v1's headline verbatim, and it is
- * deliberately NOT derived from the rotating pool: the announced title must
- * not change when the marker ticks.
+ * The rotating words, in rotation order. POOL[0] is the default: it is what
+ * renders on the server, on first paint, and under reduced motion.
+ *
+ * CONSTRAINT ON ADDING WORDS: the sentence tail is fixed — "with tech that's
+ * vetted, sealed and guaranteed." Every entry here has to leave that tail TRUE
+ * and grammatical when read straight through, because the reader always sees
+ * one whole sentence:
+ *
+ *     Powering your <WORD> with tech that's vetted, sealed and guaranteed.
+ *
+ * So an entry must be a singular, countable noun that a person can possess and
+ * that Mode 7 actually supplies vetted hardware for. "Pocket", "Home",
+ * "Office", "Studio", "Commute" and "Future" all pass. A plural ("Devices"), a
+ * mass noun ("Energy"), or anything Mode 7 does not warrant would make the
+ * tail read as a claim the sentence cannot keep, and is not admissible here.
+ *
+ * "Commute" is the longest and therefore sets the slot's reserved width; that
+ * happens automatically (see note 1), so the order below is purely editorial.
  */
-const ARIA_LABEL = "Powering your home, your pocket, and your future.";
+const POOL = ["Pocket", "Home", "Office", "Studio", "Commute", "Future"] as const;
+
+/** How long a word rests before the next roll. */
+const DWELL_MS = 2400;
+
+/** One roll, out and in. Matches the transition on `.v2-hero-strip.is-rolling`. */
+const ROLL_MS = 340;
+
+/**
+ * The h1's accessible name — the sentence with the DEFAULT word in it. It is
+ * deliberately NOT derived from POOL: the announced title must not change when
+ * the slot rolls.
+ */
+const ARIA_LABEL =
+  "Powering your pocket with tech that's vetted, sealed and guaranteed.";
 
 /** `useLayoutEffect` warns when React renders on the server; this is the
- *  standard isomorphic swap. The measurement must be pre-paint on the client
- *  so the marker never shows at an unmeasured position. */
+ *  standard isomorphic swap. The width measurement must be pre-paint on the
+ *  client so the band never shows at a stale width for a frame. */
 const useIsoLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-type Mark = { x: number; y: number; w: number };
-
 export function HeroHeadlineV2() {
-  /** Which of the three slots the marker is resting on. 2 = the rotating one. */
-  const [active, setActive] = useState(2);
-  /** Which pool word the third slot is showing. */
-  const [pool, setPool] = useState(0);
-  /** Measured marker geometry, in px relative to the line box. */
-  const [mark, setMark] = useState<Mark | null>(null);
+  /** Which pool word the slot is resting on. 0 = "Pocket" = the SSR value. */
+  const [index, setIndex] = useState(0);
+  /** True for the 340ms the strip is travelling. */
+  const [rolling, setRolling] = useState(false);
+  /**
+   * Ink width of every pool word, in px, read off the sizers. `null` until the
+   * component has measured — until then the band sizes itself from its own
+   * hidden text and needs no number at all. See note 4.
+   */
+  const [widths, setWidths] = useState<number[] | null>(null);
 
-  const lineRef = useRef<HTMLSpanElement | null>(null);
-  /** 0 and 1 are the fixed words; 2 is whichever pool word is showing. */
-  const wordRefs = useRef<(HTMLElement | null)[]>([null, null, null]);
-  /** The interval reads the current slot without re-creating itself. */
-  const activeRef = useRef(2);
+  const slotRef = useRef<HTMLSpanElement | null>(null);
+  const sizerRefs = useRef<(HTMLElement | null)[]>([]);
 
-  /* ── the marker's position, measured from the DOM ─────────────────────── */
+  /**
+   * The word the BAND is sized to. During a roll that is the incoming word, so
+   * the marker stretches into it over the same 340ms rather than a beat late.
+   */
+  const next = (index + 1) % POOL.length;
+  const target = rolling ? next : index;
+
+  /* ── the band's width, measured from the sizers ───────────────────────── */
 
   const measure = useCallback(() => {
-    const line = lineRef.current;
-    const el = wordRefs.current[activeRef.current];
-    if (!line || !el) return;
-    const lb = line.getBoundingClientRect();
-    const wb = el.getBoundingClientRect();
-    setMark((prev) => {
-      const next = { x: wb.left - lb.left, y: wb.top - lb.top, w: wb.width };
-      // identical objects would re-render for nothing on every observer tick
-      if (prev && prev.x === next.x && prev.y === next.y && prev.w === next.w) {
-        return prev;
-      }
-      return next;
-    });
+    const els = sizerRefs.current;
+    if (els.length !== POOL.length || els.some((el) => !el)) return;
+    const w = els.map((el) => el!.getBoundingClientRect().width);
+    setWidths((prev) =>
+      prev && prev.length === w.length && prev.every((v, i) => v === w[i])
+        ? prev
+        : w,
+    );
   }, []);
 
-  useIsoLayoutEffect(() => {
-    activeRef.current = active;
-    measure();
-  }, [active, pool, measure]);
+  useIsoLayoutEffect(measure, [measure]);
 
-  /* Re-measure on anything that can change the line's metrics: a resize, the
-     clamp crossing a breakpoint, and — the one that actually bites — the web
-     font arriving after first paint and re-flowing every word. */
+  /* Re-measure on anything that can change a word's advance width: a resize,
+     the clamp crossing a breakpoint, and — the one that actually bites — the
+     web font arriving after first paint and re-setting every word. */
   useEffect(() => {
-    const line = lineRef.current;
-    if (!line) return;
+    const slot = slotRef.current;
+    if (!slot) return;
     const ro = new ResizeObserver(() => measure());
-    ro.observe(line);
+    ro.observe(slot);
     let cancelled = false;
     document.fonts?.ready.then(() => {
       if (!cancelled) measure();
@@ -153,7 +210,7 @@ export function HeroHeadlineV2() {
     };
   }, [measure]);
 
-  /* ── when the marker is allowed to move ───────────────────────────────── */
+  /* ── when the slot is allowed to roll ─────────────────────────────────── */
 
   const [reduced, setReduced] = useState(false);
   const [inView, setInView] = useState(false);
@@ -175,8 +232,8 @@ export function HeroHeadlineV2() {
   }, []);
 
   useEffect(() => {
-    const line = lineRef.current;
-    if (!line) return;
+    const slot = slotRef.current;
+    if (!slot) return;
     /* No IntersectionObserver (very old Safari) must not mean a headline that
        never animates — assume visible and fall back to the visibility and
        reduced-motion gates alone. */
@@ -188,37 +245,41 @@ export function HeroHeadlineV2() {
       (entries) => setInView(entries[0]?.isIntersecting ?? false),
       { threshold: 0 },
     );
-    io.observe(line);
+    io.observe(slot);
     return () => io.disconnect();
   }, []);
 
+  const running = !reduced && inView && awake;
+
+  /* ── the two-beat cycle ───────────────────────────────────────────────── */
+
+  /* Beat 1: rest. Re-armed on every index change, so the dwell is measured
+     from the moment a word ARRIVES. Losing the gate (scrolled away, tab
+     hidden, reduced motion switched on) clears the timer mid-dwell; getting it
+     back starts a fresh full dwell rather than firing a stale one. */
   useEffect(() => {
-    if (reduced || !inView || !awake) return;
-    const id = window.setInterval(() => {
-      const next = (activeRef.current + 1) % 3;
-      activeRef.current = next;
-      setActive(next);
-      /* The swap happens as the marker ARRIVES at slot 0 — two slots and
-         4.8s away from the word being changed, so the change is peripheral
-         and is never seen happening under the stroke. */
-      if (next === 0) setPool((p) => (p + 1) % POOL.length);
-    }, STEP_MS);
-    return () => window.clearInterval(id);
-  }, [reduced, inView, awake]);
+    if (!running) return;
+    const id = window.setTimeout(() => setRolling(true), DWELL_MS);
+    return () => window.clearTimeout(id);
+  }, [running, index]);
+
+  /* Beat 2: roll. Deliberately NOT gated on `running` — a roll already in
+     flight finishes, so the strip can never be left parked half-way between
+     two words by a tab going hidden mid-travel. */
+  useEffect(() => {
+    if (!rolling) return;
+    const id = window.setTimeout(() => {
+      /* One commit: adopt the incoming word AND drop the transition, so the
+         strip rewinds to translateY(0) invisibly. See note 3 above. The
+         band's target is unchanged by this commit — it was already the
+         incoming word — so the marker does not so much as flicker. */
+      setIndex(next);
+      setRolling(false);
+    }, ROLL_MS);
+    return () => window.clearTimeout(id);
+  }, [rolling, next]);
 
   /* ── render ───────────────────────────────────────────────────────────── */
-
-  const word = (text: string, i: number) => (
-    <span
-      key={text}
-      ref={(el) => {
-        wordRefs.current[i] = el;
-      }}
-      className={`v2-hero-word${active === i ? " is-lit" : ""}`}
-    >
-      {text}
-    </span>
-  );
 
   return (
     <h1
@@ -232,42 +293,49 @@ export function HeroHeadlineV2() {
       }}
     >
       {/* Everything below is decoration for the name above it. */}
-      <span aria-hidden="true" className="v2-hero-l1">
-        Powering your
-      </span>
-
-      <span aria-hidden="true" className="v2-hero-l2" ref={lineRef}>
-        {/* the travelling stroke, behind the words */}
-        <span
-          className={`v2-hero-mark${mark ? " is-ready" : ""}`}
-          style={
-            mark
-              ? { transform: `translate(${mark.x}px, ${mark.y}px) scaleX(${mark.w / 100})` }
-              : undefined
-          }
-        />
-
-        {FIXED.map((w, i) => word(w, i))}
-
-        {/* the rotating slot: all four words stacked in one grid cell, so the
-            column is always as wide as the widest of them */}
-        <span className={`v2-hero-word v2-hero-slot${active === 2 ? " is-lit" : ""}`}>
-          {POOL.map((w, p) => (
+      <span aria-hidden="true" className="v2-hero-line">
+        Powering your{" "}
+        <span className="v2-hero-slot" ref={slotRef}>
+          {/* the reserved width: never painted, never visible — see note 1 */}
+          {POOL.map((w, i) => (
             <span
               key={w}
-              ref={
-                p === pool
-                  ? (el) => {
-                      wordRefs.current[2] = el;
-                    }
-                  : undefined
-              }
-              className={`v2-hero-pool${p === pool ? " is-shown" : ""}`}
+              ref={(el) => {
+                sizerRefs.current[i] = el;
+              }}
+              className="v2-hero-sizer"
             >
               {w}
             </span>
           ))}
+
+          {/* THE marker. One element, always present, behind the words. */}
+          <span
+            className="v2-hero-band"
+            style={widths ? { width: widths[target] } : undefined}
+          >
+            <span className="v2-hero-bandsize">{POOL[target]}</span>
+          </span>
+
+          {/* the visible word, and only ever one of them at rest */}
+          <span className="v2-hero-mask">
+            <span className={`v2-hero-strip${rolling ? " is-rolling" : ""}`}>
+              <span className="v2-hero-cell">
+                <span className="v2-hero-word">{POOL[index]}</span>
+              </span>
+              <span className="v2-hero-cell">
+                <span className="v2-hero-word">{POOL[next]}</span>
+              </span>
+            </span>
+          </span>
         </span>
+      </span>
+
+      <span aria-hidden="true" className="v2-hero-line">
+        with tech that&rsquo;s vetted,
+      </span>
+      <span aria-hidden="true" className="v2-hero-line">
+        sealed and guaranteed.
       </span>
     </h1>
   );

@@ -10,42 +10,47 @@ import { Mono } from "./Ui";
  * left, a framed video still with a centred play target on the right, and a
  * single-row "trusted by" logo strip beneath both columns.
  *
- * Measured against `01-hero.png` at 1440: h1 64/64/-1.28px starting 88px under
+ * Measured against `01-hero.png` at 1440: h1 72/74.9/-1.44px starting 88px under
  * the bar, lead paragraph wrapping at ~530px, actions 60px below it, the still
- * 642x360 in the right column, the strip 108px under the fold of both columns.
+ * 490x276 in the right column, the strip 108px under the fold of both columns.
  *
  * Mode 7 content: v1 `Hero.tsx`'s headline supplies the h1's fixed accessible
  * name, "Powering your home, your pocket, and your future.", and its lead
  * paragraph verbatim; the existing /shop and /trade-in routes;
  * `/hero/bleed.webp`; and the `logos` array for the strip.
  *
- * THE HEADLINE ITSELF LIVES IN `HeroHeadlineV2`, a client component: it sets
- * "Powering your" over "Home. Pocket. Future." and runs a gold highlighter
- * stroke that travels between the three words, the last of which rotates
- * through a small pool. Everything load-bearing about it — the reserved slot
- * width, the fixed accessible name, the motion gates — is documented there.
+ * THE HEADLINE ITSELF LIVES IN `HeroHeadlineV2`, a client component. It is one
+ * ordinary three-line sentence, every line the same size and weight —
+ * "Powering your Pocket / with tech that's vetted, / sealed and guaranteed." —
+ * with exactly ONE word changing: the noun on line 1 rolls vertically through
+ * a six-word pool inside a masked slot. Everything load-bearing about it — the
+ * reserved slot width, the fixed accessible name, the motion gates — is
+ * documented there.
  *
  * Colour: the reference sets its final headline phrase in orange. Here the
- * marked word is DARK TYPE over a gold stroke that covers only the lower half
+ * rolling word is DARK TYPE over a gold marker that covers only the lower half
  * of the letterforms — see the band note below for the measured contrast and
  * the geometry.
  *
  * Layout note: the two hero columns are the reference's 558/642 split
  * REVERSED — the text column is now the wide one (1.45fr vs 1fr) with an 80px
- * gutter. It was widened for the old 76px three-line headline and is KEPT at
- * that ratio because the new line 2 is a single long line that needs the
- * width: see `.v2-hero-h1` in `V2Styles.tsx` for the measured fit.
+ * gutter, giving the text 710px and the still a 490x276 16:9 frame at 1440.
+ * That 710px is what sizes the headline: line 1 at its RESERVED width is the
+ * widest of the three lines, and 710px is the ceiling it has to fit under.
+ * See `.v2-hero-h1` in `V2Styles.tsx` for the measured fit.
  */
 
 /**
  * WHERE THE GOLD STROKE WENT.
  *
  * The stroke is no longer a `background-image` on one phrase of a static
- * headline: it is a single overlay element that TRAVELS between the three
- * words of the animated h1. It lives in `HeroHeadlineV2` and `.v2-hero-mark`
- * in `V2Styles`, and it reuses this section's geometry unchanged. The
+ * headline: it is a single solid element that BELONGS TO THE SLOT and never
+ * moves, with the rolling words passing through it. It lives in
+ * `HeroHeadlineV2` and `.v2-hero-band` in `V2Styles`, and it reuses this
+ * section's geometry unchanged — pixel-scanned against the gradient it
+ * replaces, its top edge lands 0.25px lower and its bottom 0.75px lower. The
  * measurements that fixed that geometry are recorded here because they are
- * what the new marker still has to obey.
+ * what the marker still has to obey.
  *
  * WHY DARK TYPE ON GOLD RATHER THAN GOLD TYPE. The phrase used to be GOLD
  * TYPE on the pale hero ground: #F0C044 on V2.wash, measured **1.40:1**.
@@ -54,16 +59,12 @@ import { Mono } from "./Ui";
  * GROUND, not a text colour, on anything light — so the type went back to
  * dark and the gold became the surface underneath it.
  *
- * Measured contrast for the words the marker rests on (V2.ink #171D1D, which
- * is what the animated headline uses at full opacity):
+ * Measured contrast, re-read off the rendered page (V2.ink #171D1D, which is
+ * what the headline uses — there is no longer any dimmed state, every word on
+ * all three lines is at full opacity):
  *
  *   over the gold band   #171D1D on #F0C044   **10.02:1**  passes AAA body
  *   over the page ground #171D1D on #E6EAE6   **14.05:1**  passes AAA body
- *
- * The two words the marker is NOT on sit at 55% opacity, which composites to
- * #747977 on wash: **3.64:1** — short of the 4.5:1 body floor, above the
- * 3:1 large-text floor that actually applies at this size. See the note on
- * `.v2-hero-word` in `V2Styles`.
  *
  * The retired gold-text options, all on `wash`, are kept because this was the
  * page's one documented exception to the accent rule and the numbers closed it:
@@ -88,9 +89,9 @@ import { Mono } from "./Ui";
  * is there because a single-stop gradient runs the gold all the way to the
  * bottom of the box — 35 per 100px below the baseline, deeper than the 24.2
  * descenders. 18% stops the band just under the baseline, where a real marker
- * stroke ends. `.v2-hero-word` is set to line-height 1.37 for exactly this
- * reason: it makes the word's line box equal to that 137-unit content box, so
- * the travelling marker reproduces the old inline geometry exactly.
+ * stroke ends. The band is positioned against the SLOT in that same
+ * 137-unit system (see `.v2-hero-band` in `V2Styles`), which is how it
+ * reproduces the old inline geometry without being attached to any word.
  */
 
 export function HeroV2() {
