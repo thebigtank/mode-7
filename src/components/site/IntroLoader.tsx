@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 const TARGETS = ["M", "O", "D", "E"];
 const SETTLE_AT = [1500, 2400, 3300, 4200];
@@ -74,7 +74,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#fff",
+        background: COLOR.card,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -91,7 +91,7 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
           fontWeight: 600,
           fontSize: "clamp(40px, 11vw, 84px)",
           letterSpacing: 0,
-          color: "#121212",
+          color: COLOR.ink,
           lineHeight: 1,
           filter: fade ? "blur(28px)" : "blur(0px)",
           transform: `scale(${fade ? 1.12 : 1})`,

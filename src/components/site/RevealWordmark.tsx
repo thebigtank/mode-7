@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useFooterWordmark } from "@/hooks/useFooterWordmark";
 import { legalLinks } from "@/lib/content";
-import { FONT, containerPad } from "@/lib/theme";
+import { COLOR, FONT, containerPad } from "@/lib/theme";
 
 /**
  * The sticky-reveal layer that lives BEHIND the page (z-0, fixed to the bottom).
@@ -26,7 +26,7 @@ export function RevealWordmark() {
     fontSize: "22vw",
     lineHeight: 0.78,
     letterSpacing: "-0.04em",
-    color: "#121212",
+    color: COLOR.espresso,
   };
 
   return (
@@ -95,11 +95,11 @@ export function RevealWordmark() {
           gap: 24,
           flexWrap: "wrap",
           padding: `26px ${containerPad(38)} 22px`,
-          borderTop: "1px solid #e4e4e4",
+          borderTop: `1px solid ${COLOR.line}`,
           pointerEvents: "auto",
         }}
       >
-        <div style={{ fontSize: 13, color: "#8a8a8a" }}>
+        <div style={{ fontSize: 13, color: COLOR.muted }}>
           © 2026 Mode 7. Powering homes and pockets.
         </div>
         <div style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
@@ -107,7 +107,7 @@ export function RevealWordmark() {
             <span
               key={l}
               className="m7-muted-link"
-              style={{ fontSize: 13, color: "#6a6a6a", cursor: "pointer" }}
+              style={{ fontSize: 13, color: COLOR.body, cursor: "pointer" }}
             >
               {l}
             </span>

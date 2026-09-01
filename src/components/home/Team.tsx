@@ -3,13 +3,26 @@
 import { useRef } from "react";
 import { ArrowButton } from "@/components/ArrowButton";
 import { useDotGrid } from "@/hooks/useDotGrid";
-import { FONT, stripe } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
+/** Shared box for a team tile: the per-cell picture is added by `tileWith`. */
 const tile = {
   borderRadius: 4,
-  background: stripe("#e6e6e6", "#f2f2f2"),
-  border: "1px solid #e2e2e2",
+  border: `1px solid ${COLOR.lineStrong}`,
 } as const;
+
+/**
+ * A team tile carrying one of the eight portraits. All CC0 — see
+ * public/hero/CREDITS.md. Decorative: the grid is a mood shot of the team, and
+ * only the first cell names a person, in its own label.
+ */
+const tileWith = (src: string) =>
+  ({
+    ...tile,
+    backgroundImage: `url(${src})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }) as const;
 
 /**
  * Team grid. Left-aligned heading under the `// Our Team` overline, then a 3×3
@@ -22,7 +35,7 @@ const tile = {
 export function Team() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  useDotGrid(sectionRef, canvasRef);
+  useDotGrid(sectionRef, canvasRef, "163,154,126"); // stone, on the cream ground
 
   return (
     <section
@@ -55,7 +68,7 @@ export function Team() {
             fontFamily: FONT.head,
             fontSize: 12,
             letterSpacing: 2,
-            color: "#9a9a9a",
+            color: COLOR.muted,
             textTransform: "uppercase",
             marginBottom: 14,
           }}
@@ -84,17 +97,23 @@ export function Team() {
           style={{ display: "grid", gap: "clamp(12px, 1.8vw, 18px)" }}
         >
           {/* r1c1 carries the name label */}
-          <div style={{ position: "relative", overflow: "hidden", ...tile }}>
+          <div
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              ...tileWith("/hero/team-1.webp"),
+            }}
+          >
             <div
               style={{
                 position: "absolute",
                 left: 16,
                 bottom: 16,
-                background: "#fff",
-                border: "1px solid #ececec",
+                background: COLOR.card,
+                border: `1px solid ${COLOR.line}`,
                 borderRadius: 4,
                 padding: "10px 14px",
-                boxShadow: "0 10px 26px rgba(0,0,0,0.08)",
+                boxShadow: "0 10px 26px rgba(28,21,15,0.10)",
               }}
             >
               <div style={{ fontFamily: FONT.head, fontWeight: 600, fontSize: 15 }}>
@@ -105,7 +124,7 @@ export function Team() {
                   fontFamily: FONT.mono,
                   fontSize: 10,
                   letterSpacing: 1,
-                  color: "#9a9a9a",
+                  color: COLOR.muted,
                   marginTop: 3,
                 }}
               >
@@ -114,16 +133,16 @@ export function Team() {
             </div>
           </div>
 
-          <div style={tile} />
-          <div style={tile} />
-          <div style={tile} />
+          <div style={tileWith("/hero/team-2.webp")} />
+          <div style={tileWith("/hero/team-3.webp")} />
+          <div style={tileWith("/hero/team-4.webp")} />
 
           {/* centre text card */}
           <div
             style={{
               borderRadius: 4,
-              border: "1px solid #ececec",
-              background: "#fafafa",
+              border: `1px solid ${COLOR.line}`,
+              background: COLOR.card,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -147,10 +166,10 @@ export function Team() {
             <ArrowButton label="Explore What We Do" variant="fill" href="/services" />
           </div>
 
-          <div style={tile} />
-          <div style={tile} />
-          <div style={tile} />
-          <div style={tile} />
+          <div style={tileWith("/hero/team-5.webp")} />
+          <div style={tileWith("/hero/team-6.webp")} />
+          <div style={tileWith("/hero/team-7.webp")} />
+          <div style={tileWith("/hero/team-8.webp")} />
         </div>
       </div>
     </section>

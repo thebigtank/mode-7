@@ -3,12 +3,12 @@
 import { ArrowButton } from "@/components/ArrowButton";
 import { socials } from "@/components/Icons";
 import { footerCols } from "@/lib/content";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 /**
- * The footer: a black floating card (`margin: 0 26px`) that sits at the bottom
- * of the opaque content layer and slides up over the giant fixed MODE 7
- * wordmark behind it.
+ * The footer: a full-bleed dark-brown band that sits at the bottom of the
+ * opaque content layer and slides up over the giant fixed MODE 7 wordmark
+ * behind it. It runs edge to edge — no side margin, no radius.
  *
  * Top: closing statement + a "Back to top" ArrowButton pointing up.
  * Mid: brand block (wordmark, copy, social icon circles) + 2 link columns.
@@ -28,12 +28,16 @@ export function Footer() {
 
   return (
     <footer
+      /* m7-on-dark flips the global focus ring to cream; an espresso ring on the
+         dark band would be a ring nobody can find. */
+      className="m7-on-dark"
       style={{
-        background: "#121212",
-        color: "#fff",
+        /* dark, not espresso: the reference footer samples #372515, a warm
+           brown. Cream on #3C3521 is 9.83:1, so the onEspresso* text roles all
+           still clear their floors here. */
+        background: COLOR.espresso,
+        color: COLOR.onEspresso,
         padding: "clamp(52px, 7vw, 88px) 0 40px",
-        margin: "0 clamp(10px, 2vw, 26px)",
-        borderRadius: 4,
         overflow: "hidden",
       }}
     >
@@ -63,7 +67,7 @@ export function Footer() {
                 fontSize: "clamp(28px, 4.4vw, 46px)",
                 lineHeight: 1.04,
                 letterSpacing: "-0.04em",
-                color: "#fff",
+                color: COLOR.onEspresso,
               }}
             >
               Powering your home, your pocket, and your future.
@@ -87,7 +91,7 @@ export function Footer() {
             gridTemplateColumns: "1.7fr 1fr 1fr",
             gap: "clamp(30px, 4vw, 48px)",
             padding: "clamp(40px, 5vw, 64px) 0 8px",
-            borderTop: "1px solid rgba(255,255,255,0.12)",
+            borderTop: `1px solid ${COLOR.onEspressoLine}`,
           }}
         >
           {/* the brand block's right padding only makes sense beside a column */}
@@ -107,7 +111,7 @@ export function Footer() {
               style={{
                 fontSize: 15,
                 lineHeight: 1.75,
-                color: "rgba(255,255,255,0.55)",
+                color: COLOR.onEspressoMuted,
                 maxWidth: 330,
                 marginBottom: 30,
               }}
@@ -117,21 +121,20 @@ export function Footer() {
               repair division. Every unit vetted, sealed and guaranteed.
             </div>
             <div
-              style={{ display: "flex", gap: 11, color: "rgba(255,255,255,0.82)" }}
+              style={{ display: "flex", gap: 11, color: COLOR.onEspresso }}
             >
               {socials.map((s) => (
                 <span
                   key={s.name}
                   className="m7-social-dark"
                   aria-label={s.name}
-                  data-cursor="grow"
                   style={{
                     display: "inline-flex",
                     width: 42,
                     height: 42,
                     alignItems: "center",
                     justifyContent: "center",
-                    border: "1px solid rgba(255,255,255,0.2)",
+                    border: `1px solid ${COLOR.onEspressoLine}`,
                     borderRadius: "50%",
                     cursor: "pointer",
                     transition: "all .2s ease",
@@ -150,7 +153,7 @@ export function Footer() {
                   fontFamily: FONT.mono,
                   fontSize: 11,
                   letterSpacing: 1.5,
-                  color: "rgba(255,255,255,0.5)",
+                  color: COLOR.onEspressoMuted,
                   textTransform: "uppercase",
                   marginBottom: 22,
                 }}
@@ -162,10 +165,9 @@ export function Footer() {
                   <span
                     key={l}
                     className="m7-footer-link"
-                    data-cursor="grow"
                     style={{
                       fontSize: 15,
-                      color: "rgba(255,255,255,0.72)",
+                      color: COLOR.onEspresso,
                       cursor: "pointer",
                     }}
                   >

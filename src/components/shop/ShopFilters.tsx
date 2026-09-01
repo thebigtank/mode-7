@@ -185,7 +185,6 @@ export function ShopFilters() {
       <button
         type="button"
         className="m7-filters__toggle"
-        data-cursor="grow"
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
@@ -236,7 +235,6 @@ export function ShopFilters() {
             className="m7-filters__close"
             onClick={() => setOpen(false)}
             aria-label="Close filters"
-            data-cursor="grow"
           >
             ×
           </button>
@@ -254,7 +252,6 @@ export function ShopFilters() {
             type="button"
             className="m7-filters__apply"
             onClick={() => setOpen(false)}
-            data-cursor="grow"
           >
             Show results
           </button>

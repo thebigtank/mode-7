@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDownIcon, SendIcon } from "@/components/Icons";
 import { useSevenEyes } from "@/hooks/useSevenEyes";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 /**
  * The ever-present floating Seven AI chat widget (fixed bottom-right).
@@ -71,10 +71,10 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
           style={{
             /* 344 + the 28px offset overflowed a 360px phone */
             width: "min(344px, calc(100vw - 24px))",
-            background: "#fff",
-            border: "1px solid #e6e6e6",
+            background: COLOR.card,
+            border: `1px solid ${COLOR.lineStrong}`,
             borderRadius: "20px 20px 2px 20px",
-            boxShadow: "0 28px 70px rgba(0,0,0,0.22)",
+            boxShadow: "0 28px 70px rgba(28,21,15,0.22)",
             overflow: "hidden",
             transformOrigin: "bottom right",
             animation: closing
@@ -88,7 +88,7 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               alignItems: "center",
               gap: 12,
               padding: "16px 18px",
-              borderBottom: "1px solid #f0f0f0",
+              borderBottom: `1px solid ${COLOR.line}`,
             }}
           >
             <div
@@ -96,7 +96,7 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
                 width: 34,
                 height: 34,
                 borderRadius: "50%",
-                background: "#fff",
+                background: COLOR.card,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -122,7 +122,7 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               onClick={toggle}
               style={{
                 cursor: "pointer",
-                color: "#9a9a9a",
+                color: COLOR.muted,
                 display: "inline-flex",
                 padding: "2px",
               }}
@@ -134,7 +134,7 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
           <div
             style={{
               padding: 18,
-              background: "#fafafa",
+              background: COLOR.cream,
               display: "flex",
               flexDirection: "column",
               gap: 12,
@@ -144,8 +144,8 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               style={{
                 alignSelf: "flex-start",
                 maxWidth: "80%",
-                background: "#fff",
-                border: "1px solid #ececec",
+                background: COLOR.card,
+                border: `1px solid ${COLOR.line}`,
                 borderRadius: "14px 14px 14px 4px",
                 padding: "12px 15px",
                 fontSize: 14,
@@ -158,8 +158,8 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               style={{
                 alignSelf: "flex-end",
                 maxWidth: "80%",
-                background: "#121212",
-                color: "#fff",
+                background: COLOR.rust,
+                color: COLOR.cream,
                 borderRadius: "14px 14px 4px 14px",
                 padding: "12px 15px",
                 fontSize: 14,
@@ -176,14 +176,14 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               alignItems: "center",
               gap: 8,
               padding: "12px 14px",
-              borderTop: "1px solid #f0f0f0",
+              borderTop: `1px solid ${COLOR.line}`,
             }}
           >
             <input
               placeholder="Message Seven…"
               style={{
                 flex: 1,
-                background: "#f3f3f3",
+                background: COLOR.cream,
                 border: "none",
                 outline: "none",
                 borderRadius: 99,
@@ -199,8 +199,8 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
                 height: 42,
                 alignItems: "center",
                 justifyContent: "center",
-                background: "#121212",
-                color: "#fff",
+                background: COLOR.rust,
+                color: COLOR.cream,
                 borderRadius: 99,
                 cursor: "pointer",
               }}
@@ -214,15 +214,16 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onClick={toggle}
-          data-cursor="grow"
           style={{
             display: "flex",
             alignItems: "center",
-            background: "#121212",
-            color: "#fff",
+            /* the site's one dark surface — same as the footer and the ink
+               ArrowButton, so no two dark things disagree */
+            background: COLOR.dark,
+            color: COLOR.card,
             borderRadius: 999,
             padding: 6,
-            boxShadow: "0 18px 44px rgba(0,0,0,0.28)",
+            boxShadow: "0 18px 44px rgba(28,21,15,0.28)",
             cursor: "pointer",
             transformOrigin: "bottom right",
             animation: "sevenPillIn .32s cubic-bezier(.18,.89,.32,1.1) both",
@@ -234,7 +235,7 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
               width: 38,
               height: 38,
               borderRadius: "50%",
-              background: "#fff",
+              background: COLOR.card,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

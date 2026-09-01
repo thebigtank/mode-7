@@ -69,14 +69,14 @@ export function useStatCounter(canvasRef: RefObject<HTMLCanvasElement | null>) {
         for (let c = 0; c < cols; c++) {
           ctx.beginPath();
           ctx.arc(offX + c * SP, offY + r * SP, FAINT, 0, 6.2832);
-          ctx.fillStyle = "rgba(255,255,255,0.07)";
+          ctx.fillStyle = "rgba(239,230,209,0.07)";
           ctx.fill();
         }
       if (!text) return;
       const textCols = text.length * GLYPH - 1;
       const startC = Math.round((cols - textCols) / 2);
       const startR = Math.round((rows - 7) / 2);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = "#F0C044";
       for (let i = 0; i < text.length; i++) {
         const g = FONT[text[i]];
         if (!g) continue;

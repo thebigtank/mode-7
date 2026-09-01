@@ -5,7 +5,7 @@ import { AsteriskMark } from "@/components/Icons";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { useBrandBlur } from "@/hooks/useBrandBlur";
 import { logos } from "@/lib/content";
-import { FONT, containerPad } from "@/lib/theme";
+import { COLOR, FONT, containerPad } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 /**
@@ -59,9 +59,7 @@ export function BrandStrip() {
         position: "relative",
         padding: "30px 0",
         marginTop: 0,
-        borderTop: "1px solid #ededed",
-        borderBottom: "1px solid #ededed",
-        background: "#fff",
+        background: COLOR.cream,
       }}
     >
       {/* The caption is `flex: 0 0 auto`, so on a narrow screen it claimed the
@@ -89,7 +87,10 @@ export function BrandStrip() {
             gap: 16,
             paddingLeft: containerPad(),
             paddingRight: 44,
-            background: "#fff",
+            /* opaque mask so the marquee logos scroll BEHIND the caption rather
+               than through it — it must track the section ground exactly, or it
+               reads as a lighter patch sitting on top of the strip */
+            background: COLOR.cream,
           }}
         >
           <AsteriskMark size={22} />
@@ -103,7 +104,7 @@ export function BrandStrip() {
               fontSize: "clamp(10px, 3vw, 15px)",
               lineHeight: 1.35,
               letterSpacing: "0.2px",
-              color: "#1c1c1c",
+              color: COLOR.ink,
               textTransform: "uppercase",
               maxWidth: 255,
             }}
@@ -134,7 +135,7 @@ export function BrandStrip() {
 
       {WIREFRAME.showAnnotations && (
         <div style={{ position: "absolute", top: 8, right: 14 }}>
-          <Annotation style={{ fontSize: 10, padding: "6px 13px", background: "#fff" }}>
+          <Annotation style={{ fontSize: 10, padding: "6px 13px", background: COLOR.card }}>
             SEAMLESS INFINITE SCROLL LOOP
           </Annotation>
         </div>

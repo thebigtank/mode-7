@@ -5,7 +5,7 @@ import { ArrowButton } from "@/components/ArrowButton";
 import { ArrowRightIcon } from "@/components/Icons";
 import { Annotation, Overline, SectionHeading } from "@/components/wireframe/Primitives";
 import { pillars } from "@/lib/content";
-import { FONT, stripeDark } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 /**
@@ -14,9 +14,9 @@ import { WIREFRAME } from "@/lib/wireframe-config";
  * and a two-panel "video wall" on the RIGHT.
  *
  * The two panels are separate elements with a 14px bezel gap, but they show ONE
- * video: each panel's dark striped content layer is sized to the full pair and
- * offset so the image continues seamlessly across the gap, like two monitors
- * driving a single picture. All three gaps are 14px to match the text-card gaps.
+ * still: each panel's content layer is sized to the full pair and offset so the
+ * image continues seamlessly across the gap, like two monitors driving a single
+ * picture. All three gaps are 14px to match the text-card gaps.
  */
 export function Ecosystem() {
   const [active, setActive] = useState(0);
@@ -35,7 +35,9 @@ export function Ecosystem() {
         left: offsetLeft ? "calc(-100% - 14px)" : 0,
         height: "100%",
         width: "calc(200% + 14px)",
-        background: stripeDark(),
+        backgroundImage: "url(/hero/ecosystem.webp)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -48,26 +50,16 @@ export function Ecosystem() {
           width: 96,
           height: 96,
           borderRadius: "50%",
-          border: "1.5px solid #6f6f6f",
+          border: `1.5px solid ${COLOR.onEspressoFaint}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#8a8a8a",
+          color: COLOR.onEspressoMuted,
           fontSize: 26,
           paddingLeft: 5,
         }}
       >
         ▶
-      </div>
-      <div
-        style={{
-          fontFamily: FONT.mono,
-          fontSize: 11,
-          letterSpacing: 1,
-          color: "#7a7a7a",
-        }}
-      >
-        ▣ ONE ECOSYSTEM VIDEO
       </div>
     </div>
   );
@@ -75,9 +67,12 @@ export function Ecosystem() {
   return (
     <section
       style={{
-        background: "#fafafa",
-        borderTop: "1px solid #f0f0f0",
-        borderBottom: "1px solid #f0f0f0",
+        /* The sage band. In the reference this is the product-showcase section:
+           a muted green ground with the demo floated on it, and it is the one
+           place sage appears on the whole page. */
+        background: COLOR.sage,
+        borderTop: `1px solid ${COLOR.onSageLine}`,
+        borderBottom: `1px solid ${COLOR.onSageLine}`,
         padding: "100px 0",
       }}
     >
@@ -93,7 +88,7 @@ export function Ecosystem() {
           }}
         >
           <div style={{ maxWidth: 560 }}>
-            <Overline>The Ecosystem</Overline>
+            <Overline color={COLOR.onSageMuted}>The Ecosystem</Overline>
             <SectionHeading style={{ marginBottom: 24 }}>
               A fully integrated technology lifecycle.
             </SectionHeading>
@@ -104,7 +99,7 @@ export function Ecosystem() {
             />
           </div>
           <div style={{ maxWidth: 340 }}>
-            <p style={{ fontSize: 18, lineHeight: 1.6, color: "#5a5a5a", margin: 0 }}>
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: COLOR.onSageMuted, margin: 0 }}>
               From the moment you buy to the day you upgrade, every part of the Mode
               7 ecosystem works together.
             </p>
@@ -143,17 +138,21 @@ export function Ecosystem() {
                     borderRadius: 4,
                     cursor: "pointer",
                     transition: "all .2s",
-                    background: on ? "#121212" : "#ffffff",
-                    border: on ? "1px solid #121212" : "1px solid #e4e4e4",
-                    color: on ? "#ffffff" : "#121212",
+                    /* Selection reads as a card lifting off the sage ground, not
+                       as a colour change: the chosen row goes cream, the rest sit
+                       flat in a tinted sage. Espresso on cream is 14.57:1. */
+                    background: on ? COLOR.card : "rgba(28,21,15,0.05)",
+                    border: `1px solid ${on ? COLOR.card : COLOR.onSageLine}`,
+                    color: on ? COLOR.ink : COLOR.onSage,
                   }}
+                  aria-pressed={on}
                 >
                   <div
                     style={{
                       flex: "0 0 auto",
                       display: "inline-flex",
                       paddingTop: 2,
-                      color: on ? "rgba(255,255,255,0.5)" : "#c2c2c2",
+                      color: on ? COLOR.rust : COLOR.onSageMuted,
                     }}
                   >
                     <ArrowRightIcon size={22} />
@@ -173,7 +172,7 @@ export function Ecosystem() {
                       style={{
                         fontSize: 14,
                         lineHeight: 1.55,
-                        color: on ? "rgba(255,255,255,0.62)" : "#8a8a8a",
+                        color: on ? COLOR.body : COLOR.onSageMuted,
                       }}
                     >
                       {p.sub}
@@ -201,7 +200,7 @@ export function Ecosystem() {
                 flex: 1,
                 overflow: "hidden",
                 borderRadius: 4,
-                border: "1px solid #2a2a2a",
+                border: `1px solid ${COLOR.espressoBorder}`,
               }}
             >
               {videoLayer(false)}
@@ -213,7 +212,7 @@ export function Ecosystem() {
                   fontFamily: FONT.mono,
                   fontSize: 11,
                   letterSpacing: 1,
-                  color: "#6f6f6f",
+                  color: COLOR.onEspressoFaint,
                 }}
               >
                 ▣ PANEL 1
@@ -226,7 +225,7 @@ export function Ecosystem() {
                 flex: 1,
                 overflow: "hidden",
                 borderRadius: 4,
-                border: "1px solid #2a2a2a",
+                border: `1px solid ${COLOR.espressoBorder}`,
               }}
             >
               {videoLayer(true)}
@@ -238,7 +237,7 @@ export function Ecosystem() {
                   fontFamily: FONT.mono,
                   fontSize: 11,
                   letterSpacing: 1,
-                  color: "#6f6f6f",
+                  color: COLOR.onEspressoFaint,
                 }}
               >
                 PANEL 2 ▣
@@ -255,7 +254,7 @@ export function Ecosystem() {
                   transform: "translateX(-50%)",
                   fontSize: 10,
                   padding: "6px 13px",
-                  background: "rgba(18,18,18,.6)",
+                  background: "rgba(28,21,15,.62)",
                 }}
               >
                 SINGLE VIDEO SPLIT ACROSS TWO PANELS

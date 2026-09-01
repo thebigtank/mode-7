@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { FONT, stripe } from "@/lib/theme";
+import { COLOR, FONT, stripe, stripeDark } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 /**
@@ -32,8 +32,8 @@ export function Placeholder({
         height,
         borderRadius: radius,
         overflow: "hidden",
-        background: dark ? stripe("#1c1c1c", "#262626") : stripe(),
-        border: `1px solid ${dark ? "#2a2a2a" : "#e2e2e2"}`,
+        background: dark ? stripeDark() : stripe(),
+        border: `1px solid ${dark ? COLOR.espressoBorder : COLOR.lineStrong}`,
         ...style,
       }}
     >
@@ -47,7 +47,7 @@ export function Placeholder({
             fontFamily: FONT.mono,
             fontSize: 11,
             letterSpacing: 1,
-            color: dark ? "#6f6f6f" : "#9a9a9a",
+            color: dark ? COLOR.onEspressoFaint : COLOR.muted,
           }}
         >
           ▣ {label}
@@ -73,14 +73,14 @@ export function Annotation({
       style={{
         display: "inline-flex",
         alignItems: "center",
-        border: `1px dashed ${dark ? "#555" : "#b4b4b4"}`,
+        border: `1px dashed ${dark ? COLOR.onEspressoFaint : COLOR.hair}`,
         borderRadius: 99,
         padding: "7px 15px",
         fontFamily: FONT.mono,
         fontSize: 11,
         letterSpacing: 1,
-        color: dark ? "#aaa" : "#6a6a6a",
-        background: dark ? "transparent" : "rgba(255,255,255,0.92)",
+        color: dark ? COLOR.onEspressoMuted : COLOR.body,
+        background: dark ? "transparent" : "rgba(247,239,221,0.92)",
         /* nowrap keeps the pill on one line where there is room; .m7-annot
            lets it wrap on narrow screens instead of running off the edge */
         whiteSpace: "nowrap",
@@ -117,15 +117,15 @@ export function VariantLabel({
           style={{
             display: "inline-flex",
             alignItems: "center",
-            border: "1px dashed #b4b4b4",
+            border: `1px dashed ${COLOR.hair}`,
             borderRadius: 99,
             padding: "5px 12px",
             fontFamily: FONT.mono,
             fontSize: 10,
             letterSpacing: 1.5,
             textTransform: "uppercase",
-            color: "#121212",
-            background: "#fff",
+            color: COLOR.ink,
+            background: COLOR.card,
           }}
         >
           {tag}
@@ -135,7 +135,7 @@ export function VariantLabel({
             fontFamily: FONT.mono,
             fontSize: 11,
             letterSpacing: 0.5,
-            color: "#9a9a9a",
+            color: COLOR.muted,
             textTransform: "uppercase",
           }}
         >
@@ -149,7 +149,7 @@ export function VariantLabel({
 /** Section overline in the `// Label` form. */
 export function Overline({
   children,
-  color = "#9a9a9a",
+  color = COLOR.muted,
   style,
 }: {
   children: ReactNode;
@@ -213,7 +213,7 @@ export function Body({
       style={{
         fontSize: 18,
         lineHeight: 1.6,
-        color: "#5a5a5a",
+        color: COLOR.body,
         margin: 0,
         ...style,
       }}

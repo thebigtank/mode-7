@@ -1,7 +1,7 @@
 /* ==========================================================================
    Mode 7 — global styles
    Ported 1:1 from the "Mode 7 Wireframe" Claude Design component.
-   Hard visual constraints: black #121212, white, light greys only.
+   Colour roles live in :root below and mirror COLOR in src/lib/theme.ts.
    ========================================================================== */
 
 * {
@@ -13,13 +13,67 @@
      screens — a fixed 48px cost 96px of a 360px phone, over a quarter of it. */
   --m7-pad: clamp(20px, 4vw, 48px);
   --m7-max: 1320px;
+
+  /* Colour roles. Mirrors COLOR in src/lib/theme.ts — that file carries the
+     measurements and the reasoning; keep the two in step.
+
+     The palette is used as full-width SECTION GROUNDS, after the reference:
+     cream is the default, and rust / ember / sage / gold / espresso punctuate
+     it. Nothing here is pure white or pure black. Gold and sage are light
+     grounds, never accents — gold on cream is 1.37:1. */
+
+  /* section grounds */
+  --m7-cream: #efe6d1;
+  --m7-card: #f7efdd;
+  --m7-sage: #cbc5aa;
+  --m7-rust: #9e4b2a;
+  --m7-ember: #b75a24;
+  --m7-gold: #f0c044;
+  --m7-espresso: #1c150f;
+  /* The one dark SURFACE: footer ground + every dark button. Espresso stays a
+     text colour — as a surface it reads black rather than brown. */
+  --m7-dark: #3c3521;
+  --m7-dark-raise: #4a4229;
+
+  /* text on cream */
+  --m7-ink: #1c150f;
+  --m7-ink-soft: #3c3521;
+  --m7-body: #5b553d;
+  --m7-muted: #5b553d;
+  --m7-faint: #7a765b;
+
+  /* lines */
+  --m7-line: #dcd1b6;
+  --m7-line-strong: #cec3a8;
+  --m7-hair: #a39a7e;
+
+  /* on the bands */
+  --m7-on-rust: #efe6d1;
+  --m7-on-rust-faint: #ddbfa2;
+  --m7-rust-deep: #743a21;
+  --m7-rust-hover: #894226;
+  --m7-on-sage: #1c150f;
+  --m7-on-sage-muted: #514a3e;
+  --m7-on-sage-line: #aea88f;
+  --m7-on-gold: #1c150f;
+  --m7-on-gold-muted: #5c481f;
+  --m7-on-gold-line: #cca43d;
+  --m7-gold-deep: #b99436;
+
+  /* on espresso */
+  --m7-on-espresso: #efe6d1;
+  --m7-on-espresso-muted: #b2a792;
+  --m7-on-espresso-faint: #928876;
+  --m7-on-espresso-line: rgba(239, 230, 209, 0.16);
+  --m7-espresso-raise: #2d261e;
+  --m7-espresso-border: #3a3229;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background: #f3f3f3;
+  background: var(--m7-cream);
 }
 
 /* Nothing may push the page sideways. Individually scrollable things (tables,
@@ -59,11 +113,49 @@ html.lenis body {
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d6d6d6;
+  background: var(--m7-line-strong);
   border-radius: 99px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* Browser surfaces ---------------------------------------------------------
+   The parts we don't draw still carry the design: selection, the caret, focus
+   rings and tabular numerals all ship with browser defaults belonging to no
+   design system. None of these existed before this pass.
+
+   The focus ring is espresso rather than rust, and that is deliberate: rust on
+   cream is 4.27:1 but on the sage and gold bands it drops to 3.05:1 and 3.11:1,
+   right at the edge. Espresso clears every ground we use (14.57:1 on cream,
+   10.4:1 on sage, 10.6:1 on gold), and inverts to cream on the dark bands. */
+::selection {
+  background: var(--m7-rust);
+  color: var(--m7-on-rust);
+}
+::-moz-selection {
+  background: var(--m7-rust);
+  color: var(--m7-on-rust);
+}
+html {
+  caret-color: var(--m7-rust);
+  accent-color: var(--m7-rust);
+}
+:focus-visible {
+  outline: 2px solid var(--m7-ink);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+/* On a dark band the ring inverts, or it vanishes into the ground. */
+.m7-on-dark :focus-visible,
+.m7-on-dark:focus-visible {
+  outline-color: var(--m7-cream);
+}
+/* Prices, valuations and counters must not jitter as digits change. */
+.m7-num,
+[data-num] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
 .m7-scroll {
@@ -82,37 +174,37 @@ html.lenis body {
   transition: all 0.2s ease;
 }
 .m7-social:hover {
-  background: #121212;
-  border-color: #121212;
-  color: #fff;
+  background: var(--m7-ink);
+  border-color: var(--m7-ink);
+  color: var(--m7-card);
 }
 .m7-social-dark:hover {
-  border-color: #fff;
-  background: #fff;
-  color: #121212;
+  border-color: var(--m7-card);
+  background: var(--m7-card);
+  color: var(--m7-ink);
 }
 .m7-muted-link {
   transition: color 0.2s ease;
 }
 .m7-muted-link:hover {
-  color: #121212;
+  color: var(--m7-ink);
 }
 .m7-footer-link {
   transition: color 0.2s ease;
 }
 .m7-footer-link:hover {
-  color: #fff;
+  color: var(--m7-card);
 }
 .m7-search-result:hover {
-  background: #f6f6f6;
+  background: var(--m7-cream);
 }
 .m7-search-close:hover {
-  color: #000;
+  color: var(--m7-ink);
 }
 .m7-pill:hover {
-  background: #121212;
-  color: #fff;
-  border-color: #121212;
+  background: var(--m7-ink);
+  color: var(--m7-card);
+  border-color: var(--m7-ink);
 }
 /* Bento tiles lift slightly on hover. */
 .m7-lift {
@@ -120,11 +212,11 @@ html.lenis body {
 }
 .m7-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgba(18, 18, 18, 0.06);
+  box-shadow: 0 10px 26px rgba(28, 21, 15, 0.08);
 }
 .m7-lift-dark:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 12px 30px rgba(28, 21, 15, 0.24);
 }
 
 /* Category showcase — smooth mask transition between scroll-edge states */
@@ -157,7 +249,7 @@ html.lenis body {
 @media (hover: none) {
   .m7-ai-chip { opacity: 1; transform: none; }
 }
-.m7-ai-chip:hover { border-color: #121212; }
+.m7-ai-chip:hover { border-color: var(--m7-ink); }
 .m7-ai-chip:active { transform: scale(0.97); }
 
 /* ---- order confirmation (/checkout) ---- */
@@ -197,7 +289,7 @@ html.lenis body {
     left: 12%;
     right: 12%;
     height: 1px;
-    background: #ececec;
+    background: var(--m7-line);
   }
 }
 .m7-oc-step { position: relative; padding-top: 26px; }
@@ -208,12 +300,12 @@ html.lenis body {
   width: 11px;
   height: 11px;
   border-radius: 99px;
-  background: #fff;
-  border: 1px solid #121212;
-  box-shadow: 0 0 0 4px #fff;
+  background: var(--m7-card);
+  border: 1px solid var(--m7-ink);
+  box-shadow: 0 0 0 4px var(--m7-card);
 }
 @media (min-width: 780px) {
-  .m7-oc-step:first-child .m7-oc-step__dot { background: #121212; }
+  .m7-oc-step:first-child .m7-oc-step__dot { background: var(--m7-ink); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -269,34 +361,34 @@ html.lenis body {
   gap: 12px;
   min-height: 48px;
   padding: 12px 15px;
-  background: #fff;
-  border: 1px solid #d8d8d8;
+  background: var(--m7-card);
+  border: 1px solid var(--m7-line-strong);
   border-radius: 4px;
   font-family: var(--font-outfit), sans-serif;
   font-size: 15px;
   line-height: 1.3;
-  color: #121212;
+  color: var(--m7-ink);
   text-align: left;
   cursor: pointer;
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
-.m7-ss__btn[data-empty="true"] .m7-ss__value { color: #9a9a9a; }
+.m7-ss__btn[data-empty="true"] .m7-ss__value { color: var(--m7-muted); }
 @media (hover: hover) and (pointer: fine) {
-  .m7-ss__btn:hover { border-color: #9a9a9a; }
+  .m7-ss__btn:hover { border-color: var(--m7-muted); }
 }
 .m7-ss__btn:focus-visible,
 .m7-ss__btn[aria-expanded="true"] {
   outline: none;
-  border-color: #121212;
-  box-shadow: 0 0 0 3px rgba(18, 18, 18, 0.09);
+  border-color: var(--m7-ink);
+  box-shadow: 0 0 0 3px rgba(28, 21, 15, 0.12);
 }
 .m7-ss__value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .m7-ss__caret {
   flex: 0 0 auto;
   width: 8px;
   height: 8px;
-  border-right: 1.5px solid #121212;
-  border-bottom: 1.5px solid #121212;
+  border-right: 1.5px solid var(--m7-ink);
+  border-bottom: 1.5px solid var(--m7-ink);
   transform: translateY(-2px) rotate(45deg);
   transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -313,10 +405,10 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   max-height: 320px;
-  background: #fff;
-  border: 1px solid #121212;
+  background: var(--m7-card);
+  border: 1px solid var(--m7-ink);
   border-radius: 6px;
-  box-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 18px 44px -14px rgba(28, 21, 15, 0.36);
   overflow: hidden;
   animation: m7ssIn 0.16s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
@@ -327,18 +419,18 @@ html.lenis body {
 /* the sheet header only earns its space on mobile */
 .m7-ss__head { display: none; }
 
-.m7-ss__search { position: relative; flex: 0 0 auto; padding: 10px; border-bottom: 1px solid #ececec; }
+.m7-ss__search { position: relative; flex: 0 0 auto; padding: 10px; border-bottom: 1px solid var(--m7-line); }
 .m7-ss__input {
   width: 100%;
   padding: 10px 34px 10px 12px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid var(--m7-line-strong);
   border-radius: 4px;
-  background: #fafafa;
+  background: var(--m7-cream);
   font-family: var(--font-outfit), sans-serif;
   font-size: 15px;
-  color: #121212;
+  color: var(--m7-ink);
 }
-.m7-ss__input:focus-visible { outline: none; border-color: #121212; background: #fff; }
+.m7-ss__input:focus-visible { outline: none; border-color: var(--m7-ink); background: var(--m7-card); }
 .m7-ss__clear {
   position: absolute;
   right: 18px;
@@ -348,8 +440,8 @@ html.lenis body {
   height: 24px;
   border: 0;
   border-radius: 99px;
-  background: #ececec;
-  color: #5a5a5a;
+  background: var(--m7-line);
+  color: var(--m7-body);
   font-size: 15px;
   line-height: 1;
   cursor: pointer;
@@ -375,31 +467,31 @@ html.lenis body {
   border-radius: 4px;
   font-family: var(--font-outfit), sans-serif;
   font-size: 15px;
-  color: #2a2a2a;
+  color: var(--m7-ink-soft);
   cursor: pointer;
 }
-.m7-ss__opt[data-active="true"] { background: #f2f2f2; }
-.m7-ss__opt[aria-selected="true"] { color: #121212; font-weight: 500; }
+.m7-ss__opt[data-active="true"] { background: var(--m7-cream); }
+.m7-ss__opt[aria-selected="true"] { color: var(--m7-ink); font-weight: 500; }
 .m7-ss__opthint {
   font-family: var(--font-space-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--m7-muted);
 }
-.m7-ss__tick { position: absolute; right: 12px; top: 11px; font-size: 13px; color: #121212; }
+.m7-ss__tick { position: absolute; right: 12px; top: 11px; font-size: 13px; color: var(--m7-ink); }
 .m7-ss__mark { background: none; color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-.m7-ss__empty { padding: 18px 14px; font-size: 14px; line-height: 1.5; color: #8a8a8a; }
+.m7-ss__empty { padding: 18px 14px; font-size: 14px; line-height: 1.5; color: var(--m7-muted); }
 .m7-ss__foot {
   flex: 0 0 auto;
   padding: 9px 14px calc(9px + env(safe-area-inset-bottom));
-  border-top: 1px solid #ececec;
-  background: #fafafa;
+  border-top: 1px solid var(--m7-line);
+  background: var(--m7-cream);
   font-family: var(--font-space-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--m7-muted);
 }
 
 /* Bottom sheet on phones */
@@ -409,7 +501,7 @@ html.lenis body {
     position: fixed;
     inset: 0;
     z-index: 90000;
-    background: rgba(18, 18, 18, 0.42);
+    background: rgba(28, 21, 15, 0.46);
     backdrop-filter: blur(3px);
     animation: m7aiFade 0.18s ease both;
   }
@@ -430,22 +522,22 @@ html.lenis body {
     gap: 12px;
     flex: 0 0 auto;
     padding: 14px 16px;
-    border-bottom: 1px solid #ececec;
-    background: #fafafa;
+    border-bottom: 1px solid var(--m7-line);
+    background: var(--m7-cream);
   }
   .m7-ss__title {
     font-family: var(--font-space-mono), monospace;
     font-size: 10px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #8a8a8a;
+    color: var(--m7-muted);
   }
   .m7-ss__close {
     border: 0;
     background: none;
     font-size: 24px;
     line-height: 1;
-    color: #8a8a8a;
+    color: var(--m7-muted);
     cursor: pointer;
     min-width: 44px;
     min-height: 44px;
@@ -770,8 +862,6 @@ html.lenis body {
     line-height: 1.04 !important;
     letter-spacing: -0.045em !important;
   }
-  /* the invert dot is meaningless without a pointer */
-  .m7-cursor { display: none !important; }
 }
 @media (max-width: 620px) {
   .m7-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
@@ -813,15 +903,15 @@ html.lenis body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #fff;
-    border: 1px solid #121212;
+    background: var(--m7-card);
+    border: 1px solid var(--m7-ink);
     border-radius: 4px;
     padding: 11px 18px;
     cursor: pointer;
     font-family: var(--font-outfit), sans-serif;
     font-size: 15px;
     font-weight: 500;
-    color: #121212;
+    color: var(--m7-ink);
     min-height: 44px;
   }
   .m7-filters__toggle:active { transform: scale(0.98); }
@@ -831,7 +921,7 @@ html.lenis body {
     position: fixed;
     inset: 0;
     z-index: 80000;
-    background: rgba(18, 18, 18, 0.42);
+    background: rgba(28, 21, 15, 0.46);
     backdrop-filter: blur(3px);
     opacity: 0;
     pointer-events: none;
@@ -848,9 +938,9 @@ html.lenis body {
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-right: 1px solid #121212;
-    box-shadow: 0 0 60px -10px rgba(0, 0, 0, 0.4);
+    background: var(--m7-card);
+    border-right: 1px solid var(--m7-ink);
+    box-shadow: 0 0 60px -10px rgba(28, 21, 15, 0.42);
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
     visibility: hidden;
@@ -864,8 +954,8 @@ html.lenis body {
     gap: 12px;
     flex: 0 0 auto;
     padding: 16px 20px;
-    border-bottom: 1px solid #ececec;
-    background: #fafafa;
+    border-bottom: 1px solid var(--m7-line);
+    background: var(--m7-cream);
   }
   .m7-filters__close {
     background: none;
@@ -873,7 +963,7 @@ html.lenis body {
     cursor: pointer;
     font-size: 26px;
     line-height: 1;
-    color: #8a8a8a;
+    color: var(--m7-muted);
     padding: 4px 8px;
     min-height: 44px;
     min-width: 44px;
@@ -891,13 +981,13 @@ html.lenis body {
     display: block;
     flex: 0 0 auto;
     padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-    border-top: 1px solid #ececec;
-    background: #fff;
+    border-top: 1px solid var(--m7-line);
+    background: var(--m7-card);
   }
   .m7-filters__apply {
     width: 100%;
-    background: #121212;
-    color: #fff;
+    background: var(--m7-ink);
+    color: var(--m7-card);
     border: 0;
     border-radius: 4px;
     padding: 15px 20px;
@@ -965,28 +1055,18 @@ html.lenis body {
   }
 }
 
-/* Capabilities: one card at a time, so there is room to read it -------------
-   The card's content is absolutely positioned and pinned top-and-bottom with
-   space-between, which works only while the card is taller than its content.
-   On a phone it isn't, so the top block ran straight into the bullet list.
-   Below 900px the content returns to normal flow and the card grows to fit —
-   height follows content instead of content being forced into a height. */
-@media (max-width: 900px) {
-  .m7-cap-track { padding-right: var(--m7-pad) !important; }
-  .m7-cap-slide {
-    flex: 0 0 calc(100vw - 2 * var(--m7-pad)) !important;
-    height: auto !important;
-    min-height: clamp(400px, 96vw, 560px) !important;
-  }
-  .m7-cap-body {
-    position: relative !important;
-    inset: auto !important;
-    justify-content: flex-start !important;
-    gap: 26px;
-    /* top padding clears the ▣ IMAGE badge pinned at top:18 */
-    padding: 54px 24px 30px !important;
-  }
-  .m7-cap-bullets { gap: 11px !important; }
+/* Featured capabilities — sticky card stack ---------------------------------
+   The stack itself is pure CSS: each card sits in a normal-flow wrapper that is
+   `position: sticky` at an increasing offset, so a card's own height is exactly
+   the travel it gets before the next one pins over it. Only the footer needs a
+   breakpoint. */
+@media (max-width: 760px) {
+  /* Three columns of mono bullets do not fit a phone; stack them and let the
+     card grow rather than clipping the footer over the copy. */
+  .m7-stack__foot { grid-template-columns: 1fr !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m7-stack__card { transform: none !important; filter: none !important; }
 }
 
 /* Team: grid above 620px, swipeable carousel below -------------------------- */
@@ -1036,7 +1116,7 @@ html.lenis body {
     line-height: 0.86;
     padding-bottom: 0.08em;
     letter-spacing: -0.045em;
-    color: #fff;
+    color: var(--m7-card);
     text-align: left;
     white-space: nowrap;
     user-select: none;
@@ -1049,7 +1129,7 @@ html.lenis body {
 .m7-herofeat { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 @media (max-width: 1080px) and (min-width: 621px) {
   .m7-herofeat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .m7-herofeat > * { border-right: 0 !important; border-bottom: 1px solid #ececec; }
+  .m7-herofeat > * { border-right: 0 !important; border-bottom: 1px solid var(--m7-line); }
 }
 /* The headline's three hard line breaks are a desktop composition. Keeping
    them on a phone caps the type at ~44px before "Powering your home," wraps
@@ -1084,7 +1164,7 @@ html.lenis body {
     padding: 18px 22px 18px 0 !important;
     border-right: 0 !important;
   }
-  .m7-herofeat > * + * { padding-left: 22px !important; border-left: 1px solid #ececec; }
+  .m7-herofeat > * + * { padding-left: 22px !important; border-left: 1px solid var(--m7-line); }
 }
 
 /* The stat card deliberately overhangs the image on desktop; on a narrow
@@ -1143,12 +1223,20 @@ html.lenis body {
   }
   .m7-mosaic > * { min-height: 200px; }
 }
-/* Same problem, same fix, for the "Why Mode 7" S-flow cards. */
+/* Why Mode 7 — column hover + responsive collapse -------------------------- */
+.m7-why-col { transition: background .4s ease; }
+/* the design's own hover tint: the site's gold #F0C044 at 7% */
+.m7-why-col:hover { background: rgba(240, 192, 68, 0.07); }
+.m7-why-col:hover .m7-why-num { color: var(--m7-rust) !important; }
+/* !important is load-bearing: the number's resting colour is an inline style on
+   the element, and an inline style outranks any selector here without it. */
+.m7-why-num { transition: color .4s ease; }
 @media (max-width: 1080px) {
-  .m7-why-card {
-    grid-column: auto !important;
-    grid-row: auto !important;
-  }
+  .m7-why-grid { grid-template-columns: 1fr 1fr !important; }
+  .m7-why-col { border-top: 1px solid rgba(28, 21, 15, 0.16); }
+}
+@media (max-width: 620px) {
+  .m7-why-grid { grid-template-columns: 1fr !important; }
 }
 
 /* Numbered step rows: a 64px number column beside the text, stacked on phones. */
@@ -1470,7 +1558,7 @@ html.lenis body {
 .tradein-page .t-sel__i option { color: var(--ink); }
 @media (hover: hover) and (pointer: fine) { .tradein-page .t-sel__i:hover { border-color: #9a9a9a; } }
 .tradein-page .t-sel__i:focus-visible {
-  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(18, 18, 18, 0.09);
+  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(28, 21, 15, 0.12);
 }
 .tradein-page .t-sel__c {
   position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; pointer-events: none;
@@ -1490,7 +1578,7 @@ html.lenis body {
 }
 @media (hover: hover) and (pointer: fine) { .tradein-page .t-input:hover { border-color: #9a9a9a; } }
 .tradein-page .t-input:focus-visible {
-  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(18, 18, 18, 0.09);
+  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(28, 21, 15, 0.12);
 }
 .tradein-page .t-input[aria-invalid="true"] { border-color: var(--ink); border-style: dashed; }
 /* reserves its own line so nothing reflows when an error appears */

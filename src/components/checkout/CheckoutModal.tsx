@@ -11,7 +11,7 @@ import {
   saveCheckout,
   type CheckoutField,
 } from "@/lib/contact";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 /**
  * Checkout on WhatsApp.
@@ -226,7 +226,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={onClose}
             aria-label="Close"
-            data-cursor="grow"
             style={{
               background: "none",
               border: 0,
@@ -332,7 +331,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
 
           <button
             type="submit"
-            data-cursor="grow"
             disabled={submitting}
             style={{
               width: "100%",
@@ -375,7 +373,7 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-/** The cart's checkout CTA, styled to match ArrowButton's filled variant. */
+/** The cart's checkout CTA, styled to match ArrowButton's dark treatment. */
 export function CheckoutButton() {
   const [open, setOpen] = useState(false);
 
@@ -386,13 +384,12 @@ export function CheckoutButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        data-cursor="grow"
         style={{
           display: "inline-flex",
           alignItems: "center",
           gap: 10,
-          background: "#121212",
-          color: "#fff",
+          background: COLOR.dark,
+          color: COLOR.cream,
           border: 0,
           borderRadius: 4,
           padding: "13px 20px",

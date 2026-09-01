@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrowRightIcon, CloseIcon, SearchIcon } from "@/components/Icons";
 import { searchIndex } from "@/lib/content";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 /** Highlights the matched run inside a result label. */
 function mark(label: string, q: string): ReactNode {
@@ -13,7 +13,7 @@ function mark(label: string, q: string): ReactNode {
   return (
     <span>
       {label.slice(0, i)}
-      <strong style={{ fontWeight: 600, color: "#121212" }}>
+      <strong style={{ fontWeight: 600, color: COLOR.ink }}>
         {label.slice(i, i + q.length)}
       </strong>
       {label.slice(i + q.length)}
@@ -61,7 +61,7 @@ export function SearchOverlay({
         justifyContent: "center",
         alignItems: "flex-start",
         padding: 24,
-        background: "rgba(248,248,248,0.55)",
+        background: "rgba(239,230,209,0.62)",
         backdropFilter: "blur(13px)",
         WebkitBackdropFilter: "blur(13px)",
         animation: closing ? "m7menuOut .3s ease both" : "m7menuIn .28s ease both",
@@ -85,15 +85,15 @@ export function SearchOverlay({
             display: "flex",
             alignItems: "center",
             gap: 16,
-            background: "#fff",
-            border: "1px solid #ececec",
+            background: COLOR.card,
+            border: `1px solid ${COLOR.line}`,
             borderRadius: 6,
             padding: "6px 8px 6px 22px",
             boxShadow:
-              "0 30px 80px rgba(18,18,18,0.16),0 4px 14px rgba(18,18,18,0.06)",
+              "0 30px 80px rgba(28,21,15,0.16),0 4px 14px rgba(28,21,15,0.06)",
           }}
         >
-          <span style={{ flex: "0 0 auto", color: "#121212", display: "inline-flex" }}>
+          <span style={{ flex: "0 0 auto", color: COLOR.ink, display: "inline-flex" }}>
             <SearchIcon size={22} />
           </span>
           <input
@@ -111,7 +111,7 @@ export function SearchOverlay({
               fontSize: 22,
               fontWeight: 400,
               letterSpacing: "-0.4px",
-              color: "#121212",
+              color: COLOR.ink,
               padding: "12px 0",
             }}
           />
@@ -125,7 +125,7 @@ export function SearchOverlay({
               justifyContent: "center",
               width: 42,
               height: 42,
-              color: "#4a4a4a",
+              color: COLOR.body,
               cursor: "pointer",
               transition: "color .2s ease",
             }}
@@ -138,10 +138,10 @@ export function SearchOverlay({
         <div
           style={{
             marginTop: 14,
-            background: "#fff",
-            border: "1px solid #ececec",
+            background: COLOR.card,
+            border: `1px solid ${COLOR.line}`,
             borderRadius: 6,
-            boxShadow: "0 30px 80px rgba(18,18,18,0.12)",
+            boxShadow: "0 30px 80px rgba(28,21,15,0.12)",
             overflow: "hidden",
           }}
         >
@@ -159,7 +159,7 @@ export function SearchOverlay({
                 fontSize: 11,
                 letterSpacing: 1.5,
                 textTransform: "uppercase",
-                color: "#9a9a9a",
+                color: COLOR.muted,
               }}
             >
               {q ? "Results" : "Popular"}
@@ -169,7 +169,7 @@ export function SearchOverlay({
                 fontFamily: FONT.mono,
                 fontSize: 11,
                 letterSpacing: 1,
-                color: "#c2c2c2",
+                color: COLOR.hair,
               }}
             >
               {q ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : ""}
@@ -199,7 +199,7 @@ export function SearchOverlay({
                     style={{
                       flex: "1 1 auto",
                       fontSize: 18,
-                      color: "#1a1a1a",
+                      color: COLOR.ink,
                       letterSpacing: "-0.3px",
                     }}
                   >
@@ -212,15 +212,15 @@ export function SearchOverlay({
                       fontSize: 10,
                       letterSpacing: 1,
                       textTransform: "uppercase",
-                      color: "#9a9a9a",
-                      background: "#f2f2f2",
+                      color: COLOR.muted,
+                      background: COLOR.cream,
                       borderRadius: 99,
                       padding: "5px 11px",
                     }}
                   >
                     {r.type}
                   </span>
-                  <ArrowRightIcon size={18} strokeWidth={1.8} stroke="#121212" />
+                  <ArrowRightIcon size={18} strokeWidth={1.8} stroke={COLOR.ink} />
                 </div>
               ))}
             </div>
@@ -229,14 +229,14 @@ export function SearchOverlay({
               <div
                 style={{
                   fontSize: 19,
-                  color: "#1a1a1a",
+                  color: COLOR.ink,
                   letterSpacing: "-0.3px",
                   marginBottom: 6,
                 }}
               >
                 No results for &quot;{query}&quot;
               </div>
-              <div style={{ fontSize: 15, color: "#9a9a9a" }}>
+              <div style={{ fontSize: 15, color: COLOR.muted }}>
                 Try a device, service or energy term.
               </div>
             </div>

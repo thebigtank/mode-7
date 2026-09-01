@@ -83,7 +83,7 @@ export function useSevenEyes() {
       const cy = H / 2 - M * 0.06 + Math.min(canvas._gy!, 0) * maxShift;
 
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "#121212";
+      ctx.fillStyle = "#1C150F";
       const ry = Math.max(eyeW * 0.5, (eyeH / 2) * openK); // collapse to a slit on blink
       ctx.beginPath();
       ctx.ellipse(cx - gap / 2, cy, eyeW / 2, ry, 0, 0, 6.2832);

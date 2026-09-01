@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk, Space_Mono } from "next/font/google";
+import {
+  Instrument_Serif,
+  Inter,
+  JetBrains_Mono,
+  Outfit,
+  Space_Grotesk,
+  Space_Mono,
+} from "next/font/google";
 import { SiteShell } from "@/components/site/SiteShell";
 import "./globals.css";
 
@@ -26,6 +33,34 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
+/* ── /homepage-v2 only ──────────────────────────────────────────────────────
+ * Three extra faces, added ALONGSIDE the three above (which v1 depends on and
+ * which are untouched). They stand in for the reference site's licensed type:
+ * Instrument Serif for display headings, Inter for body/UI, JetBrains Mono for
+ * the small uppercase labels. Exposed via `V2_FONT` in `src/lib/theme-v2.ts`.
+ */
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Mode 7 — Powering your home, your pocket, and your future.",
   description:
@@ -38,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable}`}
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <SiteShell>{children}</SiteShell>

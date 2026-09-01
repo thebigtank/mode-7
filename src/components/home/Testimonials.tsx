@@ -5,7 +5,19 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@/components/Icons";
 import { Overline, SectionHeading } from "@/components/wireframe/Primitives";
 import { useCarouselLoop } from "@/hooks/useCarouselLoop";
 import { testimonials } from "@/lib/content";
-import { FONT, stripe } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
+
+/**
+ * Avatars, keyed by the reviewer's name. All CC0 — see public/hero/CREDITS.md.
+ * The list is tripled for the loop, so this keys on the name and never on the
+ * index. Decorative: the name is set in text right beside it.
+ */
+const AVATAR: Record<string, string> = {
+  "Daniel Okafor": "/hero/av-1.webp",
+  "Amara Eze": "/hero/av-2.webp",
+  "Tunde Bello": "/hero/av-3.webp",
+  "Grace Adeyemi": "/hero/av-4.webp",
+};
 
 const navBtn = {
   display: "inline-flex",
@@ -13,9 +25,9 @@ const navBtn = {
   height: 46,
   alignItems: "center",
   justifyContent: "center",
-  background: "#fff",
-  color: "#121212",
-  border: "1px solid #d6d6d6",
+  background: COLOR.card,
+  color: COLOR.ink,
+  border: `1px solid ${COLOR.lineStrong}`,
   borderRadius: 4,
   cursor: "pointer",
 } as const;
@@ -32,9 +44,12 @@ export function Testimonials() {
   return (
     <section
       style={{
-        background: "#fafafa",
-        borderTop: "1px solid #f0f0f0",
-        borderBottom: "1px solid #f0f0f0",
+        /* The rust band — the last coloured moment before the footer. Rust
+           ships at #9E4B2A so cream on it is 4.85:1 rather than 4.27:1, which
+           is what lets the overline and the intro paragraph set in cream. */
+        background: COLOR.rust,
+        borderTop: "1px solid rgba(239,230,209,0.28)",
+        borderBottom: "1px solid rgba(239,230,209,0.28)",
         padding: "100px 0",
       }}
     >
@@ -50,8 +65,8 @@ export function Testimonials() {
           }}
         >
           <div>
-            <Overline>Customer Reviews</Overline>
-            <SectionHeading style={{ maxWidth: 520 }}>
+            <Overline color={COLOR.onRust}>Customer Reviews</Overline>
+            <SectionHeading style={{ maxWidth: 520, color: COLOR.onRust }}>
               From happy customers to smart-home visionaries.
             </SectionHeading>
           </div>
@@ -59,7 +74,7 @@ export function Testimonials() {
             style={{
               fontSize: 18,
               lineHeight: 1.6,
-              color: "#5a5a5a",
+              color: COLOR.onRust,
               margin: 0,
               maxWidth: 330,
             }}
@@ -88,15 +103,24 @@ export function Testimonials() {
               /* never wider than the screen — a slide you can't see the edge of
                  reads as broken rather than as a carousel */
               width: "min(440px, 82vw)",
-              background: "#fff",
-              border: "1px solid #ececec",
+              background: COLOR.card,
+              border: "1px solid rgba(239,230,209,0.28)",
               borderRadius: 4,
               padding: "32px 34px",
               display: "flex",
               flexDirection: "column",
             }}
           >
-            <div style={{ fontSize: 16, letterSpacing: 3, marginBottom: 18 }}>
+            <div
+              style={{
+                fontSize: 16,
+                letterSpacing: 3,
+                /* the stars sit on the cream CARD, not the band: 5.25:1 */
+                marginBottom: 18,
+                color: COLOR.rust,
+              }}
+              aria-label="Rated 5 out of 5"
+            >
               ★★★★★
             </div>
             <p
@@ -104,7 +128,7 @@ export function Testimonials() {
                 fontWeight: 400,
                 fontSize: 19,
                 lineHeight: 1.6,
-                color: "#2a2a2a",
+                color: COLOR.inkSoft,
                 margin: "0 0 26px",
                 flex: 1,
               }}
@@ -116,7 +140,7 @@ export function Testimonials() {
                 display: "flex",
                 alignItems: "center",
                 gap: 14,
-                borderTop: "1px solid #ececec",
+                borderTop: `1px solid ${COLOR.line}`,
                 paddingTop: 20,
               }}
             >
@@ -125,8 +149,10 @@ export function Testimonials() {
                   width: 44,
                   height: 44,
                   borderRadius: 99,
-                  background: stripe("#e0e0e0", "#efefef", 6),
-                  border: "1px solid #e2e2e2",
+                  backgroundImage: `url(${AVATAR[t.name] ?? ""})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  border: `1px solid ${COLOR.lineStrong}`,
                 }}
               />
               <div>
@@ -138,7 +164,7 @@ export function Testimonials() {
                     fontFamily: FONT.mono,
                     fontSize: 11,
                     letterSpacing: 1,
-                    color: "#9a9a9a",
+                    color: COLOR.muted,
                     marginTop: 3,
                   }}
                 >
@@ -171,7 +197,7 @@ export function Testimonials() {
             flex: 1,
             height: 4,
             borderRadius: 99,
-            background: "#e6e6e6",
+            background: "rgba(239,230,209,0.30)",
             position: "relative",
             overflow: "hidden",
           }}
@@ -183,7 +209,8 @@ export function Testimonials() {
               top: 0,
               height: "100%",
               width: `${Math.max(4, Math.round(progress * 100))}%`,
-              background: "#121212",
+              /* cream, not rust: rust on the rust band is no progress bar */
+              background: COLOR.cream,
               borderRadius: 99,
               transition: "width .35s ease",
             }}

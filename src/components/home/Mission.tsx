@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { ArrowButton } from "@/components/ArrowButton";
 import { Annotation, Overline, SectionHeading } from "@/components/wireframe/Primitives";
 import { useStatCounter } from "@/hooks/useStatCounter";
-import { FONT, stripe } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 /**
@@ -40,7 +40,7 @@ export function Mission() {
           style={{
             fontSize: 18,
             lineHeight: 1.65,
-            color: "#5a5a5a",
+            color: COLOR.body,
             margin: "0 0 32px",
             maxWidth: 520,
           }}
@@ -62,23 +62,12 @@ export function Mission() {
             height: 480,
             borderRadius: 4,
             overflow: "hidden",
-            background: stripe(),
-            border: "1px solid #e2e2e2",
+            backgroundImage: "url(/hero/workshop.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            border: `1px solid ${COLOR.lineStrong}`,
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: 20,
-              left: 22,
-              fontFamily: FONT.mono,
-              fontSize: 11,
-              letterSpacing: 1,
-              color: "#9a9a9a",
-            }}
-          >
-            ▣ TEAM / WORKSHOP IMAGE
-          </div>
           {WIREFRAME.showAnnotations && (
             <Annotation
               style={{
@@ -107,11 +96,11 @@ export function Mission() {
             height: 146,
             display: "flex",
             flexDirection: "column",
-            background: "rgba(18,18,18,0.95)",
-            border: "1px solid rgba(255,255,255,0.12)",
+            background: COLOR.espresso,
+            border: `1px solid ${COLOR.onEspressoLine}`,
             borderRadius: 4,
             overflow: "hidden",
-            boxShadow: "0 22px 50px rgba(0,0,0,0.34)",
+            boxShadow: "0 22px 50px rgba(28,21,15,0.36)",
           }}
         >
           <canvas
@@ -124,11 +113,11 @@ export function Mission() {
               fontFamily: FONT.mono,
               fontSize: 10,
               letterSpacing: 1,
-              color: "rgba(255,255,255,0.55)",
+              color: COLOR.onEspressoMuted,
               textTransform: "uppercase",
               textAlign: "center",
               padding: "10px 8px 12px",
-              background: "rgba(18,18,18,0.95)",
+              background: COLOR.espresso,
             }}
           >
             Devices vetted &amp; sealed

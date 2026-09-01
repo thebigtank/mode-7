@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { CursorDot } from "./CursorDot";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { IntroLoader } from "./IntroLoader";
@@ -11,15 +10,16 @@ import { RevealWordmark } from "./RevealWordmark";
 import { SearchOverlay } from "./SearchOverlay";
 import { SevenWidget } from "./SevenWidget";
 import { lockPageScroll, unlockPageScroll, useLenis } from "@/hooks/useLenis";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
+import { V2, V2_FONT } from "@/lib/theme-v2";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 /** The intro plays once per full page load, not on client-side navigations. */
 let introPlayed = false;
 
 /**
- * Site chrome shared by every route: nav, mega menu, search, Seven, the custom
- * cursor, the footer card and the sticky-reveal wordmark behind it.
+ * Site chrome shared by every route: nav, mega menu, search, Seven, the footer
+ * card and the sticky-reveal wordmark behind it.
  *
  * Structure matters here. Page content lives in an OPAQUE white wrapper
  * (`z-index: 1`) that slides up over the fixed wordmark layer; the spacer after
@@ -109,20 +109,48 @@ export function SiteShell({ children }: { children: ReactNode }) {
     setIntroActive(false);
   }, []);
 
+  /**
+   * `/homepage-v2` is a parallel exploration that ships its OWN header and
+   * footer on its own palette, so the v1 chrome — nav, mega menu, search, the
+   * footer card, the reveal wordmark and the Seven widget — is suppressed on
+   * that route and only that route. `useLenis()` above still runs, so smooth
+   * scroll applies to v2 as well.
+   *
+   * This early return sits after EVERY hook call: putting it any higher would
+   * make hook order conditional and break the rules of hooks on navigation
+   * into or out of the route.
+   */
+  const isV2 = pathname.startsWith("/homepage-v2");
+  if (isV2) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          background: V2.wash,
+          color: V2.ink,
+          /* v2 has its own type stack; v1's FONT is untouched below */
+          fontFamily: V2_FONT.body,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
         width: "100%",
         minHeight: "100vh",
-        background: "#fff",
-        color: "#121212",
+        background: COLOR.cream,
+        color: COLOR.ink,
         fontFamily: FONT.body,
         overflowX: "clip",
         position: "relative",
       }}
     >
       {/* content layer: opaque, slides up over the reveal wordmark */}
-      <div style={{ position: "relative", zIndex: 1, background: "#fff" }}>
+      <div style={{ position: "relative", zIndex: 1, background: COLOR.cream }}>
         {introActive && <IntroLoader onDone={onIntroDone} />}
 
         <Header
@@ -138,10 +166,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
         {children}
 
-        {/* The CTA banner used to supply the gap above the footer. Most pages'
-            last section has no bottom padding, so hold that space here — one
-            place, rather than patching ten pages. */}
-        <div style={{ height: 104 }} />
+        {/* Breathing room above the footer, held here rather than patched into
+            ten pages: most routes end on a cream section with no bottom padding
+            and need the gap. The homepage is the exception — it now ends on a
+            full-bleed coloured band (Customer Reviews), which has to meet the
+            footer flush, so the spacer collapses to nothing there. */}
+        {pathname !== "/" && <div style={{ height: 104 }} />}
 
         <Footer />
       </div>
@@ -155,8 +185,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
       {WIREFRAME.showSeven && !introActive && (
         <SevenWidget hidden={menuOpen || searchOpen} />
       )}
-
-      <CursorDot />
     </div>
   );
 }

@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useId, useState, type CSSProperties } from "react";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
-type Variant = "fill" | "outline";
+type Variant = "fill" | "outline" | "ink";
 type Direction = "right" | "up";
 
 export type ArrowButtonProps = {
@@ -23,6 +23,17 @@ export type ArrowButtonProps = {
  * holding a single dotted arrow; on hover the arrow scrolls in its direction and
  * loops (a second copy is offset so exactly one arrow shows at idle).
  * Near-pointy corners: 4px on the button, 3px on the tile.
+ *
+ * TWO treatments, not three:
+ *  - DARK    `dark` ground, cream label, no border, cream icon tile. Every
+ *            primary action on the site, on any ground. `dark` is the site's
+ *            single dark surface — it matches the footer, so every dark thing
+ *            on the page is one colour. Reachable as either `fill` or `ink`:
+ *            `ink` is a HISTORICAL ALIAS kept only so the ~30 existing call
+ *            sites did not have to be churned. The two are identical; prefer
+ *            `fill` in new code. `fill` used to be rust and no longer is.
+ *  - LIGHT   `outline`: card ground, ink label, hairline border, dark icon
+ *            tile. The secondary action on any ground.
  */
 export function ArrowButton({
   label,
@@ -35,13 +46,25 @@ export function ArrowButton({
   const [hovered, setHovered] = useState(false);
 
   const isUp = direction === "up";
-  const isFill = variant !== "outline";
+  // `fill` and `ink` are the same dark button; only `outline` differs.
+  const isDark = variant !== "outline";
   const kf = isUp ? "m7arrowLoopUp" : "m7arrowLoop";
   const arrowAnim = hovered ? `${kf} 0.75s linear infinite` : "none";
   const uid = useId();
-  const patternId = isFill ? `m7agrid-fill-${uid}` : `m7agrid-outline-${uid}`;
-  const dotFill = isFill ? "rgba(18,18,18,0.16)" : "rgba(255,255,255,0.18)";
-  const arrowFill = isFill ? "#121212" : "#ffffff";
+  const patternId = `m7agrid-${variant}-${uid}`;
+
+  // The tile inverts against the button, and the dot grid is drawn in whatever
+  // sits on the tile at low alpha so it stays a texture, not a second mark.
+  // cream is rgb(239,230,209); espresso is rgb(28,21,15).
+  //
+  // Note which ground each triple is drawn ON: the dark button's tile is CREAM,
+  // so its arrow and dots are espresso — that is text on a light tile, not a
+  // mark on the dark surface, and it does not follow `dark`. (A `dark` tile on
+  // a `dark` button would be invisible.) The outline button is the inverse: its
+  // tile IS the dark surface, and its arrow/dots are cream.
+  const tileBg = isDark ? COLOR.cream : COLOR.dark;
+  const arrowFill = isDark ? COLOR.espresso : COLOR.cream;
+  const dotFill = isDark ? "rgba(28,21,15,0.18)" : "rgba(239,230,209,0.18)";
 
   // The vertical arrow, dotted 5×7-ish: shaft plus a chevron head.
   const upDots = (
@@ -76,17 +99,28 @@ export function ArrowButton({
   const dots = isUp ? upDots : rightDots;
   const offset = isUp ? "translate(0,40)" : "translate(-40,0)";
 
+  // espressoRaise #2D261E is darker than #3C3521 and would read as a press-in
+  // rather than a lift, so `dark` gets its own raise.
+  const bg = isDark
+    ? hovered
+      ? COLOR.darkRaise
+      : COLOR.dark
+    : hovered
+      ? COLOR.cream
+      : COLOR.card;
+
   const body: CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     gap: 10,
-    background: isFill ? "#121212" : "#fff",
-    color: isFill ? "#fff" : "#121212",
-    border: isFill ? "none" : "1px solid #d6d6d6",
+    background: bg,
+    color: isDark ? COLOR.cream : COLOR.ink,
+    border: isDark ? "none" : `1px solid ${COLOR.lineStrong}`,
     borderRadius: 4,
     padding: "5px 5px 5px 18px",
     cursor: "pointer",
     textDecoration: "none",
+    transition: "background .18s ease, border-color .18s ease",
     ...style,
   };
 
@@ -103,7 +137,7 @@ export function ArrowButton({
           height: 32,
           borderRadius: 3,
           overflow: "hidden",
-          background: isFill ? "#fff" : "#121212",
+          background: tileBg,
         }}
       >
         <svg width="32" height="32" viewBox="0 0 40 40" style={{ display: "block" }}>
@@ -136,18 +170,16 @@ export function ArrowButton({
     onMouseLeave: () => setHovered(false),
   };
 
-  // data-cursor="grow" is the opt-in for the invert cursor dot — this is the
-  // site's real CTA, so it is exactly the kind of thing that should grow it.
   if (href) {
     return (
-      <Link href={href} style={body} data-cursor="grow" {...handlers}>
+      <Link href={href} style={body} {...handlers}>
         {inner}
       </Link>
     );
   }
 
   return (
-    <span style={body} onClick={onClick} data-cursor="grow" {...handlers}>
+    <span style={body} onClick={onClick} {...handlers}>
       {inner}
     </span>
   );

@@ -116,7 +116,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
             type="button"
             onClick={onClose}
             aria-label="Close"
-            data-cursor="grow"
             style={{
               background: "none",
               border: 0,
@@ -229,7 +228,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
           >
             <Link
               href="/product"
-              data-cursor="grow"
               style={{
                 fontFamily: FONT.body,
                 fontSize: 15,
@@ -245,7 +243,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
             </Link>
             <Link
               href="/trade-in"
-              data-cursor="grow"
               style={{
                 fontFamily: FONT.body,
                 fontSize: 15,
@@ -387,7 +384,6 @@ export function ProductGrid() {
             <button
               type="button"
               className="m7-ai-chip"
-              data-cursor="grow"
               aria-label={`Ask Seven about the ${p.name}`}
               onClick={() => setOpen(p)}
               style={{

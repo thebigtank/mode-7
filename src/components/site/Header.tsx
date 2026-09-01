@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { BagIcon, SearchIcon } from "@/components/Icons";
 import { useHeaderHide } from "@/hooks/useHeaderHide";
-import { FONT } from "@/lib/theme";
+import { COLOR, FONT } from "@/lib/theme";
 
 /**
  * Global nav. MODE 7 wordmark on the left; on the right ONLY search, the live
@@ -54,10 +54,13 @@ export function Header({
         left: menuOpen ? 0 : undefined,
         right: menuOpen ? 0 : undefined,
         zIndex: 250,
-        background: "rgba(255,255,255,0.9)",
-        color: "#121212",
+        /* Translucent cream, not translucent white — the header floats over the
+           rust hero, and a white veil there read as a wash rather than as the
+           page's own ground continuing. */
+        background: "rgba(239,230,209,0.9)",
+        color: COLOR.ink,
         backdropFilter: "blur(12px)",
-        borderBottom: "1px solid #ededed",
+        borderBottom: `1px solid ${COLOR.line}`,
         transition: "transform .35s ease,background .3s ease",
         willChange: "transform",
         transform: menuOpen ? "translateY(0)" : undefined,
@@ -96,7 +99,6 @@ export function Header({
               <span
                 onClick={onOpenSearch}
                 aria-label="Search"
-                data-cursor="grow"
                 style={{
                   display: "inline-flex",
                   width: 40,
@@ -135,9 +137,12 @@ export function Header({
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      background: "#121212",
-                      color: "#fff",
-                      border: "1.5px solid #fff",
+                      /* rust: the page's action colour, and the one badge on the
+                         page. cream on rust is 4.85:1. Ringed in cream so it
+                         separates from the bag icon behind it. */
+                      background: COLOR.rust,
+                      color: COLOR.cream,
+                      border: `1.5px solid ${COLOR.cream}`,
                       borderRadius: 99,
                       fontFamily: FONT.head,
                       fontSize: 10,
@@ -158,7 +163,6 @@ export function Header({
             onMouseEnter={() => setHamHover(true)}
             onMouseLeave={() => setHamHover(false)}
             aria-label="Menu"
-            data-cursor="grow"
             style={{
               display: "inline-flex",
               flexDirection: "column",

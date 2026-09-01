@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowRightIcon, socials } from "@/components/Icons";
 import { useMenuDots } from "@/hooks/useMenuDots";
 import { legalLinks, menuItems } from "@/lib/content";
-import { FONT, containerPad, stripe } from "@/lib/theme";
+import { COLOR, FONT, containerPad, stripe } from "@/lib/theme";
 
 /**
  * Full-screen mega menu. Opened by the nav hamburger.
@@ -54,7 +54,7 @@ export function MegaMenu({
           position: "fixed",
           inset: 0,
           zIndex: 180,
-          background: "rgba(18,18,18,0.04)",
+          background: "rgba(28,21,15,0.04)",
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
           animation: backdropAnim,
@@ -68,7 +68,11 @@ export function MegaMenu({
           right: 0,
           height: "100dvh",
           zIndex: 199,
-          background: "#121212",
+          /* The menu already opened on a two-stage curtain: a solid sweep, then
+             the light panel over it. Recolouring stage one rust makes an
+             existing transition the page's loudest use of the palette at no
+             motion cost — same curtain, same timing. */
+          background: COLOR.rust,
           animation: curtainBlackAnim,
         }}
       />
@@ -81,8 +85,8 @@ export function MegaMenu({
           right: 0,
           height: "100dvh",
           zIndex: 200,
-          background: "#fff",
-          color: "#121212",
+          background: COLOR.card,
+          color: COLOR.ink,
           fontFamily: FONT.body,
           paddingTop: 75,
           overflowX: "hidden",
@@ -127,8 +131,6 @@ export function MegaMenu({
                   }}
                 >
                   <div
-                    data-cursor="grow"
-                    data-cursor-skip="1"
                     onMouseEnter={() => setHover(it.label)}
                     onMouseLeave={() => setHover(null)}
                     onClick={() => {
@@ -177,7 +179,7 @@ export function MegaMenu({
                       <ArrowRightIcon
                         size={26}
                         strokeWidth={1.9}
-                        stroke="#121212"
+                        stroke={COLOR.ink}
                         style={{
                           flex: "0 0 auto",
                           transition: "transform .3s cubic-bezier(.16,1,.3,1)",
@@ -203,7 +205,7 @@ export function MegaMenu({
               display: "flex",
               flexDirection: "column",
               padding: `50px ${containerPad()} 44px 52px`,
-              borderLeft: "1px solid rgba(0,0,0,0.1)",
+              borderLeft: "1px solid rgba(28,21,15,0.1)",
             }}
           >
             <canvas
@@ -227,7 +229,7 @@ export function MegaMenu({
                 borderRadius: 6,
                 overflow: "hidden",
                 background: stripe(),
-                border: "1px solid #e2e2e2",
+                border: `1px solid ${COLOR.lineStrong}`,
                 animation: blurIn("2.15s"),
               }}
             >
@@ -239,7 +241,7 @@ export function MegaMenu({
                   fontFamily: FONT.mono,
                   fontSize: 11,
                   letterSpacing: 1,
-                  color: "#9a9a9a",
+                  color: COLOR.muted,
                 }}
               >
                 ▣ {hover || "Mode 7"}
@@ -252,7 +254,7 @@ export function MegaMenu({
                 fontFamily: FONT.body,
                 fontSize: 20,
                 lineHeight: 1.6,
-                color: "#5a5a5a",
+                color: COLOR.body,
                 margin: "26px 0 0",
                 animation: blurIn("2.46s"),
               }}
@@ -269,7 +271,7 @@ export function MegaMenu({
                   display: "flex",
                   gap: 10,
                   marginBottom: 24,
-                  color: "#121212",
+                  color: COLOR.ink,
                   animation: blurIn("2.72s"),
                 }}
               >
@@ -278,14 +280,13 @@ export function MegaMenu({
                     key={s.name}
                     className="m7-social"
                     aria-label={s.name}
-                    data-cursor="grow"
                     style={{
                       display: "inline-flex",
                       width: 40,
                       height: 40,
                       alignItems: "center",
                       justifyContent: "center",
-                      border: "1px solid #dcdcdc",
+                      border: `1px solid ${COLOR.lineStrong}`,
                       borderRadius: "50%",
                       cursor: "pointer",
                     }}
@@ -306,8 +307,7 @@ export function MegaMenu({
                   <span
                     key={l}
                     className="m7-muted-link"
-                    data-cursor="grow"
-                    style={{ fontSize: 14, color: "#6a6a6a", cursor: "pointer" }}
+                    style={{ fontSize: 14, color: COLOR.body, cursor: "pointer" }}
                   >
                     {l}
                   </span>

@@ -79,7 +79,7 @@ export function useMenuDots() {
         d.r += (BASE_R + (MAX_R - BASE_R) * t - d.r) * LERP;
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.r, 0, 6.2832);
-        ctx.fillStyle = `rgba(18,18,18,${d.o.toFixed(3)})`;
+        ctx.fillStyle = `rgba(28,21,15,${d.o.toFixed(3)})`;
         ctx.fill();
       }
     };

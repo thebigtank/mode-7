@@ -25,7 +25,10 @@ export function useReveal(ref: RefObject<HTMLElement | null>) {
       const n = spans.length;
       const active = Math.round(p * n);
       for (let i = 0; i < n; i++) {
-        (spans[i] as HTMLElement).style.color = i < active ? "#121212" : "#cfcfcf";
+        /* Tone-on-tone: characters wait as a darker gold (goldDeep, 1.68:1 on
+           the gold band — near-invisible by design, the reference's signature)
+           and resolve to espresso at 10.60:1. Cream would be 1.37:1 here. */
+        (spans[i] as HTMLElement).style.color = i < active ? "#1C150F" : "#B99436";
       }
     };
 
