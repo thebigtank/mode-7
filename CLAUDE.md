@@ -133,6 +133,12 @@ section shape was **repurposed with real content, never filled with invented fac
 - The stats band renders `logos.length` and `pillars.length`, never hardcoded numbers.
   (A brief once asserted 14 brand partners; the array has 13. Derive, don't assert.)
 - The hero's rotating word set must keep the sentence tail true for every entry.
+  **And no pool word may contain a descender.** The rolling slot's mask clips at the
+  line box (1.04em), not the font box, because clipping at the font box let a slice of
+  the outgoing word float above the headline and cut a bar through line 2. Every current
+  word (Pocket, Home, Office, Studio, Commute, Future) clears a 1.04em box by >=8px top
+  and >=12px bottom. Adding a word with a `g`, `y`, `p`, `q` or `j` — "Workshop", say —
+  requires re-deriving the mask height first.
 
 **Imagery:** 25 CC0 files in `public/hero/`, provenance in `public/hero/CREDITS.md`.
 The team and testimonial faces are **stock models beside invented names and quotes** — fine
