@@ -288,7 +288,7 @@ export default function GreenEnergyPage() {
               The Power of Energy Independence
             </h2>
             <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
-              Switching to solar isn't just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint.
+              Switching to solar isn&rsquo;t just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint.
             </p>
           </div>
           <div>
@@ -391,7 +391,7 @@ export default function GreenEnergyPage() {
                   lineHeight: 1.1,
                 }}
               >
-                The sun doesn't send a bill.
+                The sun doesn&rsquo;t send a bill.
               </div>
               <div style={{ fontSize: 13, color: "#6a6a6a", marginTop: 6 }}>
                 No fuel to buy, nothing to burn — just free daylight.
