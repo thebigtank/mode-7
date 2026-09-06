@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { ArrowButton } from "@/components/ArrowButton";
+import { ConditionsLedger } from "@/components/about/ConditionsLedger";
 import { RevealController } from "@/components/about/RevealController";
 import { WhyStatement } from "@/components/about/WhyStatement";
-import { WIREFRAME } from "@/lib/wireframe-config";
+import { ButtonV2 } from "@/components/home-v2/ButtonV2";
+import { Mono, P } from "@/components/home-v2/Ui";
+import { logos } from "@/lib/content";
+import { V2 } from "@/lib/theme-v2";
 
 export const metadata: Metadata = {
   title: "About — Mode 7",
@@ -14,22 +17,26 @@ export const metadata: Metadata = {
 
 const conditions = [
   {
-    n: "01",
-    t: "Power is not a given",
+    /* was "Power is not a given" (5 words) — shortened to fit the icon row's
+       3-word budget. "Unreliable grid power" restates the body's own opening
+       clause ("Grid supply is intermittent") rather than a new claim. */
+    t: "Unreliable grid power",
     b: "Grid supply is intermittent, and planning around it is ordinary life rather than an emergency. A device is only as useful as the energy behind it — which is why panels, inverters and batteries sit in our catalogue beside the laptops, not in a separate business.",
   },
   {
-    n: "02",
+    /* already 3 words — kept as-is. */
     t: "Trust is scarce",
     b: 'Grey imports. Refurbished units sold as new. Warranties that evaporate on first contact. "Sealed" is a claim most of this market cannot actually back, so we made verification a documented process with a paper trail — and only then started using the word.',
   },
   {
-    n: "03",
-    t: "Hardware is expensive against income",
+    /* was "Hardware is expensive against income" (5 words) — shortened.
+       "Hardware outpaces income" restates the body's own claim ("cost
+       several months of earnings") without asserting anything new. */
+    t: "Hardware outpaces income",
     b: "A flagship device can cost several months of earnings. Certified refurbished is not a lesser tier for people who cannot afford better — for most buyers it is the difference between having the tool and going without it entirely.",
   },
   {
-    n: "04",
+    /* already 3 words — kept as-is. */
     t: "Devices are livelihoods",
     b: "The phone in your hand or the laptop on your desk is frequently the business itself. Downtime is lost income, not inconvenience. That turns upgrade paths and trade-in liquidity into commercial questions that deserve commercial answers.",
   },
@@ -55,39 +62,29 @@ const serve = [
 
 const divisions = [
   {
-    n: "01",
     t: "Premium Devices",
     b: "Flagship phones, business laptops and pro tablets across thirteen brands. Genuine, factory-sealed, inspected before dispatch, and covered by the manufacturer's warranty as well as ours.",
-    ref: "Answers 02",
     cls: "a-b1",
     fill: true,
   },
   {
-    n: "02",
     t: "Certified Refurbished",
     b: "Renewed, graded and sealed again — a fifty-point inspection, a twelve-month warranty, and the exact grade published before you buy rather than discovered after.",
-    ref: "Answers 02 · 03",
     cls: "a-b2",
   },
   {
-    n: "03",
     t: "Energy & Solar",
     b: "Panels, inverters, home batteries and portable power. Sized against real consumption — so everything else in the catalogue keeps working when the grid doesn't.",
-    ref: "Answers 01",
     cls: "a-b3 a-bcell--ink",
   },
   {
-    n: "04",
     t: "Smart Home",
     b: "Lighting, climate and security as compatible kits you start small and extend — never a whole-house commitment made in one go.",
-    ref: "Answers 01 · 03",
     cls: "a-b4",
   },
   {
-    n: "05",
     t: "Trade-In & Upgrade",
     b: "A valuation in about a minute, applied instantly against anything in store. Capital sitting idle inside an old device becomes the deposit on the next one, without a negotiation.",
-    ref: "Answers 03 · 04",
     cls: "a-b5",
   },
 ];
@@ -127,24 +124,32 @@ const M_HEIGHTS = [150, 212, 176, 240, 192, 164, 226, 200];
 const M_NCOLS = 7;
 const M_PER_COL = 3;
 
-/* --------------------------------------------------------------- helpers */
-
-function Overline({ children }: { children: string }) {
-  return <div className="a-over">{`// ${children}`}</div>;
-}
-
 /* -------------------------------------------------------------------- page */
 
 export default function AboutPage() {
   return (
     <div className="about-page">
+      {/* Chrome (V2Styles, HeaderV2, FooterV2) is mounted once by SiteShell
+          for every v2 route — see the route-decision note there. This page
+          renders only its own sections. */}
       <RevealController />
 
-      {/* ===== HERO ===== */}
-      <section className="a-wrap a-hero">
+      {/* ===== HERO =====
+          Full-bleed white ground: `.a-hero` alone on the <section> (no
+          `.a-wrap`), so its background spans edge to edge; the 1320px site
+          container is the INNER div below instead. Carrying both classes on
+          the same element (the previous version here) boxes the white
+          background into a centred `.a-wrap` card with the wash ground
+          showing on both sides at wide viewports — measured on the rendered
+          page, not assumed. Every child keeps the exact layout it had
+          before: `.a-wrap`'s own rule (max-width/margin/padding-inline) now
+          applies one level down, to this wrapper, instead of to the
+          section. */}
+      <section className="a-hero">
+        <div className="a-wrap">
         <div className="a-hero__grid">
           <div className="a-stack" data-rv>
-            <Overline>About Mode 7</Overline>
+            <Mono dot>About Mode 7</Mono>
             <h1 className="a-hero-h1">
               Owning good technology should never be a gamble.
             </h1>
@@ -156,7 +161,7 @@ export default function AboutPage() {
               nobody solves them together.
             </p>
             <div>
-              <ArrowButton
+              <ButtonV2
                 label="Explore Our Services"
                 variant="fill"
                 href="/services"
@@ -169,49 +174,130 @@ export default function AboutPage() {
           <span className="a-label">Founded 2019</span>
           <span className="a-label">12 cities</span>
           <span className="a-label">50K+ devices vetted</span>
-          <span className="a-label">13 premium brands</span>
+          {/* Derived, not asserted — CLAUDE.md's content rule exists because
+              a brief once hardcoded "14" against a 13-entry array. This was
+              the same bug: a literal "13" against `logos`, which now has 20
+              entries. */}
+          <span className="a-label">{logos.length} premium brands</span>
         </div>
-
-        <div className="a-ph a-hero__band" data-rv>
-          <span className="a-ph__tag">
-            ▣ WORKSHOP — INTAKE &amp; VERIFICATION BENCH
-          </span>
-          {WIREFRAME.showAnnotations && (
-            <span
-              className="a-note"
-              style={{ position: "absolute", right: 18, bottom: 18 }}
-            >
-              PARALLAX IMAGE REVEAL
-            </span>
-          )}
         </div>
       </section>
+
+      {/* ===== HERO 02 — full-bleed verification-bench photo =====
+          Mirrors the pattern already established in `services/page.tsx`'s
+          own "HERO 02" (search that file for the name): a full-bleed photo,
+          an eyebrow + serif headline + short line + two buttons overlaid
+          bottom-left, one floating frosted-glass stat card bottom-right.
+          Reused rather than reinvented — same card treatment (blur, ring,
+          shadow), same button pair semantics (fill primary, outline
+          secondary).
+
+          WHERE THE WHITE SECTION ENDS: `.a-hero` (white, full-bleed) stops
+          at the bottom of the stats row above — this block is a SEPARATE
+          full-bleed element starting immediately after it with NO gap, its
+          own ground being the photograph. That is deliberately the same
+          zero-seam approach `.a-hero` itself uses: no element in this
+          stretch of the page is allowed to leave a gap that falls through to
+          SiteShell's own root colour.
+
+          COPY, all reused, none invented (CLAUDE.md's content rule):
+          - eyebrow: "About Mode 7", already this page's own hero eyebrow.
+          - headline: `WhyStatement`'s exact line, quoted below it in "Why We
+            Exist" — reused here as plain static text (not the animated
+            gold-to-ink component) because it is the one existing sentence on
+            this page that is actually ABOUT verification, which is what this
+            photograph shows.
+          - supporting line: a verbatim clause from the "Why We Exist" body
+            copy below ("Every unit carrying our name is sourced, inspected,
+            sealed and warrantied by us.").
+          - buttons: the same fill CTA already in the hero above it, paired
+            with "Value Your Device" — the exact secondary-action label/route
+            already used this way on `/services` and `/homepage-v2`.
+          - stat card: "50K+ / Devices vetted & sealed" is the exact figure
+            and label already used in "Mission & Vision" below (`.a-stats`),
+            not a new number for this one card.
+          The four facts already on the page (founded year, cities, devices,
+          brands) are NOT dropped for one card: they stay exactly where they
+          were, in the `.a-hero__meta` row above, on the plain white ground —
+          the floating card adds a second, single-figure treatment matching
+          the reference pattern; it does not replace the row. */}
+      <div className="a-hero2" data-rv>
+        {/* eslint-disable-next-line @next/next/no-img-element -- the
+            codebase uses plain <img>/CSS background-image throughout
+            (no next/image usage exists elsewhere); see CREDITS.md. */}
+        <img
+          className="a-hero2__img"
+          src="/hero/workshop-bench.webp"
+          alt="Close-up of an opened laptop's internal circuit board, cooling fans and battery packs during a hardware inspection."
+        />
+        {/* Scrim: two layers, because the overlay text now sits at the
+            BOTTOM (the old top-anchored tag is gone with it) — a bottom-up
+            dark gradient protects the headline/lede/buttons, a second,
+            narrower left-anchored gradient adds a little extra depth behind
+            the longest line of text specifically. Measured on the rendered
+            page against the actual photo pixels, not assumed — see the
+            component's verification notes for the sampled ratios; both
+            gradients together keep the WORST sampled point at white-on-photo
+            AA or better. */}
+        <div className="a-hero2__scrim" aria-hidden="true" />
+        <div className="a-hero2__content">
+          <Mono dot color={V2.white}>About Mode 7</Mono>
+          <h2 className="a-hero2__h">
+            A device is only as good as everything standing behind it.
+          </h2>
+          <p className="a-hero2__lede">
+            Every unit carrying our name is sourced, inspected, sealed and
+            warrantied by us.
+          </p>
+          <div className="a-hero2__actions">
+            <ButtonV2 label="Explore Our Services" variant="fill" href="/services" />
+            <ButtonV2
+              label="Value Your Device"
+              variant="outline"
+              href="/trade-in"
+              onDark
+              /* `onDark`'s default border (rgba(255,255,255,0.28), sized for
+                 a solid `ink` band) measured 2.20:1 against this photo's
+                 darkest sampled patch — under the 3:1 non-text/UI-component
+                 floor. 0.5 alpha, verified against the same worst sampled
+                 pixel, clears it with margin (see this pass's verification
+                 notes). Overridden here only — the shared default is
+                 untouched, so the footer's own use of `onDark` is unaffected. */
+              style={{ border: "1px solid rgba(255,255,255,0.5)" }}
+            />
+          </div>
+        </div>
+        <div className="a-hero2__card">
+          <div className="a-hero2__card-n">50K+</div>
+          <div className="a-hero2__card-l">Devices vetted &amp; sealed</div>
+        </div>
+      </div>
 
       {/* ===== WHY WE EXIST ===== */}
       <section className="a-band">
         <div className="a-wrap a-split a-split--sticky">
           <div className="a-sticky a-stack" data-rv>
-            <Overline>Why We Exist</Overline>
+            <Mono dot>Why We Exist</Mono>
             <h2 className="a-dl">
               We didn&apos;t set out to open another storefront.
             </h2>
           </div>
           <div className="a-stack a-stack--lg">
-            <p className="a-body" data-rv>
+            <P data-rv style={{ maxWidth: "66ch" }}>
               We set out to close a gap. Someone saves for months, buys a flagship
               device from a seller they cannot verify, and finds out too late that the
               box was opened, the warranty is fiction, or the battery has already been
               replaced once. The device is genuine or it isn&apos;t — and there is
               rarely a way to know before the money moves.
-            </p>
-            <p className="a-body" data-rv>
+            </P>
+            <P data-rv style={{ maxWidth: "66ch" }}>
               So we built the opposite of that. Every unit carrying our name is
               sourced, inspected, sealed and warrantied by us. When it later needs
               power or replacing, those answers come from the same place. We sell the
               way people actually buy here, too — in conversation, questions answered
               before money moves, rather than a form bolted on top of a habit that was
               never going to change.
-            </p>
+            </P>
             <WhyStatement />
           </div>
         </div>
@@ -222,27 +308,19 @@ export default function AboutPage() {
         <div className="a-wrap">
           <div className="a-split a-split--wide">
             <div className="a-stack" data-rv>
-              <Overline>The Conditions We Build For</Overline>
+              <Mono dot>The Conditions We Build For</Mono>
               <h2 className="a-dl">
                 Every part of this business answers something specific.
               </h2>
             </div>
-            <p className="a-body" data-rv style={{ fontSize: 17 }}>
+            <P data-rv style={{ fontSize: 17, maxWidth: "66ch" }}>
               We are not a general-purpose retailer that happens to operate here. These
               four conditions shape the market we serve — and each one is the reason a
               particular part of Mode 7 exists.
-            </p>
+            </P>
           </div>
 
-          <div className="a-ledger">
-            {conditions.map((c) => (
-              <article className="a-cond" data-rv key={c.n}>
-                <div className="a-num a-cond__n">{c.n}</div>
-                <h3 className="a-cond__t">{c.t}</h3>
-                <p className="a-cond__b">{c.b}</p>
-              </article>
-            ))}
-          </div>
+          <ConditionsLedger conditions={conditions} />
         </div>
       </section>
 
@@ -250,29 +328,29 @@ export default function AboutPage() {
       <section className="a-band a-band--ink">
         <div className="a-wrap">
           <div data-rv>
-            <Overline>Mission &amp; Vision</Overline>
+            <Mono dot color={V2.faint}>Mission &amp; Vision</Mono>
           </div>
           <div className="a-mv">
             <div className="a-mv__cell" data-rv>
               <span className="a-label">Mission</span>
-              <p className="a-dm" style={{ color: "#fff" }}>
+              <p className="a-dm" style={{ color: V2.white }}>
                 To make premium technology dependable.
               </p>
-              <p className="a-body">
+              <P color={V2.faint} style={{ maxWidth: "66ch" }}>
                 Sourced, verified, powered and renewed against a single standard — so
                 that owning it is never a risk the buyer carries alone.
-              </p>
+              </P>
             </div>
             <div className="a-mv__cell" data-rv>
               <span className="a-label">Vision</span>
-              <p className="a-dm" style={{ color: "#fff" }}>
+              <p className="a-dm" style={{ color: V2.white }}>
                 A market where trust is the default, not the exception.
               </p>
-              <p className="a-body">
+              <P color={V2.faint} style={{ maxWidth: "66ch" }}>
                 Every device with a verifiable history. Every home in control of its
                 own power. Upgrading decided by what you need — never by whether the
                 seller can be believed.
-              </p>
+              </P>
             </div>
           </div>
 
@@ -299,15 +377,15 @@ export default function AboutPage() {
         <div className="a-wrap">
           <div className="a-split a-split--wide">
             <div className="a-stack" data-rv>
-              <Overline>Who We Serve</Overline>
+              <Mono dot>Who We Serve</Mono>
               <h2 className="a-dl">
                 Three people walk in with three different problems.
               </h2>
             </div>
-            <p className="a-body" data-rv style={{ fontSize: 17 }}>
+            <P data-rv style={{ fontSize: 17, maxWidth: "66ch" }}>
               The catalogue is the same. What changes is the question being asked of
               it — and the part of the ecosystem that ends up answering.
-            </p>
+            </P>
           </div>
         </div>
 
@@ -346,9 +424,9 @@ export default function AboutPage() {
               <article className="a-serve__c" data-rv key={s.i}>
                 <span className="a-num a-serve__i">{s.i}</span>
                 <h3 className="a-hs">{s.t}</h3>
-                <p className="a-body" style={{ fontSize: 16 }}>
+                <P style={{ fontSize: 16, maxWidth: "66ch" }}>
                   {s.b}
-                </p>
+                </P>
               </article>
             ))}
           </div>
@@ -360,23 +438,45 @@ export default function AboutPage() {
         <div className="a-wrap">
           <div className="a-split a-split--wide">
             <div className="a-stack" data-rv>
-              <Overline>What We Focus On</Overline>
+              <Mono dot>What We Focus On</Mono>
               <h2 className="a-dl">Five divisions, one accountable standard.</h2>
+              <P style={{ fontSize: 17, maxWidth: "66ch" }}>
+                Each of these five divisions answers one of the conditions
+                described above — an unreliable grid, trust that has to be
+                rebuilt, hardware priced against income, or a device that
+                doubles as someone&apos;s livelihood. What ties them together
+                is the same standard: sourced, verified, powered and renewed
+                against one set of rules, so the guarantee behind the sale
+                doesn&apos;t change with the category.
+              </P>
             </div>
-            <p className="a-body" data-rv style={{ fontSize: 17 }}>
-              Each division exists because of a condition named above. The reference
-              under each one says which it answers.
-            </p>
           </div>
 
           <div className="a-bento">
             {divisions.map((d) => (
-              <article className={`a-bcell ${d.cls}`} data-rv key={d.n}>
-                <span className="a-bcell__n">{d.n}</span>
+              <article className={`a-bcell ${d.cls}`} data-rv key={d.t}>
                 <h3 className="a-bcell__t">{d.t}</h3>
                 <p className="a-bcell__b">{d.b}</p>
-                {d.fill && <div className="a-bcell__fill" aria-hidden="true" />}
-                <span className="a-ref a-num">{d.ref}</span>
+                {d.fill && (
+                  <div
+                    className="a-bcell__fill"
+                    style={{ position: "relative", overflow: "hidden" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- see
+                        the hero band note above; matches existing convention. */}
+                    <img
+                      src="/hero/devices-flatlay.webp"
+                      alt="An iMac, MacBook, iPhone and keyboard arranged together on a desk — the flagship phones, laptops and tablets Mode 7 carries."
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -388,14 +488,14 @@ export default function AboutPage() {
         <div className="a-wrap">
           <div className="a-split a-split--wide">
             <div className="a-stack" data-rv>
-              <Overline>The Standard</Overline>
+              <Mono dot>The Standard</Mono>
               <h2 className="a-dl">Three words, and what they oblige us to.</h2>
             </div>
-            <p className="a-body" data-rv style={{ fontSize: 17 }}>
+            <P data-rv style={{ fontSize: 17, maxWidth: "66ch" }}>
               They only mean anything if one party is willing to stand behind all
               three. So we publish what each one commits us to, and apply it to every
               unit we sell.
-            </p>
+            </P>
           </div>
 
           <div className="a-spec" data-rv>

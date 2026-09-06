@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { ArrowButton } from "@/components/ArrowButton";
+import { ButtonV2 } from "@/components/home-v2/ButtonV2";
+import { P } from "@/components/home-v2/Ui";
 import { SearchSelect } from "@/components/SearchSelect";
-import { WIREFRAME } from "@/lib/wireframe-config";
 import {
   MODELS,
   SCREEN,
@@ -545,11 +545,6 @@ export function ValuationWorkspace() {
                 </span>
               </button>
             </div>
-            {WIREFRAME.showAnnotations && (
-              <p style={{ marginTop: 14 }}>
-                <span className="t-note">SIMULATED UPLOAD · CLICK A TILE TO ATTACH</span>
-              </p>
-            )}
           </div>
 
           {/* 04 · CONTACT — how the team actually reaches this person */}
@@ -678,7 +673,7 @@ export function ValuationWorkspace() {
               <span>Ref {REF}</span>
             </div>
             <div className="t-outcome__b">
-              <div className="t-over" style={{ marginBottom: 12 }}>
+              <div className="t-label" style={{ marginBottom: 12 }}>
                 Estimated value — not yet confirmed
               </div>
               <div className="t-outcome__fig">
@@ -686,11 +681,11 @@ export function ValuationWorkspace() {
                 {"\u2009–\u2009"}
                 {formatNaira(v.hi)}
               </div>
-              <p className="t-body" style={{ marginTop: 14, maxWidth: "56ch" }}>
+              <P style={{ marginTop: 14, maxWidth: "56ch" }}>
                 Your ledger, photos and video are with the valuations team. This figure stays an
                 estimate until a person has actually assessed the device — there are two ways
                 that happens.
-              </p>
+              </P>
 
               <div className="t-paths">
                 <div className="t-path">
@@ -721,10 +716,10 @@ export function ValuationWorkspace() {
                   <div className="t-dm" style={{ marginTop: 8 }}>
                     Put it toward your next device
                   </div>
-                  <p className="t-body" style={{ marginTop: 10, fontSize: 15, maxWidth: "52ch" }}>
+                  <P style={{ marginTop: 10, maxWidth: "52ch" }}>
                     Choose what you want. We take the estimate off its price, and you bring the
                     difference — not the full amount.
-                  </p>
+                  </P>
                 </div>
 
                 <div className="t-up" role="group" aria-label="Choose an upgrade">
@@ -772,10 +767,14 @@ export function ValuationWorkspace() {
                           )} depending on where the team confirms your estimate. Nothing is owed until you agree the final figure.`}
                     </p>
                     <div className="t-calc__act">
-                      {/* outline, not fill — a fill button is ink-on-ink here */}
-                      <ArrowButton
+                      {/* outline, not fill — a fill button is ink-on-ink here.
+                          onDark: .t-calc's ground is var(--ink), and an outline
+                          ButtonV2 is drawn for a light ground by default — every
+                          part (label, hairline, tile) would vanish without it. */}
+                      <ButtonV2
                         label={`Reserve the ${upgrade.name}`}
                         variant="outline"
+                        onDark
                         href="/contact"
                       />
                     </div>
@@ -797,24 +796,16 @@ export function ValuationWorkspace() {
                     to us if you’d rather not trade toward a device.
                   </p>
                 </div>
-                <ArrowButton label="Talk to the team" variant="outline" href="/contact" />
+                <ButtonV2 label="Talk to the team" variant="outline" href="/contact" />
               </div>
 
               <div style={{ marginTop: 24 }}>
-                <ArrowButton
+                <ButtonV2
                   label="Start a new valuation"
                   variant="outline"
                   onClick={reset}
                 />
               </div>
-
-              {WIREFRAME.showAnnotations && (
-                <p style={{ marginTop: 14 }}>
-                  <span className="t-note">
-                    ESTIMATE ONLY — CONFIRMED VALUE COMES FROM THE TEAM
-                  </span>
-                </p>
-              )}
             </div>
           </div>
         )}
@@ -912,9 +903,11 @@ export function ValuationWorkspace() {
           {!ineligible && !a.locked && (
             <div className="t-rcpt__act">
               {canLock ? (
-                <ArrowButton
+                /* onDark: .t-rcpt__act's ground is var(--ink) too. */
+                <ButtonV2
                   label={checking ? "Running eligibility check…" : "Submit my estimate"}
                   variant="outline"
+                  onDark
                   style={{ justifyContent: "space-between" }}
                   onClick={checking ? undefined : lockIn}
                 />
@@ -943,11 +936,6 @@ export function ValuationWorkspace() {
                   <span>{r}</span>
                 </div>
               ))}
-              {WIREFRAME.showAnnotations && (
-                <div style={{ marginTop: 2 }}>
-                  <span className="t-note">INELIGIBLE — REASON SHOWN THE MOMENT YOU TELL US</span>
-                </div>
-              )}
               <div className="t-void__alts">
                 <div className="t-void__alt">
                   <div className="t-void__altt">Recycle it responsibly</div>
@@ -967,12 +955,6 @@ export function ValuationWorkspace() {
             </div>
           )}
         </div>
-
-        {WIREFRAME.showAnnotations && (
-          <p style={{ marginTop: 12, textAlign: "right" }}>
-            <span className="t-note">LEDGER UPDATES LIVE — NOTHING HIDDEN</span>
-          </p>
-        )}
       </aside>
     </div>
   );

@@ -188,7 +188,7 @@ export default function SmartHomePage() {
             </h2>
             <p
               style={{
-                fontSize: 18,
+                fontSize: "var(--m7-lede-size)",
                 lineHeight: 1.65,
                 color: "#5a5a5a",
                 margin: "0 0 26px",
@@ -253,7 +253,7 @@ export default function SmartHomePage() {
                 {a.title}
               </div>
               <p
-                style={{ fontSize: 18, lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}
+                style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}
               >
                 {a.body}
               </p>

@@ -253,8 +253,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
           </div>
           <p
             style={{
-              fontSize: 15,
-              lineHeight: 1.6,
               color: "#6a6a6a",
               margin: "10px 0 0",
               maxWidth: "48ch",

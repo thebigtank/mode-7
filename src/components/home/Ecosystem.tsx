@@ -99,7 +99,7 @@ export function Ecosystem() {
             />
           </div>
           <div style={{ maxWidth: 340 }}>
-            <p style={{ fontSize: 18, lineHeight: 1.6, color: COLOR.onSageMuted, margin: 0 }}>
+            <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.6, color: COLOR.onSageMuted, margin: 0 }}>
               From the moment you buy to the day you upgrade, every part of the Mode
               7 ecosystem works together.
             </p>

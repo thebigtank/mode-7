@@ -298,7 +298,7 @@ export default function ProductPage() {
             </h2>
             <p
               style={{
-                fontSize: 18,
+                fontSize: "var(--m7-lede-size)",
                 lineHeight: 1.65,
                 color: "#5a5a5a",
                 margin: "4px 0 0",

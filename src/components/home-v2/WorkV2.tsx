@@ -288,10 +288,12 @@ export function WorkV2() {
                   <div
                     data-rv="label"
                     style={{
+                      /* was JetBrains Mono at .14em; retuned for Outfit —
+                         see CLAUDE.md's Typography table. */
                       fontFamily: V2_FONT.mono,
                       fontSize: 11,
                       fontWeight: 700,
-                      letterSpacing: ".14em",
+                      letterSpacing: ".07em",
                       textTransform: "uppercase",
                       /* faint is 7.75:1 on ink */
                       color: V2.faint,
@@ -361,9 +363,11 @@ export function WorkV2() {
                     <div
                       key={b}
                       style={{
+                        /* was JetBrains Mono at .08em; retuned for Outfit —
+                           see CLAUDE.md's Typography table. */
                         fontFamily: V2_FONT.mono,
                         fontSize: 11,
-                        letterSpacing: ".08em",
+                        letterSpacing: ".04em",
                         textTransform: "uppercase",
                         color: V2.white,
                         lineHeight: 1.4,

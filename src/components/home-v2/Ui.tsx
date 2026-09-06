@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { CSSProperties, ReactNode } from "react";
-import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
+import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from "react";
+import { V2, V2_CONTAINER, V2_FONT, V2_HAIR, V2_TYPE } from "@/lib/theme-v2";
 
 /**
  * Shared primitives for the `/homepage-v2` exploration.
@@ -43,7 +43,21 @@ export function Band({
 }
 
 /**
- * The small uppercase label: JetBrains Mono 12px, wide tracking.
+ * THE site-wide eyebrow. Outfit 12px uppercase, tracked 0.04em, with an
+ * optional leading gold dot. Was JetBrains Mono at a wider 0.08em; moving to
+ * a proportional face at that tracking read loose and uneven letter-to-
+ * letter, so it is retuned to 0.04em (`V2_TYPE.mono`) — see CLAUDE.md's
+ * Typography table for why the mono face was dropped.
+ *
+ * This is now the ONE eyebrow treatment for every v2 surface, `/about`
+ * included — CLAUDE.md calls it out by name ("one eyebrow standard, matching
+ * homepage-v2"). `/about` used to declare its own local `Overline()` helper
+ * painting a serif, non-uppercase label at 0.02em with a "// " text prefix;
+ * that duplication is gone — `/about` now imports this component directly,
+ * passing `dot` and an explicit `color` per band (`V2.faint` on the one ink
+ * band, default `V2.muted` elsewhere) exactly as `WorkV2`/`WhyV2`/`QuoteV2`
+ * already do. Do not fork a page-local eyebrow again; add a prop here if a
+ * genuine new variation shows up.
  *
  * `dot` renders the reference's leading bullet. The reference's bullet is
  * orange; here it is `V2.accent` gold, which is legal because the dot is a
@@ -179,6 +193,15 @@ export function BtnOutline({
 /**
  * The reference's tertiary action: a plain label followed by a ringed arrow,
  * no box. Used for "how we help", "explore", "read case study", "read more".
+ *
+ * `href` is optional. Omit it for a link that has no destination yet: rather
+ * than point an `<a>` at `#` or a no-op `onClick` (a broken/misleading anchor
+ * that still reads as "link" to a screen reader and still eats a Tab stop),
+ * the component renders a plain `<span>` — same type, same ringed-arrow glyph,
+ * `aria-hidden` because it asserts nothing an assistive-tech user can act on.
+ * It is not in the tab order (no `tabIndex`, no `role`), so it cannot become a
+ * keyboard trap or announce itself as actionable. It is a visual affordance
+ * only, matching the linked variant's look with none of its behaviour.
  */
 export function ArrowLink({
   label,
@@ -189,28 +212,36 @@ export function ArrowLink({
   style,
 }: {
   label: string;
-  href: string;
+  href?: string;
   color?: string;
   size?: number;
   weight?: number;
   style?: CSSProperties;
 }) {
+  const bodyStyle: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 9,
+    fontFamily: V2_FONT.body,
+    fontSize: size,
+    fontWeight: weight,
+    lineHeight: "22px",
+    color,
+    textDecoration: "none",
+    ...style,
+  };
+
+  if (!href) {
+    return (
+      <span aria-hidden style={bodyStyle}>
+        {label}
+        <RingArrow color={color} />
+      </span>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 9,
-        fontFamily: V2_FONT.body,
-        fontSize: size,
-        fontWeight: weight,
-        lineHeight: "22px",
-        color,
-        textDecoration: "none",
-        ...style,
-      }}
-    >
+    <Link href={href} style={bodyStyle}>
       {label}
       <RingArrow color={color} />
     </Link>
@@ -289,24 +320,49 @@ export function H2({
   );
 }
 
-/** Body paragraph: Inter 16/300, muted by default. */
+/**
+ * THE site-wide body-copy paragraph: Outfit 16/400, muted by default. Now
+ * shared by `/about` (which used to render its own CSS-classed `.a-body` —
+ * see the removed rule of that name in `globals.css`) as well as every v2
+ * section here.
+ *
+ * `fontWeight` is a literal `400`, not `300` — Outfit is only registered at
+ * 400/500/600/700 in `layout.tsx` (no 300), so a `300` value here was already
+ * snapping to 400 everywhere it rendered; this states what actually renders
+ * instead of a weight the font can't produce.
+ *
+ * `fontSize`/`lineHeight` stay literal defaults rather than reading the
+ * global `--m7-p-size`/`--m7-p-line` tokens (15px/1.6, declared in
+ * `globals.css` for v1's running copy): those tokens would change this
+ * component's default from 16px/1.55 to 15px/1.6 everywhere it is used
+ * without an explicit `size`, which is a rendered-type change on
+ * `/homepage-v2` this pass was not asked to make. Revisit if the two scales
+ * are ever meant to unify — flagged, not silently done.
+ *
+ * `...rest` forwards arbitrary `<p>` attributes (`data-rv`, `id`, `aria-*`)
+ * so callers — `/about`'s scroll-reveal paragraphs, in particular — can still
+ * hook into `RevealController` without the component knowing anything about
+ * it.
+ */
 export function P({
   children,
   color = V2.muted,
   size = V2_TYPE.body.fontSize,
   style,
+  ...rest
 }: {
   children: ReactNode;
   color?: string;
   size?: number;
   style?: CSSProperties;
-}) {
+} & Omit<ComponentPropsWithoutRef<"p">, "children" | "style" | "color">) {
   return (
     <p
+      {...rest}
       style={{
         margin: 0,
         fontFamily: V2_FONT.body,
-        fontWeight: 300,
+        fontWeight: 400,
         fontSize: size,
         lineHeight: 1.55,
         color,
@@ -316,5 +372,73 @@ export function P({
     >
       {children}
     </p>
+  );
+}
+
+/**
+ * THE site-wide accordion indicator: a circular hairline ring holding a
+ * centred 2px-stroke "+" that rotates 45deg into an "×" when `open`. Shared
+ * by every v2 FAQ/accordion — `/services`' `Faq.tsx` and `/trade-in`'s
+ * `TradeInFaq.tsx` both render this instead of drawing their own icon (a
+ * bordered-circle-plus-SVG on `/services`, a CSS `content:"+"` pseudo-element
+ * on `/trade-in`, previously two different treatments for the same job), so
+ * the size/radius/stroke/rotation are defined exactly once.
+ *
+ * Purely presentational and `aria-hidden`: the caller's own toggle element
+ * owns the click handler, `aria-expanded` and keyboard semantics (a real
+ * `<button>`) — this renders only the glyph.
+ *
+ * The rotation's `transition` lives in the `.v2-plus-toggle` global rule in
+ * `globals.css` (next to the other cross-page, palette-free v2 utility —
+ * `m7arrowLoop`/`m7arrowLoopUp` — rather than in any one page's scoped
+ * block, since this renders on every v2 page that has an accordion), NOT
+ * inline: an inline `transition` would out-specify that rule's
+ * `prefers-reduced-motion` override (CLAUDE.md trap #2), so only the
+ * per-instance `transform` (open vs closed) is set inline here.
+ */
+export function PlusToggle({
+  open,
+  size = 30,
+  color = V2.ink,
+  border,
+  style,
+}: {
+  open: boolean;
+  size?: number;
+  color?: string;
+  border?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <span
+      aria-hidden
+      className="v2-plus-toggle"
+      style={{
+        flex: "0 0 auto",
+        width: size,
+        height: size,
+        border: border ?? V2_HAIR,
+        borderRadius: 99,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transform: open ? "rotate(45deg)" : "rotate(0deg)",
+        ...style,
+      }}
+    >
+      <svg
+        width={Math.round(size * 0.5)}
+        height={Math.round(size * 0.5)}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={color}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </span>
   );
 }

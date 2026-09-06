@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
-import { ArrowButton } from "@/components/ArrowButton";
 import { ArrowRightIcon } from "@/components/Icons";
+import { ButtonV2 } from "@/components/home-v2/ButtonV2";
+import { Mono, P } from "@/components/home-v2/Ui";
 import { Glyph, ShieldCheck, type GlyphName } from "@/components/page/ServiceIcons";
 import { CategoryNav } from "@/components/services/CategoryNav";
 import { Faq } from "@/components/services/Faq";
-import { VariantLabel } from "@/components/wireframe/Primitives";
-import { FONT, containerPad, stripe } from "@/lib/theme";
+import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
 
 export const metadata: Metadata = {
   title: "Services — Mode 7",
@@ -14,11 +14,36 @@ export const metadata: Metadata = {
     "From flagship launches to certified refurbished, instant trade-ins to concierge checkout — the premium tech store built around how you buy.",
 };
 
-/* ------------------------------------------------------------------ shared */
+/* ------------------------------------------------------------------ shared
+   Re-tokened onto the V2 palette (`src/lib/theme-v2.ts`) and the V2 type
+   stack, following the same approach as the `/about` port: colour and
+   font-family are the things that changed, not the structure. This page
+   never had its own scoped CSS block (unlike `/about`, which was already
+   CSS-classed) — it is, and remains, built from inline styles and local
+   helper components, so the re-tokening happens directly in those styles.
+   THE GOLD RULE: this page has no accent-as-text usage to re-derive, in v1
+   or here — it was always a monochrome ink/paper page, same as `/about`. */
+
+/** Diagonal stripe placeholder, tinted off V2.ink — the v2 equivalent of
+    `stripe()` in `@/lib/theme` (which paints in v1's cream/tan and must not
+    be imported here). Same technique as `--stripe` in `.about-page`. */
+const v2Stripe = (
+  a = "rgba(23,29,29,0.07)",
+  b = "rgba(23,29,29,0.03)",
+  size = 9,
+) => `repeating-linear-gradient(135deg,${a} 0 ${size}px,${b} ${size}px ${size * 2}px)`;
+
+/** v2-local equivalent of `containerPad()` in `@/lib/theme` — same geometry
+    (align full-bleed content to the page's 1320px container), no colour
+    values, so it is re-derived here rather than imported. */
+const pad = (px = 48) => {
+  const gutter = px === 48 ? "var(--m7-pad)" : `clamp(20px,4vw,${px}px)`;
+  return `max(${gutter}, calc((100vw - 1320px)/2 + ${gutter}))`;
+};
 
 const card: CSSProperties = {
-  background: "#fcfcfc",
-  border: "1px solid #ececec",
+  background: V2.white,
+  border: V2_HAIR,
   borderRadius: 4,
 };
 
@@ -26,8 +51,8 @@ const tileStripe: CSSProperties = {
   position: "relative",
   borderRadius: 4,
   overflow: "hidden",
-  background: stripe(),
-  border: "1px solid #ececec",
+  background: v2Stripe(),
+  border: V2_HAIR,
 };
 
 function SectionHead({
@@ -43,25 +68,17 @@ function SectionHead({
 }) {
   return (
     <div style={{ maxWidth, marginBottom: 36 }}>
-      <div
-        style={{
-          fontFamily: FONT.head,
-          fontSize: 12,
-          letterSpacing: 2,
-          color: "#9a9a9a",
-          textTransform: "uppercase",
-          marginBottom: 16,
-        }}
-      >
-        {`// ${overline}`}
-      </div>
+      <Mono dot style={{ marginBottom: 16 }}>
+        {overline}
+      </Mono>
       <h2
         style={{
-          fontFamily: FONT.head,
-          fontWeight: 600,
+          fontFamily: V2_FONT.display,
+          fontWeight: 400,
           fontSize: "clamp(25px, 3.5vw, 40px)",
-          lineHeight: 1,
-          letterSpacing: "-3px",
+          lineHeight: 1.18,
+          letterSpacing: "-0.016em",
+          color: V2.ink,
           margin: lede ? "0 0 14px" : 0,
           textWrap: "balance",
         }}
@@ -69,23 +86,18 @@ function SectionHead({
         {title}
       </h2>
       {lede && (
-        <p
-          style={{
-            fontFamily: FONT.body,
-            fontSize: 18,
-            lineHeight: 1.6,
-            color: "#5a5a5a",
-            margin: 0,
-            maxWidth: 520,
-          }}
-        >
+        <P size={18} style={{ lineHeight: 1.6, maxWidth: 520 }}>
           {lede}
-        </p>
+        </P>
       )}
     </div>
   );
 }
 
+/** The "▣ LABEL" caption on a stripe placeholder — a real content label (what
+    the eventual photo will show), not a wireframe annotation, so it renders
+    unconditionally. Same distinction `/about` draws between its `a-ph__tag`
+    (kept) and its `a-note` (a `WIREFRAME.showAnnotations`-gated pill, removed). */
 function StripeLabel({ children }: { children: ReactNode }) {
   return (
     <div
@@ -93,10 +105,10 @@ function StripeLabel({ children }: { children: ReactNode }) {
         position: "absolute",
         top: 16,
         left: 18,
-        fontFamily: FONT.mono,
+        fontFamily: V2_FONT.mono,
         fontSize: 11,
-        letterSpacing: 1,
-        color: "#9a9a9a",
+        letterSpacing: "0.04em",
+        color: V2.muted,
         zIndex: 2,
       }}
     >
@@ -118,8 +130,8 @@ function MiniRow({
   return (
     <div
       style={{
-        background: "#fff",
-        border: "1px solid #ececec",
+        background: V2.white,
+        border: V2_HAIR,
         borderRadius: 4,
         padding: "12px 14px",
         display: "flex",
@@ -127,26 +139,26 @@ function MiniRow({
         gap: 11,
       }}
     >
-      <Glyph name={icon} size={20} strokeWidth={1.7} />
+      <Glyph name={icon} size={20} strokeWidth={1.7} stroke={V2.ink} />
       <div>
         <div
           style={{
-            fontFamily: FONT.head,
-            fontWeight: 600,
+            fontFamily: V2_FONT.display,
+            fontWeight: 400,
             fontSize: 14,
-            letterSpacing: "-0.2px",
-            lineHeight: 1.1,
+            letterSpacing: "-0.01em",
+            lineHeight: 1.3,
           }}
         >
           {title}
         </div>
         <div
           style={{
-            fontFamily: FONT.mono,
+            fontFamily: V2_FONT.mono,
             fontSize: 9,
-            letterSpacing: 0.4,
+            letterSpacing: "0.02em",
             textTransform: "uppercase",
-            color: "#9a9a9a",
+            color: V2.muted,
             marginTop: 3,
           }}
         >
@@ -169,20 +181,20 @@ function CategoryTile({
 }) {
   return (
     <div
-      className="m7-lift"
+      className="svc-lift"
       style={{ ...card, overflow: "hidden", display: "flex", flexDirection: "column" }}
     >
       <div
         style={{
           position: "relative",
           height: 150,
-          background: stripe(),
-          borderBottom: "1px solid #ececec",
+          background: v2Stripe(),
+          borderBottom: V2_HAIR,
         }}
       >
         <StripeLabel>{label.toUpperCase()}</StripeLabel>
         <span style={{ position: "absolute", right: 14, bottom: 14 }}>
-          <Glyph name={icon} size={26} />
+          <Glyph name={icon} size={26} stroke={V2.ink} />
         </span>
       </div>
       <div
@@ -197,28 +209,29 @@ function CategoryTile({
         <div>
           <div
             style={{
-              fontFamily: FONT.head,
-              fontWeight: 600,
+              fontFamily: V2_FONT.display,
+              fontWeight: 400,
               fontSize: 18,
-              letterSpacing: "-0.3px",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.3,
             }}
           >
             {label}
           </div>
           <div
             style={{
-              fontFamily: FONT.mono,
+              fontFamily: V2_FONT.mono,
               fontSize: 10,
-              letterSpacing: 0.5,
+              letterSpacing: "0.025em",
               textTransform: "uppercase",
-              color: "#9a9a9a",
+              color: V2.muted,
               marginTop: 4,
             }}
           >
             {sub}
           </div>
         </div>
-        <ArrowRightIcon size={20} strokeWidth={1.8} stroke="#121212" />
+        <ArrowRightIcon size={20} strokeWidth={1.8} stroke={V2.ink} />
       </div>
     </div>
   );
@@ -238,7 +251,7 @@ function BentoCell({
 }) {
   return (
     <div
-      className="m7-lift"
+      className="svc-lift"
       style={{
         ...card,
         padding: 24,
@@ -248,20 +261,21 @@ function BentoCell({
         ...style,
       }}
     >
-      <Glyph name={icon} size={28} />
+      <Glyph name={icon} size={28} stroke={V2.ink} />
       <div>
         <div
           style={{
-            fontFamily: FONT.head,
-            fontWeight: 600,
+            fontFamily: V2_FONT.display,
+            fontWeight: 400,
             fontSize: 18,
-            letterSpacing: "-0.3px",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.3,
             marginBottom: 4,
           }}
         >
           {title}
         </div>
-        <div style={{ fontFamily: FONT.body, fontSize: 14, color: "#6a6a6a" }}>
+        <div style={{ fontFamily: V2_FONT.body, fontSize: 14, color: V2.muted }}>
           {sub}
         </div>
       </div>
@@ -294,17 +308,28 @@ const categories: { label: string; sub: string; icon: GlyphName }[] = [
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className="services-page">
+      {/* Chrome (V2Styles, HeaderV2, FooterV2) is mounted once by SiteShell
+          for every v2 route — see the route-decision note there. This page
+          renders only its own content. */}
+
       {/* ---------------------------------------------------------------
-          HERO — two directions kept side by side for comparison.
-          Cull one once it is chosen; the survivor loses its VariantLabel.
+          HERO — two directions kept side by side for comparison; which one
+          ships is still an open design call, not something this re-skin
+          makes for it. The design-exploration labels that used to mark them
+          (`VariantLabel`, gated by `WIREFRAME.showAnnotations`) have been
+          removed as part of the annotation clean-up — see CLAUDE.md.
           --------------------------------------------------------------- */}
 
-      <div style={{ paddingTop: 64 }}>
-        <VariantLabel tag="Hero · 01 / 02" note="Two-column grid — primary" />
-      </div>
-
-      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "0 var(--m7-pad)" }}>
+      {/* Full-bleed white ground: the section itself carries no max-width, so
+          the background spans the full viewport edge to edge; the 1320px
+          site container is an INNER div instead, same split as `Band` in
+          `home-v2/Ui.tsx` and `HeroV2`'s own outer `<section>`. Putting
+          max-width/margin on the section itself (the previous version here)
+          boxes the background into a centred card with the wash ground
+          showing on both sides at wide viewports — measured on the rendered
+          page, not assumed. */}
+      <section style={{ background: V2.white }}>
         <div
           className="m7-grid-2"
           style={{
@@ -312,29 +337,23 @@ export default function ServicesPage() {
             gridTemplateColumns: "1.4fr 1fr",
             gap: 48,
             alignItems: "end",
+            maxWidth: 1320,
+            margin: "0 auto",
+            padding: "64px var(--m7-pad) 0",
           }}
         >
           <div>
-            <div
-              style={{
-                fontFamily: FONT.head,
-                fontSize: 12,
-                letterSpacing: 2,
-                color: "#9a9a9a",
-                textTransform: "uppercase",
-                marginBottom: 16,
-              }}
-            >
-              {"// Services"}
-            </div>
+            <Mono dot style={{ marginBottom: 16 }}>
+              Services
+            </Mono>
             <h1
-              className="m7-hero-h1"
               style={{
-                fontFamily: FONT.head,
-                fontWeight: 600,
+                fontFamily: V2_FONT.display,
+                fontWeight: 400,
                 fontSize: "clamp(41px, 5.7vw, 66px)",
-                lineHeight: 1,
-                letterSpacing: "-3px",
+                lineHeight: 1.04,
+                letterSpacing: "-0.02em",
+                color: V2.ink,
                 margin: 0,
               }}
             >
@@ -342,22 +361,14 @@ export default function ServicesPage() {
             </h1>
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: FONT.body,
-                fontSize: 18,
-                lineHeight: 1.65,
-                color: "#5a5a5a",
-                margin: "0 0 24px",
-              }}
-            >
+            <P size={18} style={{ lineHeight: 1.65, margin: "0 0 24px" }}>
               From flagship launches to certified refurbished, instant trade-ins to
               concierge checkout — Mode 7 is the premium tech store built entirely
               around how you buy.
-            </p>
+            </P>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <ArrowButton label="Shop the Store" variant="fill" href="/shop" />
-              <ArrowButton
+              <ButtonV2 label="Shop the Store" variant="fill" href="/shop" />
+              <ButtonV2
                 label="Value Your Device"
                 variant="outline"
                 href="/trade-in"
@@ -372,18 +383,14 @@ export default function ServicesPage() {
           aligned to the site grid via the `max(48px, …)` calc, so the layout
           still reads as part of the page rather than a detached banner. */}
       <div style={{ marginTop: 84 }}>
-        <VariantLabel
-          tag="Hero · 02 / 02"
-          note="Full-bleed image · content bound to container"
-        />
         <div
           style={{
             position: "relative",
             width: "100%",
             height: "min(82vh,820px)",
             overflow: "hidden",
-            background: stripe(),
-            color: "#121212",
+            background: v2Stripe(),
+            color: V2.ink,
           }}
         >
           <div
@@ -391,10 +398,10 @@ export default function ServicesPage() {
               position: "absolute",
               top: 16,
               left: 18,
-              fontFamily: FONT.mono,
+              fontFamily: V2_FONT.mono,
               fontSize: 11,
-              letterSpacing: 1,
-              color: "#9a9a9a",
+              letterSpacing: "0.04em",
+              color: V2.muted,
               zIndex: 2,
             }}
           >
@@ -404,50 +411,33 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              left: containerPad(),
+              left: pad(),
               bottom: 72,
               maxWidth: 540,
             }}
           >
-            <div
-              style={{
-                fontFamily: FONT.head,
-                fontSize: 12,
-                letterSpacing: 2,
-                color: "#9a9a9a",
-                textTransform: "uppercase",
-                marginBottom: 16,
-              }}
-            >
-              {"// Services"}
-            </div>
+            <Mono dot style={{ marginBottom: 16 }}>
+              Services
+            </Mono>
             <h1
               style={{
-                fontFamily: FONT.head,
-                fontWeight: 600,
+                fontFamily: V2_FONT.display,
+                fontWeight: 400,
                 fontSize: "clamp(40px,5vw,72px)",
-                lineHeight: 0.98,
-                letterSpacing: "-3px",
+                lineHeight: 1.04,
+                letterSpacing: "-0.02em",
+                color: V2.ink,
                 margin: "0 0 22px",
               }}
             >
               Everything for the connected home.
             </h1>
-            <p
-              style={{
-                fontFamily: FONT.body,
-                fontSize: 19,
-                lineHeight: 1.6,
-                color: "#3a3a3a",
-                margin: "0 0 28px",
-                maxWidth: 480,
-              }}
-            >
+            <P size={19} style={{ lineHeight: 1.6, margin: "0 0 28px", maxWidth: 480 }}>
               Devices, smart home and solar — curated, sealed and delivered by Mode 7.
-            </p>
+            </P>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <ArrowButton label="Shop the Store" variant="fill" href="/shop" />
-              <ArrowButton
+              <ButtonV2 label="Shop the Store" variant="fill" href="/shop" />
+              <ButtonV2
                 label="Value Your Device"
                 variant="outline"
                 href="/trade-in"
@@ -459,7 +449,7 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              right: containerPad(),
+              right: pad(),
               bottom: 72,
               background: "rgba(255,255,255,0.72)",
               backdropFilter: "blur(14px)",
@@ -467,24 +457,26 @@ export default function ServicesPage() {
               border: "1px solid rgba(255,255,255,0.9)",
               borderRadius: 4,
               padding: "20px 24px",
-              boxShadow: "0 20px 50px rgba(18,18,18,0.12)",
+              boxShadow: "0 20px 50px rgba(23,29,29,0.12)",
             }}
           >
             <div
               style={{
-                fontFamily: FONT.head,
-                fontWeight: 700,
+                fontFamily: V2_FONT.display,
+                fontWeight: 400,
                 fontSize: "clamp(22px, 3.0vw, 34px)",
                 lineHeight: 1,
+                letterSpacing: "-0.018em",
+                color: V2.ink,
               }}
             >
               50K+
             </div>
             <div
               style={{
-                fontFamily: FONT.body,
+                fontFamily: V2_FONT.body,
                 fontSize: 13,
-                color: "#5a5a5a",
+                color: V2.muted,
                 marginTop: 2,
               }}
             >
@@ -503,7 +495,7 @@ export default function ServicesPage() {
         id="sec-premium"
         style={{
           width: "100%",
-          background: "#ffffff",
+          background: V2.white,
           padding: "100px 0",
           scrollMarginTop: 80,
         }}
@@ -517,9 +509,9 @@ export default function ServicesPage() {
           <div
             className="m7-grid-2"
             style={{
-              border: "1px solid #ececec",
+              border: V2_HAIR,
               borderRadius: 4,
-              background: "#fcfcfc",
+              background: V2.white,
               display: "grid",
               gridTemplateColumns: "1.05fr 0.95fr",
               overflow: "hidden",
@@ -536,12 +528,12 @@ export default function ServicesPage() {
               >
                 <span
                   style={{
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 11,
-                    letterSpacing: 1,
+                    letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    color: "#fff",
-                    background: "#121212",
+                    color: V2.white,
+                    background: V2.ink,
                     borderRadius: 99,
                     padding: "6px 13px",
                   }}
@@ -550,11 +542,11 @@ export default function ServicesPage() {
                 </span>
                 <span
                   style={{
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 11,
-                    letterSpacing: 1,
+                    letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    color: "#9a9a9a",
+                    color: V2.muted,
                   }}
                 >
                   The store itself
@@ -562,30 +554,22 @@ export default function ServicesPage() {
               </div>
               <h3
                 style={{
-                  fontFamily: FONT.head,
-                  fontWeight: 600,
+                  fontFamily: V2_FONT.display,
+                  fontWeight: 400,
                   fontSize: 30,
-                  lineHeight: 1.02,
-                  letterSpacing: "-1.5px",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.014em",
+                  color: V2.ink,
                   margin: "0 0 14px",
                 }}
               >
                 Curated premium retail.
               </h3>
-              <p
-                style={{
-                  fontFamily: FONT.body,
-                  fontSize: 18,
-                  lineHeight: 1.6,
-                  color: "#5a5a5a",
-                  margin: "0 0 26px",
-                  maxWidth: 520,
-                }}
-              >
+              <P size={18} style={{ lineHeight: 1.6, margin: "0 0 26px", maxWidth: 520 }}>
                 The heart of Mode 7. Phones, laptops and tablets, complete smart-home
                 systems, solar and portable power — every unit inspected, vetted and
                 factory-sealed before it reaches your cart.
-              </p>
+              </P>
               <div className="m7-c2" style={{ gap: 10, marginBottom: 30 }}>
                 {coreRows.map((r) => (
                   <MiniRow key={r.title} {...r} />
@@ -600,14 +584,14 @@ export default function ServicesPage() {
                   flexWrap: "wrap",
                 }}
               >
-                <ArrowButton label="Shop the store" variant="fill" href="/shop" />
+                <ButtonV2 label="Shop the store" variant="fill" href="/shop" />
                 <span
                   style={{
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 11,
-                    letterSpacing: 1,
+                    letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    color: "#9a9a9a",
+                    color: V2.muted,
                   }}
                 >
                   13+ premium brands · 100% vetted &amp; sealed
@@ -618,8 +602,8 @@ export default function ServicesPage() {
             <div
               style={{
                 position: "relative",
-                background: stripe(),
-                borderLeft: "1px solid #ececec",
+                background: v2Stripe(),
+                borderLeft: V2_HAIR,
                 minHeight: 460,
               }}
             >
@@ -629,28 +613,30 @@ export default function ServicesPage() {
                   position: "absolute",
                   left: 22,
                   bottom: 22,
-                  background: "#fff",
-                  border: "1px solid #e6e6e6",
+                  background: V2.white,
+                  border: V2_HAIR,
                   borderRadius: 4,
                   padding: "16px 20px",
-                  boxShadow: "0 12px 30px rgba(18,18,18,0.08)",
+                  boxShadow: "0 12px 30px rgba(23,29,29,0.08)",
                 }}
               >
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 700,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: "clamp(22px, 3.0vw, 34px)",
                     lineHeight: 1,
+                    letterSpacing: "-0.018em",
+                    color: V2.ink,
                   }}
                 >
                   13+
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.body,
+                    fontFamily: V2_FONT.body,
                     fontSize: 13,
-                    color: "#8a8a8a",
+                    color: V2.muted,
                     marginTop: 2,
                   }}
                 >
@@ -673,10 +659,10 @@ export default function ServicesPage() {
               <CategoryTile key={c.label} {...c} />
             ))}
             <div
-              className="m7-lift-dark"
+              className="svc-lift-dark"
               style={{
-                background: "#121212",
-                color: "#fff",
+                background: V2.ink,
+                color: V2.white,
                 borderRadius: 4,
                 padding: 24,
                 display: "flex",
@@ -687,22 +673,22 @@ export default function ServicesPage() {
             >
               <div
                 style={{
-                  fontFamily: FONT.mono,
+                  fontFamily: V2_FONT.mono,
                   fontSize: 10,
-                  letterSpacing: 1,
+                  letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.5)",
+                  color: V2.faint,
                 }}
               >
                 Plus every service
               </div>
               <div
                 style={{
-                  fontFamily: FONT.head,
-                  fontWeight: 600,
+                  fontFamily: V2_FONT.display,
+                  fontWeight: 400,
                   fontSize: 19,
-                  letterSpacing: "-0.3px",
-                  lineHeight: 1.2,
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1.3,
                   margin: "10px 0",
                 }}
               >
@@ -710,9 +696,9 @@ export default function ServicesPage() {
               </div>
               <span
                 style={{
-                  fontFamily: FONT.body,
+                  fontFamily: V2_FONT.body,
                   fontSize: 14,
-                  color: "rgba(255,255,255,0.65)",
+                  color: V2.faint,
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
@@ -726,7 +712,7 @@ export default function ServicesPage() {
 
           {/* business & bulk */}
           <div
-            className="m7-lift"
+            className="svc-lift"
             style={{
               ...card,
               padding: "30px 34px",
@@ -746,15 +732,15 @@ export default function ServicesPage() {
                 flex: "1 1 460px",
               }}
             >
-              <Glyph name="briefcase" size={34} />
+              <Glyph name="briefcase" size={34} stroke={V2.ink} />
               <div>
                 <div
                   style={{
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 10,
-                    letterSpacing: 1,
+                    letterSpacing: "0.05em",
                     textTransform: "uppercase",
-                    color: "#9a9a9a",
+                    color: V2.muted,
                     marginBottom: 8,
                   }}
                 >
@@ -762,32 +748,25 @@ export default function ServicesPage() {
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 22,
-                    letterSpacing: "-0.4px",
+                    letterSpacing: "-0.014em",
+                    lineHeight: 1.2,
+                    color: V2.ink,
                     marginBottom: 8,
                   }}
                 >
                   Business &amp; Bulk Orders
                 </div>
-                <p
-                  style={{
-                    fontFamily: FONT.body,
-                    fontSize: 18,
-                    lineHeight: 1.55,
-                    color: "#5a5a5a",
-                    margin: 0,
-                    maxWidth: 660,
-                  }}
-                >
+                <P size={18} style={{ lineHeight: 1.55, maxWidth: 660 }}>
                   Kitting out a team or reselling at scale? Volume pricing,
                   consolidated invoicing and a dedicated account manager on every
                   fleet order.
-                </p>
+                </P>
               </div>
             </div>
-            <ArrowButton label="Talk to our team" variant="outline" href="/contact" />
+            <ButtonV2 label="Talk to our team" variant="outline" href="/contact" />
           </div>
         </div>
       </section>
@@ -797,7 +776,7 @@ export default function ServicesPage() {
         id="sec-smarthome"
         style={{
           width: "100%",
-          background: "#f3f3f1",
+          background: V2.wash,
           padding: "100px 0",
           scrollMarginTop: 80,
         }}
@@ -819,7 +798,7 @@ export default function ServicesPage() {
             }}
           >
             <div
-              className="m7-lift"
+              className="svc-lift"
               style={{
                 ...tileStripe,
                 gridColumn: "1 / span 2",
@@ -832,11 +811,12 @@ export default function ServicesPage() {
               >
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 26,
-                    letterSpacing: "-1px",
-                    color: "#121212",
+                    letterSpacing: "-0.014em",
+                    lineHeight: 1.2,
+                    color: V2.ink,
                     marginBottom: 14,
                   }}
                 >
@@ -854,22 +834,22 @@ export default function ServicesPage() {
                     <span
                       key={s}
                       style={{
-                        background: "#fff",
-                        border: "1px solid #e2e2e2",
+                        background: V2.white,
+                        border: V2_HAIR,
                         borderRadius: 99,
                         padding: "7px 14px",
-                        fontFamily: FONT.mono,
+                        fontFamily: V2_FONT.mono,
                         fontSize: 11,
-                        letterSpacing: 0.5,
+                        letterSpacing: "0.02em",
                         textTransform: "uppercase",
-                        color: "#121212",
+                        color: V2.ink,
                       }}
                     >
                       {s}
                     </span>
                   ))}
                 </div>
-                <ArrowButton
+                <ButtonV2
                   label="Explore Smart Home"
                   variant="fill"
                   href="/smart-home"
@@ -915,7 +895,7 @@ export default function ServicesPage() {
         id="sec-solar"
         style={{
           width: "100%",
-          background: "#ffffff",
+          background: V2.white,
           padding: "100px 0",
           scrollMarginTop: 80,
         }}
@@ -937,7 +917,7 @@ export default function ServicesPage() {
             }}
           >
             <div
-              className="m7-lift"
+              className="svc-lift"
               style={{
                 ...tileStripe,
                 gridColumn: "1 / span 2",
@@ -948,26 +928,27 @@ export default function ServicesPage() {
               <div style={{ position: "absolute", left: 24, bottom: 22, right: 24 }}>
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 22,
-                    letterSpacing: "-0.5px",
-                    color: "#121212",
+                    letterSpacing: "-0.014em",
+                    lineHeight: 1.2,
+                    color: V2.ink,
                   }}
                 >
                   Solar Panels &amp; Roof Systems
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.body,
+                    fontFamily: V2_FONT.body,
                     fontSize: 14,
-                    color: "#5a5a5a",
+                    color: V2.muted,
                     margin: "4px 0 16px",
                   }}
                 >
                   Tier-1 panels, engineered for your roof
                 </div>
-                <ArrowButton
+                <ButtonV2
                   label="Explore Green Energy"
                   variant="fill"
                   href="/green-energy"
@@ -975,27 +956,28 @@ export default function ServicesPage() {
               </div>
             </div>
             <div
-              className="m7-lift"
+              className="svc-lift"
               style={{ ...tileStripe, gridColumn: 3, gridRow: "1 / span 2" }}
             >
               <StripeLabel>BATTERY STACK</StripeLabel>
               <div style={{ position: "absolute", left: 20, bottom: 18, right: 20 }}>
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 20,
-                    letterSpacing: "-0.4px",
-                    color: "#121212",
+                    letterSpacing: "-0.012em",
+                    lineHeight: 1.2,
+                    color: V2.ink,
                   }}
                 >
                   Home Batteries &amp; Storage
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.body,
+                    fontFamily: V2_FONT.body,
                     fontSize: 14,
-                    color: "#5a5a5a",
+                    color: V2.muted,
                     marginTop: 4,
                   }}
                 >
@@ -1003,29 +985,30 @@ export default function ServicesPage() {
                 </div>
               </div>
               <span style={{ position: "absolute", right: 16, top: 16 }}>
-                <ArrowRightIcon size={20} strokeWidth={1.8} stroke="#121212" />
+                <ArrowRightIcon size={20} strokeWidth={1.8} stroke={V2.ink} />
               </span>
             </div>
             <div
-              className="m7-lift"
+              className="svc-lift"
               style={{ ...tileStripe, gridColumn: 4, gridRow: 1 }}
             >
               <StripeLabel>POWER STATION</StripeLabel>
               <div style={{ position: "absolute", left: 20, bottom: 18, right: 20 }}>
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 20,
-                    letterSpacing: "-0.4px",
-                    color: "#121212",
+                    letterSpacing: "-0.012em",
+                    lineHeight: 1.2,
+                    color: V2.ink,
                   }}
                 >
                   Portable Power Stations
                 </div>
               </div>
               <span style={{ position: "absolute", right: 16, top: 16 }}>
-                <ArrowRightIcon size={20} strokeWidth={1.8} stroke="#121212" />
+                <ArrowRightIcon size={20} strokeWidth={1.8} stroke={V2.ink} />
               </span>
             </div>
             <BentoCell
@@ -1067,7 +1050,7 @@ export default function ServicesPage() {
         id="sec-tradein"
         style={{
           width: "100%",
-          background: "#f3f3f1",
+          background: V2.wash,
           padding: "100px 0",
           scrollMarginTop: 80,
         }}
@@ -1087,12 +1070,12 @@ export default function ServicesPage() {
             }}
           >
             <div
-              className="m7-lift-dark"
+              className="svc-lift-dark"
               style={{
                 gridColumn: 1,
                 gridRow: "1 / span 2",
-                background: "#121212",
-                color: "#fff",
+                background: V2.ink,
+                color: V2.white,
                 borderRadius: 4,
                 padding: "34px 30px",
                 display: "flex",
@@ -1108,14 +1091,14 @@ export default function ServicesPage() {
                   gap: 12,
                 }}
               >
-                <Glyph name="refresh" size={32} stroke="#fff" />
+                <Glyph name="refresh" size={32} stroke={V2.white} />
                 <span
                   style={{
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 10,
-                    letterSpacing: 1,
+                    letterSpacing: "0.05em",
                     textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.5)",
+                    color: V2.faint,
                     textAlign: "right",
                   }}
                 >
@@ -1124,28 +1107,21 @@ export default function ServicesPage() {
               </div>
               <div
                 style={{
-                  fontFamily: FONT.head,
-                  fontWeight: 600,
+                  fontFamily: V2_FONT.display,
+                  fontWeight: 400,
                   fontSize: 24,
-                  letterSpacing: "-0.5px",
+                  letterSpacing: "-0.014em",
+                  lineHeight: 1.2,
                   margin: "26px 0 12px",
                 }}
               >
                 Certified Refurbished
               </div>
-              <p
-                style={{
-                  fontFamily: FONT.body,
-                  fontSize: 18,
-                  lineHeight: 1.55,
-                  color: "rgba(255,255,255,0.62)",
-                  margin: 0,
-                }}
-              >
+              <P color={V2.faint} size={18} style={{ lineHeight: 1.55 }}>
                 Premium hardware, professionally renewed and graded to like-new —
                 then factory-sealed again. Independently warrantied and priced well
                 below new.
-              </p>
+              </P>
               <div
                 style={{
                   marginTop: 26,
@@ -1162,12 +1138,12 @@ export default function ServicesPage() {
                         display: "flex",
                         alignItems: "center",
                         gap: 11,
-                        fontFamily: FONT.body,
+                        fontFamily: V2_FONT.body,
                         fontSize: 15,
-                        color: "rgba(255,255,255,0.75)",
+                        color: V2.faint,
                       }}
                     >
-                      <ShieldCheck />
+                      <ShieldCheck stroke={V2.faint} />
                       {b}
                     </div>
                   ),
@@ -1182,20 +1158,21 @@ export default function ServicesPage() {
               >
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 700,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: "clamp(24px, 3.3vw, 38px)",
                     lineHeight: 1,
-                    letterSpacing: "-2px",
+                    letterSpacing: "-0.018em",
+                    color: V2.white,
                   }}
                 >
                   Up to 40% off
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.body,
+                    fontFamily: V2_FONT.body,
                     fontSize: 13,
-                    color: "rgba(255,255,255,0.5)",
+                    color: V2.faint,
                     marginTop: 5,
                   }}
                 >
@@ -1224,7 +1201,7 @@ export default function ServicesPage() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="m7-lift"
+                className="svc-lift"
                 style={{
                   ...card,
                   gridColumn: c.col,
@@ -1242,14 +1219,14 @@ export default function ServicesPage() {
                     gap: 12,
                   }}
                 >
-                  <Glyph name={c.icon} size={30} />
+                  <Glyph name={c.icon} size={30} stroke={V2.ink} />
                   <span
                     style={{
-                      fontFamily: FONT.mono,
+                      fontFamily: V2_FONT.mono,
                       fontSize: 10,
-                      letterSpacing: 1,
+                      letterSpacing: "0.05em",
                       textTransform: "uppercase",
-                      color: "#9a9a9a",
+                      color: V2.muted,
                       textAlign: "right",
                     }}
                   >
@@ -1258,36 +1235,30 @@ export default function ServicesPage() {
                 </div>
                 <div
                   style={{
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 21,
-                    letterSpacing: "-0.4px",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.3,
+                    color: V2.ink,
                     margin: "24px 0 10px",
                   }}
                 >
                   {c.title}
                 </div>
-                <p
-                  style={{
-                    fontFamily: FONT.body,
-                    fontSize: 18,
-                    lineHeight: 1.55,
-                    color: "#5a5a5a",
-                    margin: 0,
-                  }}
-                >
+                <P size={18} style={{ lineHeight: 1.55 }}>
                   {c.body}
-                </p>
+                </P>
                 <div
                   style={{
                     marginTop: "auto",
                     paddingTop: 20,
-                    fontFamily: FONT.mono,
+                    fontFamily: V2_FONT.mono,
                     fontSize: 10,
-                    letterSpacing: 1,
+                    letterSpacing: "0.05em",
                     textTransform: "uppercase",
-                    color: "#121212",
-                    fontWeight: 700,
+                    color: V2.ink,
+                    fontWeight: 400,
                   }}
                 >
                   {c.foot}
@@ -1296,7 +1267,7 @@ export default function ServicesPage() {
             ))}
 
             <div
-              className="m7-lift"
+              className="svc-lift"
               style={{
                 ...card,
                 gridColumn: "2 / span 2",
@@ -1310,11 +1281,11 @@ export default function ServicesPage() {
             >
               <div
                 style={{
-                  fontFamily: FONT.mono,
+                  fontFamily: V2_FONT.mono,
                   fontSize: 10,
-                  letterSpacing: 1,
+                  letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "#9a9a9a",
+                  color: V2.muted,
                   marginBottom: 12,
                 }}
               >
@@ -1322,29 +1293,22 @@ export default function ServicesPage() {
               </div>
               <div
                 style={{
-                  fontFamily: FONT.head,
-                  fontWeight: 600,
+                  fontFamily: V2_FONT.display,
+                  fontWeight: 400,
                   fontSize: 25,
-                  letterSpacing: "-0.6px",
+                  letterSpacing: "-0.014em",
+                  lineHeight: 1.2,
+                  color: V2.ink,
                   marginBottom: 10,
                 }}
               >
                 Turn your old devices into your next upgrade.
               </div>
-              <p
-                style={{
-                  fontFamily: FONT.body,
-                  fontSize: 18,
-                  lineHeight: 1.55,
-                  color: "#5a5a5a",
-                  margin: "0 0 22px",
-                  maxWidth: 560,
-                }}
-              >
+              <P size={18} style={{ lineHeight: 1.55, margin: "0 0 22px", maxWidth: 560 }}>
                 Seven values your device in about a minute — apply it instantly toward
                 anything in store, sealed and guaranteed.
-              </p>
-              <ArrowButton
+              </P>
+              <ButtonV2
                 label="Start your trade-in"
                 variant="fill"
                 href="/trade-in"
@@ -1355,6 +1319,6 @@ export default function ServicesPage() {
       </section>
 
       <Faq />
-    </>
+    </div>
   );
 }

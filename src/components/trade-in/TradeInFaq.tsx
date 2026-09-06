@@ -1,11 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { PlusToggle } from "@/components/home-v2/Ui";
+import { V2_HAIR_DARK } from "@/lib/theme-v2";
 
 /**
  * Trade-In FAQ accordion, on the dark guarantee band. First item opens by
  * default, matching the wireframe. Answers restate what the page already shows
  * rather than introducing new promises.
+ *
+ * The plus/cross indicator is the shared `PlusToggle` (`@/components/home-v2/Ui`),
+ * also used by `/services`' `Faq.tsx` — previously this page grew its own
+ * `content:"+"` CSS pseudo-element while `/services` drew a bordered SVG
+ * circle; now both render the one component. Colour flips to a white-alpha
+ * ring/glyph here (`V2_HAIR_DARK`, `rgba(255,255,255,0.6)`) because this
+ * accordion sits on the `.t-band--ink` ground — `PlusToggle`'s ink default
+ * would be invisible against ink.
  */
 const items = [
   {
@@ -47,7 +57,8 @@ export function TradeInFaq() {
             aria-expanded={open === i}
             onClick={() => setOpen(open === i ? -1 : i)}
           >
-            {it.q}
+            <span>{it.q}</span>
+            <PlusToggle open={open === i} color="rgba(255,255,255,0.6)" border={V2_HAIR_DARK} />
           </button>
           <div className="t-faqi__p">
             <div className="t-faqi__pi">{it.a}</div>

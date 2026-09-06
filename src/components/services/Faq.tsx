@@ -1,14 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import { Mono, P, PlusToggle } from "@/components/home-v2/Ui";
 import { faqData } from "@/lib/faq";
-import { FONT } from "@/lib/theme";
+import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
 
 /**
  * FAQ, by category. A sticky topic list on the left drives the question set on
  * the right; each question expands with a `grid-template-rows: 0fr → 1fr`
  * transition (which animates height without hard-coding one) and its `+` icon
  * rotates into an `×`.
+ *
+ * Re-tokened for `/services`'s v2 port: the "// Questions" eyebrow now renders
+ * through the shared `Mono` component and the answer copy through `P` —
+ * both from `@/components/home-v2/Ui` — rather than local FONT-styled markup.
+ *
+ * The circular plus/cross indicator is `PlusToggle`, also from
+ * `@/components/home-v2/Ui` — shared with `/trade-in`'s `TradeInFaq.tsx`
+ * rather than each page drawing its own icon, so the ring/stroke/rotation
+ * are defined once. The question toggle is now a real `<button
+ * aria-expanded>` too (it was a `<div onClick>` with no keyboard support or
+ * exposed state before this pass — fixed here rather than left standing
+ * while only the icon changed).
  */
 export function Faq() {
   const [tab, setTab] = useState(0);
@@ -20,32 +33,24 @@ export function Faq() {
       id="sec-faq"
       style={{
         width: "100%",
-        background: "#ffffff",
+        background: V2.white,
         padding: "100px 0",
         scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 var(--m7-pad)" }}>
         <div style={{ maxWidth: 860, marginBottom: 44 }}>
-          <div
-            style={{
-              fontFamily: FONT.head,
-              fontSize: 12,
-              letterSpacing: 2,
-              color: "#9a9a9a",
-              textTransform: "uppercase",
-              marginBottom: 16,
-            }}
-          >
-            {"// Questions"}
-          </div>
+          <Mono dot style={{ marginBottom: 16 }}>
+            Questions
+          </Mono>
           <h2
             style={{
-              fontFamily: FONT.head,
-              fontWeight: 600,
+              fontFamily: V2_FONT.display,
+              fontWeight: 400,
               fontSize: "clamp(25px, 3.5vw, 40px)",
-              lineHeight: 1,
-              letterSpacing: "-3px",
+              lineHeight: 1.18,
+              letterSpacing: "-0.016em",
+              color: V2.ink,
               margin: 0,
               textWrap: "balance",
             }}
@@ -66,11 +71,11 @@ export function Faq() {
           <div style={{ position: "sticky", top: 100 }}>
             <div
               style={{
-                fontFamily: FONT.mono,
+                fontFamily: V2_FONT.mono,
                 fontSize: 11,
-                letterSpacing: 1.5,
+                letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "#9a9a9a",
+                color: V2.muted,
                 marginBottom: 14,
               }}
             >
@@ -84,12 +89,12 @@ export function Faq() {
                   style={{
                     padding: "13px 16px",
                     borderRadius: 4,
-                    background: i === tab ? "#121212" : "transparent",
-                    color: i === tab ? "#ffffff" : "#6a6a6a",
-                    fontFamily: FONT.head,
-                    fontWeight: 600,
+                    background: i === tab ? V2.ink : "transparent",
+                    color: i === tab ? V2.white : V2.muted,
+                    fontFamily: V2_FONT.display,
+                    fontWeight: 400,
                     fontSize: 16,
-                    letterSpacing: "-0.2px",
+                    letterSpacing: "-0.01em",
                     cursor: "pointer",
                     transition: "background .2s ease,color .2s ease",
                   }}
@@ -103,10 +108,12 @@ export function Faq() {
           <div>
             <div
               style={{
-                fontFamily: FONT.head,
-                fontWeight: 600,
+                fontFamily: V2_FONT.display,
+                fontWeight: 400,
                 fontSize: 28,
-                letterSpacing: "-1.5px",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.2,
+                color: V2.ink,
                 margin: "0 0 22px",
               }}
             >
@@ -122,13 +129,15 @@ export function Faq() {
                   <div
                     key={key}
                     style={{
-                      background: "#fcfcfc",
-                      border: "1px solid #ececec",
+                      background: V2.white,
+                      border: V2_HAIR,
                       borderRadius: 4,
                       padding: "22px 26px",
                     }}
                   >
-                    <div
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
                       onClick={() =>
                         setOpen((s) => ({ ...s, [key]: !s[key] }))
                       }
@@ -137,49 +146,30 @@ export function Faq() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         gap: 20,
+                        width: "100%",
+                        background: "none",
+                        border: 0,
+                        padding: 0,
+                        font: "inherit",
+                        color: "inherit",
+                        textAlign: "left",
                         cursor: "pointer",
                       }}
                     >
-                      <div
+                      <span
                         style={{
-                          fontFamily: FONT.head,
-                          fontWeight: 600,
+                          fontFamily: V2_FONT.display,
+                          fontWeight: 400,
                           fontSize: 18,
-                          letterSpacing: "-0.3px",
+                          letterSpacing: "-0.01em",
                           lineHeight: 1.3,
+                          color: V2.ink,
                         }}
                       >
                         {qa.q}
-                      </div>
-                      <span
-                        style={{
-                          flex: "0 0 auto",
-                          width: 30,
-                          height: 30,
-                          border: "1px solid #e2e2e2",
-                          borderRadius: 99,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                          transition: "transform .35s cubic-bezier(.4,0,.2,1)",
-                        }}
-                      >
-                        <svg
-                          width="15"
-                          height="15"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#121212"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M5 12h14" />
-                          <path d="M12 5v14" />
-                        </svg>
                       </span>
-                    </div>
+                      <PlusToggle open={isOpen} />
+                    </button>
                     <div
                       style={{
                         display: "grid",
@@ -190,18 +180,7 @@ export function Faq() {
                       }}
                     >
                       <div style={{ overflow: "hidden" }}>
-                        <div
-                          style={{
-                            fontFamily: FONT.body,
-                            fontSize: 16,
-                            lineHeight: 1.65,
-                            color: "#6a6a6a",
-                            paddingTop: 14,
-                            maxWidth: 780,
-                          }}
-                        >
-                          {qa.a}
-                        </div>
+                        <P style={{ paddingTop: 14, maxWidth: 780 }}>{qa.a}</P>
                       </div>
                     </div>
                   </div>

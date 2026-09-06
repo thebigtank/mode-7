@@ -83,7 +83,7 @@ export function Hero() {
         <div>
           <p
             style={{
-              fontSize: 18,
+              fontSize: "var(--m7-lede-size)",
               lineHeight: 1.6,
               /* onGoldMuted at 5.13:1 — cream on gold would be 1.37:1 */
               color: COLOR.onGoldMuted,

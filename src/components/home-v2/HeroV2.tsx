@@ -1,7 +1,12 @@
 import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
 import { ButtonV2 } from "./ButtonV2";
-import { HeroHeadlineV2 } from "./HeroHeadlineV2";
+// The rotating word's character-scramble ("decode") variant (live). A GSAP
+// wipe alternative is parked, not deleted, at "./HeroHeadlineV2Wipe" — swap
+// this import to that path to bring it back; see the note at the top of
+// that file. Both variants export their component as `HeroHeadlineV2`, so
+// switching is always this one line.
+import { HeroHeadlineV2 } from "./HeroHeadlineV2Scramble";
 
 /**
  * Section 1 — the reference's split hero: a two-line ANIMATED display headline
@@ -21,15 +26,15 @@ import { HeroHeadlineV2 } from "./HeroHeadlineV2";
  * THE HEADLINE ITSELF LIVES IN `HeroHeadlineV2`, a client component. It is one
  * ordinary three-line sentence, every line the same size and weight —
  * "Powering your Pocket / with tech that's vetted, / sealed and guaranteed." —
- * with exactly ONE word changing: the noun on line 1 rolls vertically through
- * a six-word pool inside a masked slot. Everything load-bearing about it — the
- * reserved slot width, the fixed accessible name, the motion gates — is
- * documented there.
+ * with exactly ONE word changing: the noun on line 1 decodes, left to right,
+ * through a six-word pool inside a masked slot. Everything load-bearing
+ * about it — the reserved slot width, the fixed accessible name, the motion
+ * gates — is documented there.
  *
  * Colour: the reference sets its final headline phrase in orange. Here the
- * rolling word is DARK TYPE over a gold marker that covers only the lower half
- * of the letterforms — see the band note below for the measured contrast and
- * the geometry.
+ * word is DARK TYPE over a permanent gold marker that covers only the lower
+ * half of the letterforms — see the band note below for the measured
+ * contrast and the geometry.
  *
  * Layout note: the two hero columns are the reference's 558/642 split
  * REVERSED — the text column is now the wide one (1.45fr vs 1fr) with an 80px
@@ -44,7 +49,7 @@ import { HeroHeadlineV2 } from "./HeroHeadlineV2";
  *
  * The stroke is no longer a `background-image` on one phrase of a static
  * headline: it is a single solid element that BELONGS TO THE SLOT and never
- * moves, with the rolling words passing through it. It lives in
+ * moves, with the decoding words passing through it. It lives in
  * `HeroHeadlineV2` and `.v2-hero-band` in `V2Styles`, and it reuses this
  * section's geometry unchanged — pixel-scanned against the gradient it
  * replaces, its top edge lands 0.25px lower and its bottom 0.75px lower. The
@@ -60,10 +65,16 @@ import { HeroHeadlineV2 } from "./HeroHeadlineV2";
  *
  * Measured contrast, re-read off the rendered page (V2.ink #171D1D, which is
  * what the headline uses — there is no longer any dimmed state, every word on
- * all three lines is at full opacity):
+ * all three lines is at full opacity). The section ground is now `V2.white`
+ * (was `V2.wash`, see the section element below), which only moves the
+ * page-ground pair — the gold band is a fixed swatch, unaffected by what the
+ * section around it sits on:
  *
  *   over the gold band   #171D1D on #F0C044   **10.02:1**  passes AAA body
- *   over the page ground #171D1D on #E6EAE6   **14.05:1**  passes AAA body
+ *   over the page ground #171D1D on #FFFFFF   **17.07:1**  passes AAA body
+ *
+ * (on the retired `V2.wash` ground these were 10.02:1 and 14.05:1 — the gold
+ * pair is identical, the page-ground pair only got roomier.)
  *
  * The retired gold-text options, all on `wash`, are kept because this was the
  * page's one documented exception to the accent rule and the numbers closed it:
@@ -136,7 +147,7 @@ function MarqueeItem({ name }: { name: string }) {
 
 export function HeroV2() {
   return (
-    <section style={{ background: V2.wash }}>
+    <section style={{ background: V2.white }}>
       <div
         style={{
           ...V2_CONTAINER,
@@ -145,11 +156,21 @@ export function HeroV2() {
              below), carrying no top margin/padding of its own, so widening
              the space above the band happens HERE, never inside
              .v2-marquee-row's own padding — that would make the band
-             itself taller instead. clamp(48px,5vw,76px), a modest bump over
-             the old clamp(40px,4.2vw,60px): +12px at the 1440px reference
-             width, +8px at the mobile floor, so it scales down rather than
-             sitting as a fixed value that dominates a narrow screen. */
-          padding: "clamp(44px,5.6vw,80px) clamp(20px,4vw,48px) clamp(48px,5vw,76px)",
+             itself taller instead. The previous clamp(48px,5vw,76px) (and,
+             before that, clamp(40px,4.2vw,60px)) both read as crowding the
+             band against the buttons when measured on the rendered page —
+             72px at 1440 sat noticeably tighter than the section's own top
+             padding (80px at 1440, clamp(44px,5.6vw,80px)) despite the gold
+             band being a much harder visual stop than the header above it.
+             clamp(64px,7.8vw,112px) is a decisive jump rather than another
+             small nudge: 112px at the 1440 reference (+40px over the last
+             value, and above the top padding on purpose, since a solid
+             colour band needs more separation than a plain section start),
+             64px at the mobile floor (+16px). Screenshotted at both widths
+             against the live page before landing on these numbers; the
+             band's own height (`.v2-marquee-row`'s padding) is untouched,
+             so this only moves the gap above it. */
+          padding: "clamp(44px,5.6vw,80px) clamp(20px,4vw,48px) clamp(64px,7.8vw,112px)",
         }}
       >
         <div className="v2-hero-cols">

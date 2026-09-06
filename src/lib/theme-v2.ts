@@ -8,9 +8,11 @@
  * outside `src/components/home-v2`, `src/app/homepage-v2` and the single v2
  * branch in `SiteShell.tsx` should import from here.
  *
- * Typefaces: v2 uses its OWN stack, `V2_FONT` below — Alegreya /
- * Inter / JetBrains Mono, registered in `src/app/layout.tsx` alongside (never
- * instead of) the three v1 faces. v1's `FONT` is untouched.
+ * Typefaces: v2 uses its OWN stack, `V2_FONT` below — Alegreya / Inter /
+ * Outfit, registered in `src/app/layout.tsx` alongside (never instead of)
+ * the three v1 faces. v1's `FONT` is untouched. JetBrains Mono was the
+ * label/eyebrow face until it was dropped in favour of the body face,
+ * Outfit — see `V2_FONT.mono` below and CLAUDE.md's Typography table.
  *
  * ── THE ACCENT RULE (load-bearing) ──────────────────────────────────────────
  *
@@ -62,6 +64,23 @@ export const V2 = {
   muted: "#5A6160",
   /** Secondary text on the `ink` bands. 7.75:1. */
   faint: "#AAB0AE",
+  /**
+   * Navy — not part of the core warm palette (that's `ink`/`wash`/`accent`),
+   * added specifically for the `/services` category-pill nav, whose band
+   * sits on `accent` gold. The gold rule above forbids gold-as-text on any
+   * light ground and forbids white directly on gold (1.70:1); a pill nav on
+   * a solid gold band still needs a THIRD colour to outline/label itself
+   * with at rest, since `ink`/`accentOn` would both read as "the standard
+   * dark-on-gold fill" rather than a distinct outline treatment. Chosen as a
+   * deep, near-black blue — different enough from `ink`'s dark grey-green to
+   * read as its own colour beside gold, dark enough to clear text contrast
+   * on gold by a wide margin. Measured: 9.38:1 as text/border on `accent`
+   * gold (comfortably past the 4.5:1 body floor and the 3:1 non-text/border
+   * floor), 15.97:1 for `white` text on this as a fill (the pill's hover/
+   * focus state — white only ever appears on this navy fill, never on gold
+   * itself, per the gold rule's standing "never white on gold" rule).
+   */
+  navy: "#14213D",
 } as const;
 
 /**
@@ -70,7 +89,11 @@ export const V2 = {
  * Google-Fonts stand-ins for the reference site's three licensed faces:
  *   display  Serrif Condensed w300  ->  Alegreya 400
  *   body/UI  ABC Oracle w300-700    ->  Inter 300/400/500/700
- *   labels   Apercu Mono Pro w400   ->  JetBrains Mono 400/700
+ *   labels   Apercu Mono Pro w400   ->  JetBrains Mono 400/700, retired: the
+ *                                       small uppercase labels now set in
+ *                                       Outfit, the body face, with tracking
+ *                                       retuned for a proportional face (see
+ *                                       `V2_TYPE.mono` below and CLAUDE.md).
  *
  * Each name resolves to a CSS variable set on <html> by `next/font/google`.
  * The v1 `FONT` export in `@/lib/theme` is separate and unaffected.
@@ -80,8 +103,15 @@ export const V2_FONT = {
   display: "var(--font-alegreya), Georgia, 'Times New Roman', serif",
   /** Body copy, navigation, buttons, card text. */
   body: "var(--font-outfit), var(--font-inter), system-ui, sans-serif",
-  /** Small uppercase labels and eyebrows. */
-  mono: "var(--font-jetbrains-mono), ui-monospace, monospace",
+  /**
+   * Small uppercase labels and eyebrows. Was JetBrains Mono; now the SAME
+   * stack as `body` — the mono face was retired and its uses moved to
+   * Outfit (CLAUDE.md's Typography table has the reasoning). Kept as its
+   * own key (rather than folding call sites onto `V2_FONT.body` directly)
+   * because every label site also reads `V2_TYPE.mono` for a tracking value
+   * distinct from body running copy — the two travel together.
+   */
+  mono: "var(--font-outfit), var(--font-inter), system-ui, sans-serif",
 } as const;
 
 /**
@@ -94,7 +124,15 @@ export const V2_TYPE = {
   h3: { fontSize: 20, lineHeight: "30px", letterSpacing: "-0.48px" },
   body: { fontSize: 16, lineHeight: "24px" },
   small: { fontSize: 13.6, lineHeight: "18px" },
-  mono: { fontSize: 12, letterSpacing: "0.08em" },
+  /**
+   * Retuned for Outfit. 0.08em was chosen for JetBrains Mono, whose fixed
+   * advance width already reads as "spaced out" at 12px uppercase — a
+   * proportional face at the same tracking looks loose, gappy between wide
+   * letter pairs (M, W) and cramped between narrow ones (I, l). Measured on
+   * the rendered header/CTA/lifecycle labels at 1440 and 390: 0.04em holds
+   * the same uppercase-label presence without the unevenness.
+   */
+  mono: { fontSize: 12, letterSpacing: "0.04em" },
 } as const;
 
 /** Inner container for every v2 section. Full-bleed ground, contained content. */

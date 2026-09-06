@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import {
   Alegreya,
   Inter,
-  JetBrains_Mono,
   Outfit,
   Space_Grotesk,
   Space_Mono,
@@ -34,10 +33,13 @@ const spaceMono = Space_Mono({
 });
 
 /* ── /homepage-v2 only ──────────────────────────────────────────────────────
- * Three extra faces, added ALONGSIDE the three above (which v1 depends on and
+ * Two extra faces, added ALONGSIDE the three above (which v1 depends on and
  * which are untouched). They stand in for the reference site's licensed type:
- * Alegreya for display headings, Outfit for body/UI, JetBrains Mono for
- * the small uppercase labels. Exposed via `V2_FONT` in `src/lib/theme-v2.ts`.
+ * Alegreya for display headings, Outfit for body/UI. Outfit also carries the
+ * small uppercase labels now — JetBrains Mono, the label face, was removed
+ * (see CLAUDE.md's Typography table); do not reintroduce
+ * `--font-jetbrains-mono` here without re-adding every reference to it.
+ * Exposed via `V2_FONT` in `src/lib/theme-v2.ts`.
  */
 const alegreya = Alegreya({
   subsets: ["latin"],
@@ -53,13 +55,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Mode 7 — Powering your home, your pocket, and your future.",
   description:
@@ -72,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${alegreya.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${alegreya.variable} ${inter.variable}`}
     >
       <body>
         <SiteShell>{children}</SiteShell>

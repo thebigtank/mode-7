@@ -244,11 +244,12 @@ export function WhyModeSeven() {
               >
                 {r.accent}
               </div>
+              {/* No fontSize/lineHeight here: 15.5px/1.6 was just restating
+                  the site default within half a pixel. The global <p> rule
+                  (--m7-p-size/--m7-p-line, 15px/1.6) governs instead. */}
               <p
                 style={{
                   margin: 0,
-                  fontSize: "15.5px",
-                  lineHeight: 1.6,
                   color: "rgba(28,21,15,0.68)",
                   textWrap: "pretty",
                 }}

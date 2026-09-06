@@ -37,3 +37,36 @@ IDs: ITSOCGEJFY, CRHFNXOZMG, XYQ5LBSIPZ, W6GFOSFAXA
 
 Sizes are cut to what each slot actually renders; re-export from the source IDs
 rather than upscaling these if a slot ever needs to be larger.
+
+## About page imagery
+
+Unsplash/Pexels/Pixabay and StockSnap itself were unreachable for direct
+sourcing in this pass (Unsplash and StockSnap return an anti-bot challenge to
+automated fetches; Pexels and Pixabay likewise; the Openverse API's
+`license=cc0` filter was timing out server-side at the time). Both images below
+were instead sourced via **Wikimedia Commons**, whose API confirms CC0
+independently (checked via `imageinfo` `extmetadata.LicenseShortName`) — one is
+a Commons-hosted mirror of an original CC0 Unsplash photo, the other is a
+Commons contributor's own CC0-dedicated work. Re-export from the source URLs
+below rather than upscaling if a slot ever needs to be larger.
+
+| file | used by | source | licence |
+|---|---|---|---|
+| `workshop-bench.webp` | About hero — "Workshop — intake & verification bench" band | [Teardown of MacBook Pro 16 inch laptop.jpg](https://commons.wikimedia.org/wiki/File:Teardown_of_MacBook_Pro_16_inch_laptop.jpg), own work by Netha Hussain | CC0 (Wikimedia Commons) |
+| `devices-flatlay.webp` | About "What We Focus On" — Premium Devices bento cell | [Gadgets on a desk (Unsplash).jpg](https://commons.wikimedia.org/wiki/File:Gadgets_on_a_desk_(Unsplash).jpg), original: [unsplash.com/photos/rhVD9wlnO_I](https://unsplash.com/photos/rhVD9wlnO_I) by Niklas Veenhuis | CC0 (Unsplash, mirrored & confirmed CC0 on Wikimedia Commons) |
+
+Both are crops of the original (landscape slices taken from a larger frame) —
+see the crop reasoning in the About page diff if re-deriving. Neither depicts
+an identifiable person: the MacBook shot is internals-only against a plain
+background, and the desk shot shows only a knee/leg fragment in one corner,
+consistent with the "unidentifiable hands/objects" allowance in CLAUDE.md's
+content rules.
+
+## Known gap — `lifecycle-*.webp` (unattributed)
+
+`lifecycle-devices.webp`, `lifecycle-refurb.webp`, `lifecycle-smarthome.webp`
+and `lifecycle-solar.webp` (used by `LifecycleV2` and `CapabilityGridV2`) have
+**no entry here and no recorded provenance**. This was flagged rather than
+papered over: no attribution has been invented for them. **A human needs to
+either locate their original source and licence, or replace them,** before
+they can be treated as cleared for commercial use.

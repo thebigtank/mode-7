@@ -200,7 +200,7 @@ export function SectionHeading({
   );
 }
 
-/** Standard body paragraph: Outfit 18px. */
+/** Standard body paragraph: Outfit 18px. Currently unused (no call sites). */
 export function Body({
   children,
   style,
@@ -211,7 +211,7 @@ export function Body({
   return (
     <p
       style={{
-        fontSize: 18,
+        fontSize: "var(--m7-lede-size)",
         lineHeight: 1.6,
         color: COLOR.body,
         margin: 0,

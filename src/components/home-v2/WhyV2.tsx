@@ -86,7 +86,9 @@ export function WhyV2() {
                   style={{
                     fontFamily: V2_FONT.mono,
                     fontSize: 13,
-                    letterSpacing: "0.04em",
+                    /* was JetBrains Mono at 0.04em; Outfit's tabular digits
+                       need less air — see CLAUDE.md's Typography table. */
+                    letterSpacing: "0.02em",
                     lineHeight: "30px",
                     /* accentText — gold on wash is 1.40:1, below even 3:1 */
                     color: V2.accentText,

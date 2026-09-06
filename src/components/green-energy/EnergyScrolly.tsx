@@ -390,7 +390,7 @@ export function EnergyScrolly() {
                 {b.lead && (
                   <p
                     style={{
-                      fontSize: 18,
+                      fontSize: "var(--m7-lede-size)",
                       lineHeight: 1.6,
                       color: "#5a5a5a",
                       margin: 0,
@@ -403,7 +403,7 @@ export function EnergyScrolly() {
                   <p
                     key={pi}
                     style={{
-                      fontSize: 18,
+                      fontSize: "var(--m7-lede-size)",
                       lineHeight: 1.6,
                       color: "#5a5a5a",
                       margin: pi === 0 && !b.lead ? 0 : "14px 0 0",

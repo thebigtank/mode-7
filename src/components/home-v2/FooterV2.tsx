@@ -109,10 +109,12 @@ export function FooterV2() {
             <div style={{ paddingRight: "clamp(0px,4vw,40px)" }}>
               <div
                 style={{
+                  /* was JetBrains Mono at 4px tracking (0.13em); retuned for
+                     Outfit — see CLAUDE.md's Typography table. */
                   fontFamily: V2_FONT.mono,
                   fontWeight: 700,
                   fontSize: 30,
-                  letterSpacing: 4,
+                  letterSpacing: 2,
                   lineHeight: 1.1,
                   color: V2.white,
                   marginBottom: 20,

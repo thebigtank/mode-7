@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import { BagIcon, SearchIcon } from "@/components/Icons";
+import { useCallback, useRef, useState } from "react";
+import { BagIcon, SearchIcon, StoreIcon } from "@/components/Icons";
 import { useHeaderHide } from "@/hooks/useHeaderHide";
 import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
 
@@ -10,54 +10,79 @@ import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
  * Chrome for `/homepage-v2`: the reference's dark announcement strip above a
  * sticky bar carrying wordmark, nav and a single dark action block.
  *
- * The bar itself is a full-width, 88px, TRANSPARENT sticky rail; the visible
+ * The bar itself is a full-width, 72px, TRANSPARENT sticky rail; the visible
  * "floating menu" is an inner panel inset to the 1280 container, so the wash
  * page ground shows either side of it and it reads as detached. Square corners,
  * no border — the panel is one step lighter than the page (`washSoft` over
  * `wash`), and carries a soft ground shadow because content now passes through
- * the 14px gap above it and the lift alone no longer separates the two.
+ * the GAP above it and the lift alone no longer separates the two.
  *
  * It hides on scroll down and returns on scroll up via the shared
  * `useHeaderHide`, which sets `translateY(-100%)`. See the `GAP` note on the
- * <header> for why the rail is 102px tall while the panel is 88px.
+ * <header> for why the rail is NAV_H + GAP tall while the panel is only NAV_H.
  *
- * Mode 7 content: the "Mode 7" wordmark; five existing-route labels drawn from
- * `menuItems` in content.ts (no new labels invented); the announcement line is
- * the tagline already used in the site metadata and the v1 hero, so nothing is
- * written for the strip. `SiteShell` suppresses the v1 chrome on this route.
+ * Mode 7 content: the "Mode 7" wordmark; four existing-route labels drawn from
+ * `menuItems` in content.ts (no new labels invented, "About Us" first, "Shop"
+ * removed since the shop action icon below replaces it); the announcement
+ * line is the tagline already used in the site metadata and the v1 hero, so
+ * nothing is written for the strip. `SiteShell` suppresses the v1 chrome on
+ * this route.
  *
- * Layout: the panel's inner row is a THREE-COLUMN grid, `1fr auto 1fr` —
- * wordmark left, links centre, actions right. The links are therefore optically
- * centred in the panel regardless of how wide the wordmark or the actions get;
- * a flex row with `margin:auto` on the links would drift as either side changed.
+ * Layout: the panel's inner row is a TWO-COLUMN grid, `auto 1fr` — a left
+ * group and the actions. The left group is wordmark + nav in one flex row
+ * (gap between them, not a grid track of their own), so the links sit close
+ * to the logo rather than optically centred in the panel — the earlier
+ * `1fr auto 1fr` centred layout is what this replaced, at the user's
+ * request. The actions column stays `1fr` with `justifySelf:end`, so it is
+ * still pinned flush right regardless of how wide the left group gets.
  *
- * Actions: search and cart as bare 40x40 icon boxes, the same anatomy as v1's
- * `Header.tsx` — no ground, no border, `currentColor` icons, and a small count
- * badge pinned to the bag. Painted from `V2` only; nothing here imports v1's
- * `COLOR`.
+ * Actions: search, shop and cart as bare 40x40 icon boxes, the same anatomy as
+ * v1's `Header.tsx` — no ground, no border, `currentColor` icons, and a small
+ * count badge pinned to the bag. Painted from `V2` only; nothing here imports
+ * v1's `COLOR`. The search icon calls `onOpenSearch`, supplied by `SiteShell`
+ * — the same `SearchOverlay` v1 uses, opened here and painted in the v2
+ * palette via its `variant` prop rather than reimplemented.
  *
  * Colour: the strip's leading dot is gold as a FILL (a graphic, not type). The
  * cart badge is the one filled mark in the bar: gold ground with `accentOn` ink
  * as the number (10.02:1), ringed 1.5px in `washSoft` — the PANEL's ground, not
  * the page's, because the badge sits on the panel — so it separates from the
  * bag drawn behind it.
+ *
+ * Nav focus: hovering (or keyboard-focusing) a link dims its siblings and
+ * drops a translucent scrim over the page behind the header — `.v2-nav-link`
+ * / `.v2-nav-scrim` in `V2Styles`. The active link is resolved in React state
+ * exactly the way `LifecycleV2` resolves its active row: `hover` and `focus`
+ * are held separately and the winner is `hover ?? focus`, because `:hover`
+ * and `:focus-within` are independent CSS conditions that would otherwise
+ * both light up at once (a pointer on one link, a lingering keyboard focus on
+ * another). See `LifecycleV2.tsx`'s load-bearing note for the full argument;
+ * this is the same pattern, not a reinvention of it.
+ *
+ * The scrim is a SIBLING of `<header>`, not a descendant: `<header>` carries
+ * a permanent inline `transform` for the hide/show slide, and a transformed
+ * ancestor becomes the containing block for a `position:fixed` descendant —
+ * nesting the scrim inside would pin it to the header's own 96px-tall box
+ * instead of the viewport. As a sibling, `position:fixed` is genuinely
+ * viewport-relative. The announcement strip is lifted to `zIndex:1002`, above
+ * the scrim's 1000, so the strip stays fully lit — it reads as part of the
+ * same nav chrome as the panel beneath it, not as page content to dim.
  */
 const NAV = [
-  { label: "Shop", href: "/shop" },
+  { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Trade-In", href: "/trade-in" },
   { label: "Smart Home", href: "/smart-home" },
-  { label: "About Us", href: "/about" },
 ];
 
 /** Matches v1's `Header` default so the two bars report the same bag. */
 const CART_COUNT = 12;
 
 /** The panel's own height, and the float gap above it when stuck. */
-const NAV_H = 88;
-const GAP = 14;
+const NAV_H = 72;
+const GAP = 24;
 
-export function HeaderV2() {
+export function HeaderV2({ onOpenSearch }: { onOpenSearch?: () => void }) {
   const barRef = useRef<HTMLElement>(null);
   /* Shared with v1: pure transform logic, no palette. Hides on scroll down,
      returns on scroll up. It only works because the page root uses
@@ -65,10 +90,33 @@ export function HeaderV2() {
      scroll container and silently kill `position: sticky`. */
   useHeaderHide(barRef);
 
+  /**
+   * Same shape as `LifecycleV2`'s active-row state, for the same reason: two
+   * independent inputs resolved to one winner, so a pointer on one link
+   * always beats a focus sitting on another, and dropping the pointer falls
+   * back to the focused link rather than to nothing.
+   */
+  const [hover, setHover] = useState<number | null>(null);
+  const [focus, setFocus] = useState<number | null>(null);
+  const active = hover ?? focus;
+
+  /** `:focus-visible` is not supported everywhere `matches` is — degrade to
+   *  "any focus counts" rather than throwing and losing the keyboard path. */
+  const isFocusVisible = useCallback((el: Element) => {
+    try {
+      return el.matches(":focus-visible");
+    } catch {
+      return true;
+    }
+  }, []);
+
   return (
     <>
-      {/* announcement strip — ink, 40px, mono, centred */}
-      <div style={{ background: V2.ink }}>
+      {/* announcement strip — ink, 40px, mono, centred. Lifted above the nav
+          scrim (zIndex:1002 > the scrim's 1000) so it stays fully lit as part
+          of the header chrome rather than dimming as page content — see the
+          "Nav focus" note above. */}
+      <div style={{ background: V2.ink, position: "relative", zIndex: 1002 }}>
         <div
           style={{
             ...V2_CONTAINER,
@@ -114,19 +162,31 @@ export function HeaderV2() {
         ref={barRef}
         style={{
           position: "sticky",
-          /* THE FLOAT GAP. Stuck, the rail parks 14px down, so the panel's top
-             edge is at y=14 and page content passes visibly through the strip
-             above it — the bar reads as floating rather than pinned. */
-          top: GAP,
+          /* THE FLOAT GAP now lives in `paddingTop` below, not in `top`. The
+             rail is pinned flush to the viewport (top:0); the panel then
+             sits GAP down INSIDE the rail via paddingTop, so the same GAP
+             shows above the panel whether the rail is resting in normal flow
+             (right under the announcement strip) or stuck. Previously `top`
+             carried the gap, which only pinned the rail — and therefore the
+             panel sitting at the rail's top edge — GAP down once scrolling
+             had engaged sticky; at rest the rail sat flush under the strip
+             with no padding above the panel, so the two touched. */
+          top: 0,
           zIndex: 1001,
           /* The rail is GAP taller than the panel it carries, with the extra
-             14px as padding BELOW. That is what makes `useHeaderHide`'s
-             `translateY(-100%)` — a v1 hook this exploration must not edit —
-             equal -(88 + 14) = -102px, exactly the distance that drops the
-             panel's bottom edge to y=0. A bare `top:14` with a 88px rail would
-             translate only -88 and leave 14px of bar peeking. */
+             GAP as padding ABOVE. The panel now sits at the BOTTOM of the
+             rail's padding box (paddingTop above it, none below), so the
+             panel's bottom edge always equals the rail's bottom edge. That is
+             the invariant `useHeaderHide`'s `translateY(-100%)` — a v1 hook
+             this exploration must not edit — depends on: translating the rail
+             by its own full height (NAV_H + GAP) always drops the panel's
+             (== the rail's) bottom edge to exactly y=0, whether the rail is
+             resting in flow or pinned by `position:sticky`. Keep NAV_H, GAP
+             and the translate all derived from these two constants —
+             hardcoding any one of them breaks the hide at a different
+             height. */
           height: NAV_H + GAP,
-          paddingBottom: GAP,
+          paddingTop: GAP,
           boxSizing: "border-box",
           background: "transparent",
           /* the rail is a transparent spacer either side of the panel; only the
@@ -145,71 +205,99 @@ export function HeaderV2() {
               pointerEvents: "auto",
               /* With a gap, content scrolls through the space above the panel,
                  so the `washSoft`-over-`wash` lift alone no longer separates
-                 it. A restrained drop shadow does — 10% ink at a 24px blur is
+                 it. A restrained drop shadow does — 5% ink at a 16px blur is
                  a soft ground shadow, not a card elevation, and stays inside
                  the reference's flat register. */
-              boxShadow: "0 6px 24px rgba(23,29,29,0.10)",
+              boxShadow: "0 4px 16px rgba(23,29,29,0.05)",
               padding: "0 clamp(16px,2.2vw,32px)",
-              /* three columns, not a flex row: the centre column is centred in
-                 the PANEL, so it cannot drift as the side columns change width */
+              /* two columns, not three: the left group (wordmark + nav) sits
+                 together at the start, actions at the end. Both children keep
+                 an explicit `gridColumn` (trap #3 in CLAUDE.md) even though
+                 there are only ever two of them — `.v2-navlinks` going
+                 `display:none` under 980px happens INSIDE the left group's own
+                 flex row, not to a grid item, so it can never hand this grid
+                 an auto-placement surprise; the explicit columns are kept
+                 anyway as the established defensive pattern. */
               display: "grid",
-              gridTemplateColumns: "1fr auto 1fr",
+              gridTemplateColumns: "auto 1fr",
               alignItems: "center",
               gap: "clamp(12px,2vw,32px)",
             }}
           >
-            <Link
-              href="/homepage-v2"
+            <div
               style={{
-                /* explicit column: `.v2-navlinks` goes `display:none` under
-                   980px, which removes it from the grid FLOW entirely — with
-                   auto-placement the actions would then slide into column 2
-                   and stop sitting flush right. */
                 gridColumn: 1,
                 justifySelf: "start",
-                fontFamily: V2_FONT.display,
-                fontWeight: 400,
-                fontSize: 28,
-                letterSpacing: "-0.02em",
-                color: V2.ink,
-                textDecoration: "none",
-              }}
-            >
-              Mode 7
-            </Link>
-
-            <nav
-              className="v2-navlinks"
-              /* `display` is set by `.v2-navlinks` so the 980px hide rule wins */
-              style={{
-                gridColumn: 2,
-                gap: "clamp(16px,2.2vw,32px)",
+                minWidth: 0,
+                display: "flex",
                 alignItems: "center",
+                /* the gap that puts the links close to the logo — deliberately
+                   tighter than the 12-32px gap between the two grid columns,
+                   so the pairing reads as one group, not three evenly spaced
+                   items. */
+                gap: "clamp(24px,3.4vw,56px)",
               }}
-              aria-label="Primary"
             >
-              {NAV.map((n) => (
-                <Link
-                  key={n.label}
-                  href={n.href}
-                  style={{
-                    fontFamily: V2_FONT.body,
-                    fontSize: 16,
-                    fontWeight: 400,
-                    /* ink, not accent: gold type on wash is 1.40:1 */
-                    color: V2.ink,
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
+              <Link
+                href="/homepage-v2"
+                style={{
+                  flex: "0 0 auto",
+                  fontFamily: V2_FONT.display,
+                  fontWeight: 400,
+                  fontSize: 28,
+                  letterSpacing: "-0.02em",
+                  color: V2.ink,
+                  textDecoration: "none",
+                }}
+              >
+                Mode 7
+              </Link>
+
+              <nav
+                className="v2-navlinks"
+                /* `display` is set by `.v2-navlinks` so the 980px hide rule wins */
+                style={{
+                  gap: "clamp(16px,2.2vw,32px)",
+                  alignItems: "center",
+                }}
+                aria-label="Primary"
+              >
+                {NAV.map((n, i) => (
+                  <Link
+                    key={n.label}
+                    href={n.href}
+                    /* opacity lives in the stylesheet (.v2-nav-link /
+                       .is-dimmed / .is-active), never inline — an inline
+                       opacity here would out-specify those rules and the dim
+                       would silently never fire. */
+                    className={`v2-nav-link${
+                      active === i ? " is-active" : active !== null ? " is-dimmed" : ""
+                    }`}
+                    onPointerEnter={() => setHover(i)}
+                    onPointerLeave={() => setHover((h) => (h === i ? null : h))}
+                    onFocus={(e) => {
+                      if (isFocusVisible(e.currentTarget)) setFocus(i);
+                    }}
+                    onBlur={() => setFocus((f) => (f === i ? null : f))}
+                    style={{
+                      fontFamily: V2_FONT.body,
+                      fontSize: 16,
+                      fontWeight: 400,
+                      /* ink, not accent: gold type on wash is 1.40:1 */
+                      color: V2.ink,
+                      textDecoration: "none",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {n.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
             <div
               style={{
-                gridColumn: 3,
+                gridColumn: 2,
                 justifySelf: "end",
                 display: "flex",
                 alignItems: "center",
@@ -217,10 +305,9 @@ export function HeaderV2() {
                 color: V2.ink,
               }}
             >
-              {/* No search overlay exists on v2, so this is a real button with
-                  no handler rather than a link pointing nowhere. */}
               <button
                 type="button"
+                onClick={onOpenSearch}
                 aria-label="Search"
                 style={{
                   display: "inline-flex",
@@ -231,12 +318,29 @@ export function HeaderV2() {
                   padding: 0,
                   background: "none",
                   border: "none",
+                  font: "inherit",
                   color: "inherit",
                   cursor: "pointer",
                 }}
               >
                 <SearchIcon />
               </button>
+
+              <Link
+                href="/shop"
+                aria-label="Shop"
+                style={{
+                  display: "inline-flex",
+                  width: 40,
+                  height: 40,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "inherit",
+                  cursor: "pointer",
+                }}
+              >
+                <StoreIcon />
+              </Link>
 
               <Link
                 href="/cart"
@@ -286,6 +390,13 @@ export function HeaderV2() {
           </div>
         </div>
       </header>
+
+      {/* Page scrim for nav focus — a SIBLING of <header>, not a descendant
+          (see the "Nav focus" note above for why). Resting opacity:0 and the
+          fade both live in `.v2-nav-scrim` in `V2Styles`; this element only
+          ever carries the `is-active` class. Always pointer-events:none so a
+          click reaches the page underneath, hovered link or not. */}
+      <div aria-hidden className={`v2-nav-scrim${active !== null ? " is-active" : ""}`} />
     </>
   );
 }

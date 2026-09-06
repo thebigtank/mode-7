@@ -220,7 +220,7 @@ export default function GreenEnergyPage() {
             <h2 style={h2}>
               Energy prices only go one way. Your bills don’t have to.
             </h2>
-            <p style={{ fontSize: 18, lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
+            <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
               Grid electricity keeps climbing and supply keeps wobbling. Generating
               your own clean power is no longer a luxury — it’s the smartest hedge a
               household can make.
@@ -287,7 +287,7 @@ export default function GreenEnergyPage() {
             <h2 style={{ ...h2, fontSize: "clamp(22px, 3.0vw, 34px)" }}>
               The Power of Energy Independence
             </h2>
-            <p style={{ fontSize: 18, lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
+            <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
               Switching to solar isn't just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint.
             </p>
           </div>
@@ -328,7 +328,7 @@ export default function GreenEnergyPage() {
                   </div>
                   <p
                     style={{
-                      fontSize: 18,
+                      fontSize: "var(--m7-lede-size)",
                       lineHeight: 1.65,
                       color: "#5a5a5a",
                       margin: 0,
@@ -403,7 +403,7 @@ export default function GreenEnergyPage() {
           <div>
             <div style={overline}>{"// Solar Power"}</div>
             <h2 style={h2}>The sun does the heavy lifting.</h2>
-            <p style={{ fontSize: 18, lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
+            <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
               Solar power is beautifully simple. Your roof catches daylight and
               turns it into the electricity your home runs on — no fuel to buy,
               nothing to burn. Just clean, quiet energy, on tap every day.

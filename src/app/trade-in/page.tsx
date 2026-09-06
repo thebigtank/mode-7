@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { TradeInFaq } from "@/components/trade-in/TradeInFaq";
 import { ValuationWorkspace } from "@/components/trade-in/ValuationWorkspace";
+import { Mono, P } from "@/components/home-v2/Ui";
+import { V2 } from "@/lib/theme-v2";
 
 export const metadata: Metadata = {
   title: "Trade-In — Mode 7",
@@ -33,9 +35,9 @@ export default function TradeInPage() {
       {/* ------------------------------------------------------------- hero */}
       <section className="t-wrap t-hero">
         <div style={{ maxWidth: "62ch" }}>
-          <div className="t-over" style={{ marginBottom: 16 }}>
-            {"// Intelligent Trade-In Portal"}
-          </div>
+          <Mono dot style={{ marginBottom: 16 }}>
+            Intelligent Trade-In Portal
+          </Mono>
           <h1 className="t-dhero">
             Your device already
             <br />
@@ -60,9 +62,9 @@ export default function TradeInPage() {
         id="value-your-device"
         style={{ paddingTop: "clamp(40px,5vw,72px)" }}
       >
-        <div className="t-over" style={{ marginBottom: 14 }}>
-          {"// Value your device"}
-        </div>
+        <Mono dot style={{ marginBottom: 14 }}>
+          Value your device
+        </Mono>
         <h2 className="t-dl" style={{ maxWidth: "22ch", marginBottom: "clamp(24px,3vw,40px)" }}>
           Tell us about it. Watch the number.
         </h2>
@@ -72,9 +74,9 @@ export default function TradeInPage() {
       {/* -------------------------------------------------------- how we price */}
       <section className="t-band t-band--wash">
         <div className="t-wrap">
-          <div className="t-over" style={{ marginBottom: 14 }}>
-            {"// How the number is made"}
-          </div>
+          <Mono dot style={{ marginBottom: 14 }}>
+            How the number is made
+          </Mono>
           <h2 className="t-dl" style={{ maxWidth: "20ch" }}>
             Every figure you saw is the whole story.
           </h2>
@@ -83,9 +85,7 @@ export default function TradeInPage() {
               <div className="t-pc" key={p.n}>
                 <span className="t-pc__n">{p.n}</span>
                 <div className="t-pc__t">{p.t}</div>
-                <p className="t-body" style={{ fontSize: 16 }}>
-                  {p.b}
-                </p>
+                <P>{p.b}</P>
               </div>
             ))}
           </div>
@@ -95,9 +95,9 @@ export default function TradeInPage() {
       {/* ---------------------------------------------------- guarantee / faq */}
       <section className="t-band t-band--ink">
         <div className="t-wrap">
-          <div className="t-over" style={{ marginBottom: 16 }}>
-            {"// Before you ask"}
-          </div>
+          <Mono dot color={V2.faint} style={{ marginBottom: 16 }}>
+            Before you ask
+          </Mono>
           <h2 className="t-dl" style={{ color: "#fff", maxWidth: "18ch" }}>
             Your device, valued the way we’d want ours valued.
           </h2>

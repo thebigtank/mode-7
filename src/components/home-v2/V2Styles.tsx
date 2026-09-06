@@ -29,14 +29,23 @@
 const CSS = `
 .v2-hero-cols  { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:clamp(32px,5.6vw,80px); align-items:center; }
 .v2-stats-cols { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,11vw,160px); align-items:start; }
+/* PARKED — WhyV2.tsx is currently unmounted in page.tsx (hidden, not deleted;
+   see the note there). This rule is unused while it stays parked, kept intact
+   so restoring the import needs no CSS work. */
 .v2-why-cols   { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:clamp(32px,4vw,58px); align-items:start; }
 .v2-quote-cols { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,0.92fr); gap:clamp(32px,14vw,204px); align-items:center; }
+/* PARKED — CtaBandV2.tsx is currently unmounted in page.tsx (hidden, not
+   deleted; see the note there). This rule is unused while it stays parked,
+   kept intact so restoring the import needs no CSS work. */
 .v2-cta-cols   { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,8vw,116px); align-items:start; }
 
 /* section 4 — 3x2 service grid, 20px gutters */
 .v2-services { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
 
-/* section 9 — 3-up article row, 32px gutters */
+/* section 9 — 3-up article row, 32px gutters.
+   PARKED — InsightsV2.tsx is currently unmounted in page.tsx (hidden, not
+   deleted; see the note there). This rule is unused while it stays parked,
+   kept intact so restoring the import needs no CSS work. */
 .v2-articles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,2.4vw,32px); align-items:start; }
 
 /* section 2 — the three figures under the rule: equal thirds of the right
@@ -44,6 +53,14 @@ const CSS = `
 .v2-figures { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
 
 /* ── section 3 — the service index ────────────────────────────────────────
+   PARKED — LifecycleV2.tsx is currently unmounted in page.tsx (hidden, not
+   deleted; see the note there). Every .v2-life-* rule below is EXCLUSIVE to
+   LifecycleV2 — grepped, nothing else references them — so the whole block
+   is unused while it stays parked, kept intact so restoring the import needs
+   no CSS work. Left unpruned deliberately: the two traps documented inline
+   below (the dead-hover-rule fix, the dual-lit-rows fix) are cited by name in
+   the v2 CLAUDE.md and are worth keeping even while the section is off.
+
    Each row is a link with two OVERLAYS inside it: a gold fill and a floating
    photographic preview. Both are absolutely positioned, so the row's
    border-box height is identical at rest and on hover — nothing is reserved
@@ -63,6 +80,34 @@ const CSS = `
    Only the focus RING is still a CSS pseudo-class, because a ring cannot
    double up. */
 .v2-life-list { margin-top:clamp(40px,4.4vw,64px); border-top:1px solid rgba(23,29,29,0.14); }
+/* CLEARANCE FOR THE FIRST ROW'S PREVIEW. .v2-life-shot is 307px tall and
+   centred on its row, so it overhangs each edge by (307 - rowH) / 2. On row 1
+   that upward overhang lands in the section's supporting copy. Measured
+   overhang: 102.5px at 981px, 99.7 at 1100, 93.3 at 1280, 89.3 at 1440, 88.1
+   at 1920 — it SHRINKS as the viewport grows, because the row's vw padding
+   grows the row. Below 981px .v2-life-shot is display:none and the tighter
+   clamp above stands, so 981 is the narrowest width that needs clearing.
+
+   A single flat value has to cover the 981px worst case, which then way
+   overshoots at wide viewports where the overhang has shrunk: one flat
+   116px measured out to a 14px gap at 981 (tight) opening up to 28.4px at
+   1920 (loose enough to read as a second, disconnected gap above the list —
+   noticeably more than the ~63px this replaced). Four breakpoints instead
+   track the measured overhang and hold clearance in a narrow ~20-27px band
+   at every width the picture is shown at, each value the overhang at that
+   bucket's lower (worst-case) edge plus ~20px of daylight:
+     981-1099   overhang 102.5 -> 99.7   margin 123px   clearance ~20-23px
+     1100-1279  overhang  99.7 -> 93.3   margin 120px   clearance ~20-27px
+     1280-1439  overhang  93.3 -> 89.3   margin 113px   clearance ~20-24px
+     1440+      overhang  89.3 -> 88.1   margin 110px   clearance ~21-22px
+   (overhang plateaus ~88px above ~1530px, where the row's vw-based padding
+   and the row-title clamp both hit their ceilings, so 110px holds beyond
+   1920 too.) Re-measure all four if the shot's height, the row's padding or
+   the row's type sizes change. */
+@media (min-width: 981px)  { .v2-life-list { margin-top:123px; } }
+@media (min-width: 1100px) { .v2-life-list { margin-top:120px; } }
+@media (min-width: 1280px) { .v2-life-list { margin-top:113px; } }
+@media (min-width: 1440px) { .v2-life-list { margin-top:110px; } }
 
 .v2-life-row {
   position:relative;
@@ -155,20 +200,88 @@ const CSS = `
 .v2-life-row.is-active .v2-life-sub { color:#1C150F; }
 .v2-life-row:focus-visible { outline:2px solid #171D1D; outline-offset:-2px; }
 
-/* section 5 — numeral / body */
+/* section 5 — numeral / body.
+   PARKED — WhyV2.tsx is currently unmounted in page.tsx (hidden, not deleted;
+   see the note there). Unused while it stays parked, kept intact so restoring
+   the import needs no CSS work. */
 .v2-reason { display:grid; grid-template-columns:44px minmax(0,1fr); gap:clamp(10px,1.1vw,16px); align-items:start; }
 
-/* section 4 — the "Explore" button, hidden until the card is hovered OR
-   focused. THREE things are load-bearing here:
+/* section 4 — the "Explore" reveal, hidden until the card is hovered (or
+   focused). THREE things are load-bearing here:
      1. it keeps its box (opacity + transform, never display or visibility), so the
         card's height is identical in both states and the grid never jumps;
-     2. :focus-within sits alongside :hover, so tabbing to the button
-        reveals it — a hover-only control is unreachable by keyboard;
+     2. :focus-within sits alongside :hover. The gold cell's real link drives
+        it directly; the four cards with hover imagery (below) now carry
+        tabIndex on the card itself for THAT reveal, and :focus-within also
+        matches an element that IS the focused element, so those four get
+        this reveal too as a side effect — nothing under it became
+        clickable, "Explore" is still the same inert aria-hidden span (see
+        CapabilityGridV2.tsx). Only cell 5 ("Accessories") has no focusable
+        target at all, so :hover alone drives it;
      3. the resting state is declared HERE and nowhere inline: an inline
         opacity or transform on the wrapper would out-specify these rules. */
 .v2-explore { opacity:0; transform:translateY(6px); transition:opacity .22s ease, transform .22s ease; }
 .v2-capcard:hover .v2-explore,
 .v2-capcard:focus-within .v2-explore { opacity:1; transform:translateY(0); }
+
+/* section 4 — capability-card hover imagery (user request). A faint
+   photographic wash behind the card's OWN light ground — never a dark
+   scrim + white label, which was the other option offered. Chosen and
+   measured on the rendered page (a photo is not uniform, and CLAUDE.md
+   requires sampling actual pixels over photography, not assuming the scrim
+   value): each card was screenshotted at 0.16 hover opacity with its own
+   title/body glyphs and icon made visibility:hidden (layout untouched) so
+   the sample reads the true composited pixel BEHIND each letter/icon
+   stroke, not the ink itself, then the single darkest pixel found within
+   the title's and body's own box was checked against ink (#171D1D):
+
+     card                   rest (flat white)   hover, worst pixel behind:
+                                                  title (24px)   body (16px)
+     Premium Devices           17.07:1             11.75:1        11.75:1
+     Certified Refurbished     17.07:1             11.85:1        11.77:1
+     Smart Home Automation     17.07:1             11.94:1        12.22:1
+     Solar & Green Energy      17.07:1             11.75:1        11.75:1
+
+   The "Explore" reveal (below) measured the same worst-case 11.75:1 on all
+   four — its ring-arrow SVG has no anti-aliasing haze the way serif glyphs
+   do, so it never found a darker pixel than the card's flattest patch.
+
+   Floor held: 4.5:1 (body, 16px/300, below large-text size) and 3:1 (the
+   24px serif title, which clears the large-text threshold). Both floors
+   pass with roughly 2.5x plus headroom at the worst point in the photo, not
+   an average — see CapabilityGridV2.tsx's header comment for why cell 5
+   ("Accessories") and the gold CTA tile get no image at all.
+
+   .v2-capcard gets its OWN stacking context (position + a real z-index, not
+   auto) so the shot — given a NEGATIVE z-index — paints between the card's
+   own background and its in-flow text content without disturbing the flex
+   layout: no wrapper needed, nothing reserved, nothing shifts.
+
+   THE ACTIVE CARD IS A CLASS, NOT :hover/:focus-within STACKED
+   INDEPENDENTLY — the same LifecycleV2 problem: a card focused by keyboard
+   and a DIFFERENT card under the pointer would otherwise both light.
+   CapabilityGridV2 resolves hover and focus to one index in React
+   (hover ?? focus) and hands the winner .is-active; there is no
+   :hover rule left here to stack with it.
+
+   THE RESTING STATE IS HERE, NOT INLINE: opacity is the only state this
+   layer has, and it lives in this stylesheet so .is-active can raise it.
+   The only inline value the card carries is the custom property
+   --v2-card-shot naming its own picture (and only on the four cards that
+   have one) — same pattern as --v2-life-shot above. */
+.v2-capcard { position:relative; z-index:0; }
+.v2-capcard-shot {
+  position:absolute; inset:0; z-index:-1;
+  border-radius:2px;
+  background-image:var(--v2-card-shot);
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.v2-capcard.is-active .v2-capcard-shot { opacity:0.16; }
+.v2-capcard:focus-visible { outline:2px solid #171D1D; outline-offset:-2px; }
 
 /* section 7 — sticky stacked cards. The stack itself is pure CSS: each card
    sits in a normal-flow wrapper that is position:sticky at an increasing
@@ -197,14 +310,34 @@ const CSS = `
 
 /* ── the hero headline ────────────────────────────────────────────────────
    ONE sentence, three lines, every line the SAME size and weight. Exactly one
-   word moves — the noun on line 1, which rolls vertically through a pool.
+   word moves — the noun on line 1.
 
-       Powering your Pocket        <- the rolling slot
+       Powering your Pocket        <- the slot
        with tech that's vetted,
        sealed and guaranteed.
 
-   The markup, the pool and the timing are in HeroHeadlineV2; everything
-   geometric is here.
+   TWO IMPLEMENTATIONS OF THAT ONE WORD SHARE THIS SLOT AND THIS FILE. Which
+   one is live has flipped once already (wipe -> scramble) and both are meant
+   to stay switchable, so read the CURRENT state below rather than assuming:
+
+     LIVE   — HeroHeadlineV2Scramble.tsx. The word resolves left to right
+              through a wash of random glyphs, decode-style, behind a
+              permanent gold marker. Its CSS is everything from
+              .v2-hero-mask through .v2-hero-bandsize below.
+
+     PARKED — HeroHeadlineV2Wipe.tsx. Not imported anywhere right now; kept
+              intact because the word may come back. A solid gold block
+              WIPES over the word, swaps it, and wipes off again, with no
+              persistent marker at rest. Its own CSS (.v2-hero-word,
+              .v2-hero-wipe) sits further down this section, after the rules
+              below — still here, still correct, just unused while the
+              scramble is live. Restoring it: see the note at the top of
+              HeroHeadlineV2Wipe.tsx.
+
+   Both share the reserved-width slot immediately below (.v2-hero-slot /
+   .v2-hero-sizer) and the size/leading rules on .v2-hero-h1. The markup,
+   the pool and the timing for whichever variant is live are in that
+   component's own file; everything geometric is here.
 
    FONT SIZE: clamp(38px,5vw,72px). The display treatment this headline had
    before any rotator existed was clamp(38px,5.28vw,76px); 76px does not fit
@@ -236,11 +369,14 @@ const CSS = `
    Below 980 the hero grid collapses, the text column jumps to the full
    container, and the size steps up again — see the 980px block further down.
 
-   LINE HEIGHT 1.04 is the display leading, and it now governs all three lines
-   because all three are ordinary blocks. The 1.37 that the gold band needs
-   lives on the roll cell alone (see .v2-hero-cell), where it cannot loosen the
-   headline: the mask is absolutely positioned, so it adds no height and line 1
-   measures the same 1.04em as lines 2 and 3.
+   LINE HEIGHT 1.04 is the display leading, and it governs all three lines
+   because all three are ordinary blocks. The live scramble's 1.37, its gold
+   band's geometry is measured in (see .v2-hero-band below), is Alegreya's
+   font box, not a line-height anything on the page actually uses — it is only
+   the coordinate system that comment does its math in. Both the live
+   mask and the parked wipe block (.v2-hero-wipe, further down) are absolutely
+   positioned, so neither adds height and line 1 measures the same 1.04em as
+   lines 2 and 3 regardless of which is active.
 
    letter-spacing -0.02em is unchanged and still correct: it scales with the
    font, so -1.44px at 72px is the same relative tightening measured clean at
@@ -268,49 +404,69 @@ const CSS = `
 .v2-hero-slot  { position:relative; display:inline-grid; justify-items:start; }
 .v2-hero-sizer { grid-area:1 / 1; visibility:hidden; }
 
-/* THE MASK. Absolutely positioned over the sizers, so it contributes no height
-   and cannot loosen line 1. overflow:hidden is the only thing keeping the
-   parked word off the screen.
+/* ══ EVERYTHING FROM HERE TO .v2-hero-bandsize BELONGS TO THE LIVE SCRAMBLE
+   VARIANT (HeroHeadlineV2Scramble.tsx) — currently imported by HeroV2.tsx and
+   what's on the page now. Skip to "the parked wipe" below for the GSAP
+   alternative, kept intact but not imported. ══ */
 
-   ITS HEIGHT IS 1.04em — THE LINE BOX, NOT THE FONT BOX — and that is
+/* THE MASK. Absolutely positioned over the sizers, so it contributes no height
+   and cannot loosen line 1. overflow:hidden is a safety net now rather than
+   the thing doing daily work: there is no vertical motion left to clip since
+   the word decodes in place instead of sliding through this box. Kept anyway
+   — see the component-level comment in HeroHeadlineV2 for why.
+
+   ITS HEIGHT IS 1.04em — THE LINE BOX, NOT THE FONT BOX — and that is still
    load-bearing. Alegreya's font box is 1.37em, so a font-box-tall mask would
    hang 0.165em past the line box top and bottom, into the leading of line 1's
-   neighbours. At rest nothing shows there, but mid-roll a fragment of the
-   outgoing word appears above the headline and the ascenders of the incoming
-   word cut a bar straight through "with tech that's vetted," one line down.
-   Measured, and it reads as a glitch, so the mask clips at the line box.
+   neighbours. Measured, and it reads as a glitch, so the mask clips at the
+   line box.
 
    The pool is what makes that safe: at 72px, and proportionally at every
    size, the ink of the widest-reaching entry clears a 1.04em box by 8.02px at
    the top (Pocket / Office / Studio, whose t / ffi / d reach highest) and
    12.43px at the bottom. NO POOL WORD HAS A DESCENDER, which is where the
    bottom clearance comes from — an entry with a g, y or p would be clipped
-   here and would need this height re-derived.
+   here and would need this height re-derived. The same clearance now also
+   governs the flicker glyph sets in HeroHeadlineV2: the random glyphs shown
+   on unresolved character positions have to clear this box too.
 
-   left:0 right:0, so the mask is the full reserved width and a long incoming
-   word is never clipped horizontally. Centred on the slot at 50% - 0.52em,
-   which puts it exactly on line 1's own line box. */
+   left:0 right:0, so the mask is the full reserved width. HORIZONTALLY this
+   is not just a safety net: an early build's flicker set was all capitals,
+   which run wider than the pool words' capital-plus-lowercase shape, and a
+   6-7 position all-caps flicker actually did overrun this box and got
+   clipped mid-letter — a visible bug, not a glitch effect. The flicker sets
+   were fixed to match the pool words' own case shape instead (see note 2 in
+   HeroHeadlineV2); the mask's overflow:hidden stays as the backstop should
+   that ever regress. Centred on the slot at 50% - 0.52em, which puts it
+   exactly on line 1's own line box. */
 .v2-hero-mask {
   position:absolute; left:0; right:0; top:50%; z-index:1;
   height:1.04em; margin-top:-0.52em;
   overflow:hidden;
 }
 
-.v2-hero-strip { display:block; transform:translateY(0); will-change:transform; }
-.v2-hero-strip.is-rolling {
-  transform:translateY(-50%);
-  transition:transform 340ms cubic-bezier(.22,.61,.36,1);
-}
+/* The character row sits at the mask's own baseline; line-height matches the
+   h1's 1.04 rather than the mask's 1.37-unit band geometry, since nothing
+   here needs the taller box any more. */
+.v2-hero-scramble { display:block; line-height:1.04; white-space:nowrap; }
 
-/* One cell is one line box: height 1.04em AND line-height 1.04, matching the
-   mask, so the two cells tile it exactly and the strip's 50% step lands the
-   incoming word on the outgoing one's baseline to the pixel. */
-.v2-hero-cell { display:block; height:1.04em; line-height:1.04; }
+/* One span per character position. display:inline-block so its opacity
+   transition (below) cannot be blamed on layout — nothing here ever animates
+   anything that could jostle a neighbour. RESTING opacity is declared HERE,
+   not inline, so .is-flicker can override it reliably (CLAUDE.md trap #2:
+   an inline value would out-specify this). */
+.v2-hero-char { display:inline-block; opacity:1; transition:opacity 90ms linear; }
+/* An unresolved position, mid-flicker: dimmed, never recoloured — still
+   V2.ink, so it can never end up gold (see the gold rule in CLAUDE.md).
+   Measured: ink at this opacity over the section's white ground is ~8.3:1
+   (was ~6.1:1 back when the section sat on wash), comfortably past AA,
+   and it is only ever on screen for a few hundred ms per character. */
+.v2-hero-char.is-flicker { opacity:.78; }
 
 /* ── THE GOLD BAND ────────────────────────────────────────────────────────
    ONE element, always on screen, and it never moves. It is a sibling of the
-   strip, not a child of any word, so the words roll THROUGH the marker instead
-   of each dragging its own copy of it up and out of frame.
+   character row, not a child of any word, so the words decode THROUGH the
+   marker instead of each dragging its own copy of it out of frame.
 
    GEOMETRY, unchanged from the two-stop gradient it replaces. That gradient
    ran over the word's font box — 1.37em tall, Alegreya's fontBoundingBox of
@@ -340,10 +496,14 @@ const CSS = `
    WIDTH TRACKS THE WORD, AND TRANSITIONS. The slot is reserved at the widest
    word, so a slot-wide band would hang a tail of bare gold off the end of
    "Home". The component sets width in px from the measured sizers and
-   retargets it to the INCOMING word the instant the roll starts, so the
-   marker stretches into the new word over the same 340ms and the same easing
-   as the roll rather than snapping a beat late. Only width is animated and the
-   band is absolutely positioned, so the layout outside this box cannot move.
+   retargets it to the INCOMING word the instant a scramble starts, so the
+   marker stretches into the new word across roughly the same window the
+   letters take to decode, rather than snapping late. Only width is animated
+   and the band is absolutely positioned, so the layout outside this box
+   cannot move. 480ms is tuned to the decode's own pacing (stagger + flicker +
+   jitter — see HeroHeadlineV2) rather than an exact match to any one
+   character's timeline; there is no single instant "the scramble" finishes
+   at, only the latest of several independently-timed positions.
 
    Before that measurement lands — the server HTML, the pre-hydration paint,
    a fonts-not-yet-loaded frame — the width comes from .v2-hero-bandsize, a
@@ -352,27 +512,98 @@ const CSS = `
    copy inside the 0.3288em block once an explicit width is in force.
 
    Contrast, measured: ink #171D1D on this gold #F0C044 is 10.02:1 for the
-   lower half of the letterforms, and above the band the same ink on wash
-   #E6EAE6 is 14.05:1. Both pass WCAG AAA for body text, let alone display. */
+   lower half of the letterforms, and above the band the same ink on the
+   section's white ground #FFFFFF is 17.07:1 (was 14.05:1 when the section
+   sat on wash). Both pass WCAG AAA for body text, let alone display. */
 .v2-hero-band {
   position:absolute; left:0; top:50%; z-index:0;
   margin-top:0.1096em;
   height:0.3288em;
   background:#F0C044;
   overflow:hidden;
-  transition:width 340ms cubic-bezier(.22,.61,.36,1);
+  transition:width 480ms cubic-bezier(.22,.61,.36,1);
 }
 .v2-hero-bandsize { visibility:hidden; white-space:nowrap; }
 
-/* The words paint OVER the band (the mask carries z-index:1 above) and carry
-   no background of their own. */
-.v2-hero-word { position:relative; }
+/* ── the parked wipe (HeroHeadlineV2Wipe.tsx) ───────────────────────────
+   Not currently imported by HeroV2.tsx; kept intact because the wipe may
+   come back. The word itself is just another grid item sharing
+   .v2-hero-slot's reserved cell (see above) — plain ink text, no marker
+   behind it at rest. grid-area 1/1 is what keeps it aligned with the hidden
+   sizers instead of flowing as ordinary inline content next to them. */
+.v2-hero-word { grid-area: 1 / 1; }
+
+/* THE WIPE BLOCK. Invisible at rest — transform:scaleX(0) declared HERE, not
+   inline, so a pre-hydration or no-JS paint never shows a stray gold box
+   (CLAUDE.md trap #2: an inline resting value would out-specify a later
+   state rule). GSAP (in HeroHeadlineV2) sets an explicit pixel width before
+   each tween and only ever animates scaleX, toggling transform-origin
+   between "left center" (growing — covers the outgoing word) and "right
+   center" (collapsing — uncovers the incoming one). See the component-level
+   comment for why that one pair of values is the whole mechanism.
+
+   SAME GEOMETRY THE LIVE MASK USES: height 1.04em, centred via
+   top:50%/margin-top:-0.52em. That box is already proven, by the mask's own
+   measurements above, to clear every pool word's ink with 8-12px to spare —
+   "roughly the height of the text" the brief asks for, reusing a proven
+   number rather than re-deriving one. left:0 matches the word's own
+   justify-items:start alignment, so the block's untransformed edge lines up
+   with the word's own left edge with no extra offset math. */
+.v2-hero-wipe {
+  position:absolute; left:0; top:50%;
+  height:1.04em; margin-top:-0.52em;
+  width:0;
+  background:#F0C044;
+  transform:scaleX(0);
+  transform-origin:left center;
+  z-index:1;
+  pointer-events:none;
+}
 
 /* Header nav links. The display value MUST live here, not inline on the
    element: the 980px rule below hides them, and an inline display:flex would
    out-specify it and leave the links (and the Shop action) overflowing the
    panel on mobile. */
 .v2-navlinks { display:flex; }
+
+/* ── header — nav link focus dimming + page scrim ──────────────────────────
+   Hovering (or keyboard-focusing) a nav link dims its siblings and drops a
+   translucent scrim behind the header so the hovered link reads as the
+   deliberate focus. Which link is active is REACT STATE in HeaderV2 (hover
+   and focus held separately, active = hover ?? focus — the same pattern
+   LifecycleV2 uses and for the same reason: :hover and :focus-within are
+   independent conditions and would otherwise both light up at once). The
+   resting opacity for both lives HERE, not inline — an inline opacity would
+   out-specify .is-dimmed / .is-active and the dim would silently never fire.
+
+   0.45 and 0.32 (below) were picked by eye: light enough that a dimmed link
+   or the page behind the scrim both stay clearly legible, strong enough that
+   the hovered link / undimmed page reads as a deliberate focus rather than a
+   flicker. */
+.v2-nav-link { opacity:1; transition:opacity 220ms ease; }
+.v2-nav-link.is-dimmed { opacity:0.45; }
+.v2-nav-link.is-active { opacity:1; }
+
+/* The scrim is a SIBLING of <header> in HeaderV2, not a descendant: <header>
+   carries a permanent inline transform (for the hide/show slide), and a
+   transformed ancestor becomes the containing block for a position:fixed
+   descendant — nested inside, the scrim would be pinned to the header's own
+   96px-tall box instead of the viewport. As a sibling this is genuinely
+   viewport-fixed. z-index 1000 sits above ordinary page content and below
+   the header's 1001 panel; the announcement strip is separately lifted to
+   1002 in HeaderV2 so it stays fully lit as header chrome rather than
+   dimming as page content. pointer-events:none always, hovered or not, so a
+   click reaches the page underneath exactly as before. */
+.v2-nav-scrim {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(23,29,29,0.32);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 220ms ease;
+}
+.v2-nav-scrim.is-active { opacity:1; }
 
 /* ── the "trusted by" marquee — a full-bleed gold band of brand names ──────
    .v2-marquee-wrap breaks out of the 1280px container with the standard
@@ -453,12 +684,22 @@ const CSS = `
 }
 
 @media (max-width: 980px) {
+  /* .v2-why-cols and .v2-cta-cols below are PARKED with WhyV2.tsx /
+     CtaBandV2.tsx (both unmounted, see page.tsx) — left in this shared
+     selector rather than split out, since they simply match nothing while
+     parked. .v2-articles, in the next rule down, is PARKED the same way
+     with InsightsV2.tsx. */
   .v2-hero-cols, .v2-stats-cols, .v2-why-cols, .v2-quote-cols, .v2-cta-cols, .v2-caserow { grid-template-columns:minmax(0,1fr); }
   .v2-stats-cols, .v2-quote-cols, .v2-cta-cols { gap:40px; }
   .v2-services, .v2-articles { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .v2-footcols { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
   .v2-navlinks { display:none; }
-  /* the floating preview needs ~460px sitting past the 52% mark; below this
+  /* .v2-navlinks going display:none removes the links from the tab order and
+     from pointer reach, so active can never leave null below 980px — this
+     is belt-and-braces so the scrim cannot render even if that ever changes. */
+  .v2-nav-scrim { display:none !important; }
+  /* PARKED with LifecycleV2.tsx (see the section-3 banner above). The
+     floating preview needs ~460px sitting past the 52% mark; below this
      it either overflows the container or lands on top of the row's own words.
      The fill and the link still work — only the picture is dropped. */
   .v2-life-shot { display:none; }
@@ -507,23 +748,55 @@ const CSS = `
      is permanently visible instead, and the transition is dropped */
   .v2-explore { opacity:1 !important; transform:none !important; transition:none !important; }
 
-  /* section 3 — the gold fill is a STATE CHANGE, not motion, so it stays. What
-     goes is every transition, and the preview's scale-in: the picture appears
+  /* section 4 — capability-card hover imagery. The wash is a STATE CHANGE
+     (is-active toggles it), not motion, so it stays; only the fade-in
+     transition goes — the photo appears at its full hover opacity instantly
+     instead of fading in. */
+  .v2-capcard-shot { transition:none !important; }
+
+  /* section 3 — PARKED with LifecycleV2.tsx (see the section-3 banner above).
+     The gold fill is a STATE CHANGE, not motion, so it stays. What goes is
+     every transition, and the preview's scale-in: the picture appears
      instantly at full size on hover/focus rather than being animated in. */
   .v2-life-row, .v2-life-fill, .v2-life-shot, .v2-life-sub { transition:none !important; }
   .v2-life-shot { transform:translateY(-50%) !important; }
 
-  /* section 1 — the headline. No roll, no rotation. The component never arms
-     its dwell timer under this preference, so the slot rests on POOL[0],
-     "Pocket" — which is also the SSR state, so there is nothing to undo. The
-     rules below are belt-and-braces for a strip left mid-roll by a motion
-     preference flipped while the transition was in flight: transform:none
-     puts it back on the resting word, and the transition goes with it. The
-     gold band is a SURFACE, not motion, so it stays exactly where it is. */
-  .v2-hero-strip { transform:none !important; transition:none !important; }
+  /* section 1 — the headline, LIVE SCRAMBLE VARIANT
+     (HeroHeadlineV2Scramble.tsx, currently imported by HeroV2.tsx — see the
+     note at the top of the hero headline CSS section above). No scramble, no
+     cycling at all: the component never arms its dwell timer under this
+     preference, so the slot rests on POOL[0], "Pocket" — which is also the
+     SSR state, so there is nothing to undo. The rule below is
+     belt-and-braces for a scramble caught mid-flicker by a motion preference
+     flipped while it was already running: the component's own animation loop
+     reads the live preference every frame and snaps straight to the resolved
+     word itself, so this exists only to guarantee the same outcome even if a
+     frame is somehow missed — opacity:1 kills any lingering dim on an
+     unresolved character and the transition goes with it. The gold band is a
+     SURFACE, not motion, so it stays exactly where it is. */
+  .v2-hero-char { opacity:1 !important; transition:none !important; }
   /* The band is a SURFACE, not motion: it stays exactly where and as wide as
      it is, resting on POOL[0]. Only its width transition goes. */
   .v2-hero-band { transition:none !important; }
+
+  /* section 1 — the headline, PARKED WIPE (HeroHeadlineV2Wipe.tsx, not
+     currently imported). Unlike the live scramble above, the word KEEPS
+     CYCLING under reduced motion — the dwell/advance timer is gated on
+     visibility and tab focus only, not on this preference. What changes is
+     the transition itself: the component's own effect detects the live
+     preference, kills any in-flight GSAP timeline and forces the block back
+     to resting, and every subsequent cycle is a plain, un-animated text swap
+     with no timeline ever built. The rule below is belt-and-braces for the
+     same missed-frame case as above — and scaleX(0), NOT plain "none", is
+     what "resting" actually is here: this block's rest state is INVISIBLE,
+     not un-transformed. transform:none would resolve to an identity matrix —
+     scaleX 1, i.e. fully expanded to whatever width GSAP last set — which is
+     the one state this rule exists to prevent, not reproduce. Caught this by
+     measuring: harmless in the case actually tested (width had never been
+     set, so 0 x anything is still 0) but wrong in general, so fixed before it
+     could bite. Kept live in the stylesheet even while the component is
+     parked, so the rule is ready the instant the import swaps back. */
+  .v2-hero-wipe { transform:scaleX(0) !important; }
 
   /* the trusted-by marquee — drastically slowed rather than fully stopped,
      so it still reads as "this scrolls" without the vestibular-trigger
@@ -531,10 +804,18 @@ const CSS = `
      under 4px/s at the plateau width. Hover-pause above still applies on
      top of this. */
   .v2-marquee-track { animation-duration:600s; }
+
+  /* header nav — the dim and the scrim are STATE, so they stay; only the
+     animated fade goes, the same treatment as section 3's gold fill. */
+  .v2-nav-link, .v2-nav-scrim { transition:none !important; }
 }
 
 @media (max-width: 640px) {
+  /* .v2-articles here is PARKED with InsightsV2.tsx (see section 9 above);
+     left in this shared selector for the same reason .v2-why-cols /
+     .v2-cta-cols stay in their shared 980px selector above. */
   .v2-services, .v2-articles, .v2-figures, .v2-footcols { grid-template-columns:minmax(0,1fr); }
+  /* PARKED with LifecycleV2.tsx (see the section-3 banner above). */
   .v2-life-row { gap:16px; padding-left:0; padding-right:0; }
   .v2-life-fill { inset:0 -14px -1px; }
   .v2-reason { grid-template-columns:minmax(0,1fr); gap:8px; }

@@ -52,7 +52,7 @@ export function PageHero({
     margin: 0,
   };
   const introStyle: CSSProperties = {
-    fontSize: 18,
+    fontSize: "var(--m7-lede-size)",
     lineHeight: 1.65,
     color: "#5a5a5a",
     margin: "0 0 24px",
@@ -265,7 +265,7 @@ export function IconCard({
       >
         {accent}
       </div>
-      <p style={{ fontSize: 18, lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
+      <p style={{ fontSize: "var(--m7-lede-size)", lineHeight: 1.65, color: "#5a5a5a", margin: 0 }}>
         {body}
       </p>
     </div>
@@ -386,7 +386,7 @@ export function DarkPanel({
         </h2>
         <p
           style={{
-            fontSize: 18,
+            fontSize: "var(--m7-lede-size)",
             lineHeight: 1.65,
             color: "rgba(255,255,255,0.62)",
             margin: "0 0 28px",

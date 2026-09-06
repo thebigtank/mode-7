@@ -47,6 +47,16 @@
   --m7-line-strong: #cec3a8;
   --m7-hair: #a39a7e;
 
+  /* type — the <p> default (see the "Global paragraph type" rule below) and
+     the one size repeated verbatim, as a literal, across the homepage's
+     Hero/Mission/Ecosystem intros and every sub-page's PageHero lede
+     (Blocks.tsx). Line-height is NOT unified into a token: each of those
+     keeps its own (1.5–1.65), chosen per section, so only the genuinely
+     repeated number is centralised here. */
+  --m7-p-size: 15px;
+  --m7-p-line: 1.6;
+  --m7-lede-size: 18px;
+
   /* on the bands */
   --m7-on-rust: #efe6d1;
   --m7-on-rust-faint: #ddbfa2;
@@ -156,6 +166,23 @@ html {
 [data-num] {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
+}
+
+/* Global paragraph type ------------------------------------------------------
+   The site-wide <p> default, as tokens rather than a literal — the same
+   convention as --m7-pad/--m7-max above and the colour roles in :root.
+   A component that genuinely needs something else (a lede, a caption, a
+   hero standfirst) keeps its own size/line-height, exactly as .m7-h1/.m7-h2/
+   .m7-h3 below already do for headings; it does not restate these two.
+
+   Every page-scoped block (.about-page, .tradein-page, and any <p> carrying
+   an inline style) sets its own font-size and/or line-height with higher
+   specificity than this bare element selector, so this rule only reaches a
+   <p> that names no deviation of its own — which is the point.
+   Tokens declared in :root above: --m7-p-size, --m7-p-line. */
+p {
+  font-size: var(--m7-p-size);
+  line-height: var(--m7-p-line);
 }
 
 .m7-scroll {
@@ -639,6 +666,22 @@ html {
   }
   to {
     transform: translateY(-40px);
+  }
+}
+
+/* PlusToggle (src/components/home-v2/Ui.tsx) — the shared v2 accordion
+   icon's rotation transition. Global and palette-free, same reasoning as
+   m7arrowLoop/m7arrowLoopUp above: the component renders on more than one
+   v2 page (/services, /trade-in), so its cross-cutting CSS lives here
+   rather than in any one page's scoped block. The transition sits in this
+   class, not inline on the element, so this reduced-motion override can
+   actually win — an inline transition would out-specify it. */
+.v2-plus-toggle {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-plus-toggle {
+    transition: none;
   }
 }
 @keyframes m7menuIn {
@@ -1296,24 +1339,62 @@ html {
 }
 
 /* ==========================================================================
-   About page (/about) — scoped editorial layout.
-   Ported from the approved "Mode 7 — About (wireframe)" artifact. Everything is
-   scoped under .about-page so it can't leak into the rest of the site, and font
-   families resolve through the next/font CSS variables set on <html>.
+   About page (/about) — scoped editorial layout, ON THE V2 PALETTE.
+   Structure ported unchanged from the approved "Mode 7 — About (wireframe)"
+   artifact; this block only repaints it — see CLAUDE.md's homepage-v2 section
+   for the source of every value below. Colour and font-family are the ONLY
+   things that changed here: every custom property is now derived from `V2` /
+   `V2_FONT` in `src/lib/theme-v2.ts` (never from `@/lib/theme`'s `COLOR`), and
+   the few remaining literals (the ink-alpha hairlines and the decorative-only
+   `--decor` tint) are alpha tints OFF `V2.ink`, the same technique already
+   used for `dotFill` in `ButtonV2.tsx` — not new colours, just that one token
+   at reduced opacity. Still scoped under .about-page so it can't leak, and
+   fonts resolve through the next/font CSS variables set on <html> (the v2
+   faces are registered ALONGSIDE v1's, never replacing them).
+   THE GOLD RULE: this page never puts the accent on a light ground as text.
+   It had no accent-as-text usage in v1 either — About was always a
+   monochrome ink/paper page — so nothing needed re-deriving for the static
+   page. The one place gold DOES appear is the conditions-ledger row hover/
+   focus fill (`.a-cond__fill`, below) — a GROUND, per the rule, never text:
+   every piece of text and the icon inside a filled row switches to
+   `--accent-on` (measured 10.60:1 on `--accent`), the same pairing
+   `theme-v2.ts` documents for gold fills everywhere else.
+   FONT TRAP: `--f-head`/`--f-body`/`--f-mono` must each resolve to a REGISTERED
+   `--font-*` var (see layout.tsx) or the whole rule is dropped, not just the
+   named face — grep every `--font-*` below before touching one.
+   TRACKING/LEADING: the negative letter-spacing values below are HALVED from
+   the Space-Grotesk-tuned originals, and every heading that can wrap to a
+   second line has its line-height opened up — both for the same reason
+   FooterV2 eased -0.04em to -0.02em: a serif collides at a grotesk's tracking,
+   and Alegreya's deeper descender needs more leading than a grotesk did. The
+   hero h1 adopts `.v2-hero-h1`'s own measured values (clamp(38px,5.1vw,66px)
+   already matched; line-height 1.04, letter-spacing -0.02em) rather than
+   inventing new ones — those are proven at this exact size on /homepage-v2.
    ========================================================================== */
 .about-page {
-  --ink: #121212;
-  --paper: #fff;
-  --wash: #fafafa;
-  --rule: #ececec;
-  --rule-strong: #d8d8d8;
-  --muted: #9a9a9a;
-  --body: #5a5a5a;
-  --f-head: var(--font-space-grotesk), system-ui, sans-serif;
-  --f-body: var(--font-outfit), system-ui, sans-serif;
-  --f-mono: var(--font-space-mono), ui-monospace, monospace;
-  --stripe: repeating-linear-gradient(135deg, #e8e8e8 0 9px, #f4f4f4 9px 18px);
-  --stripe-soft: repeating-linear-gradient(135deg, #ededed 0 9px, #f7f7f7 9px 18px);
+  --ink: #171d1d; /* V2.ink — 14.05:1 on wash, 17.07:1 on white */
+  --paper: #ffffff; /* V2.white */
+  --wash: #e6eae6; /* V2.wash */
+  --rule: rgba(23, 29, 29, 0.14); /* V2_HAIR's own value, ink-alpha */
+  --rule-strong: rgba(23, 29, 29, 0.24); /* a stronger ink-alpha hairline */
+  --muted: #5a6160; /* V2.muted — 5.21:1 on wash, 6.34:1 on white */
+  --body: #5a6160; /* V2.muted — same verified-AA tone for running copy */
+  --decor: rgba(23, 29, 29, 0.32); /* decorative-only: ordinal numerals, the
+    masonry's aria-hidden tile tags. Sub-AA by design, mirroring v1's own
+    #b4b4b4/#a2a2a2 decorative treatment — never used for read-as-content
+    text, which all takes --muted/--body/--ink instead. */
+  --accent: #f0c044; /* V2.accent — Mode 7 gold, a GROUND, never text */
+  --accent-on: #1c150f; /* V2.accentOn — 10.60:1 on --accent, measured */
+  --f-head: var(--font-alegreya), Georgia, "Times New Roman", serif;
+  --f-body: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  /* was var(--font-jetbrains-mono), ui-monospace, monospace — JetBrains Mono
+     was retired as v2's label face; every `--f-mono` label below now sets in
+     the body face, with tracking retuned per-rule (see CLAUDE.md's
+     Typography table). Name kept as `--f-mono` since it still marks "the
+     small-label rule", not a claim about the face. */
+  --f-mono: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  --stripe: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.07) 0 9px, rgba(23, 29, 29, 0.03) 9px 18px);
+  --stripe-soft: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.05) 0 9px, rgba(23, 29, 29, 0.02) 9px 18px);
   --pad: clamp(20px, 4vw, 48px);
   --max: 1320px;
   font-family: var(--f-body);
@@ -1322,42 +1403,104 @@ html {
 
 /* shell */
 .about-page .a-wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
-.about-page .a-band { padding-block: clamp(64px, 9vw, 120px); }
-.about-page .a-band--wash { background: var(--wash); border-block: 1px solid #f0f0f0; }
+/* `background: var(--wash)` here is explicit on purpose, not decorative: this
+   undecorated `.a-band` (no `--wash`/`--ink` modifier) is what "WHY WE EXIST"
+   and "WHO WE SERVE" render as, and both used to rely on SiteShell's own
+   root background (also `wash`, until this pass) showing through with
+   nothing painted here at all. `/about`'s hero section is now `white`
+   full-bleed at the SiteShell root (see its own comment there) precisely so
+   nothing shows through behind the floating header — an implicit rule
+   relying on that same root for its OWN colour would have silently gone
+   white too. Made explicit instead, so this band's colour no longer depends
+   on what the root happens to be. */
+.about-page .a-band { padding-block: clamp(64px, 9vw, 120px); background: var(--wash); }
+.about-page .a-band--wash { background: var(--wash); border-block: 1px solid var(--rule); }
 .about-page .a-band--ink { background: var(--ink); color: #fff; }
 .about-page .a-band--tight { padding-block: clamp(52px, 6.5vw, 88px); }
 
 /* type */
 .about-page .a-dl,
-.about-page .a-dm { font-family: var(--f-head); font-weight: 600; margin: 0; text-wrap: balance; }
-.about-page .a-dl { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.02; letter-spacing: -0.032em; }
-.about-page .a-dm { font-size: clamp(23px, 2.5vw, 34px); line-height: 1.08; letter-spacing: -0.028em; }
+.about-page .a-dm { font-family: var(--f-head); font-weight: 400; margin: 0; text-wrap: balance; }
+.about-page .a-dl { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.18; letter-spacing: -0.016em; }
+.about-page .a-dm { font-size: clamp(23px, 2.5vw, 34px); line-height: 1.2; letter-spacing: -0.014em; }
 .about-page .a-hero-h1 {
-  font-family: var(--f-head); font-weight: 600; margin: 0;
-  font-size: clamp(38px, 5.1vw, 66px); line-height: 1; letter-spacing: -3px; text-wrap: balance;
+  font-family: var(--f-head); font-weight: 400; margin: 0;
+  font-size: clamp(38px, 5.1vw, 66px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance;
 }
-@media (max-width: 620px) { .about-page .a-hero-h1 { font-size: 40px; letter-spacing: -1.6px; } }
 .about-page .a-lede { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.6; color: var(--body); max-width: 36ch; margin: 0; }
-.about-page p { margin: 0; max-width: 66ch; }
-.about-page .a-body { color: var(--body); }
-.about-page .a-band--ink .a-body { color: rgba(255, 255, 255, 0.62); }
-.about-page .a-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-.about-page .a-band--ink .a-label { color: #7f7f7f; }
-.about-page .a-over { font-family: var(--f-head); font-size: 12px; letter-spacing: 0.17em; text-transform: uppercase; color: var(--muted); }
-.about-page .a-band--ink .a-over { color: #7f7f7f; }
-.about-page .a-num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-
-/* wireframe vocabulary */
-.about-page .a-ph { position: relative; background: var(--stripe); border: 1px solid #e2e2e2; border-radius: 4px; overflow: hidden; }
-.about-page .a-ph__tag { position: absolute; top: 14px; left: 16px; right: 14px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--muted); }
-.about-page .a-note { display: inline-flex; align-items: center; border: 1px dashed #b4b4b4; border-radius: 99px; padding: 6px 13px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.11em; color: #6a6a6a; background: rgba(255, 255, 255, 0.92); white-space: nowrap; }
+.about-page p { font-weight: 400; margin: 0; max-width: 66ch; }
+/* `.a-body` and `.a-over` are RETIRED: the page's running copy and its
+   eyebrows now render through the shared `P` and `Mono` components in
+   `src/components/home-v2/Ui.tsx` (inline-styled, so nothing here can
+   out-specify or silently drift from them — see CLAUDE.md trap #2). Do not
+   re-add class-based rules for either; add a prop to the shared component
+   instead. */
+.about-page .a-label { font-family: var(--f-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.15em for JetBrains Mono; retuned for the body face */
+.about-page .a-band--ink .a-label { color: #aab0ae; } /* V2.faint */
+.about-page .a-num { font-family: var(--f-mono); font-weight: 400; font-variant-numeric: tabular-nums; }
 
 /* hero */
-.about-page .a-hero { padding-block: clamp(44px, 6vw, 80px) 0; }
+/* `.a-hero`'s own bottom padding is now real (was 0, back when `.a-hero__band`
+   supplied its own `margin-top` for the gap before the image). That image is
+   no longer a child of `.a-hero` — see `.a-hero2` below — so this padding is
+   what keeps the stats row off the photo's top edge; it is WHITE space (this
+   section's own background), never a wash gap. */
+.about-page .a-hero { padding-block: clamp(44px, 6vw, 80px) clamp(40px, 5vw, 64px); background: var(--paper); }
 .about-page .a-hero__grid { display: grid; gap: clamp(24px, 3vw, 48px); grid-template-columns: 1fr; }
 @media (min-width: 900px) { .about-page .a-hero__grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: end; } }
 .about-page .a-hero__meta { display: flex; flex-wrap: wrap; gap: 10px 34px; padding-top: 24px; margin-top: clamp(28px, 3.5vw, 44px); border-top: 1px solid var(--rule); }
-.about-page .a-hero__band { margin-top: clamp(30px, 4vw, 56px); height: clamp(200px, 32vw, 400px); }
+
+/* ── HERO 02 — full-bleed verification-bench photo ──────────────────────
+   Same pattern as `services/page.tsx`'s own "HERO 02" block: full-bleed
+   photo, eyebrow/headline/lede/actions overlaid bottom-left, one floating
+   frosted-glass stat card bottom-right. Sits directly against `.a-hero`
+   above with no gap — see the component-level comment in `page.tsx` for why
+   that matters here specifically (the white-section work this pass).
+   Scrim is two stacked gradients in one `background`: a bottom-up dark fade
+   (protects the overlay text) and a left-anchored one (a little extra depth
+   under the longest line) — sampled against the actual rendered photo, not
+   assumed; see the verification notes this pass recorded for the ratios. */
+.about-page .a-hero2 { position: relative; overflow: hidden; height: min(70vh, 680px); }
+.about-page .a-hero2__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-page .a-hero2__scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(0deg, rgba(10, 10, 10, 0.74) 0%, rgba(10, 10, 10, 0.4) 34%, rgba(10, 10, 10, 0) 62%),
+    linear-gradient(100deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 42%);
+}
+.about-page .a-hero2__content { position: absolute; left: var(--pad); right: var(--pad); bottom: clamp(40px, 5vw, 64px); max-width: 560px; }
+.about-page .a-hero2__h { font-family: var(--f-head); font-weight: 400; margin: 0 0 16px; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.22; letter-spacing: -0.016em; color: #fff; text-wrap: pretty; }
+.about-page .a-hero2__lede { font-family: var(--f-body); font-weight: 400; margin: 0 0 26px; max-width: 460px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, 0.88); }
+.about-page .a-hero2__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+/* 0.9, not the 0.72 the `/services` reference card uses: this card sits over
+   a lighter, more variable patch of THIS photo, and 0.72 measured out at
+   3.58:1 for the muted label — sampled on the rendered page, not assumed —
+   under the 4.5:1 body-text floor. 0.9 was chosen by solving for the alpha
+   that keeps that pair >=4.5:1 even against a worst-case near-black pixel
+   underneath, then re-verified on the actual render (see this pass's
+   verification notes). */
+.about-page .a-hero2__card {
+  position: absolute; right: var(--pad); bottom: clamp(40px, 5vw, 64px);
+  background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 4px; padding: 20px 24px;
+  box-shadow: 0 20px 50px rgba(23, 29, 29, 0.12);
+}
+.about-page .a-hero2__card-n { font-family: var(--f-head); font-weight: 400; font-size: clamp(22px, 3vw, 34px); line-height: 1; letter-spacing: -0.018em; color: var(--ink); }
+.about-page .a-hero2__card-l { font-family: var(--f-body); font-size: 13px; color: var(--muted); margin-top: 2px; }
+/* Below 900px (the same breakpoint `.a-hero__grid` itself stacks at): the
+   overlay is dropped in favour of a plain stacked layout — photo, then a
+   solid ink content block, then the card as a plain tile — rather than
+   letting the bottom-left text and the bottom-right card compete for the
+   same cramped row, which is what the literal reference does at narrow
+   widths with no mobile handling of its own. */
+@media (max-width: 900px) {
+  .about-page .a-hero2 { height: auto; }
+  .about-page .a-hero2__img { position: static; width: 100%; height: 280px; }
+  .about-page .a-hero2__scrim { display: none; }
+  .about-page .a-hero2__content { position: static; max-width: none; padding: 28px var(--pad) 24px; background: var(--ink); }
+  .about-page .a-hero2__lede { color: #aab0ae; } /* V2.faint — matches every other ink-band body copy on this page */
+  .about-page .a-hero2__card { position: static; margin: 0 var(--pad) 28px; background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; border: 1px solid var(--rule); }
+}
 
 /* layout helpers */
 .about-page .a-split { display: grid; gap: clamp(28px, 4vw, 64px); grid-template-columns: 1fr; }
@@ -1369,13 +1512,134 @@ html {
 .about-page .a-stack { display: grid; gap: 20px; }
 .about-page .a-stack--lg { gap: clamp(28px, 3.5vw, 46px); }
 
-/* conditions ledger */
-.about-page .a-ledger { border-top: 2px solid var(--ink); margin-top: clamp(30px, 4vw, 48px); }
-.about-page .a-cond { display: grid; gap: 6px 32px; grid-template-columns: 1fr; padding-block: clamp(24px, 2.8vw, 36px); border-bottom: 1px solid var(--rule); }
+/* conditions ledger
+   Row hover/focus treatment: a gold fill plus a floating image, both
+   absolutely-positioned overlays inside the row (LifecycleV2's pattern,
+   applied to a non-link row list — see ConditionsLedger.tsx for the React
+   half). Two things make every row safe:
+     1. `.a-ledger` used to clip (`overflow:hidden`) at its own top edge —
+        the thick rule, no padding between them — so row 1's shot got cut
+        off exactly at the rule instead of overhanging into a row above it
+        that doesn't exist. That clipped the card mid-image rather than
+        showing it whole, which is wrong: the fix is for the card to never
+        reach the rule, not to hide the part that does. `overflow` is now
+        `visible` and row 1's shot is nudged down instead (see its own rule,
+        below the base `.a-cond__shot` block) so nothing above the rule is
+        ever painted in the first place. The same relaxation would have let
+        row 4's shot spill past the ledger's own bottom edge, but measured
+        clearance to the ink band below (`.a-mv`'s section) never drops
+        below ~30px at any tested width with the shot simply centred, same
+        as rows 2-3 — so row 4 needed no override. Rows 2-4's upward
+        overhang into their neighbour stays inside the ledger regardless,
+        same as LifecycleV2, and was never what `overflow` was clipping.
+     2. the row itself gets NO new padding/min-height for any of this — the
+        fill and shot are removed from flow (position:absolute), so the
+        row's border-box is identical at rest and active. Confirmed by
+        measuring the rendered page, not by reading this rule. */
+.about-page .a-ledger { border-top: 2px solid var(--ink); margin-top: clamp(30px, 4vw, 48px); overflow: visible; }
+.about-page .a-cond {
+  position: relative;
+  display: grid; gap: 6px 32px; grid-template-columns: 1fr;
+  padding-block: clamp(24px, 2.8vw, 36px);
+  border-bottom: 1px solid var(--rule);
+  border-radius: 4px;
+}
 @media (min-width: 760px) { .about-page .a-cond { grid-template-columns: 64px minmax(0, 22ch) minmax(0, 1fr); align-items: start; } }
-.about-page .a-cond__n { font-size: 14px; color: #b4b4b4; padding-top: 5px; }
-.about-page .a-cond__t { font-family: var(--f-head); font-weight: 600; font-size: clamp(20px, 1.9vw, 25px); letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
-.about-page .a-cond__b { color: var(--body); font-size: 17px; line-height: 1.6; margin: 0; }
+.about-page .a-cond:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
+/* the gold ground — an overlay, so it adds no height. -1px bottom covers the
+   row's own hairline so the fill reads edge-to-edge, same technique as
+   `.v2-life-fill` in V2Styles.tsx. */
+.about-page .a-cond__fill {
+  position: absolute; inset: 0 0 -1px 0; z-index: 0;
+  border-radius: 4px;
+  background: var(--accent); /* a GROUND, never text — see the gold rule above */
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+/* icon + title + body all sit in this stacking layer, above the fill. */
+.about-page .a-cond__icon { position: relative; z-index: 1; display: inline-flex; color: var(--muted); padding-top: 4px; transition: color 0.22s ease; }
+.about-page .a-cond__t { position: relative; z-index: 1; font-family: var(--f-head); font-weight: 400; font-size: clamp(20px, 1.9vw, 25px); letter-spacing: -0.01em; line-height: 1.25; margin: 0; transition: color 0.22s ease; }
+.about-page .a-cond__b { position: relative; z-index: 1; color: var(--body); font-size: 17px; line-height: 1.6; margin: 0; transition: color 0.22s ease; }
+
+/* the floating preview — overlay, never a hit target (pointer-events:none),
+   and only rendered at all for rows with a matching SHOT entry in
+   ConditionsLedger.tsx. Positioned at the boundary between the title column
+   (col 2) and the body column (col 3): 64px icon column + 32px column-gap +
+   22ch title column, the same three fixed-width figures the row's own
+   grid-template-columns uses, so the two stay in step without a magic
+   number. Hidden below 1024px — see the clearance note above the mobile
+   query further down.
+   PORTRAIT, DELIBERATELY: 170x255 is 2:3 — noticeably taller than wide, per
+   the reference. Every source photo is 640x427 landscape (3:2), so
+   `background-size:cover` into this box is HEIGHT-bound (scale =
+   255/427 = 0.597, scaled width = 382px > the 170px box — only ~44.7% of
+   the image's width survives, ~270px of 640px) and crops hard on the sides;
+   vertical position never crops anything here. `background-position` is
+   `center` as the default/fallback, overridden per image below via the
+   plain `data-shot` attribute ConditionsLedger.tsx sets (NOT a style, so
+   `--a-cond-shot` stays the only inline value — see its own comment for the
+   framing reasoning behind each override). Not upscaled: the box is smaller
+   than the source in both axes. */
+.about-page .a-cond__shot {
+  position: absolute; z-index: 2;
+  left: calc(96px + 22ch); top: 50%;
+  width: 170px; height: 255px;
+  border-radius: 10px;
+  background-image: var(--a-cond-shot);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 16px 32px rgba(23, 29, 29, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-50%) rotate(-4deg) scale(0.94);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.about-page .a-cond__shot[data-shot="solar"] { background-position: 44% center; }
+.about-page .a-cond__shot[data-shot="devices"] { background-position: 12% center; }
+.about-page .a-cond__shot[data-shot="refurb"] { background-position: center; }
+
+/* row 1 only: centred like every other row (the `top:50%` above), this
+   170x255 card's rotated bounding box reaches ~133px above its own centre —
+   more than row 1's own half-height leaves above it before the thick rule,
+   at every width tested. There is no row above row 1 to overhang into and
+   the rule may never be crossed, so instead of clipping (the old, wrong,
+   fix) or shrinking the card (which would also shrink rows 2 and 4, who
+   don't need it), row 1's card alone is nudged down 70px past centre. That
+   70px was picked by measuring the tightest case in the 1024-1600px+ range
+   (row 1's own height varies with copy reflow, so its headroom above the
+   rule does too — as little as ~76px at some widths) and leaving margin:
+   it clears the rule by 12-25px across every width tested, never less. The
+   resulting overhang into row 2 ("Trust is scarce") is the same kind of
+   overlap rows 2-4 already make into their own neighbour — see the ledger
+   comment above — just deeper; row 2 has no card of its own to compete
+   with, and its title sits in the column to the left, never under the shot.
+   `.a-ledger > div:first-child` reaches row 1's wrapper specifically
+   (`ConditionsLedger.tsx` renders one `[data-rv]` div per row, in source
+   order) without adding a data attribute just for this. */
+.about-page .a-ledger > div:first-child .a-cond__shot { top: calc(50% + 70px); }
+
+/* the filled/active state. Ink-on-gold (`--accent-on` on `--accent`) is
+   10.60:1 — every text element and the icon stay on that dark colour, never
+   the resting --muted/--body (tuned for the wash ground, not gold — see the
+   gold rule). The row lifts above its neighbours so the shot can overhang
+   them. */
+.about-page .a-cond.is-active { z-index: 3; border-bottom-color: transparent; }
+.about-page .a-cond.is-active .a-cond__fill { opacity: 1; }
+.about-page .a-cond.is-active .a-cond__shot { opacity: 1; transform: translateY(-50%) rotate(-4deg) scale(1); }
+.about-page .a-cond.is-active .a-cond__icon,
+.about-page .a-cond.is-active .a-cond__t,
+.about-page .a-cond.is-active .a-cond__b { color: var(--accent-on); }
+
+/* mobile: the row collapses to one column below 760px and there is no
+   "between the columns" left for the shot to sit in — see the report for the
+   full reasoning. The gold fill and the colour swap still work at any width
+   (they only need the row's own box), so they stay on; only the floating
+   image is width-gated. */
+@media (max-width: 1023px) {
+  .about-page .a-cond__shot { display: none; }
+}
 
 /* mission / vision */
 .about-page .a-mv { display: grid; gap: 1px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; overflow: hidden; margin-top: clamp(28px, 3.5vw, 48px); }
@@ -1385,8 +1649,8 @@ html {
 @media (min-width: 860px) { .about-page .a-stats { grid-template-columns: repeat(4, 1fr); } }
 .about-page .a-stat { padding: clamp(22px, 2.2vw, 30px) 24px clamp(22px, 2.2vw, 30px) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
 @media (min-width: 860px) { .about-page .a-stat { border-bottom: 0; } }
-.about-page .a-stat__n { font-family: var(--f-head); font-weight: 700; font-size: clamp(28px, 3.2vw, 44px); line-height: 1; letter-spacing: -0.035em; }
-.about-page .a-stat__l { font-size: 14px; color: rgba(255, 255, 255, 0.5); margin-top: 9px; max-width: 22ch; }
+.about-page .a-stat__n { font-family: var(--f-head); font-weight: 400; font-size: clamp(28px, 3.2vw, 44px); line-height: 1; letter-spacing: -0.018em; }
+.about-page .a-stat__l { font-weight: 400; font-size: 14px; color: #aab0ae; margin-top: 9px; max-width: 22ch; } /* V2.faint — 7.75:1 on ink */
 
 /* who we serve — drifting masonry (7 cols) */
 .about-page .a-mason {
@@ -1400,28 +1664,24 @@ html {
 .about-page .a-mcol { display: grid; gap: 10px; align-content: start; animation: m7drift 46s linear infinite; will-change: transform; }
 @keyframes m7drift { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .about-page .a-mason:hover .a-mcol { animation-play-state: paused; }
-.about-page .a-tile { position: relative; background: var(--stripe-soft); border: 1px solid #e6e6e6; border-radius: 4px; overflow: hidden; }
-.about-page .a-tile__tag { position: absolute; left: 10px; right: 8px; bottom: 9px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; color: #a2a2a2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.about-page .a-tile { position: relative; background: var(--stripe-soft); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.about-page .a-tile__tag { position: absolute; left: 10px; right: 8px; bottom: 9px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--decor); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* tracking was 0.06em for JetBrains Mono */
 
 .about-page .a-serve { display: grid; gap: 14px; margin-top: 14px; }
 @media (min-width: 860px) { .about-page .a-serve { grid-template-columns: repeat(3, 1fr); } }
 .about-page .a-serve__c { border: 1px solid var(--rule); border-radius: 4px; padding: clamp(24px, 2.4vw, 34px); display: grid; gap: 12px; align-content: start; background: var(--paper); }
-.about-page .a-serve__i { font-size: 13px; color: #b4b4b4; }
-.about-page .a-hs { font-family: var(--f-head); font-weight: 600; font-size: 21px; line-height: 1.2; letter-spacing: -0.02em; margin: 0; }
+.about-page .a-serve__i { font-size: 13px; color: var(--decor); }
+.about-page .a-hs { font-family: var(--f-head); font-weight: 400; font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; margin: 0; }
 
 /* focus — asymmetric bento */
 .about-page .a-bento { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: clamp(28px, 3.5vw, 48px); }
 @media (min-width: 900px) { .about-page .a-bento { grid-template-columns: repeat(12, 1fr); } }
 .about-page .a-bcell { border: 1px solid var(--rule); border-radius: 4px; background: var(--paper); padding: clamp(24px, 2.5vw, 34px); display: flex; flex-direction: column; gap: 12px; min-height: 212px; }
-.about-page .a-bcell__n { font-family: var(--f-mono); font-size: 12px; color: #b4b4b4; }
-.about-page .a-bcell__t { font-family: var(--f-head); font-weight: 600; letter-spacing: -0.028em; line-height: 1.08; margin: 0; font-size: clamp(21px, 2.1vw, 28px); }
+.about-page .a-bcell__t { font-family: var(--f-head); font-weight: 400; letter-spacing: -0.014em; line-height: 1.2; margin: 0; font-size: clamp(21px, 2.1vw, 28px); }
 .about-page .a-bcell__b { color: var(--body); font-size: 16px; line-height: 1.6; margin: 0; max-width: 52ch; }
-.about-page .a-bcell .a-ref { margin-top: auto; }
-.about-page .a-bcell__fill { flex: 1; min-height: 96px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid #e6e6e6; }
+.about-page .a-bcell__fill { flex: 1; min-height: 96px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid var(--rule); }
 .about-page .a-bcell--ink { background: var(--ink); border-color: var(--ink); color: #fff; }
-.about-page .a-bcell--ink .a-bcell__n { color: #6f6f6f; }
-.about-page .a-bcell--ink .a-bcell__b { color: rgba(255, 255, 255, 0.62); }
-.about-page .a-bcell--ink .a-ref { border-color: rgba(255, 255, 255, 0.28); color: rgba(255, 255, 255, 0.6); }
+.about-page .a-bcell--ink .a-bcell__b { color: #aab0ae; } /* V2.faint — 7.75:1 on ink */
 @media (min-width: 900px) {
   .about-page .a-b1 { grid-column: span 7; grid-row: span 2; }
   .about-page .a-b2 { grid-column: span 5; }
@@ -1429,8 +1689,6 @@ html {
   .about-page .a-b4 { grid-column: span 4; }
   .about-page .a-b5 { grid-column: span 8; }
 }
-.about-page .a-ref { display: inline-block; white-space: nowrap; border: 1px solid var(--rule-strong); border-radius: 99px; padding: 5px 11px; font-size: 10px; color: #6a6a6a; align-self: start; }
-
 /* the standard — inspection certificate */
 .about-page .a-spec { border: 1px solid var(--rule-strong); border-radius: 4px; overflow: hidden; background: var(--paper); margin-top: clamp(28px, 3.5vw, 46px); }
 .about-page .a-spec__bar { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 13px clamp(20px, 2.4vw, 32px); background: var(--wash); border-bottom: 1px solid var(--rule); }
@@ -1438,7 +1696,7 @@ html {
 @media (min-width: 820px) { .about-page .a-spec__trip { grid-template-columns: repeat(3, 1fr); } }
 .about-page .a-spec__word { padding: clamp(26px, 3vw, 42px) clamp(20px, 2.4vw, 32px); border-bottom: 1px solid var(--rule); display: grid; gap: 10px; align-content: start; }
 @media (min-width: 820px) { .about-page .a-spec__word + .a-spec__word { border-left: 1px solid var(--rule); } }
-.about-page .a-spec__w { font-family: var(--f-head); font-weight: 600; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; letter-spacing: -0.035em; }
+.about-page .a-spec__w { font-family: var(--f-head); font-weight: 400; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; letter-spacing: -0.018em; }
 .about-page .a-spec__d { color: var(--body); font-size: 16px; line-height: 1.55; margin: 0; max-width: 34ch; }
 .about-page .a-spec__sheet { display: grid; grid-template-columns: 1fr; }
 @media (min-width: 820px) { .about-page .a-spec__sheet { grid-template-columns: repeat(2, 1fr); } }
@@ -1446,7 +1704,7 @@ html {
 @media (min-width: 820px) { .about-page .a-spec__row:nth-child(even) { border-left: 1px solid var(--rule); } }
 .about-page .a-spec__row:nth-last-child(-n + 2) { border-bottom: 0; }
 @media (max-width: 819px) { .about-page .a-spec__row:last-child { border-bottom: 0; } }
-.about-page .a-spec__k { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.about-page .a-spec__k { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.09em for JetBrains Mono */
 .about-page .a-spec__v { font-family: var(--f-mono); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; text-align: right; }
 
 /* entrance reveal */
@@ -1455,26 +1713,94 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .about-page [data-rv] { opacity: 1; transform: none; transition: none; }
   .about-page .a-mcol { animation: none; }
+  /* conditions ledger: the state change (gold fill, floating image, text
+     colour) still happens — only the animated transition and the shot's
+     scale-in are dropped, same treatment LifecycleV2 gives .v2-life-shot. */
+  .about-page .a-cond,
+  .about-page .a-cond__fill,
+  .about-page .a-cond__shot,
+  .about-page .a-cond__icon,
+  .about-page .a-cond__t,
+  .about-page .a-cond__b { transition: none !important; }
+  .about-page .a-cond__shot,
+  .about-page .a-cond.is-active .a-cond__shot { transform: translateY(-50%) rotate(-4deg) !important; }
 }
 
 /* ==========================================================================
-   Trade-In page (/trade-in) — scoped valuation workspace.
-   Ported from the approved "Mode 7 — Device Valuation (wireframe)" artifact.
-   Scoped under .tradein-page so nothing leaks; fonts resolve through the
-   next/font CSS variables set on <html>.
+   Trade-In page (/trade-in) — scoped valuation workspace, ON THE V2 PALETTE.
+   Ported from the approved "Mode 7 — Device Valuation (wireframe)" artifact;
+   this pass only repaints the structure and interaction — see CLAUDE.md's
+   homepage-v2 section for the source of every value below. Colour and
+   font-family are the ONLY things that changed here: every custom property is
+   now derived from `V2` / `V2_FONT` in `src/lib/theme-v2.ts` (never from
+   `@/lib/theme`'s `COLOR`), and the remaining literals (ink-alpha hairlines,
+   the decorative-only `--decor`/`--hover` tints, and the white-alpha overlays
+   already used on the ink bands) are alpha tints off `V2.ink`/white — the same
+   technique already used for `dotFill` in `ButtonV2.tsx` — not new colours,
+   just those tokens at reduced opacity. Still scoped under .tradein-page so
+   it can't leak, and fonts resolve through the next/font CSS variables set on
+   <html> (the v2 faces are registered ALONGSIDE v1's, never replacing them).
+   THE GOLD RULE: this page never puts the accent on a light ground as text —
+   it had no accent-as-text usage in v1 either (the workspace is monochrome
+   ink/paper, like a receipt), so nothing needed re-deriving; gold does not
+   appear anywhere in this block. Selected/pressed states (chips, category and
+   upgrade cards, the aria-pressed cards) stay ink-filled with a white label —
+   the same "invert to the one dark surface" treatment v1 used, just repainted
+   with V2.ink — so they remain exactly as visually distinct as before.
+   FONT TRAP: `--f-head`/`--f-body`/`--f-mono` must each resolve to a
+   REGISTERED `--font-*` var (see layout.tsx) or the whole rule is dropped,
+   not just the named face — grep every `--font-*` below before touching one.
+   TRACKING/LEADING: the negative letter-spacing values below are HALVED from
+   the Space-Grotesk-tuned originals (comments note the old value beside each),
+   and every heading that can wrap has an explicit, opened-up line-height —
+   the same reasoning FooterV2 and the /about port used: a serif collides at a
+   grotesk's tracking, and Alegreya's deeper descender needs more leading than
+   a grotesk did. Every mono-labelled rule (once Space Mono) is retuned from
+   its old tracking to roughly half, matching `V2_TYPE.mono`'s 0.08em->0.04em
+   precedent — proportional Outfit at the old fixed-width tracking reads loose
+   and uneven letter-to-letter. Heading/number weights are unified to 400
+   (Alegreya set bold reads heavier than this workspace's receipt-like tone
+   needs; About made the same call for its own headings).
+   `.t-over` and `.t-body` are RETIRED, exactly as About retired `.a-over` and
+   `.a-body`: the page's four section eyebrows now render through the shared
+   `Mono` component and its running/outcome copy through the shared `P`
+   component (both in `src/components/home-v2/Ui.tsx`), inline-styled so
+   nothing here can out-specify or silently drift from them (CLAUDE.md trap
+   #2). The one small label that isn't a section eyebrow — "Estimated value —
+   not yet confirmed", sitting mid-card above the outcome figure — now reads
+   through `.t-label` instead, the same treatment as a `.a-label` sub-caption
+   on /about (a card-level micro-label, not a page-section intro). Do not
+   re-add class-based rules for either retired name; add a prop to the shared
+   component instead.
+   `ArrowButton` calls became `ButtonV2` (`variant="outline"`). Two of the four
+   sit on an INK ground — `.t-calc` and `.t-rcpt__act` are both
+   `background: var(--ink)` — so those two pass `onDark`, per `ButtonV2`'s own
+   doc comment: an outline button is drawn for a light ground by default, and
+   all three of its parts (label, hairline, tile) would vanish against ink
+   without it.
    ========================================================================== */
 .tradein-page {
-  --ink: #121212;
-  --paper: #fff;
-  --wash: #fafafa;
-  --rule: #ececec;
-  --rule-strong: #d8d8d8;
-  --muted: #9a9a9a;
-  --body: #5a5a5a;
-  --f-head: var(--font-space-grotesk), system-ui, sans-serif;
-  --f-body: var(--font-outfit), system-ui, sans-serif;
-  --f-mono: var(--font-space-mono), ui-monospace, monospace;
-  --stripe-soft: repeating-linear-gradient(135deg, #ededed 0 9px, #f7f7f7 9px 18px);
+  --ink: #171d1d; /* V2.ink — 14.05:1 on wash, 17.07:1 on white */
+  --paper: #ffffff; /* V2.white */
+  --wash: #e6eae6; /* V2.wash */
+  --rule: rgba(23, 29, 29, 0.14); /* V2_HAIR's own value, ink-alpha */
+  --rule-strong: rgba(23, 29, 29, 0.24); /* a stronger ink-alpha hairline */
+  --muted: #5a6160; /* V2.muted — 5.21:1 on wash, 6.34:1 on white */
+  --body: #5a6160; /* V2.muted — same verified-AA tone for running copy */
+  --decor: rgba(23, 29, 29, 0.32); /* decorative-only: ordinal numerals, the
+    ineligible/empty-state figures. Sub-AA by design, mirroring v1's own
+    #b4b4b4/#c4c4c4 decorative treatment — never used for read-as-content
+    text, which all takes --muted/--body/--ink instead. */
+  --hover: rgba(23, 29, 29, 0.4); /* hover-only border darken, ink-alpha */
+  --f-head: var(--font-alegreya), Georgia, "Times New Roman", serif;
+  --f-body: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  /* was var(--font-space-mono), ui-monospace, monospace — Space Mono was
+     retired as v2's label face; every --f-mono label below now sets in the
+     body face, with tracking retuned per-rule (see CLAUDE.md's Typography
+     table). Name kept as --f-mono since it still marks "the small-label
+     rule", not a claim about the face. */
+  --f-mono: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  --stripe-soft: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.05) 0 9px, rgba(23, 29, 29, 0.02) 9px 18px);
   --pad: clamp(20px, 4vw, 48px);
   --max: 1320px;
   font-family: var(--f-body);
@@ -1484,30 +1810,26 @@ html {
 /* shell */
 .tradein-page .t-wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
 .tradein-page .t-band { padding-block: clamp(56px, 8vw, 104px); }
-.tradein-page .t-band--wash { background: var(--wash); border-block: 1px solid #f0f0f0; }
+.tradein-page .t-band--wash { background: var(--wash); border-block: 1px solid var(--rule); }
 .tradein-page .t-band--ink { background: var(--ink); color: #fff; }
 
 /* type */
 .tradein-page .t-dhero {
-  font-family: var(--f-head); font-weight: 600; margin: 0;
-  font-size: clamp(40px, 6.4vw, 84px); line-height: 0.94; letter-spacing: -0.04em; text-wrap: balance;
-}
+  font-family: var(--f-head); font-weight: 400; margin: 0;
+  font-size: clamp(40px, 6.4vw, 84px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance;
+} /* weight was 600, line-height 0.94, letter-spacing -0.04em for Space Grotesk */
 .tradein-page .t-dl {
-  font-family: var(--f-head); font-weight: 600; margin: 0;
-  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.02; letter-spacing: -0.032em; text-wrap: balance;
-}
+  font-family: var(--f-head); font-weight: 400; margin: 0;
+  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.18; letter-spacing: -0.016em; text-wrap: balance;
+} /* weight was 600, line-height 1.02, letter-spacing -0.032em for Space Grotesk */
 .tradein-page .t-dm {
-  font-family: var(--f-head); font-weight: 600; margin: 0;
-  font-size: clamp(21px, 2.3vw, 30px); line-height: 1.1; letter-spacing: -0.028em;
-}
+  font-family: var(--f-head); font-weight: 400; margin: 0;
+  font-size: clamp(21px, 2.3vw, 30px); line-height: 1.2; letter-spacing: -0.014em;
+} /* weight was 600, line-height 1.1, letter-spacing -0.028em for Space Grotesk */
 .tradein-page .t-lede { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: var(--body); margin: 0; max-width: 40ch; }
 .tradein-page p { margin: 0; max-width: 66ch; }
-.tradein-page .t-body { color: var(--body); }
-.tradein-page .t-band--ink .t-body { color: rgba(255, 255, 255, 0.62); }
-.tradein-page .t-over { font-family: var(--f-head); font-size: 12px; letter-spacing: 0.17em; text-transform: uppercase; color: var(--muted); }
-.tradein-page .t-band--ink .t-over { color: #7f7f7f; }
 .tradein-page .t-mono { font-family: var(--f-mono); }
-.tradein-page .t-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.tradein-page .t-label { font-family: var(--f-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.14em for Space Mono */
 
 /* hero */
 .tradein-page .t-hero { padding-block: clamp(40px, 5vw, 72px) 0; }
@@ -1529,42 +1851,21 @@ html {
 /* submitted — readable, but no longer editable */
 .tradein-page .t-steps[data-sent="true"] { pointer-events: none; opacity: 0.5; transition: opacity 0.4s ease; }
 .tradein-page .t-grp__h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
-.tradein-page .t-grp__n { font-family: var(--f-mono); font-size: 12px; color: #b4b4b4; }
-.tradein-page .t-grp__t { font-family: var(--f-head); font-weight: 600; font-size: clamp(19px, 1.9vw, 23px); letter-spacing: -0.02em; margin: 0; }
+.tradein-page .t-grp__n { font-family: var(--f-mono); font-size: 12px; color: var(--decor); }
+.tradein-page .t-grp__t { font-family: var(--f-head); font-weight: 400; font-size: clamp(19px, 1.9vw, 23px); line-height: 1.25; letter-spacing: -0.01em; margin: 0; } /* weight was 600, letter-spacing -0.02em for Space Grotesk */
 .tradein-page .t-grp__hint { font-size: 14px; color: var(--muted); margin: 0 0 18px; }
 .tradein-page .t-q { margin-top: 20px; }
 .tradein-page .t-q:first-of-type { margin-top: 12px; }
-.tradein-page .t-q__l { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
+.tradein-page .t-q__l { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; } /* tracking was 0.12em for Space Mono */
 .tradein-page .t-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .tradein-page .t-chip {
   font-family: var(--f-body); font-size: 15px; border: 1px solid var(--rule-strong);
-  background: var(--paper); color: #2a2a2a; border-radius: 99px; padding: 9px 16px; cursor: pointer;
+  background: var(--paper); color: var(--ink); border-radius: 99px; padding: 9px 16px; cursor: pointer;
   transition: background 0.18s, color 0.18s, border-color 0.18s;
 }
-.tradein-page .t-chip:hover { border-color: #9a9a9a; }
+.tradein-page .t-chip:hover { border-color: var(--hover); }
 .tradein-page .t-chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
 .tradein-page .t-chip--warn[aria-pressed="true"] { background: #fff; color: var(--ink); border: 1px dashed var(--ink); }
-
-/* select — the team curates the trade-in catalogue, so this list can be long */
-.tradein-page .t-sel { position: relative; max-width: 420px; }
-.tradein-page .t-sel__i {
-  appearance: none; -webkit-appearance: none; width: 100%;
-  font-family: var(--f-body); font-size: 15px; line-height: 1.3; color: var(--ink);
-  background: var(--paper); border: 1px solid var(--rule-strong); border-radius: 4px;
-  padding: 12px 44px 12px 15px; cursor: pointer;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-.tradein-page .t-sel__i[data-empty="true"] { color: var(--muted); }
-.tradein-page .t-sel__i option { color: var(--ink); }
-@media (hover: hover) and (pointer: fine) { .tradein-page .t-sel__i:hover { border-color: #9a9a9a; } }
-.tradein-page .t-sel__i:focus-visible {
-  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(28, 21, 15, 0.12);
-}
-.tradein-page .t-sel__c {
-  position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; pointer-events: none;
-  border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
-  transform: translateY(-72%) rotate(45deg);
-}
 
 /* contact fields — step 04 */
 .tradein-page .t-fields { display: grid; gap: 6px 16px; grid-template-columns: 1fr; margin-top: 12px; }
@@ -1576,24 +1877,24 @@ html {
   background: var(--paper); border: 1px solid var(--rule-strong); border-radius: 4px;
   padding: 12px 15px; transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
-@media (hover: hover) and (pointer: fine) { .tradein-page .t-input:hover { border-color: #9a9a9a; } }
+@media (hover: hover) and (pointer: fine) { .tradein-page .t-input:hover { border-color: var(--hover); } }
 .tradein-page .t-input:focus-visible {
-  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(28, 21, 15, 0.12);
+  outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(23, 29, 29, 0.12);
 }
 .tradein-page .t-input[aria-invalid="true"] { border-color: var(--ink); border-style: dashed; }
 /* reserves its own line so nothing reflows when an error appears */
 .tradein-page .t-field__h {
   min-height: 16px; margin-top: 5px; font-family: var(--f-mono); font-size: 10px;
-  letter-spacing: 0.06em; color: transparent;
-}
+  letter-spacing: 0.03em; color: transparent;
+} /* tracking was 0.06em for Space Mono */
 .tradein-page .t-field__h[data-error="true"] { color: var(--ink); }
 .tradein-page .t-grp__fine { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
 .tradein-page .t-grp__req {
   margin-left: auto; border: 1px solid var(--rule); border-radius: 99px; padding: 4px 10px;
-  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--muted); white-space: nowrap;
-}
+} /* tracking was 0.12em for Space Mono */
 
 .tradein-page .t-cat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 @media (max-width: 560px) { .tradein-page .t-cat { grid-template-columns: 1fr; } }
@@ -1601,12 +1902,12 @@ html {
   border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--paper); padding: 16px;
   cursor: pointer; text-align: left; display: grid; gap: 10px; transition: border-color 0.18s, background 0.18s;
 }
-.tradein-page .t-catc:hover { border-color: #9a9a9a; }
+.tradein-page .t-catc:hover { border-color: var(--hover); }
 .tradein-page .t-catc[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
-.tradein-page .t-catc__ph { height: 64px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid #e6e6e6; }
-.tradein-page .t-catc[aria-pressed="true"] .t-catc__ph { background: repeating-linear-gradient(135deg, #2a2a2a 0 9px, #333 9px 18px); border-color: #333; }
-.tradein-page .t-catc__t { font-family: var(--f-head); font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
-.tradein-page .t-catc__s { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tradein-page .t-catc__ph { height: 64px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid var(--rule); }
+.tradein-page .t-catc[aria-pressed="true"] .t-catc__ph { background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 9px, rgba(255, 255, 255, 0.14) 9px 18px); border-color: rgba(255, 255, 255, 0.28); }
+.tradein-page .t-catc__t { font-family: var(--f-head); font-weight: 400; font-size: 17px; line-height: 1.2; letter-spacing: -0.01em; } /* weight was 600, letter-spacing -0.02em for Space Grotesk */
+.tradein-page .t-catc__s { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.06em for Space Mono */
 .tradein-page .t-catc[aria-pressed="true"] .t-catc__s { color: rgba(255, 255, 255, 0.6); }
 
 /* evidence tiles */
@@ -1616,9 +1917,9 @@ html {
   position: relative; height: 118px; border: 1px dashed var(--rule-strong); border-radius: 4px;
   background: var(--stripe-soft); cursor: pointer; display: flex; align-items: flex-end; padding: 12px; transition: border-color 0.18s;
 }
-.tradein-page .t-drop:hover { border-color: #9a9a9a; }
+.tradein-page .t-drop:hover { border-color: var(--hover); }
 .tradein-page .t-drop[data-on="true"] { border: 1px solid var(--ink); background: var(--paper); }
-.tradein-page .t-drop__tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--muted); text-align: left; }
+.tradein-page .t-drop__tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--muted); text-align: left; } /* tracking was 0.06em for Space Mono */
 .tradein-page .t-drop[data-on="true"] .t-drop__tag { color: var(--ink); }
 .tradein-page .t-drop__chk { position: absolute; top: 10px; right: 12px; font-family: var(--f-mono); font-size: 12px; opacity: 0; }
 .tradein-page .t-drop[data-on="true"] .t-drop__chk { opacity: 1; }
@@ -1638,7 +1939,7 @@ html {
   --rp: 20px; /* one padding rhythm for every row of the card */
   display: flex; flex-direction: column;
   border: 1px solid var(--ink); border-radius: 6px; overflow: hidden; background: var(--paper);
-  box-shadow: 0 1px 2px rgba(18, 18, 18, 0.05), 0 18px 40px -24px rgba(18, 18, 18, 0.35);
+  box-shadow: 0 1px 2px rgba(23, 29, 29, 0.05), 0 18px 40px -24px rgba(23, 29, 29, 0.35);
 }
 /* cap to the viewport so a long ineligible card never hides its own foot */
 @media (min-width: 940px) { .tradein-page .t-rcpt { max-height: calc(100dvh - 132px); } }
@@ -1648,8 +1949,8 @@ html {
   flex: 0 0 auto;
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
   padding: 11px var(--rp); border-bottom: 1px solid var(--rule); background: var(--wash);
-  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
-}
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
+} /* tracking was 0.14em for Space Mono */
 .tradein-page .t-rcpt__live { display: inline-flex; align-items: center; gap: 8px; }
 .tradein-page .t-rcpt__dot {
   width: 5px; height: 5px; flex: 0 0 auto; border-radius: 99px;
@@ -1660,9 +1961,9 @@ html {
 
 /* device */
 .tradein-page .t-rcpt__dev { flex: 0 0 auto; padding: 16px var(--rp) 14px; border-bottom: 1px solid var(--rule); }
-.tradein-page .t-rcpt__devt { font-family: var(--f-head); font-weight: 600; font-size: 18px; letter-spacing: -0.022em; line-height: 1.2; }
-.tradein-page .t-rcpt__devs { font-family: var(--f-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase; margin-top: 5px; }
-.tradein-page .t-rcpt__dev[data-empty="true"] .t-rcpt__devt { color: #c4c4c4; }
+.tradein-page .t-rcpt__devt { font-family: var(--f-head); font-weight: 400; font-size: 18px; line-height: 1.2; letter-spacing: -0.011em; } /* weight was 600, letter-spacing -0.022em for Space Grotesk */
+.tradein-page .t-rcpt__devs { font-family: var(--f-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.045em; text-transform: uppercase; margin-top: 5px; } /* tracking was 0.09em for Space Mono */
+.tradein-page .t-rcpt__dev[data-empty="true"] .t-rcpt__devt { color: var(--decor); }
 
 /* breakdown toggle — desktop shows the lines outright, so this is mobile-only */
 .tradein-page .t-lines__toggle { display: none; }
@@ -1677,8 +1978,8 @@ html {
 .tradein-page .t-lines::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 99px; }
 .tradein-page .t-line {
   display: flex; align-items: baseline; gap: 10px; padding: 8px 0;
-  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.01em;
-}
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.005em;
+} /* tracking was 0.01em for Space Mono */
 .tradein-page .t-line__k { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; color: var(--body); }
 .tradein-page .t-line__dot { flex: 1; border-bottom: 1px dotted var(--rule-strong); transform: translateY(-3px); min-width: 14px; }
 .tradein-page .t-line__v { white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--ink); }
@@ -1692,38 +1993,38 @@ html {
 .tradein-page .t-ghost__k, .tradein-page .t-ghost__v { height: 7px; border-radius: 99px; background: var(--rule); flex: 0 0 auto; }
 .tradein-page .t-ghost__dot { flex: 1; border-bottom: 1px dotted var(--rule); min-width: 14px; }
 .tradein-page .t-line--empty {
-  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #bcbcbc; padding-top: 14px;
-}
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--decor); padding-top: 14px;
+} /* tracking was 0.1em for Space Mono */
 
 /* the ink foot — total and CTA share one black block */
 .tradein-page .t-total { flex: 0 0 auto; border-top: 1px solid var(--ink); background: var(--ink); color: #fff; padding: 18px var(--rp) 20px; }
 .tradein-page .t-total:has(+ .t-rcpt__act) { padding-bottom: 15px; }
 .tradein-page .t-total.void:has(+ .t-void) { padding-bottom: 6px; }
 .tradein-page .t-total__row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.tradein-page .t-total__l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+.tradein-page .t-total__l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); } /* tracking was 0.14em for Space Mono */
 .tradein-page .t-total__chip {
-  font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
   color: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255, 255, 255, 0.22); background: rgba(255, 255, 255, 0.07);
   border-radius: 99px; padding: 4px 10px; white-space: nowrap;
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
+} /* tracking was 0.12em for Space Mono */
 /* a range always, so it stays at the size that holds one line */
 .tradein-page .t-total__fig {
-  font-family: var(--f-head); font-weight: 700; font-size: clamp(28px, 2.7vw, 34px);
-  line-height: 1.04; letter-spacing: -0.035em; margin-top: 10px; font-variant-numeric: tabular-nums;
+  font-family: var(--f-head); font-weight: 400; font-size: clamp(28px, 2.7vw, 34px);
+  line-height: 1.04; letter-spacing: -0.018em; margin-top: 10px; font-variant-numeric: tabular-nums;
   animation: t-fig 0.34s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-.tradein-page .t-total__fig[data-range="true"] { font-size: clamp(23px, 2.1vw, 27px); letter-spacing: -0.03em; }
+} /* weight was 700, letter-spacing -0.035em for Space Grotesk */
+.tradein-page .t-total__fig[data-range="true"] { font-size: clamp(23px, 2.1vw, 27px); letter-spacing: -0.015em; }
 @keyframes t-fig {
   from { opacity: 0; transform: translateY(7px); filter: blur(4px); }
   to { opacity: 1; transform: none; filter: blur(0); }
 }
-.tradein-page .t-total__sub { font-family: var(--f-mono); font-size: 10.5px; color: rgba(255, 255, 255, 0.46); margin-top: 8px; letter-spacing: 0.05em; line-height: 1.45; }
+.tradein-page .t-total__sub { font-family: var(--f-mono); font-size: 10.5px; color: rgba(255, 255, 255, 0.46); margin-top: 8px; letter-spacing: 0.025em; line-height: 1.45; } /* tracking was 0.05em for Space Mono */
 .tradein-page .t-total.void { background: var(--paper); color: var(--ink); border-top: 1px dashed var(--ink); }
 .tradein-page .t-total.void .t-total__l { color: var(--muted); }
 .tradein-page .t-total.void .t-total__sub { color: var(--body); }
-.tradein-page .t-total.void .t-total__fig { text-decoration: line-through; text-decoration-thickness: 2px; color: #c4c4c4; }
+.tradein-page .t-total.void .t-total__fig { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--decor); }
 
 .tradein-page .t-rcpt__act { flex: 0 0 auto; background: var(--ink); padding: 0 var(--rp) var(--rp); display: grid; gap: 10px; }
 .tradein-page .t-rcpt__act > * { width: 100%; }
@@ -1731,9 +2032,9 @@ html {
 .tradein-page .t-cta--wait {
   display: flex; align-items: center; justify-content: center; min-height: 42px; padding: 10px 14px;
   border: 1px dashed rgba(255, 255, 255, 0.26); border-radius: 4px; text-align: center;
-  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.42);
-}
-.tradein-page .t-rcpt__note { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.36); text-align: center; }
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.42);
+} /* tracking was 0.12em for Space Mono */
+.tradein-page .t-rcpt__note { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.36); text-align: center; } /* tracking was 0.12em for Space Mono */
 /* one-shot sweep for the 900ms eligibility check */
 .tradein-page .t-check { height: 2px; border-radius: 99px; background: rgba(255, 255, 255, 0.15); overflow: hidden; }
 .tradein-page .t-check::after {
@@ -1743,11 +2044,11 @@ html {
 @keyframes t-scan { from { transform: translateX(-110%); } to { transform: translateX(300%); } }
 
 .tradein-page .t-void { flex: 0 1 auto; overflow-y: auto; padding: 16px var(--rp) var(--rp); display: grid; gap: 12px; }
-.tradein-page .t-void__t { font-family: var(--f-head); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+.tradein-page .t-void__t { font-family: var(--f-head); font-weight: 400; font-size: 16px; line-height: 1.25; letter-spacing: -0.005em; } /* weight was 600, letter-spacing -0.01em for Space Grotesk */
 .tradein-page .t-void__r { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink); display: flex; gap: 8px; }
 .tradein-page .t-void__alts { display: grid; gap: 8px; margin-top: 2px; }
 .tradein-page .t-void__alt { border: 1px solid var(--rule); border-radius: 4px; padding: 12px 13px; }
-.tradein-page .t-void__altt { font-family: var(--f-head); font-weight: 600; font-size: 14px; }
+.tradein-page .t-void__altt { font-family: var(--f-head); font-weight: 400; font-size: 14px; line-height: 1.3; } /* weight was 600 for Space Grotesk */
 .tradein-page .t-void__altb { font-size: 13px; color: var(--body); line-height: 1.5; margin-top: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1821,10 +2122,10 @@ html {
   .tradein-page .t-wiz__count {
     font-family: var(--f-mono);
     font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
-  }
+  } /* tracking was 0.12em for Space Mono */
   .tradein-page .t-wiz__hint {
     font-size: 12.5px;
     color: var(--body);
@@ -1909,17 +2210,17 @@ html {
   .tradein-page .t-lines__tl {
     font-family: var(--f-mono);
     font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
-  }
+  } /* tracking was 0.12em for Space Mono */
   .tradein-page .t-lines__tc {
     margin-left: auto;
     font-family: var(--f-mono);
     font-size: 10px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.03em;
     color: var(--ink);
-  }
+  } /* tracking was 0.06em for Space Mono */
   .tradein-page .t-lines__caret {
     flex: 0 0 auto;
     width: 7px;
@@ -1953,21 +2254,21 @@ html {
 .tradein-page .t-outcome { border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; margin-top: 14px; }
 .tradein-page .t-outcome__h {
   padding: 16px 22px; border-bottom: 1px solid var(--rule); font-family: var(--f-mono); font-size: 11px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-}
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+} /* tracking was 0.1em for Space Mono */
 .tradein-page .t-outcome__b { padding: clamp(24px, 3vw, 38px); }
 /* a range, so it steps down from the old single-figure size to hold one line */
 .tradein-page .t-outcome__fig {
-  font-family: var(--f-head); font-weight: 700; font-size: clamp(28px, 3.4vw, 44px);
-  line-height: 1.04; letter-spacing: -0.032em; font-variant-numeric: tabular-nums;
-}
+  font-family: var(--f-head); font-weight: 400; font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.04; letter-spacing: -0.016em; font-variant-numeric: tabular-nums;
+} /* weight was 700, letter-spacing -0.032em for Space Grotesk */
 
 /* the two ways a figure actually gets confirmed — by email, or in person */
 .tradein-page .t-paths { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 26px; }
 @media (min-width: 620px) { .tradein-page .t-paths { grid-template-columns: 1fr 1fr; } }
 .tradein-page .t-path { border: 1px solid var(--rule); border-radius: 4px; background: var(--wash); padding: 18px 20px; }
-.tradein-page .t-path__n { font-family: var(--f-mono); font-size: 11px; color: #b4b4b4; }
-.tradein-page .t-path__t { font-family: var(--f-head); font-weight: 600; font-size: 16px; letter-spacing: -0.018em; margin-top: 8px; line-height: 1.25; }
+.tradein-page .t-path__n { font-family: var(--f-mono); font-size: 11px; color: var(--decor); }
+.tradein-page .t-path__t { font-family: var(--f-head); font-weight: 400; font-size: 16px; line-height: 1.25; letter-spacing: -0.009em; margin-top: 8px; } /* weight was 600, letter-spacing -0.018em for Space Grotesk */
 .tradein-page .t-path__b { font-size: 14px; color: var(--body); line-height: 1.55; margin-top: 7px; }
 
 /* option A — the trade itself, and the only path the page completes */
@@ -1984,14 +2285,14 @@ html {
 }
 .tradein-page .t-upc:active { transform: scale(0.98); }
 @media (hover: hover) and (pointer: fine) {
-  .tradein-page .t-upc:hover { border-color: #9a9a9a; }
+  .tradein-page .t-upc:hover { border-color: var(--hover); }
   .tradein-page .t-upc[aria-pressed="true"]:hover { border-color: var(--ink); }
 }
 .tradein-page .t-upc[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
-.tradein-page .t-upc__ph { height: 74px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid #e6e6e6; }
-.tradein-page .t-upc[aria-pressed="true"] .t-upc__ph { background: repeating-linear-gradient(135deg, #2a2a2a 0 9px, #333 9px 18px); border-color: #333; }
-.tradein-page .t-upc__t { font-family: var(--f-head); font-weight: 600; font-size: 15px; letter-spacing: -0.02em; }
-.tradein-page .t-upc__k { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.tradein-page .t-upc__ph { height: 74px; border-radius: 3px; background: var(--stripe-soft); border: 1px solid var(--rule); }
+.tradein-page .t-upc[aria-pressed="true"] .t-upc__ph { background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 9px, rgba(255, 255, 255, 0.14) 9px 18px); border-color: rgba(255, 255, 255, 0.28); }
+.tradein-page .t-upc__t { font-family: var(--f-head); font-weight: 400; font-size: 15px; line-height: 1.2; letter-spacing: -0.01em; } /* weight was 600, letter-spacing -0.02em for Space Grotesk */
+.tradein-page .t-upc__k { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.045em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.09em for Space Mono */
 .tradein-page .t-upc[aria-pressed="true"] .t-upc__k { color: rgba(255, 255, 255, 0.58); }
 .tradein-page .t-upc__p { font-family: var(--f-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; margin-top: 2px; }
 
@@ -2009,19 +2310,19 @@ html {
   display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
   margin-top: 12px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-.tradein-page .t-calc__totl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
+.tradein-page .t-calc__totl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); } /* tracking was 0.14em for Space Mono */
 .tradein-page .t-calc__totv {
-  font-family: var(--f-head); font-weight: 700; font-size: clamp(26px, 2.6vw, 32px);
-  letter-spacing: -0.032em; line-height: 1; font-variant-numeric: tabular-nums;
-}
+  font-family: var(--f-head); font-weight: 400; font-size: clamp(26px, 2.6vw, 32px);
+  letter-spacing: -0.016em; line-height: 1; font-variant-numeric: tabular-nums;
+} /* weight was 700, letter-spacing -0.032em for Space Grotesk */
 .tradein-page .t-calc__note { font-size: 13px; line-height: 1.55; color: rgba(255, 255, 255, 0.55); margin-top: 12px; max-width: 54ch; }
 .tradein-page .t-calc__act { margin-top: 20px; }
 .tradein-page .t-calc__act > * { width: max-content; }
 .tradein-page .t-calc--empty {
   background: var(--wash); color: var(--muted); border-top: 1px solid var(--rule); animation: none;
-  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase;
   padding: 24px clamp(20px, 2.4vw, 26px);
-}
+} /* tracking was 0.1em for Space Mono */
 
 /* option B — deliberately quiet, and a conversation rather than a transaction */
 .tradein-page .t-altb {
@@ -2029,7 +2330,7 @@ html {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
 }
 .tradein-page .t-altb > * { min-width: 0; }
-.tradein-page .t-altb__t { font-family: var(--f-head); font-weight: 600; font-size: 16px; letter-spacing: -0.018em; margin-top: 7px; }
+.tradein-page .t-altb__t { font-family: var(--f-head); font-weight: 400; font-size: 16px; line-height: 1.25; letter-spacing: -0.009em; margin-top: 7px; } /* weight was 600, letter-spacing -0.018em for Space Grotesk */
 .tradein-page .t-altb__b { font-size: 13.5px; color: var(--body); line-height: 1.55; margin-top: 5px; max-width: 46ch; }
 
 /* how we price */
@@ -2039,31 +2340,25 @@ html {
   border: 1px solid var(--rule); border-radius: 4px; background: var(--paper);
   padding: clamp(24px, 2.4vw, 32px); display: grid; gap: 12px; align-content: start; min-height: 210px;
 }
-.tradein-page .t-pc__n { font-family: var(--f-mono); font-size: 12px; color: #b4b4b4; }
-.tradein-page .t-pc__t { font-family: var(--f-head); font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
+.tradein-page .t-pc__n { font-family: var(--f-mono); font-size: 12px; color: var(--decor); }
+.tradein-page .t-pc__t { font-family: var(--f-head); font-weight: 400; font-size: 20px; line-height: 1.2; letter-spacing: -0.01em; } /* weight was 600, letter-spacing -0.02em for Space Grotesk */
 
 /* faq */
 .tradein-page .t-faq { margin-top: clamp(26px, 3vw, 42px); border-top: 1px solid rgba(255, 255, 255, 0.14); }
 .tradein-page .t-faqi { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
 .tradein-page .t-faqi__b {
   width: 100%; text-align: left; background: none; border: 0; color: #fff; cursor: pointer;
-  font-family: var(--f-head); font-weight: 600; font-size: clamp(18px, 1.8vw, 22px); letter-spacing: -0.02em;
-  padding: 22px 40px 22px 0; position: relative; display: block;
-}
-.tradein-page .t-faqi__b::after {
-  content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
-  font-family: var(--f-mono); font-size: 20px; color: rgba(255, 255, 255, 0.6); transition: transform 0.3s;
-}
-.tradein-page .t-faqi__b[aria-expanded="true"]::after { transform: translateY(-50%) rotate(45deg); }
+  font-family: var(--f-head); font-weight: 400; font-size: clamp(18px, 1.8vw, 22px); line-height: 1.3; letter-spacing: -0.01em;
+  padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+} /* weight was 600, letter-spacing -0.02em for Space Grotesk. The "+" used to
+     be a ::after pseudo-element (content:"+", absolutely positioned) — it is
+     now the shared PlusToggle component rendered as a real child, since a
+     pseudo-element can't host a React component; this rule became a flex row
+     (label, then the icon) to lay the two out, same visual position as before. */
 .tradein-page .t-faqi__p { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0.001; }
 .tradein-page .t-faqi__b[aria-expanded="true"] + .t-faqi__p { grid-template-rows: 1fr; opacity: 1; }
 .tradein-page .t-faqi__pi { overflow: hidden; color: rgba(255, 255, 255, 0.62); font-size: 16px; line-height: 1.6; padding-bottom: 0; }
 .tradein-page .t-faqi__b[aria-expanded="true"] + .t-faqi__p .t-faqi__pi { padding-bottom: 22px; }
-
-.tradein-page .t-note {
-  display: inline-flex; align-items: center; border: 1px dashed #b4b4b4; border-radius: 99px; padding: 6px 13px;
-  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; color: #6a6a6a; background: rgba(255, 255, 255, 0.92); white-space: nowrap;
-}
 
 .tradein-page :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .tradein-page .t-band--ink :focus-visible,
@@ -2076,4 +2371,103 @@ html {
   .tradein-page .t-faqi__p { transition: none; }
   .tradein-page .t-calc { animation: none; }
   .tradein-page .t-upc:active { transform: none; }
+}
+
+/* ===================== SearchSelect.tsx, scoped to this page ===============
+   `.m7-ss*` (defined earlier in this file) is a SHARED, site-wide control
+   styled off the root `--m7-*` tokens on purpose — its own comment says
+   "declared literally so the control can be used anywhere on the site." It is
+   currently only ever mounted here (the trade-in model picker), so rather than
+   repoint that shared, palette-agnostic rule at V2 — which would leave it
+   silently broken the day a v1 page adopts it — this page adds its own
+   higher-specificity overrides, exactly like every other .tradein-page rule
+   above. Same halving rule for the two mono labels inside it (title, foot). */
+.tradein-page .m7-ss__btn { background: var(--paper); border-color: var(--rule-strong); color: var(--ink); }
+.tradein-page .m7-ss__btn[data-empty="true"] .m7-ss__value { color: var(--muted); }
+@media (hover: hover) and (pointer: fine) {
+  .tradein-page .m7-ss__btn:hover { border-color: var(--hover); }
+}
+.tradein-page .m7-ss__btn:focus-visible,
+.tradein-page .m7-ss__btn[aria-expanded="true"] {
+  border-color: var(--ink); box-shadow: 0 0 0 3px rgba(23, 29, 29, 0.12);
+}
+.tradein-page .m7-ss__caret { border-right-color: var(--ink); border-bottom-color: var(--ink); }
+.tradein-page .m7-ss__panel { background: var(--paper); border-color: var(--ink); box-shadow: 0 18px 44px -14px rgba(23, 29, 29, 0.36); }
+.tradein-page .m7-ss__search { border-bottom-color: var(--rule); }
+.tradein-page .m7-ss__input { border-color: var(--rule-strong); background: var(--wash); color: var(--ink); }
+.tradein-page .m7-ss__input:focus-visible { border-color: var(--ink); background: var(--paper); }
+.tradein-page .m7-ss__clear { background: var(--rule-strong); color: var(--muted); }
+.tradein-page .m7-ss__opt { color: var(--body); }
+.tradein-page .m7-ss__opt[data-active="true"] { background: var(--wash); }
+.tradein-page .m7-ss__opt[aria-selected="true"] { color: var(--ink); }
+.tradein-page .m7-ss__opthint { font-family: var(--f-mono); letter-spacing: 0.04em; color: var(--muted); } /* tracking was 0.08em for Space Mono */
+.tradein-page .m7-ss__tick { color: var(--ink); }
+.tradein-page .m7-ss__empty { color: var(--muted); }
+.tradein-page .m7-ss__foot { border-top-color: var(--rule); background: var(--wash); font-family: var(--f-mono); letter-spacing: 0.05em; color: var(--muted); } /* tracking was 0.1em for Space Mono */
+@media (max-width: 620px) {
+  .tradein-page .m7-ss__scrim { background: rgba(23, 29, 29, 0.46); }
+  .tradein-page .m7-ss__head { border-bottom-color: var(--rule); background: var(--wash); }
+  .tradein-page .m7-ss__title { font-family: var(--f-mono); letter-spacing: 0.065em; color: var(--muted); } /* tracking was 0.13em for Space Mono */
+  .tradein-page .m7-ss__close { color: var(--muted); }
+}
+
+/* ==========================================================================
+   Services page (/services) — re-tokened onto the V2 palette. Unlike
+   `/about`, this page was never CSS-classed — it is built from inline
+   styles and local helper components (SectionHead, CategoryTile, BentoCell,
+   etc. in page.tsx), so re-tokening happens directly in those inline styles,
+   not here. The only rules this page needs from globals.css are its own
+   V2-ink-tinted hover-lift, replacing the shared `.m7-lift`/`.m7-lift-dark`
+   (whose hover shadow is tinted off v1's espresso, a `COLOR` value that must
+   not leak onto a v2 surface — CLAUDE.md: "v2 must not import COLOR from
+   @/lib/theme"). Same shadow geometry as `.m7-lift`, ink-alpha instead of
+   espresso-alpha.
+   THE GOLD RULE: the page body is monochrome ink/paper, same as `/about` —
+   no accent-as-text there. The one exception is `CategoryNav.tsx`'s pill row,
+   whose band sits on `accent` gold: those pills are outlined/labelled in
+   `V2.navy` (added to theme-v2.ts for this — literal hex below, since this
+   file cannot import the TS token, same reasoning as `.v2-marquee-wrap`'s
+   literal gold in `V2Styles.tsx`), never in gold itself and never white
+   directly on the gold band. See `.svc-pill` below for the measured ratios.
+   ========================================================================== */
+.services-page .svc-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.services-page .svc-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(23, 29, 29, 0.08); }
+.services-page .svc-lift-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(23, 29, 29, 0.24); }
+
+/* CategoryNav.tsx's pill row — band is V2.accent gold (set inline, component-
+   level, matching this page's inline-styles convention). Resting state lives
+   HERE, not inline (CLAUDE.md trap #2), so :hover/:focus-visible can rely on
+   it. Both states resolve to the same navy-fill/white-label look — see the
+   component's own comment for why that makes the trap #5 stacking concern
+   moot here. Measured: V2.navy #14213D on V2.accent gold is 9.38:1 (label
+   text and the border's own visibility, both well past their 4.5:1 / 3:1
+   floors); V2.white on this navy fill is 15.97:1. */
+.services-page .svc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #14213D; /* V2.navy */
+  border-radius: 99px;
+  padding: 11px 20px;
+  background: transparent;
+  color: #14213D; /* V2.navy */
+  font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.services-page .svc-pill:hover,
+.services-page .svc-pill:focus-visible {
+  background: #14213D; /* V2.navy */
+  color: #fff; /* V2.white */
+  border-color: #14213D;
+}
+.services-page .svc-pill:focus-visible {
+  outline: 2px solid #14213D;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-page .svc-pill { transition: none; }
 }

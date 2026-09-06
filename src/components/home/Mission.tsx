@@ -38,7 +38,7 @@ export function Mission() {
         </SectionHeading>
         <p
           style={{
-            fontSize: 18,
+            fontSize: "var(--m7-lede-size)",
             lineHeight: 1.65,
             color: COLOR.body,
             margin: "0 0 32px",

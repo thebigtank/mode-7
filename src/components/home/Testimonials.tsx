@@ -72,7 +72,7 @@ export function Testimonials() {
           </div>
           <p
             style={{
-              fontSize: 18,
+              fontSize: "var(--m7-lede-size)",
               lineHeight: 1.6,
               color: COLOR.onRust,
               margin: 0,

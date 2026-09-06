@@ -96,7 +96,8 @@ export function Header({
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           {!menuOpen && (
             <>
-              <span
+              <button
+                type="button"
                 onClick={onOpenSearch}
                 aria-label="Search"
                 style={{
@@ -105,11 +106,16 @@ export function Header({
                   height: 40,
                   alignItems: "center",
                   justifyContent: "center",
+                  padding: 0,
+                  background: "none",
+                  border: "none",
+                  color: "inherit",
+                  font: "inherit",
                   cursor: "pointer",
                 }}
               >
                 <SearchIcon />
-              </span>
+              </button>
               <Link
                 href="/cart"
                 aria-label="Cart"

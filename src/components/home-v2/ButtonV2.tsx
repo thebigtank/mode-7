@@ -17,9 +17,11 @@ export type ButtonV2Props = {
   icon?: ReactNode;
   /**
    * `outline` only. The outline button is drawn for a LIGHT ground by default
-   * (ink label, ink hairline, ink tile). On an `ink` band all three would
-   * vanish, so this flips them to white — the footer's secondary action is the
-   * only place it is needed. Ignored by `fill` and `ink`.
+   * (ink label, ink hairline, ink tile). On an `ink` band, or over a dark
+   * photo (About's "HERO 02", `about/page.tsx`), all three would vanish, so
+   * this flips them to white — the footer's secondary action was the first
+   * place it was needed, not the only one any more. Ignored by `fill` and
+   * `ink`.
    */
   onDark?: boolean;
   style?: CSSProperties;

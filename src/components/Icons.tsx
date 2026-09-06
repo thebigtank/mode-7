@@ -30,6 +30,20 @@ export const BagIcon = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
+/**
+ * A storefront: a scalloped awning over a shopfront with a door — reads as
+ * "shop" without borrowing the bag's silhouette, so the two sit next to each
+ * other in the header without being confusable.
+ */
+export const StoreIcon = ({ size = 22 }: { size?: number }) => (
+  <svg width={size} height={size} {...lucide}>
+    <path d="M3 10 4 4h16l1 6" />
+    <path d="M3 10q2.25 3.5 4.5 0q2.25 3.5 4.5 0q2.25 3.5 4.5 0q2.25 3.5 4.5 0" />
+    <path d="M4 10v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9" />
+    <path d="M10 20v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" />
+  </svg>
+);
+
 export const ArrowRightIcon = ({
   size = 22,
   strokeWidth = 2,
