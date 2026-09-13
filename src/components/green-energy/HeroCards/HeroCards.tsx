@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { Glyph, type GlyphName } from "@/components/page/ServiceIcons";
 import content from "@/content/green-energy.json";
 

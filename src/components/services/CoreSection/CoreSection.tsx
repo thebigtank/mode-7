@@ -1,6 +1,5 @@
 import { ArrowRightIcon } from "@/components/Icons";
 import { ButtonV2 } from "@/components/ui/ButtonV2";
-import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
 import { Glyph } from "@/components/page/ServiceIcons";
 import type { GlyphName } from "@/components/page/ServiceIcons";

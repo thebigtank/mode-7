@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import content from "@/content/contact.json";
 
 export function ContactAside() {

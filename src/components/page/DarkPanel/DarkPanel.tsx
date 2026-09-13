@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { WIREFRAME } from "@/lib/wireframe-config";
 

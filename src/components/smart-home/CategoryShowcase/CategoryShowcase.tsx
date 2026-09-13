@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowButton } from "@/components/ArrowButton";
 import { Annotation } from "@/components/wireframe/Primitives";

@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
