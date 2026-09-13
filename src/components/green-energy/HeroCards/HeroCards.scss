@@ -4,7 +4,7 @@
   .ge-herocards {
     max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: #{rem-calc(44)} var(--m7-pad) 0;
+    padding: #{rem-calc(44)} var(--v2-pad) 0;
   }
 
   .ge-herocards__grid {
@@ -22,12 +22,11 @@
 
   .ge-herocard {
     position: relative;
-    border-radius: #{rem-calc(4)};
+    border-radius: 4px;
     overflow: hidden;
-    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    border: var(--v2-hair);
     height: min(64vh, #{rem-calc(620)});
-    background: var(--color-m7-stripe);
-    --ge-scrim-rgb: 10 22 14;
+    background: var(--v2-stripe);
   }
 
   .ge-herocard__scrim {
@@ -36,7 +35,7 @@
     background: linear-gradient(
       180deg,
       transparent 45%,
-      rgb(var(--ge-scrim-rgb) / 0.85) 100%
+      rgb(var(--color-v2-scrim-rgb) / 0.85) 100%
     );
   }
 
@@ -46,8 +45,8 @@
     left: #{rem-calc(18)};
     width: #{rem-calc(46)};
     height: #{rem-calc(46)};
-    border-radius: #{rem-calc(99)};
-    background: var(--color-m7-neutral-white);
+    border-radius: 99px;
+    background: var(--color-v2-white);
   }
 
   .ge-herocard__body {
@@ -58,24 +57,26 @@
   }
 
   .ge-herocard__title {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{rem-calc(24)};
     line-height: 1.15;
-    letter-spacing: #{rem-calc(-0.5, false)};
-    color: var(--color-m7-neutral-white);
+    letter-spacing: -0.014em;
+    color: var(--color-v2-white);
   }
 
   .ge-herocard__sub {
+    font-family: var(--font-v2-body);
     font-size: #{rem-calc(14)};
-    color: rgb(var(--color-m7-neutral-white-rgb) / 0.75);
+    color: rgb(var(--color-v2-white-rgb) / 0.75);
     margin-top: #{rem-calc(6)};
   }
 
   .ge-herocard__cta {
     gap: #{rem-calc(6)};
+    font-family: var(--font-v2-label);
     font-size: #{rem-calc(14)};
-    color: rgb(var(--color-m7-neutral-white-rgb) / 0.9);
+    color: rgb(var(--color-v2-white-rgb) / 0.9);
     margin-top: #{rem-calc(14)};
   }
 }

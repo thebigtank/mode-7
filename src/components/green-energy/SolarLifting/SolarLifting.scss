@@ -15,23 +15,25 @@
     left: #{rem-calc(22)};
     bottom: #{rem-calc(22)};
     max-width: calc(100% - #{rem-calc(44)});
-    background: rgb(var(--color-m7-neutral-white-rgb) / 0.94);
-    border: #{rem-calc(1)} solid rgb(var(--color-m7-neutral-white-rgb) / 0.9);
-    border-radius: #{rem-calc(4)};
+    background: rgb(var(--color-v2-white-rgb) / 0.94);
+    border: var(--v2-hair);
+    border-radius: 4px;
     padding: #{rem-calc(18)} #{rem-calc(22)};
   }
 
   .ge-solarlift__caption-title {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{rem-calc(22)};
-    letter-spacing: #{rem-calc(-0.3, false)};
+    letter-spacing: -0.012em;
     line-height: 1.1;
+    color: var(--color-v2-ink);
   }
 
   .ge-solarlift__caption-sub {
+    font-family: var(--font-v2-body);
     font-size: #{rem-calc(13)};
-    color: var(--color-m7-neutral-body-soft);
+    color: var(--color-v2-muted);
     margin-top: #{rem-calc(6)};
   }
 
@@ -41,29 +43,31 @@
 
   .ge-solarlift__point {
     gap: #{rem-calc(16)};
-    border-top: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-top: var(--v2-hair);
     padding: #{rem-calc(18)} 0;
   }
 
   .ge-solarlift__point-icon {
     width: #{rem-calc(38)};
     height: #{rem-calc(38)};
-    border-radius: #{rem-calc(99)};
-    background: var(--color-m7-neutral-divider-soft);
+    border-radius: 99px;
+    background: var(--color-v2-wash-soft);
     flex: 0 0 auto;
   }
 
   .ge-solarlift__point-title {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{rem-calc(18)};
-    letter-spacing: #{rem-calc(-0.3, false)};
+    letter-spacing: -0.012em;
+    color: var(--color-v2-ink);
     margin-bottom: #{rem-calc(4)};
   }
 
   .ge-solarlift__point-text {
+    font-family: var(--font-v2-body);
     font-size: #{rem-calc(15)};
     line-height: 1.5;
-    color: var(--color-m7-neutral-body);
+    color: var(--color-v2-muted);
   }
 }

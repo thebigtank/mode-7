@@ -11,7 +11,7 @@ export function HeroCards() {
           <div key={c.title} className="ge-herocard">
             <div className="ge-herocard__scrim" />
             <div className="ge-herocard__icon flex items-center justify-center">
-              <Glyph name={c.icon} size={24} stroke="var(--color-m7-neutral-ink)" />
+              <Glyph name={c.icon} size={24} stroke="var(--color-v2-ink)" />
             </div>
             <div className="ge-herocard__body">
               <div className="ge-herocard__title">{c.title}</div>

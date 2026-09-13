@@ -46,7 +46,7 @@ export function SolarLifting() {
             {solarPoints.map((p) => (
               <div key={p.title} className="ge-solarlift__point flex">
                 <div className="ge-solarlift__point-icon flex items-center justify-center">
-                  <Glyph name={p.icon} size={20} stroke="var(--color-m7-neutral-ink)" />
+                  <Glyph name={p.icon} size={20} stroke="var(--color-v2-ink)" />
                 </div>
                 <div>
                   <div className="ge-solarlift__point-title">{p.title}</div>

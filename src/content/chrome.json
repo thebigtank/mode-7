@@ -21,6 +21,10 @@
       {
         "label": "Smart Home",
         "href": "/smart-home"
+      },
+      {
+        "label": "Green Energy",
+        "href": "/green-energy"
       }
     ],
     "logoLabel": "Mode 7",

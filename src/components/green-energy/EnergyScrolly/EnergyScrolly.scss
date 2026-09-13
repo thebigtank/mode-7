@@ -33,6 +33,7 @@
     width: 50%;
     height: 100%;
     min-width: 0;
+    background: var(--v2-stripe);
 
     &[data-stacked] {
       flex: 0 0 auto;
@@ -90,7 +91,7 @@
       min-height: auto;
       overflow: visible;
       padding: #{fluid(28, 44)} #{fluid(20, 48)};
-      border-top: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+      border-top: var(--v2-hair);
     }
 
     &[data-stacked][data-first] {
@@ -99,19 +100,20 @@
   }
 
   .ge-scrolly__n {
-    font-family: var(--font-m7-mono);
+    font-family: var(--font-v2-label);
     font-size: #{rem-calc(12)};
-    letter-spacing: #{rem-calc(1, false)};
-    color: var(--color-m7-neutral-faint);
+    letter-spacing: 0.06em;
+    color: var(--color-v2-faint);
     margin-bottom: #{rem-calc(14)};
   }
 
   .ge-scrolly__title {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{fluid(24, 34)};
-    line-height: 1.06;
-    letter-spacing: #{rem-calc(-2, false)};
+    line-height: 1.1;
+    letter-spacing: -0.016em;
+    color: var(--color-v2-ink);
     margin: 0 0 #{rem-calc(16)};
     max-width: #{rem-calc(560)};
     text-wrap: balance;
@@ -122,16 +124,18 @@
   }
 
   .ge-scrolly__lead {
-    font-size: var(--m7-lede-size);
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(16)};
     line-height: 1.6;
-    color: var(--color-m7-neutral-body);
+    color: var(--color-v2-muted);
     margin: 0;
   }
 
   .ge-scrolly__para {
-    font-size: var(--m7-lede-size);
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(16)};
     line-height: 1.6;
-    color: var(--color-m7-neutral-body);
+    color: var(--color-v2-muted);
     margin: #{rem-calc(14)} 0 0;
 
     &[data-first] {
@@ -140,10 +144,10 @@
   }
 
   .ge-scrolly__para-label {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{rem-calc(17)};
-    letter-spacing: #{rem-calc(-0.2, false)};
-    color: var(--color-m7-neutral-ink);
+    letter-spacing: -0.012em;
+    color: var(--color-v2-ink);
   }
 }

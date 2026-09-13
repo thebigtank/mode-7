@@ -4,31 +4,33 @@
   .ge-section {
     max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: #{fluid(55, 100)} var(--m7-pad) 0;
+    padding: #{fluid(55, 100)} var(--v2-pad) 0;
   }
 
   .ge-eyebrow {
-    font-family: var(--font-m7-head);
+    font-family: var(--font-v2-label);
     font-size: #{rem-calc(12)};
-    letter-spacing: #{rem-calc(2, false)};
-    color: var(--color-m7-neutral-faint);
+    letter-spacing: 0.06em;
+    color: var(--color-v2-faint);
     margin-bottom: #{rem-calc(16)};
   }
 
   .ge-h2 {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{fluid(24, 38)};
-    line-height: 1.02;
-    letter-spacing: #{rem-calc(-3, false)};
+    line-height: 1.08;
+    letter-spacing: -0.016em;
+    color: var(--color-v2-ink);
     margin: 0 0 #{rem-calc(22)};
     text-wrap: balance;
   }
 
   .ge-lede {
-    font-size: var(--m7-lede-size);
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(16)};
     line-height: 1.65;
-    color: var(--color-m7-neutral-body);
+    color: var(--color-v2-muted);
     margin: 0;
   }
 }

@@ -24,7 +24,7 @@
     grid-template-columns: #{rem-calc(64)} minmax(0, 1fr);
     gap: #{fluid(10, 26)};
     padding: #{fluid(22, 30)} 0;
-    border-bottom: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-bottom: var(--v2-hair);
 
     @media (max-width: #{rem-calc(620)}) {
       grid-template-columns: minmax(0, 1fr);
@@ -36,24 +36,26 @@
   }
 
   .ge-step__n {
-    font-family: var(--font-m7-mono);
+    font-family: var(--font-v2-label);
     font-size: #{rem-calc(15)};
-    color: var(--color-m7-neutral-line);
+    color: var(--color-v2-faint);
     padding-top: #{rem-calc(4)};
   }
 
   .ge-step__title {
-    font-family: var(--font-m7-head);
-    font-weight: 600;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
     font-size: #{rem-calc(24)};
-    letter-spacing: #{rem-calc(-0.5, false)};
+    letter-spacing: -0.014em;
+    color: var(--color-v2-ink);
     margin-bottom: #{rem-calc(10)};
   }
 
   .ge-step__body {
-    font-size: var(--m7-lede-size);
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(16)};
     line-height: 1.65;
-    color: var(--color-m7-neutral-body);
+    color: var(--color-v2-muted);
     margin: 0;
     max-width: #{rem-calc(640)};
   }

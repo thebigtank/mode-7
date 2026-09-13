@@ -1,0 +1,51 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-hero {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding: #{fluid(35, 64)} var(--v2-pad) 0;
+  }
+
+  .ge-hero__overline {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(12)};
+    letter-spacing: 0.06em;
+    color: var(--color-v2-faint);
+    margin-bottom: #{rem-calc(16)};
+  }
+
+  .ge-hero-h1 {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(64, 120)};
+    line-height: 0.8;
+    letter-spacing: -0.016em;
+    color: var(--color-v2-ink);
+    margin: 0;
+
+    @media (max-width: #{rem-calc(900)}) {
+      font-size: #{fluid-phone(40, 60)};
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    @media (max-width: #{rem-calc(620)}) {
+      br {
+        display: none;
+      }
+
+      font-size: #{fluid-phone(44, 64)};
+      text-wrap: balance;
+    }
+  }
+
+  .ge-hero__intro {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(18)};
+    line-height: 1.65;
+    color: var(--color-v2-muted);
+    max-width: #{rem-calc(640)};
+    margin: #{rem-calc(24)} auto #{rem-calc(24)};
+  }
+}
