@@ -90,18 +90,24 @@ src/components/home-v2/
   CtaBandV2.tsx (parked, not imported)  InsightsV2.tsx (parked, not imported)
 ```
 
-`SiteShell` is where the route decision lives: an `isV2` early return (placed after every
-hook so hook order stays stable) swaps the v1 header/footer for `V2Styles` + `HeaderV2` +
-`FooterV2`. It matches against **two lists, and they must stay separate**: `V2_EXACT`
-(`/`) and `V2_PREFIX` (`/about`, `/trade-in`, `/services`). **`"/"` can never go in a
-`startsWith()` list** — every pathname on the site starts with `/`, so one entry there
-hands v2 chrome to all seven v1 routes at once. `WHITE_GROUND_ROUTES` is split the same
-way and for the same reason.
-Neither v2 page renders its own chrome — `src/app/page.tsx` and
-`src/app/about/page.tsx` render only their own sections. Lenis smooth scroll still applies
-either branch. `SearchOverlay` is likewise mounted once by `SiteShell` for both branches —
-same component for v1 and v2, painted per-surface via its `variant` prop rather than forked;
-see the note at the top of `SearchOverlay.tsx`.
+Chrome is chosen by **route group**, not by matching the pathname.
+`src/app/(v2)/layout.tsx` renders `V2Chrome` (`V2Styles` + `HeaderV2` +
+`FooterV2`) and `src/app/(v1)/layout.tsx` renders `V1Chrome` (nav, mega menu,
+footer card, reveal wordmark, Seven). Route groups add no URL segment, so every
+route keeps its address; which chrome a page gets is now a fact about where its
+file lives.
+
+This replaced a pair of pathname lists in a since-deleted `SiteShell`, and with
+them a documented footgun: `"/"` could never go in a `startsWith()` list,
+because every pathname on the site starts with `/`, so one entry there handed
+v2 chrome to all seven v1 routes at once. Two lists had to be kept apart by
+hand, and `WHITE_GROUND_ROUTES` was split the same way for the same reason.
+Moving a route between design systems is now moving its folder.
+
+Neither v2 page renders its own chrome. Lenis smooth scroll applies in both
+branches. `SearchOverlay` is mounted by each chrome component separately --
+same component for v1 and v2, painted per-surface via its `variant` prop
+rather than forked; see the note at the top of `SearchOverlay.tsx`.
 
 **v2 must not import `COLOR` from `@/lib/theme`.** The two palettes are deliberately
 separate; only fonts are shared.

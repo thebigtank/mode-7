@@ -6,7 +6,6 @@ import {
   Space_Grotesk,
   Space_Mono,
 } from "next/font/google";
-import { SiteShell } from "@/components/site/SiteShell";
 // Order is the cascade, and main.scss HAS to come first.
 //
 // A cascade layer's position is fixed by where it is first mentioned, and
@@ -87,9 +86,7 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${outfit.variable} ${spaceMono.variable} ${alegreya.variable} ${inter.variable}`}
     >
-      <body>
-        <SiteShell>{children}</SiteShell>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
