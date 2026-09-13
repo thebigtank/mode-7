@@ -29,8 +29,9 @@
     --m7-pad: clamp(20px, 4vw, 48px);
     --m7-max: 1320px;
 
-    /* Colour roles. Mirrors COLOR in src/lib/theme.ts — that file carries the
-       measurements and the reasoning; keep the two in step.
+    /* Colour roles. These are the single source of truth: src/lib/theme.ts
+       mirrored them until the conformance sweep moved every component onto
+       tokens, and that file has been deleted.
 
        The palette is used as full-width SECTION GROUNDS, after the reference:
        cream is the default, and rust / ember / sage / gold / espresso punctuate
