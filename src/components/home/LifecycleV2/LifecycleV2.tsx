@@ -35,7 +35,7 @@ export function LifecycleV2() {
           <Link
             key={p.title}
             href={p.href}
-            className={`v2-life-row${active === i ? " is-active" : ""}`}
+            className={`v2-life-row grid items-center${active === i ? " is-active" : ""}`}
             onPointerEnter={() => setHover(i)}
             onPointerLeave={() => setHover((h) => (h === i ? null : h))}
             onFocus={(e) => {
@@ -48,12 +48,12 @@ export function LifecycleV2() {
 
             <span className="v2-life-shot" aria-hidden />
 
-            <span className="v2-life-text">
-              <span className="v2-life-title">{p.title}</span>
-              <span className="v2-life-sub">{p.sub}</span>
+            <span className="v2-life-text block">
+              <span className="v2-life-title block">{p.title}</span>
+              <span className="v2-life-sub block">{p.sub}</span>
             </span>
 
-            <span className="v2-life-arrow" aria-hidden>
+            <span className="v2-life-arrow inline-flex" aria-hidden>
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
                 <path
                   d="M7.5 18.5 18.5 7.5M9.6 7.5h8.9v8.9"

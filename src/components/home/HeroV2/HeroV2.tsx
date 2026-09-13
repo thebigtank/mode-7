@@ -16,7 +16,7 @@ function MarqueeSpark({ size = 20 }: { size?: number }) {
 
 function MarqueeItem({ name }: { name: string }) {
   return (
-    <span className="v2-marquee-item">
+    <span className="v2-marquee-item flex items-center">
       <span className="v2-marquee-name">{name}</span>
       <MarqueeSpark />
     </span>

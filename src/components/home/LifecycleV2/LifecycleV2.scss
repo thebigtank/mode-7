@@ -57,10 +57,8 @@
 
   .v2-life-row {
     position: relative;
-    display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: #{fluid(16, 32)};
-    align-items: center;
     padding: #{fluid(20, 30)} #{fluid(14, 24)};
     border-bottom: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
     border-radius: 4px;
@@ -117,11 +115,9 @@
   .v2-life-text {
     position: relative;
     z-index: 1;
-    display: block;
   }
 
   .v2-life-title {
-    display: block;
     font-family: var(--font-v2-display);
     font-weight: 400;
     font-size: #{fluid(24, 34)};
@@ -130,7 +126,6 @@
   }
 
   .v2-life-sub {
-    display: block;
     margin-top: #{rem-calc(8)};
     font-family: var(--font-v2-body);
     font-weight: 300;
@@ -143,7 +138,6 @@
   .v2-life-arrow {
     position: relative;
     z-index: 1;
-    display: inline-flex;
   }
 
   .v2-life-row.is-active {

@@ -24,7 +24,7 @@ export function CtaBandV2() {
         <div>
           <div aria-hidden className="v2-cta-pills flex flex-wrap">
             {content.pillars.map((p) => (
-              <span key={p.title} className="v2-cta-pill inline-flex items-center whitespace-nowrap">
+              <span key={p.title} className="v2-cta-pill inline-flex items-center whitespace-nowrap uppercase">
                 {p.title}
               </span>
             ))}

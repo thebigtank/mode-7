@@ -140,9 +140,9 @@ export function HeroHeadlineV2() {
 
   return (
     <h1 className="v2-hero-h1" aria-label={ARIA_LABEL}>
-      <span aria-hidden="true" className="v2-hero-line">
+      <span aria-hidden="true" className="v2-hero-line block">
         Powering your{" "}
-        <span className="v2-hero-slot" ref={slotRef}>
+        <span className="v2-hero-slot inline-grid justify-items-start" ref={slotRef}>
           {POOL.map((w, i) => (
             <span
               key={w}
@@ -161,10 +161,10 @@ export function HeroHeadlineV2() {
         </span>
       </span>
 
-      <span aria-hidden="true" className="v2-hero-line">
+      <span aria-hidden="true" className="v2-hero-line block">
         with tech that&rsquo;s vetted,
       </span>
-      <span aria-hidden="true" className="v2-hero-line">
+      <span aria-hidden="true" className="v2-hero-line block">
         sealed and guaranteed.
       </span>
     </h1>

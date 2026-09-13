@@ -122,7 +122,7 @@ export function WorkV2() {
                 <div aria-hidden className="v2-stack__index">{`0${i + 1}`}</div>
 
                 <div className="v2-stack__body flex flex-col justify-center">
-                  <div data-rv="label" className="v2-stack__label">
+                  <div data-rv="label" className="v2-stack__label uppercase">
                     {`Capability 0${i + 1} — 03`}
                   </div>
                   <h3 data-rv="title" className="v2-stack__title">
@@ -138,7 +138,7 @@ export function WorkV2() {
 
                 <div data-rv="footnote" className="v2-stack__foot grid">
                   {c.bullets.map((b) => (
-                    <div key={b} className="v2-stack__bullet">
+                    <div key={b} className="v2-stack__bullet uppercase">
                       {b}
                     </div>
                   ))}
