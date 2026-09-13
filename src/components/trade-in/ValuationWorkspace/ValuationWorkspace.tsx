@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { ButtonV2 } from "@/components/ui/ButtonV2";
 import { P } from "@/components/ui/P";
 import { SearchSelect } from "@/components/SearchSelect";
+import content from "@/content/trade-in.json";
 import {
   MODELS,
   SCREEN,
@@ -22,19 +23,19 @@ import {
   valuate,
 } from "@/lib/valuation";
 
-const CATEGORIES: { id: Category; title: string; sub: string }[] = [
-  { id: "phone", title: "Phone", sub: "Most traded" },
-  { id: "laptop", title: "Laptop", sub: "Business & pro" },
-  { id: "tablet", title: "Tablet", sub: "Pro tablets" },
-];
+const CATEGORIES = content.workspace.categories as {
+  id: Category;
+  title: string;
+  sub: string;
+}[];
 
-const PHOTO_TILES = [
-  { key: "front", label: "PHOTO — FRONT", file: "IMG_4021-front.jpg" },
-  { key: "back", label: "PHOTO — BACK", file: "IMG_4022-back.jpg" },
-  { key: "screen", label: "PHOTO — SCREEN ON", file: "IMG_4023-screen.jpg" },
-] as const;
+const PHOTO_TILES = content.workspace.photoTiles as {
+  key: "front" | "back" | "screen";
+  label: string;
+  file: string;
+}[];
 
-const REF = "M7-4820";
+const REF = content.workspace.ref;
 
 const GHOST_ROWS = [
   [78, 62],
@@ -144,6 +145,11 @@ const WIZARD_STEPS = [
 
 const WIZARD_QUERY = "(max-width: 939px)";
 
+const cs = content.workspace.steps;
+const wz = content.workspace.wizard;
+const oc = content.workspace.outcome;
+const vd = content.workspace.void;
+
 export function ValuationWorkspace() {
   const [a, setA] = useState<Answers>(emptyAnswers);
   const outcomeRef = useRef<HTMLDivElement | null>(null);
@@ -246,13 +252,14 @@ export function ValuationWorkspace() {
       ? `${formatNaira(v.lo)}\u2009–\u2009${formatNaira(v.hi)}`
       : "₦ —";
 
+  const rc = content.workspace.receipt;
   const waitLabel = !deviceDone
-    ? "Choose a device to continue"
+    ? rc.waitDevice
     : !condOK
-      ? "Answer condition to continue"
+      ? rc.waitCondition
       : !evidenceOK
         ? `Attach all 4 uploads — ${uploads}/4 done`
-        : "Add your contact details to continue";
+        : rc.waitContact;
 
   const stepDone = [
     !!a.cat,
@@ -264,12 +271,13 @@ export function ValuationWorkspace() {
   const lastStep = WIZARD_STEPS.length - 1;
   const activeGroup = WIZARD_STEPS[step].group;
 
+  const wh = content.workspace.wizard.hints;
   const stepHint = [
-    "Pick a category to continue",
-    !a.model ? "Choose your model" : "Pick a storage size",
-    ineligible ? "This device can’t be valued automatically" : "Answer every question to continue",
+    wh.category,
+    !a.model ? wh.modelChoose : wh.storageChoose,
+    ineligible ? wh.ineligible : wh.condition,
     `Attach all 4 uploads — ${uploads}/4 done`,
-    "Fill in your name, email and phone",
+    wh.contact,
   ][step];
 
   const goto = useCallback((next: number) => {
@@ -297,13 +305,10 @@ export function ValuationWorkspace() {
           <div className="t-grp" data-active={activeGroup === 0}>
             <div className="t-sub" data-active={step === 0}>
               <div className="t-grp__h">
-                <span className="t-grp__n">01</span>
-                <h3 className="t-grp__t">What are you trading in?</h3>
+                <span className="t-grp__n">{cs.device.n}</span>
+                <h3 className="t-grp__t">{cs.device.title}</h3>
               </div>
-              <p className="t-grp__hint">
-                Pick a category, then choose your device from the list we currently accept
-                for trade-in.
-              </p>
+              <p className="t-grp__hint">{cs.device.hint}</p>
               <div className="t-cat" role="group" aria-label="Device type">
                 {CATEGORIES.map((c) => (
                   <button
@@ -324,13 +329,13 @@ export function ValuationWorkspace() {
             {a.cat && (
               <div className="t-sub" data-active={step === 1}>
                 <div className="t-grp__h t-wiz-only">
-                  <span className="t-grp__n">02</span>
-                  <h3 className="t-grp__t">Which one is it?</h3>
+                  <span className="t-grp__n">{cs.device.subN}</span>
+                  <h3 className="t-grp__t">{cs.device.subTitle}</h3>
                 </div>
                 <SearchSelect
                   label={`Model — ${MODELS[a.cat].length} accepted`}
-                  placeholder="Choose your device…"
-                  searchPlaceholder="Search devices…"
+                  placeholder={cs.device.modelPlaceholder}
+                  searchPlaceholder={cs.device.searchPlaceholder}
                   variant="tradein"
                   value={a.model}
                   options={MODELS[a.cat].map((m) => ({
@@ -341,7 +346,7 @@ export function ValuationWorkspace() {
                   onPick={(v2) => set({ model: v2 })}
                 />
                 <Question
-                  label="Storage"
+                  label={cs.device.storageLabel}
                   value={a.storageIdx == null ? null : String(a.storageIdx)}
                   options={STORAGE[a.cat].map((s, i) => ({
                     v: String(i),
@@ -355,91 +360,66 @@ export function ValuationWorkspace() {
 
           <div className={`t-grp${deviceDone ? "" : " locked"}`} data-active={activeGroup === 1}>
             <div className="t-grp__h">
-              <span className="t-grp__n">02</span>
-              <h3 className="t-grp__t">What condition is it in?</h3>
+              <span className="t-grp__n">{cs.condition.n}</span>
+              <h3 className="t-grp__t">{cs.condition.title}</h3>
             </div>
-            <p className="t-grp__hint">
-              Answer honestly — the ledger adjusts either way, and photos back it up next.
-            </p>
+            <p className="t-grp__hint">{cs.condition.hint}</p>
 
             <Question
-              label="Powers on & boots normally?"
+              label={cs.condition.power.label}
               value={a.power}
-              options={[
-                { v: "yes", label: "Yes" },
-                { v: "no", label: "No / won’t boot", warn: true },
-              ]}
+              options={cs.condition.power.options}
               onPick={(v2) => set({ power: v2 })}
             />
             <Question
-              label="Screen"
+              label={cs.condition.screenLabel}
               value={a.screen}
               options={Object.entries(SCREEN).map(([k, [label]]) => ({ v: k, label }))}
               onPick={(v2) => set({ screen: v2 })}
             />
             <Question
-              label="Battery health"
+              label={cs.condition.battery.label}
               value={a.battery}
-              options={[
-                { v: "high", label: "85%+" },
-                { v: "mid", label: "70–84%" },
-                { v: "low", label: "Below 70%" },
-                { v: "unsure", label: "Not sure" },
-              ]}
+              options={cs.condition.battery.options}
               onPick={(v2) => set({ battery: v2 })}
             />
             <Question
-              label="Body & cosmetics"
+              label={cs.condition.cosmetic.label}
               value={a.cosmetic}
-              options={[
-                { v: "likenew", label: "Like new" },
-                { v: "good", label: "Good — light marks" },
-                { v: "worn", label: "Well used" },
-              ]}
+              options={cs.condition.cosmetic.options}
               onPick={(v2) => set({ cosmetic: v2 })}
             />
             {a.cat === "laptop" && (
               <Question
-                label="Keyboard, trackpad & ports"
+                label={cs.condition.keys.label}
                 value={a.keys}
-                options={[
-                  { v: "ok", label: "All working" },
-                  { v: "issues", label: "Some issues" },
-                ]}
+                options={cs.condition.keys.options}
                 onPick={(v2) => set({ keys: v2 })}
               />
             )}
             <Question
-              label="Any liquid damage?"
+              label={cs.condition.liquid.label}
               value={a.liquid}
-              options={[
-                { v: "no", label: "No" },
-                { v: "yes", label: "Yes", warn: true },
-              ]}
+              options={cs.condition.liquid.options}
               onPick={(v2) => set({ liquid: v2 })}
             />
             <Question
-              label="Locked to a carrier or account?"
+              label={cs.condition.lock.label}
               value={a.lock}
-              options={[
-                { v: "no", label: "No — fully unlocked" },
-                { v: "yes", label: "Yes / not sure", warn: true },
-              ]}
+              options={cs.condition.lock.options}
               onPick={(v2) => set({ lock: v2 })}
             />
           </div>
 
           <div className={`t-grp${condOK ? "" : " locked"}`} data-active={activeGroup === 2}>
             <div className="t-grp__h">
-              <span className="t-grp__n">03</span>
-              <h3 className="t-grp__t">Show us the device.</h3>
-              <span className="t-grp__req">{uploads}/4 attached</span>
+              <span className="t-grp__n">{cs.evidence.n}</span>
+              <h3 className="t-grp__t">{cs.evidence.title}</h3>
+              <span className="t-grp__req">
+                {uploads}/4 {cs.evidence.req}
+              </span>
             </div>
-            <p className="t-grp__hint">
-              Three photos and a short video, all four required. The team values from what they
-              can see, so nothing is submitted without them — and a clearer view usually means a
-              tighter estimate.
-            </p>
+            <p className="t-grp__hint">{cs.evidence.hint}</p>
             <div className="t-drops">
               {PHOTO_TILES.map((t) => {
                 const on = a.photos[t.key];
@@ -466,7 +446,7 @@ export function ValuationWorkspace() {
               >
                 <span className="t-drop__chk">✓</span>
                 <span className="t-drop__tag">
-                  {a.photos.video ? "✓ CLIP_0342.mov" : "▣ ADD SHORT VIDEO — REQUIRED, ALL SIDES"}
+                  {a.photos.video ? cs.evidence.videoOn : cs.evidence.videoOff}
                 </span>
               </button>
             </div>
@@ -474,27 +454,24 @@ export function ValuationWorkspace() {
 
           <div className={`t-grp${evidenceOK ? "" : " locked"}`} data-active={activeGroup === 3}>
             <div className="t-grp__h">
-              <span className="t-grp__n">04</span>
-              <h3 className="t-grp__t">Where do we send the figure?</h3>
-              <span className="t-grp__req">Required</span>
+              <span className="t-grp__n">{cs.contact.n}</span>
+              <h3 className="t-grp__t">{cs.contact.title}</h3>
+              <span className="t-grp__req">{cs.contact.req}</span>
             </div>
-            <p className="t-grp__hint">
-              A confirmed value comes back by email, and the team may call if they need
-              anything else. Without these we’d have a valuation and no one to give it to.
-            </p>
+            <p className="t-grp__hint">{cs.contact.hint}</p>
 
             <div className="t-fields">
               <Field
-                label="Full name"
-                hint="Please enter your full name."
+                label={cs.contact.fullName.label}
+                hint={cs.contact.fullName.hint}
                 autoComplete="name"
                 value={a.fullName}
                 invalid={badContact.includes("fullName")}
                 onChange={(val) => set({ fullName: val })}
               />
               <Field
-                label="Email address"
-                hint="That doesn’t look like an email address."
+                label={cs.contact.email.label}
+                hint={cs.contact.email.hint}
                 type="email"
                 autoComplete="email"
                 value={a.email}
@@ -502,8 +479,8 @@ export function ValuationWorkspace() {
                 onChange={(val) => set({ email: val })}
               />
               <Field
-                label="Phone number"
-                hint="Please enter a reachable phone number."
+                label={cs.contact.phone.label}
+                hint={cs.contact.phone.hint}
                 type="tel"
                 autoComplete="tel"
                 value={a.phone}
@@ -512,9 +489,7 @@ export function ValuationWorkspace() {
               />
             </div>
 
-            <p className="t-grp__fine">
-              Used only to handle this trade-in. We don’t add you to a mailing list.
-            </p>
+            <p className="t-grp__fine">{cs.contact.fine}</p>
           </div>
         </div>
 
@@ -543,7 +518,7 @@ export function ValuationWorkspace() {
                 onClick={() => goto(Math.max(0, step - 1))}
                 disabled={step === 0}
               >
-                Back
+                {wz.back}
               </button>
 
               {ineligible ? (
@@ -560,7 +535,7 @@ export function ValuationWorkspace() {
                     });
                   }}
                 >
-                  See your options
+                  {wz.seeOptions}
                 </button>
               ) : step < lastStep ? (
                 <button
@@ -569,7 +544,7 @@ export function ValuationWorkspace() {
                   onClick={() => goto(step + 1)}
                   disabled={!stepDone[step]}
                 >
-                  Continue
+                  {wz.continue}
                 </button>
               ) : (
                 <button
@@ -578,7 +553,7 @@ export function ValuationWorkspace() {
                   onClick={checking ? undefined : lockIn}
                   disabled={!canLock || checking}
                 >
-                  {checking ? "Running eligibility check…" : "Submit my estimate"}
+                  {checking ? wz.checking : wz.submit}
                 </button>
               )}
             </div>
@@ -588,54 +563,38 @@ export function ValuationWorkspace() {
         {a.locked && !ineligible && (
           <div className="t-outcome" ref={outcomeRef}>
             <div className="t-outcome__h">
-              <span>{"// Estimate submitted"}</span>
+              <span>{oc.submitted}</span>
               <span>Ref {REF}</span>
             </div>
             <div className="t-outcome__b">
-              <div className="t-label mb-3">
-                Estimated value — not yet confirmed
-              </div>
+              <div className="t-label mb-3">{oc.subLabel}</div>
               <div className="t-outcome__fig">
                 {formatNaira(v.lo)}
                 {"\u2009–\u2009"}
                 {formatNaira(v.hi)}
               </div>
-              <P style={{ marginTop: 14, maxWidth: "56ch" }}>
-                Your ledger, photos and video are with the valuations team. This figure stays an
-                estimate until a person has actually assessed the device — there are two ways
-                that happens.
-              </P>
+              <P className="mt-[14px] max-w-[56ch]">{oc.intro}</P>
 
               <div className="t-paths">
                 <div className="t-path">
                   <span className="t-path__n">01</span>
-                  <div className="t-path__t">We email you a confirmed figure</div>
+                  <div className="t-path__t">{oc.path1Title}</div>
                   <p className="t-path__b">
-                    If the photos and video tell the team enough, they confirm the value from
-                    the evidence and email it to {a.email || "you"} — usually within 24 hours.
+                    {oc.path1Body.replace("{email}", a.email || "you")}
                   </p>
                 </div>
                 <div className="t-path">
                   <span className="t-path__n">02</span>
-                  <div className="t-path__t">If they can’t, we’ll ask you to come in</div>
-                  <p className="t-path__b">
-                    When the evidence isn’t conclusive, we’ll ask you to bring the device to
-                    one of our outlets. The team inspects it in front of you and locks the
-                    value there and then.
-                  </p>
+                  <div className="t-path__t">{oc.path2Title}</div>
+                  <p className="t-path__b">{oc.path2Body}</p>
                 </div>
               </div>
 
               <div className="t-trade">
                 <div className="t-trade__h">
-                  <span className="t-label">Option A · how trade-in works</span>
-                  <div className="t-dm mt-2">
-                    Put it toward your next device
-                  </div>
-                  <P style={{ marginTop: 10, maxWidth: "52ch" }}>
-                    Choose what you want. We take the estimate off its price, and you bring the
-                    difference — not the full amount.
-                  </P>
+                  <span className="t-label">{oc.optionALabel}</span>
+                  <div className="t-dm mt-2">{oc.optionATitle}</div>
+                  <P className="mt-[10px] max-w-[52ch]">{oc.optionABody}</P>
                 </div>
 
                 <div className="t-up" role="group" aria-label="Choose an upgrade">
@@ -670,21 +629,21 @@ export function ValuationWorkspace() {
                       <span className="t-calc__v">−{formatNaira(v.mid)}</span>
                     </div>
                     <div className="t-calc__tot">
-                      <span className="t-calc__totl">You bring</span>
+                      <span className="t-calc__totl">{oc.youBring}</span>
                       <span className="t-calc__totv">
                         {um.surplus ? "₦0" : formatNaira(um.payMid)}
                       </span>
                     </div>
                     <p className="t-calc__note">
                       {um.surplus
-                        ? `Your estimate covers the ${upgrade.name} outright. The team will settle the balance with you when they confirm the figure.`
-                        : `Between ${formatNaira(um.payLo)} and ${formatNaira(
-                            um.payHi,
-                          )} depending on where the team confirms your estimate. Nothing is owed until you agree the final figure.`}
+                        ? oc.surplusNote.replace("{name}", upgrade.name)
+                        : oc.payRangeNote
+                            .replace("{lo}", formatNaira(um.payLo))
+                            .replace("{hi}", formatNaira(um.payHi))}
                     </p>
                     <div className="t-calc__act">
                       <ButtonV2
-                        label={`Reserve the ${upgrade.name}`}
+                        label={oc.reserve.replace("{name}", upgrade.name)}
                         variant="outline"
                         onDark
                         href="/contact"
@@ -692,30 +651,21 @@ export function ValuationWorkspace() {
                     </div>
                   </div>
                 ) : (
-                  <div className="t-calc t-calc--empty">
-                    Pick a device above to see exactly what you would bring.
-                  </div>
+                  <div className="t-calc t-calc--empty">{oc.calcEmpty}</div>
                 )}
               </div>
 
               <div className="t-altb">
                 <div>
-                  <span className="t-label">Option B</span>
-                  <div className="t-altb__t">Credit my account instead</div>
-                  <p className="t-altb__b">
-                    Credit isn’t issued automatically — the team arranges it case by case. Talk
-                    to us if you’d rather not trade toward a device.
-                  </p>
+                  <span className="t-label">{oc.optionBLabel}</span>
+                  <div className="t-altb__t">{oc.optionBTitle}</div>
+                  <p className="t-altb__b">{oc.optionBBody}</p>
                 </div>
-                <ButtonV2 label="Talk to the team" variant="outline" href="/contact" />
+                <ButtonV2 label={oc.talkToTeam} variant="outline" href="/contact" />
               </div>
 
               <div className="mt-6">
-                <ButtonV2
-                  label="Start a new valuation"
-                  variant="outline"
-                  onClick={reset}
-                />
+                <ButtonV2 label={oc.startNew} variant="outline" onClick={reset} />
               </div>
             </div>
           </div>
@@ -727,19 +677,19 @@ export function ValuationWorkspace() {
           <div className="t-rcpt__h">
             <span className="t-rcpt__live">
               <span className="t-rcpt__dot" aria-hidden="true" />
-              Device Valuation
+              {rc.title}
             </span>
-            <span>{model ? `Ref ${REF}` : "Ref pending"}</span>
+            <span>{model ? `Ref ${REF}` : rc.refPending}</span>
           </div>
 
           <div className="t-rcpt__dev" data-empty={!model}>
-            <div className="t-rcpt__devt">{model ? model.label : "No device yet"}</div>
+            <div className="t-rcpt__devt">{model ? model.label : rc.noDevice}</div>
             <div className="t-rcpt__devs">
               {model && a.cat
                 ? `${a.storageIdx != null ? `${STORAGE[a.cat][a.storageIdx][0]} · ` : ""}${
                     a.cat.charAt(0).toUpperCase() + a.cat.slice(1)
                   }`
-                : "Pick a device to begin"}
+                : rc.pickDevice}
             </div>
           </div>
 
@@ -750,10 +700,10 @@ export function ValuationWorkspace() {
             aria-controls="t-lines-body"
             onClick={() => setLinesOverride(!linesOpen)}
           >
-            <span className="t-lines__tl">How this is worked out</span>
+            <span className="t-lines__tl">{rc.linesToggle}</span>
             <span className="t-lines__tc">
               {v.lines.length === 0
-                ? "Nothing yet"
+                ? rc.linesEmpty
                 : `${v.lines.length} line${v.lines.length === 1 ? "" : "s"}`}
             </span>
             <span className="t-lines__caret" aria-hidden="true" />
@@ -764,12 +714,18 @@ export function ValuationWorkspace() {
               <>
                 {GHOST_ROWS.map(([k, val], i) => (
                   <div className="t-ghost" key={i} aria-hidden="true">
-                    <span className="t-ghost__k" style={{ width: k }} />
+                    <span
+                      className="t-ghost__k"
+                      style={{ "--t-ghost-w": `${k}px` } as CSSProperties}
+                    />
                     <span className="t-ghost__dot" />
-                    <span className="t-ghost__v" style={{ width: val }} />
+                    <span
+                      className="t-ghost__v"
+                      style={{ "--t-ghost-w": `${val}px` } as CSSProperties}
+                    />
                   </div>
                 ))}
-                <div className="t-line--empty">Line items post here as you answer</div>
+                <div className="t-line--empty">{rc.linesEmptyBody}</div>
               </>
             ) : (
               v.lines.map((l) => (
@@ -787,20 +743,20 @@ export function ValuationWorkspace() {
 
           <div className={`t-total${ineligible ? " void" : ""}`} aria-live="polite">
             <div className="t-total__row">
-              <span className="t-total__l">Estimated value</span>
-              {!ineligible && <span className="t-total__chip">Estimate</span>}
+              <span className="t-total__l">{rc.totalLabel}</span>
+              {!ineligible && <span className="t-total__chip">{rc.totalChip}</span>}
             </div>
             <div className="t-total__fig" key={figure} data-range={isRange}>
               {figure}
             </div>
             <div className="t-total__sub">
               {ineligible
-                ? "This device can’t be valued automatically"
+                ? rc.subIneligible
                 : v.tightened
-                  ? "Evidence attached — the team confirms from here"
+                  ? rc.subTightened
                   : v.mid > 0
-                    ? "Add your 4 uploads to tighten this range"
-                    : "Backed by live market data"}
+                    ? rc.subUntightened
+                    : rc.subDefault}
             </div>
           </div>
 
@@ -808,10 +764,10 @@ export function ValuationWorkspace() {
             <div className="t-rcpt__act">
               {canLock ? (
                 <ButtonV2
-                  label={checking ? "Running eligibility check…" : "Submit my estimate"}
+                  label={checking ? wz.checking : wz.submit}
                   variant="outline"
                   onDark
-                  style={{ justifyContent: "space-between" }}
+                  className="justify-between"
                   onClick={checking ? undefined : lockIn}
                 />
               ) : (
@@ -822,9 +778,7 @@ export function ValuationWorkspace() {
               {checking && <div className="t-check" aria-hidden="true" />}
               {!checking && (
                 <div className="t-rcpt__note">
-                  {canLock
-                    ? "Goes to the team — they confirm the figure"
-                    : "Photos, video and contact details required"}
+                  {canLock ? rc.noteReady : rc.noteNotReady}
                 </div>
               )}
             </div>
@@ -832,7 +786,7 @@ export function ValuationWorkspace() {
 
           {ineligible && (
             <div className="t-void">
-              <div className="t-void__t">We can’t value this device right now.</div>
+              <div className="t-void__t">{vd.title}</div>
               {v.reasons.map((r) => (
                 <div className="t-void__r" key={r}>
                   <span>×</span>
@@ -841,18 +795,12 @@ export function ValuationWorkspace() {
               ))}
               <div className="t-void__alts">
                 <div className="t-void__alt">
-                  <div className="t-void__altt">Recycle it responsibly</div>
-                  <div className="t-void__altb">
-                    We’ll take it off your hands at no cost with certified data destruction.
-                    Zero landfill.
-                  </div>
+                  <div className="t-void__altt">{vd.recycleTitle}</div>
+                  <div className="t-void__altb">{vd.recycleBody}</div>
                 </div>
                 <div className="t-void__alt">
-                  <div className="t-void__altt">Ask Seven</div>
-                  <div className="t-void__altb">
-                    Our assistant can suggest a repair that could make it eligible, or your best
-                    upgrade path without a trade-in.
-                  </div>
+                  <div className="t-void__altt">{vd.askTitle}</div>
+                  <div className="t-void__altb">{vd.askBody}</div>
                 </div>
               </div>
             </div>
