@@ -1,51 +1,52 @@
 import { ArrowButton } from "@/components/ArrowButton";
 import { ProductOption } from "@/components/product/ProductOption";
+import content from "@/content/product.json";
 import { PRODUCTS, priceLabel } from "@/lib/catalogue";
 
-const flagship = PRODUCTS.find((p) => p.id === "flagship-x")!;
+const VARIANT = { fill: "fill", outline: "outline" } as const;
 
 export function ProductBuyBox() {
+  const c = content.buybox;
+  const flagship = PRODUCTS.find((p) => p.id === content.productId)!;
+
   return (
-    <div className="m7-buybox product-buybox">
-      <div className="product-buybox__kicker">Premium · Sealed · Guaranteed</div>
-      <h1 className="product-buybox__title">Mode Flagship X</h1>
+    <div className="product-buybox">
+      <div className="product-buybox__kicker uppercase">{c.kicker}</div>
+      <h1 className="product-buybox__title">{c.title}</h1>
       <div className="product-buybox__price">{priceLabel(flagship)}</div>
-      <div className="product-buybox__financing">
-        or around ₦77,000/mo over 24 months · trade in to bring this down
+      <div className="product-buybox__financing">{c.financing}</div>
+
+      <div className="product-buybox__label uppercase">{c.storageLabel}</div>
+      <div className="product-buybox__options flex" data-group="storage">
+        {c.storageOptions.map((o) => (
+          <ProductOption key={o.label} label={o.label} on={o.on} />
+        ))}
       </div>
 
-      <div className="product-buybox__label">Storage</div>
-      <div className="product-buybox__options">
-        <ProductOption label="128GB" />
-        <ProductOption label="256GB" on />
-        <ProductOption label="512GB" />
+      <div className="product-buybox__label uppercase">{c.conditionLabel}</div>
+      <div className="product-buybox__options flex" data-group="condition">
+        {c.conditionOptions.map((o) => (
+          <ProductOption key={o.label} label={o.label} on={o.on} />
+        ))}
       </div>
 
-      <div className="product-buybox__label">Condition</div>
-      <div className="product-buybox__options product-buybox__options--condition">
-        <ProductOption label="New" on />
-        <ProductOption label="Certified Refurbished" />
-      </div>
-
-      <div className="product-buybox__actions">
-        <ArrowButton label="Add to Cart" variant="fill" href="/cart" />
-        <ArrowButton
-          label="Trade in toward this"
-          variant="outline"
-          href="/trade-in#value-your-device"
-        />
+      <div className="product-buybox__actions flex flex-wrap">
+        {c.actions.map((a) => (
+          <ArrowButton
+            key={a.label}
+            label={a.label}
+            href={a.href}
+            variant={VARIANT[a.variant as keyof typeof VARIANT] ?? "fill"}
+          />
+        ))}
       </div>
 
       <div className="product-buybox__trade-note">
-        Have a device to trade? Value it in about a minute and we take the
-        estimate off this price — you bring the difference, not{" "}
-        {priceLabel(flagship)}.
+        {c.tradeNoteBefore} {priceLabel(flagship)}
+        {c.tradeNoteAfter}
       </div>
 
-      <div className="product-buybox__delivery">
-        Free next-day delivery · 2-year warranty · 30-day returns. Ask Seven for
-        setup help any time.
-      </div>
+      <div className="product-buybox__delivery">{c.delivery}</div>
     </div>
   );
 }

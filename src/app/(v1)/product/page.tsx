@@ -4,6 +4,7 @@ import { ProductBuyBox } from "@/components/product/ProductBuyBox";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductOverview, ProductSpecs } from "@/components/product/ProductOverview";
 import { ProductRelated } from "@/components/product/ProductRelated";
+import content from "@/content/product.json";
 
 export const metadata: Metadata = {
   title: "Mode Flagship X — Mode 7",
@@ -15,32 +16,16 @@ export default function ProductPage() {
   return (
     <>
       <section className="m7-wrap m7-top-sm">
-        <ProductBreadcrumb current="Mode Flagship X" />
+        <ProductBreadcrumb current={content.buybox.title} />
 
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.15fr 0.85fr",
-            gap: "clamp(28px, 4vw, 48px)",
-            alignItems: "start",
-          }}
-        >
+        <div className="product-split grid" data-split="media">
           <ProductGallery />
           <ProductBuyBox />
         </div>
       </section>
 
       <section className="m7-wrap m7-top-lg">
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(32px, 4vw, 56px)",
-            alignItems: "start",
-          }}
-        >
+        <div className="product-split grid" data-split="even">
           <ProductOverview />
           <ProductSpecs />
         </div>

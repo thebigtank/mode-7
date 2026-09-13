@@ -1,39 +1,31 @@
-const specs: [string, string][] = [
-  ["Display", '6.7" OLED 120Hz'],
-  ["Chip", "Mode A-series"],
-  ["Storage", "128 / 256 / 512 GB"],
-  ["Camera", "Triple 50MP system"],
-  ["Battery", "All-day, fast charge"],
-  ["Warranty", "2 years"],
-];
+import content from "@/content/product.json";
 
 export function ProductOverview() {
+  const c = content.overview;
+
   return (
     <div>
-      <div className="product-overview__eyebrow">{"// Overview"}</div>
-      <h2 className="product-overview__title text-balance">
-        Engineered for the everyday premium.
-      </h2>
-      <p className="product-overview__lede">
-        A flagship device vetted, sealed and guaranteed by Mode 7 — with a
-        trade-in route and Seven support built in from day one.
-      </p>
+      <div className="product-overview__eyebrow uppercase">{c.eyebrow}</div>
+      <h2 className="product-overview__title text-balance">{c.title}</h2>
+      <p className="product-overview__lede">{c.lede}</p>
     </div>
   );
 }
 
 export function ProductSpecs() {
+  const c = content.overview;
+
   return (
     <div>
-      <div className="product-specs__title">Specifications</div>
-      {specs.map(([k, v], i) => (
+      <div className="product-specs__title">{c.specsTitle}</div>
+      {c.specs.map((s, i) => (
         <div
-          key={k}
-          className="product-specs__row"
-          data-last={i === specs.length - 1 || undefined}
+          key={s.key}
+          className="product-specs__row flex justify-between"
+          data-last={i === c.specs.length - 1 || undefined}
         >
-          <span className="product-specs__key">{k}</span>
-          <span className="product-specs__value">{v}</span>
+          <span className="product-specs__key">{s.key}</span>
+          <span className="product-specs__value">{s.value}</span>
         </div>
       ))}
     </div>

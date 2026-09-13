@@ -1,0 +1,25 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-split {
+    align-items: start;
+
+    &[data-split='media'] {
+      gap: #{fluid(28, 48)};
+      grid-template-columns: 1.15fr 0.85fr;
+
+      @media (max-width: #{rem-calc(900)}) {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    &[data-split='even'] {
+      gap: #{fluid(32, 56)};
+      grid-template-columns: 1fr 1fr;
+
+      @media (max-width: #{rem-calc(900)}) {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  }
+}

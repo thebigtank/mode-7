@@ -3,24 +3,32 @@
 @layer components {
   .product-related__eyebrow {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: #{rem-calc(16)};
   }
 
   .product-related__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(26px, 3.6vw, 34px);
+    font-size: #{fluid(26, 34)};
     line-height: 1.04;
     letter-spacing: -0.04em;
-    margin: 0 0 22px;
+    margin: 0 0 #{rem-calc(22)};
   }
 
   .product-related__grid {
-    gap: clamp(12px, 1.6vw, 14px);
-    margin-top: 30px;
+    gap: #{fluid(12, 14)};
+    margin-top: #{rem-calc(30)};
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    @media (max-width: #{rem-calc(1080)}) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: #{rem-calc(620)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 }

@@ -2,9 +2,9 @@
 
 @layer components {
   .product-breadcrumb {
-    font-size: 13px;
+    font-size: #{rem-calc(13)};
     color: var(--color-m7-neutral-faint);
-    margin-bottom: 26px;
+    margin-bottom: #{rem-calc(26)};
   }
 
   .product-breadcrumb__link {
