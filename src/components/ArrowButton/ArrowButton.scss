@@ -1,0 +1,72 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-arrowbtn {
+    --ab-bg: var(--color-m7-dark);
+    --ab-bg-hover: var(--color-m7-dark-raise);
+    --ab-fg: var(--color-m7-cream);
+    --ab-border: none;
+    --ab-tile: var(--color-m7-cream);
+    --ab-arrow: var(--color-m7-espresso);
+    --ab-dot: rgb(var(--color-m7-ink-rgb) / 0.18);
+
+    gap: #{rem-calc(10)};
+    padding: 5px 5px 5px #{rem-calc(18)};
+    border: var(--ab-border);
+    border-radius: 4px;
+    background: var(--ab-bg);
+    color: var(--ab-fg);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s ease, border-color 0.18s ease;
+
+    &[data-variant='outline'] {
+      --ab-bg: var(--color-m7-card);
+      --ab-bg-hover: var(--color-m7-cream);
+      --ab-fg: var(--color-m7-ink);
+      --ab-border: 1px solid var(--color-m7-line-strong);
+      --ab-tile: var(--color-m7-dark);
+      --ab-arrow: var(--color-m7-cream);
+      --ab-dot: rgb(var(--color-m7-cream-rgb) / 0.18);
+    }
+
+    &:hover {
+      background: var(--ab-bg-hover);
+    }
+
+    &:hover .m7-arrowbtn__arrow {
+      animation: m7arrowLoop 0.75s linear infinite;
+    }
+
+    &[data-direction='up']:hover .m7-arrowbtn__arrow {
+      animation-name: m7arrowLoopUp;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &:hover .m7-arrowbtn__arrow {
+        animation: none;
+      }
+    }
+  }
+
+  .m7-arrowbtn__label {
+    font-family: var(--font-m7-body);
+    font-size: #{rem-calc(16)};
+    font-weight: 500;
+  }
+
+  .m7-arrowbtn__tile {
+    width: #{rem-calc(32)};
+    height: #{rem-calc(32)};
+    border-radius: 3px;
+    background: var(--ab-tile);
+  }
+
+  .m7-arrowbtn__glyph {
+    fill: var(--ab-arrow);
+  }
+
+  .m7-arrowbtn__dot {
+    fill: var(--ab-dot);
+  }
+}
