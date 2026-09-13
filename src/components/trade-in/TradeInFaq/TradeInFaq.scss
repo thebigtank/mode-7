@@ -9,4 +9,51 @@
   .tradein-page .t-faqi {
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   }
+
+  .t-faqi__b {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .t-faqi__p {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.001;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .t-faqi__b[aria-expanded="true"] + .t-faqi__p {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .t-faqi__pi {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 16px;
+    line-height: 1.6;
+    padding-bottom: 0;
+  }
+
+  .t-faqi__b[aria-expanded="true"] + .t-faqi__p .t-faqi__pi {
+    padding-bottom: 22px;
+  }
 }

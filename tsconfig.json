@@ -40,7 +40,9 @@
     ".next-parity/types/**/*.ts",
     ".next-parity/dev/types/**/*.ts",
     ".next-old/types/**/*.ts",
-    ".next-old/dev/types/**/*.ts"
+    ".next-old/dev/types/**/*.ts",
+    ".next-trade/types/**/*.ts",
+    ".next-trade/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
