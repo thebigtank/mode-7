@@ -1,6 +1,5 @@
 import { Mono } from "@/components/ui/Mono";
 import { TradeInFaq } from "@/components/trade-in/TradeInFaq";
-import { V2 } from "@/lib/theme-v2";
 
 export function GuaranteeSection() {
   return (

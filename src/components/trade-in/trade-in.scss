@@ -2,8 +2,8 @@
 
 @layer components {
   .tradein-page {
-    font-family: var(--f-body);
-    color: var(--ink);
+    font-family: var(--font-v2-body);
+    color: var(--color-v2-ink);
   }
 
   .t-wrap {
@@ -13,36 +13,36 @@
   }
 
   .t-band {
-    padding-block: clamp(56px, 8vw, 104px);
+    padding-block: #{fluid(56, 104)};
   }
 
   .t-band--valuation {
-    --t-valuation-pt: clamp(40px, 5vw, 72px);
+    --t-valuation-pt: #{fluid(40, 72)};
     padding-top: var(--t-valuation-pt);
   }
 
   .t-band--wash {
-    background: var(--wash);
-    border-block: 1px solid var(--rule);
+    background: var(--color-v2-wash);
+    border-block: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
   }
 
   .t-band--ink {
-    background: var(--ink);
-    color: #fff;
+    background: var(--color-v2-ink);
+    color: var(--color-v2-white);
   }
 
   .t-dl {
-    font-family: var(--f-head);
+    font-family: var(--font-v2-display);
     font-weight: 400;
     margin: 0;
-    font-size: clamp(28px, 3.4vw, 44px);
+    font-size: #{fluid(28, 44)};
     line-height: 1.18;
     letter-spacing: -0.016em;
     text-wrap: balance;
   }
 
   .t-dl--spaced {
-    --t-dl-gap: clamp(24px, 3vw, 40px);
+    --t-dl-gap: #{fluid(24, 40)};
     margin-bottom: var(--t-dl-gap);
   }
 
@@ -52,16 +52,16 @@
   }
 
   .t-label {
-    font-family: var(--f-mono);
+    font-family: var(--font-v2-label);
     font-weight: 400;
-    font-size: 11px;
+    font-size: #{rem-calc(11)};
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--color-v2-muted);
   }
 
   .tradein-page :focus-visible {
-    outline: 2px solid var(--ink);
-    outline-offset: 3px;
+    outline: 2px solid var(--color-v2-ink);
+    outline-offset: #{rem-calc(3)};
   }
 }
