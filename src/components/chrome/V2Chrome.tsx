@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState, useEffect, type ReactNode } from "react";
 import { FooterV2 } from "@/components/chrome/FooterV2";
 import { HeaderV2 } from "@/components/chrome/HeaderV2";
-import { V2Styles } from "@/components/home-v2/V2Styles";
 import { IntroLoader } from "./IntroLoader";
 import { SearchOverlay } from "./SearchOverlay";
 import { lockPageScroll, unlockPageScroll, useLenis } from "@/hooks/useLenis";
@@ -67,7 +66,6 @@ export function V2Chrome({ children }: { children: ReactNode }) {
       }}
     >
       {introActive && <IntroLoader onDone={onIntroDone} />}
-      <V2Styles />
       <HeaderV2 onOpenSearch={openSearch} />
 
       {children}

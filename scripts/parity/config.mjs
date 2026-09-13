@@ -10,6 +10,7 @@ export const ROUTES = [
   "/contact",
   "/green-energy",
   "/smart-home",
+  "/parked",
 ];
 
 const BREAKPOINTS = [

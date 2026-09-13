@@ -1,10 +1,13 @@
 import { readFileSync, readdirSync } from "node:fs";
-const files = readdirSync("/tmp/parity/prev/tier1");
+const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); return i > -1 ? process.argv[i + 1] : d; };
+const A = arg("a", "/tmp/parity/prev");
+const B = arg("b", "/tmp/parity/branch");
+const files = readdirSync(`${A}/tier1`);
 const byProp = new Map();
 const samples = new Map();
 for (const f of files) {
-  const a = JSON.parse(readFileSync("/tmp/parity/prev/tier1/" + f, "utf8"));
-  const b = JSON.parse(readFileSync("/tmp/parity/branch/tier1/" + f, "utf8"));
+  const a = JSON.parse(readFileSync(`${A}/tier1/${f}`, "utf8"));
+  const b = JSON.parse(readFileSync(`${B}/tier1/${f}`, "utf8"));
   const mb = new Map(b.nodes.map((n) => [n.key, n]));
   for (const na of a.nodes) {
     const nb = mb.get(na.key);

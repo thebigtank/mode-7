@@ -1,0 +1,24 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-quote-cols {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,0.92fr);
+    gap:clamp(32px,14vw,204px);
+    align-items:center;
+
+    @media (max-width: 980px) {
+      grid-template-columns:minmax(0,1fr);
+    }
+
+    @media (max-width: 980px) {
+      gap:40px;
+    }
+  }
+
+  .v2-quote-portrait {
+    @media (max-width: 980px) {
+      max-width:420px;
+    }
+  }
+}

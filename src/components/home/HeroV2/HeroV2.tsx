@@ -1,7 +1,7 @@
 import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
 import { ButtonV2 } from "@/components/ui/ButtonV2";
-import { HeroHeadlineV2 } from "./HeroHeadlineV2Scramble";
+import { HeroHeadlineV2 } from "@/components/home/HeroHeadlineV2Scramble";
 
 function MarqueeSpark({ size = 20 }: { size?: number }) {
   return (

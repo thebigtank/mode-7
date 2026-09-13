@@ -1,0 +1,28 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-stats-cols {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(32px,11vw,160px);
+    align-items:start;
+
+    @media (max-width: 980px) {
+      grid-template-columns:minmax(0,1fr);
+    }
+
+    @media (max-width: 980px) {
+      gap:40px;
+    }
+  }
+
+  .v2-figures {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:20px;
+
+    @media (max-width: 640px) {
+      grid-template-columns:minmax(0,1fr);
+    }
+  }
+}

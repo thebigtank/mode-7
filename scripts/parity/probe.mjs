@@ -27,11 +27,24 @@ export function collect({ styleProps, pseudoProps }) {
     else if (cs.backgroundImage && cs.backgroundImage !== "none") raw = "b:" + base(cs.backgroundImage);
     else {
       stable = false;
+      // Index among siblings the probe would actually capture, not the raw DOM
+      // index. A <style>, <script> or <link> never renders and is skipped on
+      // the way out, but it still occupies a DOM index -- so counting raw
+      // indices makes every later sibling's key shift the moment one is added
+      // or removed, aliasing unrelated elements onto the same key.
+      const countable = (n) =>
+        n.nodeType === 1 && getComputedStyle(n).display !== "none";
       const path = [];
       let n = el;
       while (n && n !== document.body && path.length < 6) {
         const p = n.parentElement;
-        const i = p ? Array.prototype.indexOf.call(p.children, n) : 0;
+        let i = 0;
+        if (p) {
+          for (const sib of p.children) {
+            if (sib === n) break;
+            if (countable(sib)) i++;
+          }
+        }
         path.unshift(n.tagName.toLowerCase() + i);
         n = p;
       }

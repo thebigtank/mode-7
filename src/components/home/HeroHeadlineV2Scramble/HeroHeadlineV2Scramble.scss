@@ -1,0 +1,56 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-hero-mask {
+    position:absolute;
+    left:0;
+    right:0;
+    top:50%;
+    z-index:1;
+    height:1.04em;
+    margin-top:-0.52em;
+    overflow:hidden;
+  }
+
+  .v2-hero-scramble {
+    display:block;
+    line-height:1.04;
+    white-space:nowrap;
+  }
+
+  .v2-hero-char {
+    display:inline-block;
+    opacity:1;
+    transition:opacity 90ms linear;
+
+    @media (prefers-reduced-motion: reduce) {
+      opacity:1 !important;
+      transition:none !important;
+    }
+  }
+
+  .v2-hero-char.is-flicker {
+    opacity:.78;
+  }
+
+  .v2-hero-band {
+    position:absolute;
+    left:0;
+    top:50%;
+    z-index:0;
+    margin-top:0.1096em;
+    height:0.3288em;
+    background:#F0C044;
+    overflow:hidden;
+    transition:width 480ms cubic-bezier(.22,.61,.36,1);
+
+    @media (prefers-reduced-motion: reduce) {
+      transition:none !important;
+    }
+  }
+
+  .v2-hero-bandsize {
+    visibility:hidden;
+    white-space:nowrap;
+  }
+}
