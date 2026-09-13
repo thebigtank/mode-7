@@ -7,7 +7,11 @@ import {
   STYLE_PROPS, PSEUDO_PROPS, STATE_TARGETS as FALLBACK_TARGETS,
 } from "./config.mjs";
 
-const DISCOVERED = "scripts/parity/state-targets.json";
+// Resolved against this file, not the cwd: run.sh cds into whichever tree it
+// is serving, and a pinned baseline worktree does not carry the harness. A
+// cwd-relative path there silently falls back to the hardcoded targets and
+// compares 16 selectors against 54.
+const DISCOVERED = new URL("./state-targets.json", import.meta.url);
 const STATE_TARGETS = existsSync(DISCOVERED)
   ? JSON.parse(readFileSync(DISCOVERED, "utf8"))
   : FALLBACK_TARGETS;
