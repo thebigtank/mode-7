@@ -48,7 +48,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-faint);
   }
 
@@ -120,7 +119,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
@@ -144,7 +142,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-ink);
     font-weight: 400;
   }
@@ -159,7 +156,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
     margin-bottom: #{rem-calc(12)};
   }

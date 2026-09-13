@@ -54,7 +54,7 @@ export function ProductCard({
           <div className="pgc-product__name">{name}</div>
           <div className="pgc-product__meta">{meta}</div>
         </div>
-        <div className="pgc-product__price">{price}</div>
+        <div className="pgc-product__price whitespace-nowrap">{price}</div>
       </div>
     </Link>
   );

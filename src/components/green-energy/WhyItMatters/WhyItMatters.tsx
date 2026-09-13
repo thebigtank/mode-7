@@ -4,9 +4,9 @@ export function WhyItMatters() {
   const { whyItMatters } = content;
   return (
     <section className="ge-section">
-      <div className="ge-why__grid grid">
+      <div className="ge-why__grid grid items-center">
         <div>
-          <div className="ge-eyebrow">{`// ${whyItMatters.eyebrow}`}</div>
+          <div className="ge-eyebrow uppercase">{`// ${whyItMatters.eyebrow}`}</div>
           <h2 className="ge-h2">{whyItMatters.title}</h2>
           <p className="ge-lede">{whyItMatters.lede}</p>
         </div>

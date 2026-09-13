@@ -21,7 +21,7 @@ export function PageHero({
     <section className="pg-hero">
       {centered ? (
         <div className="text-center">
-          <div className="pg-hero__overline">{`// ${overline}`}</div>
+          <div className="pg-hero__overline uppercase">{`// ${overline}`}</div>
           <h1
             className="pg-hero-h1 text-center"
             data-title-variant={titleVariant}
@@ -36,7 +36,7 @@ export function PageHero({
       ) : (
         <div className="pg-hero__grid grid items-end">
           <div>
-            <div className="pg-hero__overline">{`// ${overline}`}</div>
+            <div className="pg-hero__overline uppercase">{`// ${overline}`}</div>
             <h1 className="pg-hero-h1" data-title-variant={titleVariant}>
               {title}
             </h1>

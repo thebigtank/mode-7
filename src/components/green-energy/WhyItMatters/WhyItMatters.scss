@@ -4,7 +4,6 @@
   .ge-why__grid {
     grid-template-columns: 1fr 1fr;
     gap: #{rem-calc(56)};
-    align-items: center;
 
     @media (max-width: #{rem-calc(900)}) {
       grid-template-columns: minmax(0, 1fr);

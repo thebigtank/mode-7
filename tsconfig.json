@@ -34,17 +34,12 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".next-verify/types/**/*.ts",
     ".next/types/**/*.ts",
     "next-env.d.ts",
     ".next-parity/types/**/*.ts",
     ".next-parity/dev/types/**/*.ts",
-    ".next-old/types/**/*.ts",
-    ".next-old/dev/types/**/*.ts",
-    ".next-trade/types/**/*.ts",
-    ".next-trade/dev/types/**/*.ts",
-    ".next-heavy/types/**/*.ts",
-    ".next-heavy/dev/types/**/*.ts"
+    ".next-ge/types/**/*.ts",
+    ".next-ge/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

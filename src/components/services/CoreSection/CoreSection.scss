@@ -36,7 +36,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11)};
     letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--color-v2-white);
     background: var(--color-v2-ink);
     border-radius: 99px;
@@ -47,7 +46,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11)};
     letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
@@ -86,7 +84,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11)};
     letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
@@ -143,7 +140,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-faint);
   }
 
@@ -178,7 +174,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
     margin-bottom: #{rem-calc(8)};
   }

@@ -7,7 +7,7 @@ export function SolarWorks() {
     <section className="ge-section">
       <div className="ge-solarworks__grid grid">
         <div className="ge-solarworks__sticky">
-          <div className="ge-eyebrow">{`// ${solarWorks.eyebrow}`}</div>
+          <div className="ge-eyebrow uppercase">{`// ${solarWorks.eyebrow}`}</div>
           <h2 className="ge-h2 ge-solarworks__title">{solarWorks.title}</h2>
           <p className="ge-lede">{solarWorks.lede}</p>
         </div>

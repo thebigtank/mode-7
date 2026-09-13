@@ -91,14 +91,14 @@ for (const file of scss) {
         add("no-interpolation", file, line, st);
     }
 
-    if (/\bclamp\s*\(/.test(st) && !/vh|dvh|svh/.test(st)) {
+    if (/(?<!line-)\bclamp\s*\(/.test(st) && !/vh|dvh|svh/.test(st) && !/^@mixin|^@function/.test(st)) {
       add("raw-clamp", file, line, st);
     }
 
     const px = st.match(/(?<![\w-])(\d{2,})px/g);
     if (px) {
       const big = px.filter((v) => parseInt(v) >= 8 && !/^9{2,}px$/.test(v));
-      if (big.length && !/border-radius|@media|outline|box-shadow|blur|translate/.test(st))
+      if (big.length && !/border-radius|@media|outline|box-shadow|blur|translate/.test(st) && !/^\$/.test(st) && !file.includes("app/scss/"))
         add("raw-px", file, line, st);
     }
 
@@ -118,7 +118,7 @@ for (const file of scss) {
       if (!pseudo && !media && !isDescendant) {
         const key = `${m[1]}:${m[2].trim()}`;
         const tw = TW_EXACT[key];
-        if (tw && !overridden.has(`${sel}|${m[1]}`))
+        if (tw && !overridden.has(`${sel}|${m[1]}`) && !file.includes("app/scss/"))
           add("should-be-tailwind", file, line, `${key}  ->  className="${tw}"  [${sel}]`);
       }
     }

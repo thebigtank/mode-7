@@ -24,7 +24,7 @@ export function Faq() {
 
         <div className="svc-faq__cols grid items-start">
           <div className="svc-faq__tabs">
-            <div className="svc-faq__tabs-label">{content.faq.browseLabel}</div>
+            <div className="svc-faq__tabs-label uppercase">{content.faq.browseLabel}</div>
             <div className="svc-faq__tab-list flex flex-col">
               {faqData.map((d, i) => (
                 <div

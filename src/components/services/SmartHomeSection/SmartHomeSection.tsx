@@ -24,7 +24,7 @@ export function SmartHomeSection() {
               <div className="svc-smarthome__feature-title">{smartHome.feature.title}</div>
               <div className="svc-smarthome__scenes flex flex-wrap">
                 {smartHome.feature.scenes.map((s) => (
-                  <span key={s} className="svc-smarthome__scene">
+                  <span key={s} className="svc-smarthome__scene uppercase">
                     {s}
                   </span>
                 ))}

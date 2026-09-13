@@ -37,8 +37,6 @@
   }
 
   .wf-annot {
-    display: inline-flex;
-    align-items: center;
     border: 1px dashed var(--color-m7-hair);
     border-radius: #{rem-calc(99)};
     padding: #{rem-calc(7)} #{rem-calc(15)};
@@ -47,7 +45,6 @@
     letter-spacing: 1px;
     color: var(--color-m7-body);
     background: rgb(var(--color-m7-card-rgb) / 0.92);
-    white-space: nowrap;
 
     &[data-dark] {
       color: var(--color-m7-on-espresso-muted);
@@ -63,22 +60,16 @@
   }
 
   .wf-variant-label__row {
-    display: flex;
-    align-items: center;
     gap: #{rem-calc(12)};
-    flex-wrap: wrap;
   }
 
   .wf-variant-label__tag {
-    display: inline-flex;
-    align-items: center;
     border: 1px dashed var(--color-m7-hair);
     border-radius: #{rem-calc(99)};
     padding: #{rem-calc(5)} #{rem-calc(12)};
     font-family: var(--font-m7-mono);
     font-size: #{rem-calc(10)};
     letter-spacing: 1.5px;
-    text-transform: uppercase;
     color: var(--color-m7-ink);
     background: var(--color-m7-card);
   }
@@ -88,7 +79,6 @@
     font-size: #{rem-calc(11)};
     letter-spacing: 0.5px;
     color: var(--color-m7-muted);
-    text-transform: uppercase;
   }
 
   .wf-overline {
@@ -97,7 +87,6 @@
     font-size: #{rem-calc(12)};
     letter-spacing: 2px;
     color: var(--wf-overline-color);
-    text-transform: uppercase;
     margin-bottom: #{rem-calc(16)};
   }
 

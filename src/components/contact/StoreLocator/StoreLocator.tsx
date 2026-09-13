@@ -4,7 +4,7 @@ import content from "@/content/contact.json";
 export function StoreLocator() {
   return (
     <section className="contact-section">
-      <div className="contact-eyebrow">{`// ${content.stores.eyebrow}`}</div>
+      <div className="contact-eyebrow uppercase">{`// ${content.stores.eyebrow}`}</div>
       <h2 className="contact-h2">{content.stores.title}</h2>
 
       <div className="store-locator__map">

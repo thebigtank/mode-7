@@ -24,7 +24,7 @@ export function EnergyFaq() {
                 <ChevronDownIcon size={24} />
               </span>
             </div>
-            <div className="ge-faq__panel" data-open={isOpen || undefined}>
+            <div className="ge-faq__panel grid" data-open={isOpen || undefined}>
               <div className="ge-faq__panel-inner">
                 <div className="ge-faq__a">{it.a}</div>
               </div>

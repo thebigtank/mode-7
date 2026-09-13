@@ -11,7 +11,7 @@ export function PageSection({
 }) {
   return (
     <section className="pg-section">
-      {overline && <div className="pg-section__overline">{`// ${overline}`}</div>}
+      {overline && <div className="pg-section__overline uppercase">{`// ${overline}`}</div>}
       {title && <h2 className="pg-section__title">{title}</h2>}
       {children}
     </section>

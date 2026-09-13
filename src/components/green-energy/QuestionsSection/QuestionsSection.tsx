@@ -8,7 +8,7 @@ export function QuestionsSection() {
   return (
     <section className="ge-section">
       <div className="ge-questions">
-        <div className="ge-eyebrow">{`// ${faq.eyebrow}`}</div>
+        <div className="ge-eyebrow uppercase">{`// ${faq.eyebrow}`}</div>
         <h2 className="ge-h2">{faq.title}</h2>
         <div className="ge-questions__faq">
           <EnergyFaq />

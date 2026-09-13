@@ -2,34 +2,34 @@
 
 @layer components {
   .svc-tile__media {
-    height: 150px;
+    height: #{rem-calc(150)};
     background: var(--v2-stripe);
     border-bottom: var(--v2-hair);
   }
 
   .svc-tile__icon {
-    right: 14px;
-    bottom: 14px;
+    right: #{rem-calc(14)};
+    bottom: #{rem-calc(14)};
   }
 
   .svc-tile__body {
-    padding: 20px 22px;
-    gap: 12px;
+    padding: #{rem-calc(20)} #{rem-calc(22)};
+    gap: #{rem-calc(12)};
   }
 
   .svc-tile__label {
     font-family: var(--font-v2-display);
     font-weight: 400;
-    font-size: 18px;
+    font-size: #{rem-calc(18)};
     letter-spacing: -0.01em;
     line-height: 1.3;
   }
 
   .svc-tile__sub {
     font-family: var(--font-v2-label);
-    font-size: 10px;
+    font-size: #{rem-calc(10)};
     letter-spacing: 0.025em;
     color: var(--color-v2-muted);
-    margin-top: 4px;
+    margin-top: #{rem-calc(4)};
   }
 }

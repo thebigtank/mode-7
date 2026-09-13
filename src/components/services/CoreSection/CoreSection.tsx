@@ -21,8 +21,8 @@ export function CoreSection() {
         <div className="svc-core__card grid overflow-hidden">
           <div className="svc-core__panel flex flex-col">
             <div className="svc-core__badges flex items-center">
-              <span className="svc-core__badge">{core.badgeTag}</span>
-              <span className="svc-core__badge-sub">{core.badgeSub}</span>
+              <span className="svc-core__badge uppercase">{core.badgeTag}</span>
+              <span className="svc-core__badge-sub uppercase">{core.badgeSub}</span>
             </div>
             <h3 className="svc-core__title">{core.title}</h3>
             <P size={18} className="svc-core__body">
@@ -35,7 +35,7 @@ export function CoreSection() {
             </div>
             <div className="svc-core__footer flex items-center flex-wrap">
               <ButtonV2 label={core.cta.label} variant="fill" href={core.cta.href} />
-              <span className="svc-core__note">{core.note}</span>
+              <span className="svc-core__note uppercase">{core.note}</span>
             </div>
           </div>
 
@@ -53,7 +53,7 @@ export function CoreSection() {
             <CategoryTile key={c.label} label={c.label} sub={c.sub} icon={c.icon as GlyphName} />
           ))}
           <div className="svc-lift-dark svc-core__plus flex flex-col justify-between">
-            <div className="svc-core__plus-eyebrow">{core.plusTile.eyebrow}</div>
+            <div className="svc-core__plus-eyebrow uppercase">{core.plusTile.eyebrow}</div>
             <div className="svc-core__plus-title">{core.plusTile.title}</div>
             <span className="svc-core__plus-cta inline-flex items-center">
               {core.plusTile.cta}
@@ -66,7 +66,7 @@ export function CoreSection() {
           <div className="svc-core__fleet-lead flex items-center">
             <Glyph name="briefcase" size={34} stroke="var(--color-v2-ink)" />
             <div>
-              <div className="svc-core__fleet-eyebrow">{core.fleet.eyebrow}</div>
+              <div className="svc-core__fleet-eyebrow uppercase">{core.fleet.eyebrow}</div>
               <div className="svc-core__fleet-title">{core.fleet.title}</div>
               <P size={18} className="svc-core__fleet-body">
                 {core.fleet.body}

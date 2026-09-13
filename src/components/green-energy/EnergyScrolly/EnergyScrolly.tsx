@@ -122,7 +122,7 @@ export function EnergyScrolly() {
   const caption = BLOCKS[activeIndex].caption;
 
   return (
-    <section ref={sectionRef} className="ge-scrolly" data-stacked={stacked || undefined}>
+    <section ref={sectionRef} className="ge-scrolly flex flex-row" data-stacked={stacked || undefined}>
       <div className="ge-scrolly__media" data-stacked={stacked || undefined}>
         <Placeholder label={content.scrolly.mediaLabel} height="100%" radius={0} style={{ width: "100%" }}>
           {WIREFRAME.showAnnotations && (
@@ -138,7 +138,7 @@ export function EnergyScrolly() {
               {content.scrolly.annotationLabel}
             </Annotation>
           )}
-          <div key={activeIndex} className="ge-scrolly-caption">
+          <div key={activeIndex} className="ge-scrolly-caption flex items-center justify-center">
             <Annotation
               style={{ fontSize: 11, maxWidth: "100%", textAlign: "center" }}
             >
@@ -155,7 +155,7 @@ export function EnergyScrolly() {
             ref={(el) => {
               blockRefs.current[i] = el;
             }}
-            className="ge-scrolly__block"
+            className="ge-scrolly__block flex flex-col justify-center"
             data-stacked={stacked || undefined}
             data-first={i === 0 || undefined}
             style={

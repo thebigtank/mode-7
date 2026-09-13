@@ -60,7 +60,7 @@ export function CategoryShowcase() {
   return (
     <>
       <Link href="/shop" className="m7-lift block no-underline text-inherit mt-[34px]">
-        <div className="sh-cat-hero__media">
+        <div className="sh-cat-hero__media flex items-end">
           <div className="sh-cat-hero__label">▣ {active.label.toUpperCase()}</div>
 
           {WIREFRAME.showAnnotations && (
@@ -91,7 +91,7 @@ export function CategoryShowcase() {
           )}
 
           <div className="sh-cat-hero__scrim">
-            <div className="sh-cat-hero__row">
+            <div className="sh-cat-hero__row flex items-end justify-between flex-wrap">
               <div>
                 <div className="sh-cat-hero__title">{active.label}</div>
                 <div className="sh-cat-hero__sub">{active.sub}</div>
@@ -103,21 +103,21 @@ export function CategoryShowcase() {
       </Link>
 
       <div className="sh-cat-more">
-        <div className="sh-cat-more__head">
+        <div className="sh-cat-more__head flex justify-between items-center">
           <div className="sh-cat-more__title">More categories</div>
-          <div className="sh-cat-more__hint">Scroll to explore →</div>
+          <div className="sh-cat-more__hint uppercase">Scroll to explore →</div>
         </div>
 
         <div
           ref={scrollRef}
           style={maskInline}
-          className="m7-scroll m7-cat-scroll sh-cat-scroll"
+          className="m7-scroll m7-cat-scroll sh-cat-scroll flex"
         >
           {categories.map((c, i) => (
             <Link
               key={c.label}
               href="/shop"
-              className="m7-cat-card sh-cat-card"
+              className="m7-cat-card sh-cat-card flex flex-col"
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(0)}
             >

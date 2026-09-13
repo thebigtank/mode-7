@@ -8,7 +8,7 @@ import { WIREFRAME } from "@/lib/wireframe-config";
 function Field({ name, children }: { name: string; children: ReactNode }) {
   return (
     <div className="contact-field flex flex-col">
-      <span className="contact-field__label">{name}</span>
+      <span className="contact-field__label uppercase">{name}</span>
       {children}
     </div>
   );
@@ -19,7 +19,7 @@ export function ContactForm() {
 
   return (
     <div className="contact-form">
-      <div className="contact-eyebrow">{`// ${content.form.eyebrow}`}</div>
+      <div className="contact-eyebrow uppercase">{`// ${content.form.eyebrow}`}</div>
       <h2 className="contact-h2">{content.form.title}</h2>
 
       <div className="contact-form__fields flex flex-col">

@@ -8,7 +8,7 @@ export function WorksTogether() {
     <section className="sh-section">
       <div className="sh-works__grid grid items-center">
         <div>
-          <div className="sh-eyebrow">{`// ${works.eyebrow}`}</div>
+          <div className="sh-eyebrow uppercase">{`// ${works.eyebrow}`}</div>
           <h2 className="sh-works__title text-balance">{works.title}</h2>
           <p className="sh-works__lede">{works.lede}</p>
           <ArrowButton label={works.cta} variant="fill" href="/shop" />
@@ -18,7 +18,7 @@ export function WorksTogether() {
 
       <div className="sh-works__assurances grid">
         {works.assurances.map((a) => (
-          <div key={a.title} className="sh-assurance">
+          <div key={a.title} className="sh-assurance flex flex-col">
             <svg
               width="30"
               height="30"

@@ -38,7 +38,7 @@ export function SolarLifting() {
         </Placeholder>
 
         <div>
-          <div className="ge-eyebrow">{`// ${solarLifting.eyebrow}`}</div>
+          <div className="ge-eyebrow uppercase">{`// ${solarLifting.eyebrow}`}</div>
           <h2 className="ge-h2">{solarLifting.title}</h2>
           <p className="ge-lede">{solarLifting.lede}</p>
 

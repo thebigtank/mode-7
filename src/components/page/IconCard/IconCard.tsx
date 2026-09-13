@@ -30,7 +30,7 @@ export function IconCard({
         <path d="m12 5 7 7-7 7" />
       </svg>
       <div className="pg-iconcard__title">{title}</div>
-      <div className="pg-iconcard__accent">{accent}</div>
+      <div className="pg-iconcard__accent uppercase">{accent}</div>
       <p className="pg-iconcard__body">{body}</p>
     </div>
   );

@@ -27,3 +27,4 @@ scripts/parity/captures
 payload-types.ts
 /public/media
 .claude/worktrees
+.next-*

@@ -17,7 +17,7 @@ export function TradeInSection() {
           <div className="svc-lift-dark svc-tradein__refurb flex flex-col">
             <div className="svc-tradein__refurb-top flex items-start justify-between">
               <Glyph name="refresh" size={32} stroke="var(--color-v2-white)" />
-              <span className="svc-tradein__refurb-tag text-right">{tradeIn.refurb.tag}</span>
+              <span className="svc-tradein__refurb-tag text-right uppercase">{tradeIn.refurb.tag}</span>
             </div>
             <div className="svc-tradein__refurb-title">{tradeIn.refurb.title}</div>
             <P size={18} color="var(--color-v2-faint)" className="svc-tradein__refurb-body">
@@ -45,18 +45,18 @@ export function TradeInSection() {
             >
               <div className="svc-tradein__card-top flex items-start justify-between">
                 <Glyph name={c.icon as GlyphName} size={30} stroke="var(--color-v2-ink)" />
-                <span className="svc-tradein__card-tag text-right">{c.tag}</span>
+                <span className="svc-tradein__card-tag text-right uppercase">{c.tag}</span>
               </div>
               <div className="svc-tradein__card-title">{c.title}</div>
               <P size={18} className="svc-tradein__card-body">
                 {c.body}
               </P>
-              <div className="svc-tradein__card-foot">{c.foot}</div>
+              <div className="svc-tradein__card-foot uppercase">{c.foot}</div>
             </div>
           ))}
 
           <div className="svc-lift svc-card svc-tradein__wide flex flex-col justify-center items-start">
-            <div className="svc-tradein__wide-eyebrow">{tradeIn.wide.eyebrow}</div>
+            <div className="svc-tradein__wide-eyebrow uppercase">{tradeIn.wide.eyebrow}</div>
             <div className="svc-tradein__wide-title">{tradeIn.wide.title}</div>
             <P size={18} className="svc-tradein__wide-body">
               {tradeIn.wide.body}

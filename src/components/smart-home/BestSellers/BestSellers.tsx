@@ -7,7 +7,7 @@ export function BestSellers() {
     <section className="sh-section">
       <div className="sh-bestsellers__head flex justify-between items-end flex-wrap">
         <div>
-          <div className="sh-eyebrow">{`// ${content.bestSellers.eyebrow}`}</div>
+          <div className="sh-eyebrow uppercase">{`// ${content.bestSellers.eyebrow}`}</div>
           <h2 className="sh-bestsellers__title">{content.bestSellers.title}</h2>
         </div>
         <ArrowButton label={content.bestSellers.cta} variant="outline" href="/shop" />

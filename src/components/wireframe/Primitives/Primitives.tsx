@@ -50,7 +50,11 @@ export function Annotation({
   style?: CSSProperties;
 }) {
   return (
-    <div className="wf-annot m7-annot" data-dark={dark || undefined} style={style}>
+    <div
+      className="wf-annot m7-annot inline-flex items-center whitespace-nowrap"
+      data-dark={dark || undefined}
+      style={style}
+    >
       {children}
     </div>
   );
@@ -66,9 +70,9 @@ export function VariantLabel({
   if (!WIREFRAME.showAnnotations) return null;
   return (
     <div className="wf-variant-label">
-      <div className="wf-variant-label__row">
-        <span className="wf-variant-label__tag">{tag}</span>
-        <span className="wf-variant-label__note">{note}</span>
+      <div className="wf-variant-label__row flex items-center flex-wrap">
+        <span className="wf-variant-label__tag inline-flex items-center uppercase">{tag}</span>
+        <span className="wf-variant-label__note uppercase">{note}</span>
       </div>
     </div>
   );
@@ -85,7 +89,7 @@ export function Overline({
 }) {
   return (
     <div
-      className="wf-overline"
+      className="wf-overline uppercase"
       style={
         {
           ...(color ? { "--wf-overline-color": color } : {}),

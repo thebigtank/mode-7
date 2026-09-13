@@ -22,7 +22,7 @@ export function DarkPanel({
       className="pg-dark-panel grid items-center"
     >
       <div>
-        <div className="pg-dark-panel__overline">{`// ${overline}`}</div>
+        <div className="pg-dark-panel__overline uppercase">{`// ${overline}`}</div>
         <h2 className="pg-dark-panel__title">{title}</h2>
         <p className="pg-dark-panel__body">{body}</p>
         {action}
