@@ -144,4 +144,13 @@
 :root {
   --m7-pad: clamp(20px, 4vw, 48px);
   --v2-pad: clamp(20px, 4vw, 48px);
+
+  --v2-hair: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+  --v2-hair-dark: 1px solid rgb(var(--color-v2-white-rgb) / 0.14);
+  --v2-stripe: repeating-linear-gradient(
+    135deg,
+    rgb(var(--color-v2-ink-rgb) / 0.07) 0 9px,
+    rgb(var(--color-v2-ink-rgb) / 0.03) 9px 18px
+  );
+  --m7-bleed: max(var(--m7-pad), calc((100vw - 1320px) / 2 + var(--m7-pad)));
 }

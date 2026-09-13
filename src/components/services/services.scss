@@ -1,0 +1,29 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 26px rgb(var(--color-v2-ink-rgb) / 0.08);
+    }
+  }
+
+  .svc-lift-dark:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgb(var(--color-v2-ink-rgb) / 0.24);
+  }
+
+  .svc-card {
+    background: var(--color-v2-white);
+    border: var(--v2-hair);
+    border-radius: 4px;
+  }
+
+  .svc-tilestripe {
+    border-radius: 4px;
+    background: var(--v2-stripe);
+    border: var(--v2-hair);
+  }
+}

@@ -21,6 +21,17 @@ edits: `@/components/trade-in/ValuationWorkspace` keeps resolving. Components
 here use named exports, so one re-export line is the whole file; add
 `export { default } from "./<Name>";` only for one that actually has a default.
 
+**There are no page-level stylesheets.** A page is composition: metadata and a
+list of components. Styles belong to the component that renders the markup,
+never to the route that happens to mount it first -- a page scope is a
+location, not a thing, and the moment a second page wants that band you are
+choosing between duplicating it and reaching into another route's stylesheet.
+
+The same goes for tokens. A custom property declared on `.services-page` is
+unreachable from a component the day that component is used anywhere else.
+Shared values live in `globals.css`: `--v2-hair`, `--v2-stripe`, `--m7-bleed`
+and the palette are all there.
+
 Register the stylesheet in the matching aggregator — `src/app/scss/blocks/
 _baseBlocks.scss` for page sections, `components/_baseComponents.scss` for
 shared primitives, `templates/_baseTemplates.scss` for chrome. `main.scss`

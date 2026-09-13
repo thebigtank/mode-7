@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import type { CSSProperties, ReactNode } from "react";
 import { ArrowRightIcon } from "@/components/Icons";
 import { ButtonV2 } from "@/components/ui/ButtonV2";
 import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
 import { Glyph, ShieldCheck, type GlyphName } from "@/components/page/ServiceIcons";
+import { BentoCell } from "@/components/services/BentoCell";
 import { CategoryNav } from "@/components/services/CategoryNav";
+import { CategoryTile } from "@/components/services/CategoryTile";
+import { MiniRow } from "@/components/services/MiniRow";
+import { SectionHead } from "@/components/services/SectionHead";
+import { StripeLabel } from "@/components/services/StripeLabel";
 import { Faq } from "@/components/services/Faq";
 import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
 
@@ -14,111 +18,6 @@ export const metadata: Metadata = {
   description:
     "From flagship launches to certified refurbished, instant trade-ins to concierge checkout — the premium tech store built around how you buy.",
 };
-
-function SectionHead({
-  overline,
-  title,
-  lede,
-  maxWidth = 860,
-}: {
-  overline: string;
-  title: string;
-  lede?: string;
-  maxWidth?: number;
-}) {
-  return (
-    <div className="svc-head" style={{ maxWidth }}>
-      <Mono dot className="mb-4">
-        {overline}
-      </Mono>
-      <h2 className="svc-head__h2" data-lede={lede ? "true" : "false"}>
-        {title}
-      </h2>
-      {lede && (
-        <P size={18} className="svc-head__lede">
-          {lede}
-        </P>
-      )}
-    </div>
-  );
-}
-
-function StripeLabel({ children }: { children: ReactNode }) {
-  return <div className="svc-stripe-label absolute z-[2]">▣ {children}</div>;
-}
-
-function MiniRow({
-  icon,
-  title,
-  sub,
-}: {
-  icon: GlyphName;
-  title: string;
-  sub: string;
-}) {
-  return (
-    <div className="svc-minirow flex items-center">
-      <Glyph name={icon} size={20} strokeWidth={1.7} stroke={V2.ink} />
-      <div>
-        <div className="svc-minirow__title">{title}</div>
-        <div className="svc-minirow__sub uppercase">{sub}</div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryTile({
-  label,
-  sub,
-  icon,
-}: {
-  label: string;
-  sub: string;
-  icon: GlyphName;
-}) {
-  return (
-    <div className="svc-lift svc-card flex flex-col overflow-hidden">
-      <div className="svc-tile__media relative">
-        <StripeLabel>{label.toUpperCase()}</StripeLabel>
-        <span className="svc-tile__icon absolute">
-          <Glyph name={icon} size={26} stroke={V2.ink} />
-        </span>
-      </div>
-      <div className="svc-tile__body flex items-center justify-between">
-        <div>
-          <div className="svc-tile__label">{label}</div>
-          <div className="svc-tile__sub uppercase">{sub}</div>
-        </div>
-        <ArrowRightIcon size={20} strokeWidth={1.8} stroke={V2.ink} />
-      </div>
-    </div>
-  );
-}
-
-function BentoCell({
-  icon,
-  title,
-  sub,
-  style,
-}: {
-  icon: GlyphName;
-  title: string;
-  sub: string;
-  style?: CSSProperties;
-}) {
-  return (
-    <div
-      className="svc-lift svc-card svc-bento flex flex-col justify-between"
-      style={style}
-    >
-      <Glyph name={icon} size={28} stroke={V2.ink} />
-      <div>
-        <div className="svc-bento__title">{title}</div>
-        <div className="svc-bento__sub">{sub}</div>
-      </div>
-    </div>
-  );
-}
 
 const coreRows: { icon: GlyphName; title: string; sub: string }[] = [
   { icon: "phone", title: "Flagship Phones", sub: "iPhone · Galaxy · Pixel" },
@@ -199,7 +98,7 @@ export default function ServicesPage() {
             width: "100%",
             height: "min(82vh,820px)",
             overflow: "hidden",
-            background: "var(--svc-stripe)",
+            background: "var(--v2-stripe)",
             color: V2.ink,
           }}
         >
@@ -221,7 +120,7 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              left: "var(--svc-bleed)",
+              left: "var(--m7-bleed)",
               bottom: 72,
               maxWidth: 540,
             }}
@@ -258,7 +157,7 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              right: "var(--svc-bleed)",
+              right: "var(--m7-bleed)",
               bottom: 72,
               background: "rgba(255,255,255,0.72)",
               backdropFilter: "blur(14px)",
@@ -408,7 +307,7 @@ export default function ServicesPage() {
             <div
               style={{
                 position: "relative",
-                background: "var(--svc-stripe)",
+                background: "var(--v2-stripe)",
                 borderLeft: V2_HAIR,
                 minHeight: 460,
               }}

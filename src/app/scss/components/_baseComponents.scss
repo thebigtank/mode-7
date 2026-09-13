@@ -10,3 +10,10 @@
 @use '../../../components/ui/PlusToggle/PlusToggle';
 @use '../../../components/ui/ButtonV2/ButtonV2';
 @use '../../../components/about/ConditionsLedger/ConditionsLedger';
+@use '../../../components/services/services';
+@use '../../../components/services/BentoCell/BentoCell';
+@use '../../../components/services/CategoryNav/CategoryNav';
+@use '../../../components/services/CategoryTile/CategoryTile';
+@use '../../../components/services/MiniRow/MiniRow';
+@use '../../../components/services/SectionHead/SectionHead';
+@use '../../../components/services/StripeLabel/StripeLabel';

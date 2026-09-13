@@ -1,0 +1,27 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-head {
+    margin-bottom: 36px;
+  }
+
+  .svc-head__h2 {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: clamp(25px, 3.5vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+    color: var(--color-v2-ink);
+    margin: 0;
+    text-wrap: balance;
+
+    &[data-lede="true"] {
+      margin-bottom: 14px;
+    }
+  }
+
+  .svc-head__lede {
+    line-height: 1.6;
+    max-width: 520px;
+  }
+}
