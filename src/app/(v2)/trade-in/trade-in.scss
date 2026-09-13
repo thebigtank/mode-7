@@ -2,21 +2,6 @@
 
 @layer components {
   .tradein-page {
-    --ink: #171d1d;
-    --paper: #ffffff;
-    --wash: #e6eae6;
-    --rule: rgba(23, 29, 29, 0.14);
-    --rule-strong: rgba(23, 29, 29, 0.24);
-    --muted: #5a6160;
-    --body: #5a6160;
-    --decor: rgba(23, 29, 29, 0.32);
-    --hover: rgba(23, 29, 29, 0.4);
-    --f-head: var(--font-alegreya), Georgia, "Times New Roman", serif;
-    --f-body: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
-    --f-mono: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
-    --stripe-soft: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.05) 0 9px, rgba(23, 29, 29, 0.02) 9px 18px);
-    --pad: clamp(20px, 4vw, 48px);
-    --max: 1320px;
     font-family: var(--f-body);
     color: var(--ink);
   }

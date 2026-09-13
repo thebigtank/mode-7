@@ -153,4 +153,23 @@
     rgb(var(--color-v2-ink-rgb) / 0.03) 9px 18px
   );
   --m7-bleed: max(var(--m7-pad), calc((100vw - 1320px) / 2 + var(--m7-pad)));
+
+  --ink: #171d1d;
+  --paper: #ffffff;
+  --wash: #e6eae6;
+  --rule: rgba(23, 29, 29, 0.14);
+  --rule-strong: rgba(23, 29, 29, 0.24);
+  --muted: #5a6160;
+  --body: #5a6160;
+  --decor: rgba(23, 29, 29, 0.32);
+  --hover: rgba(23, 29, 29, 0.4);
+  --accent: #f0c044;
+  --accent-on: #1c150f;
+  --f-head: var(--font-alegreya), Georgia, "Times New Roman", serif;
+  --f-body: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  --f-mono: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  --stripe: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.07) 0 9px, rgba(23, 29, 29, 0.03) 9px 18px);
+  --stripe-soft: repeating-linear-gradient(135deg, rgba(23, 29, 29, 0.05) 0 9px, rgba(23, 29, 29, 0.02) 9px 18px);
+  --pad: clamp(20px, 4vw, 48px);
+  --max: 1320px;
 }
