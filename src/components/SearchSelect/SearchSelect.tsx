@@ -65,7 +65,6 @@ export function SearchSelect({
     setCursor(i >= 0 ? i : 0);
     const t = window.setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 10);
     return () => window.clearTimeout(t);
-    // filtered is intentionally not a dep: this runs on open, not on filtering
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
@@ -136,7 +135,7 @@ export function SearchSelect({
         <button
           ref={btnRef}
           type="button"
-          className="m7-ss__btn"
+          className="m7-ss__btn flex items-center justify-between text-left"
           data-empty={!selected}
           aria-haspopup="listbox"
           aria-expanded={open}
@@ -149,7 +148,7 @@ export function SearchSelect({
             }
           }}
         >
-          <span className="m7-ss__value" id={`${id}-value`}>
+          <span className="m7-ss__value whitespace-nowrap" id={`${id}-value`}>
             {selected ? selected.label : placeholder}
           </span>
           <span className="m7-ss__caret" aria-hidden="true" />
@@ -159,7 +158,7 @@ export function SearchSelect({
           <>
             <div className="m7-ss__scrim" onClick={() => setOpen(false)} aria-hidden="true" />
 
-            <div className="m7-ss__panel">
+            <div className="m7-ss__panel flex flex-col">
               <div className="m7-ss__head">
                 <span className="m7-ss__title">{label}</span>
                 <button
@@ -224,7 +223,7 @@ export function SearchSelect({
                     role="option"
                     aria-selected={o.v === value}
                     data-active={i === cursor}
-                    className="m7-ss__opt"
+                    className="m7-ss__opt flex flex-col"
                     onPointerEnter={() => setCursor(i)}
                     onClick={() => choose(o.v)}
                   >
