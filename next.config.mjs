@@ -2,6 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  // Next regenerates AGENTS.md and CLAUDE.md on every dev run. CLAUDE.md here is
+  // hand-written project guidance -- the only record of the traps documented in
+  // it -- so the generator is off to stop it being overwritten.
+  agentRules: false,
+
+  // The dev overlay badge paints into the bottom-left of the viewport and would
+  // otherwise land in every parity screenshot.
+  devIndicators: false,
+
   // A `next dev` server and a `next build` cannot share a build directory — the
   // build clobbers the CSS chunk next/font generates, which silently drops the
   // --font-* variables and drops the whole site to the browser's default serif.

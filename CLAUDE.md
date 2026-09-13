@@ -23,10 +23,13 @@ neither is v1-only and both may well be wanted on a v2 section later:
   neighbours). Not swept, because v1 class names are shared with the seven live v1
   routes and an untargeted sweep would be a guess.
 
-Dev server: `npm run dev`. **`npm run build` currently fails** on a pre-existing
-`react/no-unescaped-entities` error in `src/app/green-energy/page.tsx` (lines 291, 394).
-It is unrelated to anything in v2. It also clobbers `.next` underneath a running dev
-server, taking the site down — prefer `npx tsc --noEmit` plus `npx eslint` while iterating.
+Dev server: `npm run dev`. **`npm run build` passes.** An earlier revision of this file
+recorded it failing on a `react/no-unescaped-entities` error in
+`src/app/green-energy/page.tsx` (lines 291, 394); commit `5cf8ff5` escaped both apostrophes
+to `&rsquo;` and the claim has been stale ever since — re-verified with a clean production
+build. A bare `next build` still clobbers `.next` underneath a running dev server, taking
+the site down, so set `NEXT_DIST_DIR` when a dev server is up (see `next.config.mjs`), or
+prefer `npx tsc --noEmit` plus `npx eslint` while iterating.
 
 ---
 
