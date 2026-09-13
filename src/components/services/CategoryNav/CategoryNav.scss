@@ -1,6 +1,17 @@
 @use 'utils' as *;
 
 @layer components {
+  .svc-nav {
+    padding-block: #{rem-calc(26)};
+    background: var(--color-v2-accent);
+  }
+
+  .svc-nav__inner {
+    max-width: #{rem-calc(1320)};
+    padding-inline: var(--v2-pad);
+    gap: #{rem-calc(10)};
+  }
+
   .svc-pill {
     gap: 8px;
     border: 1px solid var(--color-v2-navy);

@@ -10,9 +10,13 @@
     }
   }
 
-  .svc-lift-dark:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgb(var(--color-v2-ink-rgb) / 0.24);
+  .svc-lift-dark {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgb(var(--color-v2-ink-rgb) / 0.24);
+    }
   }
 
   .svc-card {

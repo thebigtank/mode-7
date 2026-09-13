@@ -1,0 +1,138 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-solar {
+    background: var(--color-v2-white);
+    padding-block: #{rem-calc(100)};
+    scroll-margin-top: #{rem-calc(80)};
+  }
+
+  .svc-solar__wrap {
+    max-width: #{rem-calc(1320)};
+    padding-inline: var(--v2-pad);
+  }
+
+  .svc-solar__mosaic {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: #{rem-calc(186)};
+    gap: #{rem-calc(14)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        min-height: #{rem-calc(200)};
+      }
+    }
+  }
+
+  .svc-solar__panels {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+
+  .svc-solar__panels-copy {
+    left: #{rem-calc(24)};
+    bottom: #{rem-calc(22)};
+    right: #{rem-calc(24)};
+  }
+
+  .svc-solar__panels-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(22)};
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+  }
+
+  .svc-solar__panels-sub {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(14)};
+    color: var(--color-v2-muted);
+    margin: #{rem-calc(4)} 0 #{rem-calc(16)};
+  }
+
+  .svc-solar__battery {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+
+  .svc-solar__battery-copy {
+    left: #{rem-calc(20)};
+    bottom: #{rem-calc(18)};
+    right: #{rem-calc(20)};
+  }
+
+  .svc-solar__battery-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(20)};
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+  }
+
+  .svc-solar__battery-sub {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(14)};
+    color: var(--color-v2-muted);
+    margin-top: #{rem-calc(4)};
+  }
+
+  .svc-solar__station {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .svc-solar__station-copy {
+    left: #{rem-calc(20)};
+    bottom: #{rem-calc(18)};
+    right: #{rem-calc(20)};
+  }
+
+  .svc-solar__station-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(20)};
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+  }
+
+  .svc-solar__arrow {
+    right: #{rem-calc(16)};
+    top: #{rem-calc(16)};
+  }
+
+  .svc-solar__mosaic .svc-bento[data-slot='inverters'] {
+    grid-column: 4;
+    grid-row: 2;
+    padding: #{rem-calc(22)};
+  }
+
+  .svc-solar__mosaic .svc-bento[data-slot='generators'] {
+    grid-column: 1;
+    grid-row: 3;
+    padding: #{rem-calc(22)};
+  }
+
+  .svc-solar__mosaic .svc-bento[data-slot='offgrid'] {
+    grid-column: 2;
+    grid-row: 3;
+    padding: #{rem-calc(22)};
+  }
+
+  .svc-solar__mosaic .svc-bento[data-slot='monitoring'] {
+    grid-column: 3;
+    grid-row: 3;
+    padding: #{rem-calc(22)};
+  }
+
+  .svc-solar__mosaic .svc-bento[data-slot='financing'] {
+    grid-column: 4;
+    grid-row: 3;
+    padding: #{rem-calc(22)};
+  }
+}

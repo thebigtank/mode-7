@@ -11,10 +11,10 @@ export function SectionHead({
   overline: string;
   title: string;
   lede?: ReactNode;
-  maxWidth?: number;
+  maxWidth?: 860 | 720;
 }) {
   return (
-    <div className="svc-head" style={{ maxWidth }}>
+    <div className="svc-head" data-maxw={maxWidth}>
       <Mono dot className="mb-4">
         {overline}
       </Mono>

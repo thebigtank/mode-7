@@ -2,7 +2,12 @@
 
 @layer components {
   .svc-head {
-    margin-bottom: 36px;
+    max-width: #{rem-calc(860)};
+    margin-bottom: #{rem-calc(36)};
+
+    &[data-maxw='720'] {
+      max-width: #{rem-calc(720)};
+    }
   }
 
   .svc-head__h2 {

@@ -5,7 +5,7 @@ import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
 import { PlusToggle } from "@/components/ui/PlusToggle";
 import { faqData } from "@/lib/faq";
-import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
+import content from "@/content/services.json";
 
 export function Faq() {
   const [tab, setTab] = useState(0);
@@ -13,75 +13,25 @@ export function Faq() {
   const group = faqData[tab];
 
   return (
-    <section
-      id="sec-faq"
-      style={{
-        width: "100%",
-        background: V2.white,
-        padding: "100px 0",
-        scrollMarginTop: 80,
-      }}
-    >
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 var(--m7-pad)" }}>
-        <div style={{ maxWidth: 860, marginBottom: 44 }}>
+    <section id="sec-faq" className="svc-faq w-full">
+      <div className="svc-faq__wrap mx-auto">
+        <div className="svc-faq__head">
           <Mono dot className="mb-4">
-            Questions
+            {content.faq.eyebrow}
           </Mono>
-          <h2
-            style={{
-              fontFamily: V2_FONT.display,
-              fontWeight: 400,
-              fontSize: "clamp(25px, 3.5vw, 40px)",
-              lineHeight: 1.18,
-              letterSpacing: "-0.016em",
-              color: V2.ink,
-              margin: 0,
-              textWrap: "balance",
-            }}
-          >
-            Answers, by category.
-          </h2>
+          <h2 className="svc-faq__title">{content.faq.title}</h2>
         </div>
 
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "0.5fr 1.5fr",
-            gap: 48,
-            alignItems: "start",
-          }}
-        >
-          <div style={{ position: "sticky", top: 100 }}>
-            <div
-              style={{
-                fontFamily: V2_FONT.mono,
-                fontSize: 11,
-                letterSpacing: "0.07em",
-                textTransform: "uppercase",
-                color: V2.muted,
-                marginBottom: 14,
-              }}
-            >
-              Browse topics
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <div className="svc-faq__cols grid items-start">
+          <div className="svc-faq__tabs">
+            <div className="svc-faq__tabs-label">{content.faq.browseLabel}</div>
+            <div className="svc-faq__tab-list flex flex-col">
               {faqData.map((d, i) => (
                 <div
                   key={d.tab}
                   onClick={() => setTab(i)}
-                  style={{
-                    padding: "13px 16px",
-                    borderRadius: 4,
-                    background: i === tab ? V2.ink : "transparent",
-                    color: i === tab ? V2.white : V2.muted,
-                    fontFamily: V2_FONT.display,
-                    fontWeight: 400,
-                    fontSize: 16,
-                    letterSpacing: "-0.01em",
-                    cursor: "pointer",
-                    transition: "background .2s ease,color .2s ease",
-                  }}
+                  data-active={i === tab}
+                  className="svc-faq__tab cursor-pointer"
                 >
                   {d.tab}
                 </div>
@@ -90,81 +40,25 @@ export function Faq() {
           </div>
 
           <div>
-            <div
-              style={{
-                fontFamily: V2_FONT.display,
-                fontWeight: 400,
-                fontSize: 28,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.2,
-                color: V2.ink,
-                margin: "0 0 22px",
-              }}
-            >
-              {group.title}
-            </div>
-            <div
-              style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}
-            >
+            <div className="svc-faq__group-title">{group.title}</div>
+            <div className="svc-faq__questions grid">
               {group.qs.map((qa, qi) => {
                 const key = `${tab}:${qi}`;
                 const isOpen = !!open[key];
                 return (
-                  <div
-                    key={key}
-                    style={{
-                      background: V2.white,
-                      border: V2_HAIR,
-                      borderRadius: 4,
-                      padding: "22px 26px",
-                    }}
-                  >
+                  <div key={key} className="svc-faq__item">
                     <button
                       type="button"
                       aria-expanded={isOpen}
-                      onClick={() =>
-                        setOpen((s) => ({ ...s, [key]: !s[key] }))
-                      }
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: 20,
-                        width: "100%",
-                        background: "none",
-                        border: 0,
-                        padding: 0,
-                        font: "inherit",
-                        color: "inherit",
-                        textAlign: "left",
-                        cursor: "pointer",
-                      }}
+                      onClick={() => setOpen((s) => ({ ...s, [key]: !s[key] }))}
+                      className="svc-faq__q-btn flex items-center justify-between w-full text-left cursor-pointer"
                     >
-                      <span
-                        style={{
-                          fontFamily: V2_FONT.display,
-                          fontWeight: 400,
-                          fontSize: 18,
-                          letterSpacing: "-0.01em",
-                          lineHeight: 1.3,
-                          color: V2.ink,
-                        }}
-                      >
-                        {qa.q}
-                      </span>
+                      <span className="svc-faq__q-text">{qa.q}</span>
                       <PlusToggle open={isOpen} />
                     </button>
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateRows: isOpen ? "1fr" : "0fr",
-                        opacity: isOpen ? 1 : 0,
-                        transition:
-                          "grid-template-rows .45s cubic-bezier(.4,0,.2,1),opacity .3s ease",
-                      }}
-                    >
-                      <div style={{ overflow: "hidden" }}>
-                        <P style={{ paddingTop: 14, maxWidth: 780 }}>{qa.a}</P>
+                    <div data-open={isOpen} className="svc-faq__a-wrap grid">
+                      <div className="svc-faq__a-inner overflow-hidden">
+                        <P className="svc-faq__a-text">{qa.a}</P>
                       </div>
                     </div>
                   </div>

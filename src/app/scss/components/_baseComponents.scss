@@ -28,6 +28,13 @@
 @use '../../../components/services/MiniRow/MiniRow';
 @use '../../../components/services/SectionHead/SectionHead';
 @use '../../../components/services/StripeLabel/StripeLabel';
+@use '../../../components/services/Faq/Faq';
+@use '../../../components/services/ServicesHero/ServicesHero';
+@use '../../../components/services/ServicesLifestyle/ServicesLifestyle';
+@use '../../../components/services/CoreSection/CoreSection';
+@use '../../../components/services/SmartHomeSection/SmartHomeSection';
+@use '../../../components/services/SolarSection/SolarSection';
+@use '../../../components/services/TradeInSection/TradeInSection';
 @use '../../../components/page/Cards/Cards';
 @use '../../../components/page/PageHero/PageHero';
 @use '../../../components/page/PageSection/PageSection';
