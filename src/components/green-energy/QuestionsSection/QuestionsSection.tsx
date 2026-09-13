@@ -1,14 +1,16 @@
 import { EnergyFaq } from "@/components/green-energy/EnergyFaq";
 import { Annotation } from "@/components/wireframe/Primitives";
+import content from "@/content/green-energy.json";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 export function QuestionsSection() {
+  const { faq } = content;
   return (
     <section className="ge-section">
       <div className="ge-questions">
-        <div className="ge-eyebrow">{"// Questions"}</div>
-        <h2 className="ge-h2">Everything you’re wondering.</h2>
-        <div className="mt-[34px]">
+        <div className="ge-eyebrow">{`// ${faq.eyebrow}`}</div>
+        <h2 className="ge-h2">{faq.title}</h2>
+        <div className="ge-questions__faq">
           <EnergyFaq />
         </div>
         {WIREFRAME.showAnnotations && (
@@ -21,7 +23,7 @@ export function QuestionsSection() {
               padding: "6px 13px",
             }}
           >
-            ACCORDION — EXPAND / COLLAPSE
+            {faq.annotation}
           </Annotation>
         )}
       </div>

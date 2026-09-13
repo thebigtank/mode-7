@@ -20,9 +20,7 @@ export default function GreenEnergyPage() {
       <PageHero
         centered
         overline="Own your power. Cut your bills. Clean the grid."
-        titleFontSize="clamp(64px, 8vw, 120px)"
-        titleLineHeight="0.8"
-        titleFontWeight="500"
+        titleVariant="wide"
         title={
           <>
             The Future Runs

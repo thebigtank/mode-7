@@ -10,81 +10,12 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Annotation, Placeholder } from "@/components/wireframe/Primitives";
+import content from "@/content/green-energy.json";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Para = { label?: string; text: string };
-type ScrollyBlock = {
-  n: string;
-  title: string;
-  caption: string;
-  lead?: string;
-  paras: Para[];
-};
-
-const BLOCKS: ScrollyBlock[] = [
-  {
-    n: "01",
-    title: "The Power of Energy Independence",
-    caption: "[Animated visual: Sun illuminating the roof]",
-    paras: [
-      {
-        text: "Switching to solar isn't just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint.",
-      },
-    ],
-  },
-  {
-    n: "02",
-    title: "How the System Connects",
-    caption: "[Animated visual: Energy flowing to smart inverter]",
-    lead: "To truly benefit from green energy, it helps to understand how the components work together to power a home seamlessly:",
-    paras: [
-      {
-        label: "Solar Array:",
-        text: "These panels act as a personal power plant, capturing sunlight throughout the day and generating raw electricity.",
-      },
-      {
-        label: "Smart Inverters:",
-        text: "The brain of the operation. This equipment safely converts the raw solar energy into the usable alternating current (AC) electricity that household appliances require.",
-      },
-      {
-        label: "Charge Controllers:",
-        text: "Advanced Maximum Power Point Tracking (MPPT) ensures the energy moving from the panels into the storage system flows at peak efficiency, extracting the most power possible regardless of cloud cover.",
-      },
-    ],
-  },
-  {
-    n: "03",
-    title: "Battery Storage: Your 24/7 Power Reserve",
-    caption: "[Animated visual: Power routing to battery bank]",
-    lead: "Generating solar power is only half the equation. Connecting a solar array to a modern, high-capacity battery system (like reliable lithium iron phosphate technology) is what unlocks true freedom.",
-    paras: [
-      {
-        label: "Daytime Storage:",
-        text: "Excess power generated during peak sunlight hours is routed straight to the battery bank instead of being wasted.",
-      },
-      {
-        label: "Nighttime Usage:",
-        text: "When the sun goes down, the home seamlessly shifts to battery power, keeping everything running without drawing from the main grid.",
-      },
-      {
-        label: "Outage Protection:",
-        text: "Advanced battery management systems monitor reserves, ensuring homes have reliable backup power during grid failures or rolling blackouts.",
-      },
-    ],
-  },
-  {
-    n: "04",
-    title: "Breaking Free from the Grid",
-    caption: "[Animated visual: Home fully disconnected from the grid]",
-    paras: [
-      {
-        text: "By combining efficient solar generation with robust battery storage, users create a self-sustaining micro-grid. This setup provides immunity to grid instability and massive long-term financial savings.",
-      },
-    ],
-  },
-];
+const BLOCKS = content.scrolly.blocks;
 
 function useMediaQuery(query: string) {
   const subscribe = useCallback(
@@ -193,7 +124,7 @@ export function EnergyScrolly() {
   return (
     <section ref={sectionRef} className="ge-scrolly" data-stacked={stacked || undefined}>
       <div className="ge-scrolly__media" data-stacked={stacked || undefined}>
-        <Placeholder label="ENERGY SYSTEM" height="100%" radius={0} style={{ width: "100%" }}>
+        <Placeholder label={content.scrolly.mediaLabel} height="100%" radius={0} style={{ width: "100%" }}>
           {WIREFRAME.showAnnotations && (
             <Annotation
               style={{
@@ -204,7 +135,7 @@ export function EnergyScrolly() {
                 padding: "6px 13px",
               }}
             >
-              IMAGE — ENERGY FLOW
+              {content.scrolly.annotationLabel}
             </Annotation>
           )}
           <div key={activeIndex} className="ge-scrolly-caption">
@@ -248,7 +179,9 @@ export function EnergyScrolly() {
                   className="ge-scrolly__para"
                   data-first={pi === 0 && !b.lead ? true : undefined}
                 >
-                  {p.label && <span className="ge-scrolly__para-label">{p.label} </span>}
+                  {"label" in p && p.label && (
+                    <span className="ge-scrolly__para-label">{p.label} </span>
+                  )}
                   {p.text}
                 </p>
               ))}

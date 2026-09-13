@@ -4,4 +4,8 @@
   .ge-questions {
     position: relative;
   }
+
+  .ge-questions__faq {
+    margin-top: #{rem-calc(34)};
+  }
 }

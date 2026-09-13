@@ -4,7 +4,7 @@
   @keyframes ge-scrolly-caption {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(#{rem-calc(10)});
     }
 
     to {
@@ -16,7 +16,7 @@
   .ge-scrolly {
     position: relative;
     width: 100%;
-    margin-top: clamp(55px, 7.1vw, 100px);
+    margin-top: #{fluid(55, 100)};
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -39,7 +39,7 @@
     &[data-stacked] {
       flex: 0 0 auto;
       width: 100%;
-      height: clamp(300px, 52vw, 460px);
+      height: #{fluid(300, 460)};
     }
   }
 
@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: #{rem-calc(24)};
     pointer-events: none;
     animation: ge-scrolly-caption 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 
@@ -76,7 +76,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding: 0 0 clamp(44px, 6vh, 64px);
+      padding: 0 0 #{fluid(44, 64)};
     }
   }
 
@@ -87,7 +87,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    padding: clamp(40px, 6vh, 72px) clamp(20px, 5vw, 48px);
+    padding: #{fluid(40, 72)} #{fluid(20, 48)};
     opacity: 1;
     filter: none;
     transform: none;
@@ -97,8 +97,8 @@
       inset: auto;
       min-height: auto;
       overflow: visible;
-      padding: clamp(28px, 4vh, 44px) clamp(20px, 5vw, 48px);
-      border-top: 1px solid var(--color-m7-neutral-border-soft);
+      padding: #{fluid(28, 44)} #{fluid(20, 48)};
+      border-top: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
     }
 
     &[data-stacked][data-first] {
@@ -108,25 +108,25 @@
 
   .ge-scrolly__n {
     font-family: var(--font-m7-mono);
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(1, false)};
     color: var(--color-m7-neutral-faint);
-    margin-bottom: 14px;
+    margin-bottom: #{rem-calc(14)};
   }
 
   .ge-scrolly__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(24px, 2.6vw, 34px);
+    font-size: #{fluid(24, 34)};
     line-height: 1.06;
-    letter-spacing: -2px;
-    margin: 0 0 16px;
-    max-width: 560px;
+    letter-spacing: #{rem-calc(-2, false)};
+    margin: 0 0 #{rem-calc(16)};
+    max-width: #{rem-calc(560)};
     text-wrap: balance;
   }
 
   .ge-scrolly__body {
-    max-width: 560px;
+    max-width: #{rem-calc(560)};
   }
 
   .ge-scrolly__lead {
@@ -140,7 +140,7 @@
     font-size: var(--m7-lede-size);
     line-height: 1.6;
     color: var(--color-m7-neutral-body);
-    margin: 14px 0 0;
+    margin: #{rem-calc(14)} 0 0;
 
     &[data-first] {
       margin: 0;
@@ -150,8 +150,8 @@
   .ge-scrolly__para-label {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 17px;
-    letter-spacing: -0.2px;
+    font-size: #{rem-calc(17)};
+    letter-spacing: #{rem-calc(-0.2, false)};
     color: var(--color-m7-neutral-ink);
   }
 }

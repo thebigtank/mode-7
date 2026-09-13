@@ -2,31 +2,31 @@
 
 @layer components {
   .ge-herocards {
-    max-width: 1320px;
+    max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: 44px var(--m7-pad) 0;
+    padding: #{rem-calc(44)} var(--m7-pad) 0;
   }
 
   .ge-herocards__grid {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    gap: #{rem-calc(18)};
 
-    @media (max-width: 1080px) {
+    @media (max-width: #{rem-calc(1080)}) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: #{rem-calc(620)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
   .ge-herocard {
     position: relative;
-    border-radius: 4px;
+    border-radius: #{rem-calc(4)};
     overflow: hidden;
-    border: 1px solid var(--color-m7-neutral-border);
-    height: min(64vh, 620px);
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: min(64vh, #{rem-calc(620)});
+    background: var(--stripe-bg);
     --ge-scrim-rgb: 10 22 14;
   }
 
@@ -35,52 +35,47 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgb(0 0 0 / 0) 45%,
+      transparent 45%,
       rgb(var(--ge-scrim-rgb) / 0.85) 100%
     );
   }
 
   .ge-herocard__icon {
     position: absolute;
-    top: 18px;
-    left: 18px;
-    width: 46px;
-    height: 46px;
-    border-radius: 99px;
+    top: #{rem-calc(18)};
+    left: #{rem-calc(18)};
+    width: #{rem-calc(46)};
+    height: #{rem-calc(46)};
+    border-radius: #{rem-calc(99)};
     background: var(--color-m7-neutral-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .ge-herocard__body {
     position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+    left: #{rem-calc(20)};
+    right: #{rem-calc(20)};
+    bottom: #{rem-calc(20)};
   }
 
   .ge-herocard__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 24px;
+    font-size: #{rem-calc(24)};
     line-height: 1.15;
-    letter-spacing: -0.5px;
+    letter-spacing: #{rem-calc(-0.5, false)};
     color: var(--color-m7-neutral-white);
   }
 
   .ge-herocard__sub {
-    font-size: 14px;
+    font-size: #{rem-calc(14)};
     color: rgb(var(--color-m7-neutral-white-rgb) / 0.75);
-    margin-top: 6px;
+    margin-top: #{rem-calc(6)};
   }
 
   .ge-herocard__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
+    gap: #{rem-calc(6)};
+    font-size: #{rem-calc(14)};
     color: rgb(var(--color-m7-neutral-white-rgb) / 0.9);
-    margin-top: 14px;
+    margin-top: #{rem-calc(14)};
   }
 }
