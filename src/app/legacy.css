@@ -431,33 +431,6 @@ from {
   .m7-top-md { padding-top: clamp(40px, 5vw, 64px); }
   .m7-top-sm { padding-top: clamp(26px, 3.4vw, 44px); }
 
-  /* Symmetric column sets. Use these INSTEAD of an inline gridTemplateColumns,
-     so no !important is needed to override anything. */
-  .m7-c2,
-  .m7-c4 { display: grid; }
-  .m7-c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .m7-c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-  @media (max-width: 1080px) {
-.m7-c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-  @media (max-width: 620px) {
-.m7-c2,
-    .m7-c4 { grid-template-columns: minmax(0, 1fr); }
-}
-
-  /* Legacy helpers, kept because ~33 grids already use them. These DO need
-     !important — the desktop columns are still declared inline on those. */
-  @media (max-width: 1080px) {
-.m7-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-}
-  @media (max-width: 900px) {
-.m7-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
-}
-  @media (max-width: 620px) {
-.m7-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
-}
-
   /* iOS Safari zooms the whole page when a focused field is under 16px. Our form
      fields are 15px by design, so lift them on touch devices only — the desktop
      type scale is untouched. */
@@ -480,19 +453,6 @@ input,
     }
 }
 
-  /* Content-page grids ------------------------------------------------------ */
-  /* Decorative bento mosaics whose tiles are placed by explicit grid-column /
-     grid-row. Those coordinates describe a 3- or 4-column composition; once the
-     grid narrows they'd address columns that no longer exist, creating implicit
-     tracks and pushing the page sideways. Switching the container to flex makes
-     the browser ignore the placement entirely — no per-tile overrides needed. */
-  @media (max-width: 900px) {
-.m7-mosaic {
-      display: flex !important;
-      flex-direction: column;
-    }
-    .m7-mosaic > * { min-height: 200px; }
-}
   @keyframes m7drift {
 from { transform: translateY(0); } to { transform: translateY(-50%); }
 }

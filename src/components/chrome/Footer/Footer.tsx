@@ -33,7 +33,7 @@ export function Footer() {
           </span>
         </div>
 
-        <div className="v1-footer__cols m7-grid-3 grid">
+        <div className="v1-footer__cols grid">
           <div className="v1-footer__brandcol">
             <div className="v1-footer__brand">MODE&nbsp;7</div>
             <div className="v1-footer__desc">{content.footer.description}</div>
