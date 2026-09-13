@@ -46,9 +46,7 @@
   }
 
   .v2-header__panel {
-    background: rgb(var(--color-v2-white-rgb) / 0.4);
-    backdrop-filter: blur(#{rem-calc(20)}) saturate(180%);
-    -webkit-backdrop-filter: blur(#{rem-calc(20)}) saturate(180%);
+    background: var(--color-v2-white);
     border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.5);
     border-left: 1px solid rgb(var(--color-v2-white-rgb) / 0.25);
     border-right: 1px solid rgb(var(--color-v2-white-rgb) / 0.25);
@@ -133,27 +131,5 @@
     font-size: #{rem-calc(10)};
     font-weight: 600;
     line-height: 1;
-  }
-
-  .v2-nav-scrim {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 220ms ease;
-    background: rgb(var(--color-v2-ink-rgb) / 0.32);
-
-    @media (max-width: #{rem-calc(980)}) {
-      display: none !important;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none !important;
-    }
-  }
-
-  .v2-nav-scrim.is-active {
-    opacity: 1;
   }
 }

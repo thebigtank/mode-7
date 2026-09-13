@@ -96,8 +96,6 @@ export function HeaderV2({ onOpenSearch }: { onOpenSearch?: () => void }) {
           </div>
         </div>
       </header>
-
-      <div aria-hidden className={`v2-nav-scrim${active !== null ? " is-active" : ""}`} />
     </>
   );
 }
