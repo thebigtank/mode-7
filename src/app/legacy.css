@@ -171,19 +171,11 @@
     outline-offset: 2px;
     border-radius: 3px;
   }
-  /* Prices, valuations and counters must not jitter as digits change. */
-  .m7-num,
-  [data-num] {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum" 1;
-  }
-
   /* Global paragraph type ------------------------------------------------------
      The site-wide <p> default, as tokens rather than a literal — the same
      convention as --m7-pad/--m7-max above and the colour roles in :root.
      A component that genuinely needs something else (a lede, a caption, a
-     hero standfirst) keeps its own size/line-height, exactly as .m7-h1/.m7-h2/
-     .m7-h3 below already do for headings; it does not restate these two.
+     hero standfirst) keeps its own size/line-height; it does not restate these two.
 
      Every page-scoped block (.about-page, .tradein-page, and any <p> carrying
      an inline style) sets its own font-size and/or line-height with higher
@@ -193,16 +185,6 @@
   p {
     font-size: var(--m7-p-size);
     line-height: var(--m7-p-line);
-  }
-
-  .m7-pill:hover {
-    background: var(--m7-ink);
-    color: var(--m7-card);
-    border-color: var(--m7-ink);
-  }
-  .m7-lift-dark:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(28, 21, 15, 0.24);
   }
 
   /* Modals ------------------------------------------------------------------
@@ -513,28 +495,18 @@ from {
   .m7-top-md { padding-top: clamp(40px, 5vw, 64px); }
   .m7-top-sm { padding-top: clamp(26px, 3.4vw, 44px); }
 
-  /* Fluid type. The fixed 44–58px headings were the other half of the phone
-     problem — a 44px heading in a 320px column breaks mid-word. */
-  .m7-h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.02; letter-spacing: -0.045em; }
-  .m7-h2 { font-size: clamp(27px, 3.8vw, 44px); line-height: 1.04; letter-spacing: -0.04em; }
-  .m7-h3 { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.14; letter-spacing: -0.028em; }
-
   /* Symmetric column sets. Use these INSTEAD of an inline gridTemplateColumns,
      so no !important is needed to override anything. */
   .m7-c2,
-  .m7-c3,
   .m7-c4 { display: grid; }
   .m7-c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .m7-c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .m7-c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
   @media (max-width: 1080px) {
 .m7-c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .m7-c3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
   @media (max-width: 620px) {
 .m7-c2,
-    .m7-c3,
     .m7-c4 { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -572,125 +544,6 @@ input,
     }
 }
 
-  /* The full-bleed glass caption: a fixed image column beside text does not fit
-     inside the card on a phone. */
-  @media (max-width: 620px) {
-.m7-fullbleed-card {
-      grid-template-columns: minmax(0, 1fr) !important;
-      max-width: calc(100% - 2 * var(--m7-pad)) !important;
-    }
-    .m7-fullbleed-card > :first-child { min-height: 92px; }
-    .m7-fullbleed-card > :last-child { padding: 0 4px 6px !important; }
-}
-
-  /* Ecosystem video ----------------------------------------------------------
-     Desktop shows one video split across two framed panels. A phone only has
-     room for one frame, so the second panel goes and the video layer stops
-     being double-width — full-bleed inside a single panel. */
-  @media (max-width: 900px) {
-.m7-eco-panel:nth-of-type(2) { display: none; }
-    .m7-eco-panel:nth-of-type(1) { min-height: clamp(300px, 76vw, 420px); }
-    .m7-eco-video {
-      width: 100% !important;
-      left: 0 !important;
-    }
-}
-
-  /* Featured capabilities — sticky card stack ---------------------------------
-     The stack itself is pure CSS: each card sits in a normal-flow wrapper that is
-     `position: sticky` at an increasing offset, so a card's own height is exactly
-     the travel it gets before the next one pins over it. Only the footer needs a
-     breakpoint. */
-  @media (max-width: 760px) {
-/* Three columns of mono bullets do not fit a phone; stack them and let the
-       card grow rather than clipping the footer over the copy. */
-    .m7-stack__foot { grid-template-columns: 1fr !important; }
-}
-  @media (prefers-reduced-motion: reduce) {
-.m7-stack__card { transform: none !important; filter: none !important; }
-}
-
-  /* Team: grid above 620px, swipeable carousel below -------------------------- */
-  @media (max-width: 620px) {
-.m7-team-grid {
-      display: flex !important;
-      grid-template-columns: none !important;
-      grid-auto-rows: auto !important;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scroll-snap-type: x mandatory;
-      scroll-padding-left: var(--m7-pad);
-      /* bleed to the screen edges so a card can sit flush while scrolling */
-      margin-inline: calc(-1 * var(--m7-pad));
-      padding-inline: var(--m7-pad);
-      padding-bottom: 6px;
-    }
-    .m7-team-grid > * {
-      flex: 0 0 78vw;
-      height: 260px;
-      scroll-snap-align: start;
-    }
-}
-
-  /* Home hero + Mission ------------------------------------------------------ */
-  /* Five feature cells across a 350px column give each ~70px, which overflows.
-     Two-up on tablets, one column on phones, with the dividers redrawn. */
-  .m7-herofeat { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  @media (max-width: 1080px) and (min-width: 621px) {
-.m7-herofeat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .m7-herofeat > * { border-right: 0 !important; border-bottom: 1px solid var(--m7-line); }
-}
-  /* Below 620px this is a swipeable row rather than five stacked rows — five
-     full-width bars added a screen and a half of scrolling for a feature list. */
-  @media (max-width: 620px) {
-.m7-herofeat {
-      display: flex !important;
-      grid-template-columns: none !important;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scroll-snap-type: x proximity;
-      scrollbar-width: none;
-      margin-inline: calc(-1 * var(--m7-pad));
-      padding-inline: var(--m7-pad);
-      scroll-padding-left: var(--m7-pad);
-    }
-    .m7-herofeat::-webkit-scrollbar { display: none; }
-    .m7-herofeat > * {
-      flex: 0 0 auto;
-      scroll-snap-align: start;
-      padding: 18px 22px 18px 0 !important;
-      border-right: 0 !important;
-    }
-    .m7-herofeat > * + * { padding-left: 22px !important; border-left: 1px solid var(--m7-line); }
-}
-
-  /* The stat card deliberately overhangs the image on desktop; on a narrow
-     screen that overhang lands off the left edge, so it tucks back inside. */
-  @media (max-width: 900px) {
-.m7-mission-chip {
-      left: 12px !important;
-      bottom: 12px !important;
-      width: min(208px, 52vw) !important;
-      height: 128px !important;
-    }
-}
-
-  @media (max-width: 760px) {
-.m7-brandstrip {
-      flex-direction: column;
-      align-items: stretch !important;
-      gap: 16px;
-      padding-right: 0 !important;
-    }
-    .m7-brandstrip__cap { padding-right: var(--m7-pad) !important; gap: 10px !important; }
-    .m7-brandstrip__track { width: 100%; }
-    /* the 255px cap forced a two-line block; one line reads as a strip caption */
-    .m7-brandstrip__text {
-      max-width: none !important;
-      white-space: nowrap;
-    }
-}
-
   /* Content-page grids ------------------------------------------------------ */
   /* Decorative bento mosaics whose tiles are placed by explicit grid-column /
      grid-row. Those coordinates describe a 3- or 4-column composition; once the
@@ -704,35 +557,6 @@ input,
     }
     .m7-mosaic > * { min-height: 200px; }
 }
-  /* Why Mode 7 — column hover + responsive collapse -------------------------- */
-  .m7-why-col { transition: background .4s ease; }
-  /* the design's own hover tint: the site's gold #F0C044 at 7% */
-  .m7-why-col:hover { background: rgba(240, 192, 68, 0.07); }
-  .m7-why-col:hover .m7-why-num { color: var(--m7-rust) !important; }
-  /* !important is load-bearing: the number's resting colour is an inline style on
-     the element, and an inline style outranks any selector here without it. */
-  .m7-why-num { transition: color .4s ease; }
-  @media (max-width: 1080px) {
-.m7-why-grid { grid-template-columns: 1fr 1fr !important; }
-    .m7-why-col { border-top: 1px solid rgba(28, 21, 15, 0.16); }
-}
-  @media (max-width: 620px) {
-.m7-why-grid { grid-template-columns: 1fr !important; }
-}
-
-  /* Team mosaic. The 240px fixed row height is fine at 3-up but far too tall
-     for a full-width phone tile, so the rows shrink with the columns. */
-  .m7-team-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: 240px;
-  }
-  @media (max-width: 1080px) {
-.m7-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 210px; }
-}
-  @media (max-width: 560px) {
-.m7-team-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 180px; }
-}
-
   @keyframes m7drift {
 from { transform: translateY(0); } to { transform: translateY(-50%); }
 }
