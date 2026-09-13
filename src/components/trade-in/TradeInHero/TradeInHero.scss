@@ -2,33 +2,32 @@
 
 @layer components {
   .t-hero {
-    padding-block: clamp(40px, 5vw, 72px) 0;
+    padding-top: #{fluid(40, 72)};
+    padding-bottom: 0;
   }
 
   .t-dhero {
-    font-family: var(--f-head);
+    font-family: var(--font-v2-display);
     font-weight: 400;
     margin: 0;
-    font-size: clamp(40px, 6.4vw, 84px);
+    font-size: #{fluid(40, 84)};
     line-height: 1.04;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
   .tradein-page .t-lede {
-    font-size: clamp(18px, 1.5vw, 21px);
+    font-size: #{fluid(18, 21)};
     line-height: 1.55;
-    color: var(--body);
+    color: var(--color-v2-muted);
     margin: 0;
     max-width: 40ch;
   }
 
   .t-tick {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 30px;
-    margin-top: 26px;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
+    gap: #{rem-calc(8)} #{rem-calc(30)};
+    margin-top: #{rem-calc(26)};
+    padding-top: #{rem-calc(20)};
+    border-top: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
   }
 }

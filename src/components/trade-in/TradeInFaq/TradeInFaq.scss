@@ -2,35 +2,30 @@
 
 @layer components {
   .tradein-page .t-faq {
-    margin-top: clamp(26px, 3vw, 42px);
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin-top: #{fluid(26, 42)};
+    border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.14);
   }
 
   .tradein-page .t-faqi {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom: 1px solid rgb(var(--color-v2-white-rgb) / 0.14);
   }
 
   .t-faqi__b {
     width: 100%;
-    text-align: left;
     background: none;
     border: 0;
-    color: #fff;
+    color: var(--color-v2-white);
     cursor: pointer;
-    font-family: var(--f-head);
+    font-family: var(--font-v2-display);
     font-weight: 400;
-    font-size: clamp(18px, 1.8vw, 22px);
+    font-size: #{fluid(18, 22)};
     line-height: 1.3;
     letter-spacing: -0.01em;
-    padding: 22px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    padding-block: #{rem-calc(22)};
+    gap: #{rem-calc(20)};
   }
 
   .t-faqi__p {
-    display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0.001;
@@ -46,14 +41,13 @@
   }
 
   .t-faqi__pi {
-    overflow: hidden;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 16px;
+    color: rgb(var(--color-v2-white-rgb) / 0.62);
+    font-size: #{rem-calc(16)};
     line-height: 1.6;
     padding-bottom: 0;
   }
 
   .t-faqi__b[aria-expanded="true"] + .t-faqi__p .t-faqi__pi {
-    padding-bottom: 22px;
+    padding-bottom: #{rem-calc(22)};
   }
 }

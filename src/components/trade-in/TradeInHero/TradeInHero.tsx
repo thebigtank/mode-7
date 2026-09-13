@@ -1,26 +1,27 @@
 import { Mono } from "@/components/ui/Mono";
+import content from "@/content/trade-in.json";
 
 export function TradeInHero() {
+  const { hero } = content;
+
   return (
     <section className="t-wrap t-hero">
       <div className="max-w-[62ch]">
         <Mono dot className="mb-4">
-          Intelligent Trade-In Portal
+          {hero.eyebrow}
         </Mono>
         <h1 className="t-dhero">
-          Your device already
+          {hero.titleLine1}
           <br />
-          has a value.
+          {hero.titleLine2}
         </h1>
-        <p className="t-lede mt-[22px]">
-          We just make it the honest one. Answer a few questions and watch the number build
-          itself, line by line — no black box, no lowball, no submit-and-pray.
-        </p>
-        <div className="t-tick">
-          <span className="t-label">≈ 60 seconds</span>
-          <span className="t-label">Live market data</span>
-          <span className="t-label">Trade toward any device</span>
-          <span className="t-label">Vetted · Sealed · Guaranteed</span>
+        <p className="t-lede mt-[22px]">{hero.lede}</p>
+        <div className="t-tick flex flex-wrap">
+          {hero.ticks.map((tick) => (
+            <span className="t-label" key={tick}>
+              {tick}
+            </span>
+          ))}
         </div>
       </div>
     </section>

@@ -2,37 +2,35 @@
 
 @layer components {
   .t-price3 {
-    display: grid;
-    gap: 14px;
-    margin-top: clamp(26px, 3vw, 42px);
+    gap: #{rem-calc(14)};
+    margin-top: #{fluid(26, 42)};
     grid-template-columns: 1fr;
 
-    @media (min-width: 820px) {
+    @media (min-width: #{rem-calc(820)}) {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   .t-pc {
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    background: var(--paper);
-    padding: clamp(24px, 2.4vw, 32px);
-    display: grid;
-    gap: 12px;
+    border: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+    border-radius: #{rem-calc(4)};
+    background: var(--color-v2-white);
+    padding: #{fluid(24, 32)};
+    gap: #{rem-calc(12)};
     align-content: start;
-    min-height: 210px;
+    min-height: #{rem-calc(210)};
   }
 
   .t-pc__n {
-    font-family: var(--f-mono);
-    font-size: 12px;
-    color: var(--decor);
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(12)};
+    color: rgb(var(--color-v2-ink-rgb) / 0.32);
   }
 
   .t-pc__t {
-    font-family: var(--f-head);
+    font-family: var(--font-v2-display);
     font-weight: 400;
-    font-size: 20px;
+    font-size: #{rem-calc(20)};
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
