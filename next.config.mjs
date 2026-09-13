@@ -1,3 +1,5 @@
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -40,4 +42,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// withPayload wires the admin's own webpack/Turbopack needs and its server
+// externals. It wraps rather than replaces, so everything above still applies.
+export default withPayload(nextConfig);
