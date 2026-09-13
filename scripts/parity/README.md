@@ -82,6 +82,24 @@ Tailwind's `rounded-full`, which compiles to `calc(infinity * 1px)` and
 serialises as `3.35544e+07px`. Identical on a square element, different on any
 other. `rounded-[50%]` is the exact spelling.
 
+## Gating something that renders nowhere
+
+The parked components -- `LifecycleV2`, `WhyV2`, `InsightsV2`, `CtaBandV2`,
+`HeroHeadlineV2Wipe` -- are built but mounted on no route, so they have no
+baseline and the gate cannot see them. To port or change one, give it a
+temporary route, add that route to `ROUTES` in `config.mjs`, capture a baseline
+BEFORE the change, and delete both afterwards:
+
+```tsx
+// src/app/(v2)/parked/page.tsx  -- temporary, delete before merging
+export default function ParkedProbe() {
+  return <main>{/* mount each parked component */}</main>;
+}
+```
+
+Note the folder cannot start with `_`: Next treats `_`-prefixed directories as
+private and never routes them, so the page silently does not exist.
+
 ## Known rare noise
 
 `/green-energy` at 1440 was intermittently off by **~89,000 pixels**, about one
