@@ -188,6 +188,9 @@ Built, verified, mounted on no route: `LifecycleV2`, `WhyV2`, `InsightsV2`,
 `page/DarkPanel`, `page/DarkStat`, `page/IconCard`, `page/StatBar` (built for sections
 never mounted). All kept deliberately. `InsightsV2` reads `testimonials[1..3]`; with
 it parked, `QuoteV2`'s `testimonials[0]` is the only testimonial displayed anywhere.
+`green-energy/EnergyScrolly` is likewise parked on `/green-energy` (owner's request);
+its stylesheet stays registered and `green-energy.json`'s `scrolly` key stays intact.
+`smart-home/MediaBanner` is parked on `/smart-home` the same way.
 
 ---
 

@@ -7,14 +7,6 @@
     padding: #{fluid(35, 64)} var(--v2-pad) 0;
   }
 
-  .ge-hero__overline {
-    font-family: var(--font-v2-label);
-    font-size: #{rem-calc(12)};
-    letter-spacing: 0.06em;
-    color: var(--color-v2-faint);
-    margin-bottom: #{rem-calc(16)};
-  }
-
   .ge-hero-h1 {
     font-family: var(--font-v2-display);
     font-weight: 400;

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { EnergyScrolly } from "@/components/green-energy/EnergyScrolly";
 import { GreenEnergyHero } from "@/components/green-energy/GreenEnergyHero";
 import { HeroCards } from "@/components/green-energy/HeroCards";
 import { QuestionsSection } from "@/components/green-energy/QuestionsSection";
@@ -19,7 +18,6 @@ export default function GreenEnergyPage() {
       <GreenEnergyHero />
       <HeroCards />
       <WhyItMatters />
-      <EnergyScrolly />
       <SolarWorks />
       <SolarLifting />
       <QuestionsSection />

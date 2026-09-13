@@ -6,7 +6,6 @@ export function GreenEnergyHero() {
   return (
     <section className="ge-hero">
       <div className="text-center">
-        <div className="ge-hero__overline uppercase">{`// ${hero.overline}`}</div>
         <h1 className="ge-hero-h1 text-center">
           {hero.titleLine1}
           <br />

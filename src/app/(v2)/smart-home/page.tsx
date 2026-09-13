@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BestSellers } from "@/components/smart-home/BestSellers";
 import { CategoryShowcase } from "@/components/smart-home/CategoryShowcase";
-import { MediaBanner } from "@/components/smart-home/MediaBanner";
 import { WorksTogether } from "@/components/smart-home/WorksTogether";
 import { SmartHomeHero } from "@/components/smart-home/SmartHomeHero";
 
@@ -15,7 +14,6 @@ export default function SmartHomePage() {
   return (
     <div className="smart-home-page">
       <SmartHomeHero />
-      <MediaBanner label="SMART HOME — CONNECTED LIVING ROOM" />
       <CategoryShowcase />
       <BestSellers />
       <WorksTogether />
