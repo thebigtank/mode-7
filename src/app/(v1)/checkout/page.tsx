@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { OrderReceived } from "@/components/checkout/OrderReceived";
 import { Annotation } from "@/components/wireframe/Primitives";
+import content from "@/content/checkout.json";
 import { WIREFRAME } from "@/lib/wireframe-config";
+
+const ANNOTATION_SIZE = { fontSize: 10, padding: "6px 13px" };
 
 export const metadata: Metadata = {
   title: "Order received — Mode 7",
@@ -15,9 +18,7 @@ export default function CheckoutPage() {
       <OrderReceived />
       {WIREFRAME.showAnnotations && (
         <div className="m7-wrap flex justify-center pt-[34px]">
-          <Annotation style={{ fontSize: 10, padding: "6px 13px" }}>
-            WHATSAPP HANDOFF — NO CARD DETAILS TAKEN ON SITE
-          </Annotation>
+          <Annotation style={ANNOTATION_SIZE}>{content.page.annotation}</Annotation>
         </div>
       )}
     </>

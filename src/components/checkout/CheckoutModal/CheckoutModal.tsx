@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import content from "@/content/checkout.json";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
 import {
@@ -12,13 +13,13 @@ import {
   type CheckoutField,
 } from "@/lib/contact";
 
-const HINTS: Record<CheckoutField, string> = {
-  firstName: "Please enter your first name.",
-  lastName: "Please enter your last name.",
-  email: "That doesn’t look like an email address.",
-  phone: "Please enter a reachable phone number.",
-  address: "Please give a full delivery address we can find.",
-};
+const FIELD_NAME = {
+  firstName: "firstName",
+  lastName: "lastName",
+  email: "email",
+  phone: "phone",
+  address: "address",
+} as const;
 
 function Field({
   label,
@@ -62,7 +63,7 @@ function Field({
 
   return (
     <div className="checkout-field" data-span={span || undefined}>
-      <label htmlFor={id} className="checkout-field__label">
+      <label htmlFor={id} className="checkout-field__label block uppercase">
         {label}
       </label>
       {multiline ? (
@@ -83,6 +84,7 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
   const [d, setD] = useState(emptyCheckout);
   const [submitting, setSubmitting] = useState(false);
   const [attempted, setAttempted] = useState(false);
+  const c = content.modal;
 
   const bad = checkoutIssues(d);
   const ok = bad.length === 0;
@@ -116,9 +118,9 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Checkout details"
+      aria-label={c.dialogLabel}
       onClick={onClose}
-      className="m7-modal checkout-modal"
+      className="m7-modal checkout-modal fixed inset-0 z-[90000] flex justify-center"
     >
       <form
         ref={panelRef}
@@ -126,95 +128,65 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
         onSubmit={submit}
         noValidate
-        className="m7-modal__panel checkout-modal__panel"
+        className="m7-modal__panel checkout-modal__panel overflow-y-auto"
         data-lenis-prevent
       >
-        <div className="checkout-modal__head">
-          <span className="checkout-modal__head-label">Checkout · your details</span>
+        <div className="checkout-modal__head sticky top-0 z-[1] flex items-center justify-between">
+          <span className="checkout-modal__head-label uppercase">{c.headLabel}</span>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
-            className="checkout-modal__close"
+            aria-label={c.closeLabel}
+            className="checkout-modal__close cursor-pointer"
           >
             ×
           </button>
         </div>
 
         <div className="checkout-modal__body">
-          <div className="checkout-modal__title">Where should we send it?</div>
-          <p className="checkout-modal__lede">
-            An agent picks this up and messages you on WhatsApp to confirm stock,
-            the final figure and delivery. Nothing is charged here.
-          </p>
+          <div className="checkout-modal__title">{c.title}</div>
+          <p className="checkout-modal__lede">{c.lede}</p>
 
-          <div className="m7-kyc checkout-modal__kyc">
-            <Field
-              label="First name"
-              hint={HINTS.firstName}
-              autoComplete="given-name"
-              value={d.firstName}
-              invalid={bad.includes("firstName")}
-              onChange={(v) => set({ firstName: v })}
-            />
-            <Field
-              label="Last name"
-              hint={HINTS.lastName}
-              autoComplete="family-name"
-              value={d.lastName}
-              invalid={bad.includes("lastName")}
-              onChange={(v) => set({ lastName: v })}
-            />
-            <Field
-              label="Email address"
-              hint={HINTS.email}
-              type="email"
-              autoComplete="email"
-              value={d.email}
-              invalid={bad.includes("email")}
-              onChange={(v) => set({ email: v })}
-            />
-            <Field
-              label="Phone number"
-              hint={HINTS.phone}
-              type="tel"
-              autoComplete="tel"
-              placeholder="The number on WhatsApp"
-              value={d.phone}
-              invalid={bad.includes("phone")}
-              onChange={(v) => set({ phone: v })}
-            />
-            <Field
-              span
-              multiline
-              label="Delivery address"
-              hint={HINTS.address}
-              autoComplete="street-address"
-              placeholder="Street, area, city and state"
-              value={d.address}
-              invalid={bad.includes("address")}
-              onChange={(v) => set({ address: v })}
-            />
+          <div className="checkout-modal__kyc grid">
+            {c.fields.map((f) => {
+              const name: CheckoutField | undefined =
+                FIELD_NAME[f.name as keyof typeof FIELD_NAME];
+              if (!name) return null;
+
+              return (
+                <Field
+                  key={name}
+                  label={f.label}
+                  hint={f.hint}
+                  type={f.type}
+                  autoComplete={f.autoComplete}
+                  placeholder={f.placeholder || undefined}
+                  multiline={f.multiline}
+                  span={f.span}
+                  value={d[name]}
+                  invalid={bad.includes(name)}
+                  onChange={(v) => set({ [name]: v } as Partial<typeof d>)}
+                />
+              );
+            })}
           </div>
 
           {attempted && !ok && (
             <div className="checkout-modal__warning">
-              {bad.length} field{bad.length > 1 ? "s" : ""} still to fill in.
+              {bad.length} {bad.length > 1 ? c.warningMany : c.warningOne}
             </div>
           )}
 
           <button
             type="submit"
             disabled={submitting}
-            className="checkout-modal__submit"
+            className="checkout-modal__submit inline-flex items-center justify-center"
             data-submitting={submitting || undefined}
           >
-            {submitting ? "Sending to an agent…" : "Send my order to an agent"}
+            {submitting ? c.submitBusyLabel : c.submitLabel}
           </button>
 
-          <div className="checkout-modal__foot">
-            Used only to fulfil this order. No card details are taken on this site.
-          </div>
+          <div className="checkout-modal__foot text-center">{c.foot}</div>
         </div>
       </form>
     </div>
@@ -226,8 +198,12 @@ export function CheckoutButton() {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className="checkout-button">
-        Checkout on WhatsApp
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="checkout-button inline-flex items-center cursor-pointer"
+      >
+        {content.button.label}
       </button>
       {open && <CheckoutModal onClose={() => setOpen(false)} />}
     </>

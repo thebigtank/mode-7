@@ -1,23 +1,15 @@
 @use 'utils' as *;
 
 @layer components {
-  .m7-oc-rise {
-    animation: m7ocRise 0.62s cubic-bezier(0.23, 1, 0.32, 1) both;
-  }
-
   @keyframes m7ocRise {
     from {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(#{rem-calc(14)});
     }
     to {
       opacity: 1;
       transform: none;
     }
-  }
-
-  .m7-oc-mark {
-    animation: m7ocPop 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both;
   }
 
   @keyframes m7ocPop {
@@ -31,200 +23,203 @@
     }
   }
 
-  .m7-oc-tick {
-    stroke-dasharray: 30;
-    stroke-dashoffset: 30;
-    animation: m7ocTick 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.26s both;
-  }
-
   @keyframes m7ocTick {
     to {
       stroke-dashoffset: 0;
     }
   }
 
-  .m7-oc-steps {
-    display: grid;
-    gap: 28px 24px;
-    grid-template-columns: 1fr;
-    position: relative;
-  }
+  .oc-rise {
+    animation-name: m7ocRise;
+    animation-duration: 0.62s;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: both;
+    animation-delay: var(--oc-rise-delay, 0s);
 
-  @media (min-width: 780px) {
-    .m7-oc-steps {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .m7-oc-steps::before {
-      content: "";
-      position: absolute;
-      top: 5px;
-      left: 12%;
-      right: 12%;
-      height: 1px;
-      background: var(--m7-line);
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: m7aiFade;
+      animation-duration: 0.3s;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
     }
   }
 
-  .m7-oc-step {
-    position: relative;
-    padding-top: 26px;
+  .oc {
+    padding-top: #{fluid(48, 96)};
   }
 
-  .m7-oc-step__dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 11px;
-    height: 11px;
-    border-radius: 99px;
-    background: var(--m7-card);
-    border: 1px solid var(--m7-ink);
-    box-shadow: 0 0 0 4px var(--m7-card);
+  .oc__intro {
+    max-width: #{rem-calc(720)};
+    margin: 0 auto;
   }
 
-  @media (min-width: 780px) {
-    .m7-oc-step:first-child .m7-oc-step__dot {
-      background: var(--m7-ink);
-    }
-  }
+  .oc-mark {
+    width: #{rem-calc(76)};
+    height: #{rem-calc(76)};
+    border-radius: 50%;
+    background: var(--color-m7-neutral-ink);
+    color: var(--color-m7-neutral-white);
+    animation: m7ocPop 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both;
 
-  @media (prefers-reduced-motion: reduce) {
-    .m7-oc-rise,
-    .m7-oc-mark {
+    @media (prefers-reduced-motion: reduce) {
       animation: m7aiFade 0.3s ease both;
     }
+  }
 
-    .m7-oc-tick {
+  .oc-tick {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: m7ocTick 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.26s both;
+
+    @media (prefers-reduced-motion: reduce) {
       animation: none;
       stroke-dashoffset: 0;
     }
   }
 
-  .oc {
-    padding-top: clamp(48px, 7vw, 96px);
-  }
-
-  .oc__intro {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .oc-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 76px;
-    height: 76px;
-    border-radius: 50%;
-    background: var(--color-m7-neutral-ink);
-    color: var(--color-m7-neutral-white);
-  }
-
   .oc__title {
+    --oc-rise-delay: 0.06s;
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(34px, 4.8vw, 58px);
+    font-size: #{fluid(34, 58)};
     line-height: 1.02;
-    letter-spacing: -2.4px;
-    margin: 28px 0 0;
+    letter-spacing: #{rem-calc(-2.4, false)};
+    margin: #{rem-calc(28)} 0 0;
   }
 
   .oc__lede {
-    font-size: clamp(17px, 1.5vw, 19px);
+    --oc-rise-delay: 0.12s;
+    font-size: #{fluid(17, 19)};
     line-height: 1.65;
     color: var(--color-m7-neutral-body);
-    margin: 22px auto 0;
+    margin: #{rem-calc(22)} auto 0;
     max-width: 54ch;
   }
 
   .oc-summary {
-    margin-top: 34px;
+    --oc-rise-delay: 0.18s;
+    margin-top: #{rem-calc(34)};
     border: 1px solid var(--color-m7-neutral-border-soft);
     border-radius: 6px;
     background: var(--color-m7-neutral-surface-soft);
-    padding: 8px 24px 20px;
+    padding: #{rem-calc(8)} #{rem-calc(24)} #{rem-calc(20)};
   }
 
   .oc-summary__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 20px;
-    padding: 11px 0;
+    gap: #{rem-calc(20)};
+    padding: #{rem-calc(11)} 0;
     border-bottom: 1px solid var(--color-m7-neutral-border-soft);
-    text-align: left;
-  }
 
-  .oc-summary__row[data-last] {
-    padding: 11px 0 0;
-    border-bottom: none;
+    &[data-last] {
+      padding: #{rem-calc(11)} 0 0;
+      border-bottom: none;
+    }
   }
 
   .oc-summary__key {
     font-family: var(--font-m7-mono);
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
+    font-size: #{rem-calc(10)};
+    letter-spacing: #{rem-calc(1.2, false)};
     color: var(--color-m7-neutral-faint);
-    flex: 0 0 auto;
   }
 
   .oc-summary__value {
-    font-size: 15px;
+    font-size: #{rem-calc(15)};
     color: var(--color-m7-neutral-strong);
-    text-align: right;
     line-height: 1.5;
     white-space: pre-line;
-  }
 
-  .oc-summary__value[data-last] {
-    line-height: 1.55;
+    &[data-last] {
+      line-height: 1.55;
+    }
   }
 
   .oc-next {
-    max-width: 1000px;
-    margin: clamp(48px, 6vw, 76px) auto 0;
+    max-width: #{rem-calc(1000)};
+    margin: #{fluid(48, 76)} auto 0;
   }
 
   .oc-next__eyebrow {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
-    text-transform: uppercase;
-    margin-bottom: 26px;
-    text-align: center;
+    margin-bottom: #{rem-calc(26)};
+  }
+
+  .oc-steps {
+    gap: #{rem-calc(28)} #{rem-calc(24)};
+    grid-template-columns: 1fr;
+
+    @media (min-width: #{rem-calc(780)}) {
+      grid-template-columns: repeat(3, 1fr);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 12%;
+        right: 12%;
+        height: 1px;
+        background: var(--color-m7-line);
+      }
+    }
+  }
+
+  .oc-step {
+    padding-top: #{rem-calc(26)};
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        --oc-rise-delay: #{0.24 + ($i - 1) * 0.06}s;
+      }
+    }
+
+    &:nth-child(n + 7) {
+      --oc-rise-delay: 0.54s;
+    }
+  }
+
+  .oc-step__dot {
+    width: #{rem-calc(11)};
+    height: #{rem-calc(11)};
+    border-radius: #{rem-calc(99)};
+    background: var(--color-m7-card);
+    border: 1px solid var(--color-m7-ink);
+    box-shadow: 0 0 0 4px var(--color-m7-card);
+
+    @media (min-width: #{rem-calc(780)}) {
+      .oc-step:first-child & {
+        background: var(--color-m7-ink);
+      }
+    }
   }
 
   .oc-step__num {
     font-family: var(--font-m7-mono);
-    font-size: 11px;
+    font-size: #{rem-calc(11)};
     color: var(--color-m7-neutral-line);
-    letter-spacing: 1px;
+    letter-spacing: #{rem-calc(1, false)};
   }
 
   .oc-step__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 18px;
-    letter-spacing: -0.4px;
-    margin: 10px 0 8px;
+    font-size: #{rem-calc(18)};
+    letter-spacing: #{rem-calc(-0.4, false)};
+    margin: #{rem-calc(10)} 0 #{rem-calc(8)};
     line-height: 1.25;
   }
 
   .oc-step__body {
-    font-size: 15px;
+    font-size: #{rem-calc(15)};
     line-height: 1.6;
     color: var(--color-m7-neutral-body);
   }
 
   .oc-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: clamp(40px, 5vw, 64px);
+    --oc-rise-delay: 0.42s;
+    gap: #{rem-calc(12)};
+    margin-top: #{fluid(40, 64)};
   }
 }

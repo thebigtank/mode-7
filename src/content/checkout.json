@@ -1,0 +1,112 @@
+{
+  "button": {
+    "label": "Checkout on WhatsApp"
+  },
+  "modal": {
+    "dialogLabel": "Checkout details",
+    "headLabel": "Checkout · your details",
+    "closeLabel": "Close",
+    "title": "Where should we send it?",
+    "lede": "An agent picks this up and messages you on WhatsApp to confirm stock, the final figure and delivery. Nothing is charged here.",
+    "fields": [
+      {
+        "name": "firstName",
+        "label": "First name",
+        "hint": "Please enter your first name.",
+        "type": "text",
+        "autoComplete": "given-name",
+        "placeholder": "",
+        "multiline": false,
+        "span": false
+      },
+      {
+        "name": "lastName",
+        "label": "Last name",
+        "hint": "Please enter your last name.",
+        "type": "text",
+        "autoComplete": "family-name",
+        "placeholder": "",
+        "multiline": false,
+        "span": false
+      },
+      {
+        "name": "email",
+        "label": "Email address",
+        "hint": "That doesn’t look like an email address.",
+        "type": "email",
+        "autoComplete": "email",
+        "placeholder": "",
+        "multiline": false,
+        "span": false
+      },
+      {
+        "name": "phone",
+        "label": "Phone number",
+        "hint": "Please enter a reachable phone number.",
+        "type": "tel",
+        "autoComplete": "tel",
+        "placeholder": "The number on WhatsApp",
+        "multiline": false,
+        "span": false
+      },
+      {
+        "name": "address",
+        "label": "Delivery address",
+        "hint": "Please give a full delivery address we can find.",
+        "type": "text",
+        "autoComplete": "street-address",
+        "placeholder": "Street, area, city and state",
+        "multiline": true,
+        "span": true
+      }
+    ],
+    "warningOne": "field still to fill in.",
+    "warningMany": "fields still to fill in.",
+    "submitLabel": "Send my order to an agent",
+    "submitBusyLabel": "Sending to an agent…",
+    "foot": "Used only to fulfil this order. No card details are taken on this site."
+  },
+  "received": {
+    "greeting": "Thank you.",
+    "greetingNamed": "Thank you, {name}.",
+    "titleTail": "We’ve got your order.",
+    "lede": "A Mode 7 agent is picking it up now. They’ll message you on WhatsApp to confirm stock, agree the final figure and arrange delivery. Nothing has been charged, and nothing moves until you say so.",
+    "summaryLabels": {
+      "ref": "Order ref",
+      "name": "Name",
+      "phone": "WhatsApp",
+      "email": "Email",
+      "address": "Delivering to"
+    },
+    "nextEyebrow": "// What happens next",
+    "steps": [
+      {
+        "num": "01",
+        "title": "An agent picks up your order",
+        "body": "Your items, quantities and any trade-in estimate are already attached — you won’t be asked to repeat yourself."
+      },
+      {
+        "num": "02",
+        "title": "They message you on WhatsApp",
+        "body": "Usually within a couple of hours during business hours, on the number you gave us."
+      },
+      {
+        "num": "03",
+        "title": "You pay once you’re happy",
+        "body": "Transfer or card, arranged with the agent. Nothing is charged before you agree the total."
+      }
+    ],
+    "actions": [
+      { "label": "Back to shop", "href": "/shop", "variant": "fill" },
+      { "label": "Talk to the team", "href": "/contact", "variant": "outline" },
+      {
+        "label": "Explore more of our services",
+        "href": "/services",
+        "variant": "outline"
+      }
+    ]
+  },
+  "page": {
+    "annotation": "WHATSAPP HANDOFF — NO CARD DETAILS TAKEN ON SITE"
+  }
+}
