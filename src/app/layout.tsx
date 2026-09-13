@@ -7,7 +7,24 @@ import {
   Space_Mono,
 } from "next/font/google";
 import { SiteShell } from "@/components/site/SiteShell";
+// Order is the cascade, and main.scss HAS to come first.
+//
+// A cascade layer's position is fixed by where it is first mentioned, and
+// Tailwind's PostCSS plugin strips a bare `@layer a, b, c;` ordering statement
+// out of the file it processes -- so the order cannot be declared, only
+// arranged. Importing globals.css first registers theme and utilities before
+// main.scss registers base and components, which puts components AFTER
+// utilities and makes every component class beat every utility: the exact
+// inverse of the rule this architecture exists to enforce.
+//
+// main.scss first => base, components, theme, utilities. Utilities last,
+// utilities win.
+//
+// legacy.css stays last and stays unlayered, so it still outranks both until
+// each of its routes is ported out of it. It shrinks to nothing by Phase 5.
+import "./scss/main.scss";
 import "./globals.css";
+import "./legacy.css";
 
 // latin-ext carries U+20A6, the Naira sign. Without it ₦ falls back to a
 // system face and stops matching the rest of the type.

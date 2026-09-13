@@ -65,6 +65,17 @@ guard, so a screenshot catches whatever blink phase it lands in. Freezing
 computed styles are still covered by tier 1; only the animated canvas content
 is out of scope.
 
+## Known rare noise
+
+A capture of `/shop` at 1200 has once produced **6 pixels at delta 1** against
+an otherwise identical build. Re-capturing the same build twice gave zero, and
+re-capturing against the previous build gave zero, so it is a transient in a
+single run rather than a regression — the two-run tier 0 under-samples it.
+Antialiasing on one edge, one unit out of 255, invisible.
+
+If a gate reports a handful of delta-1 pixels on one screenshot and tier 1 is
+clean, re-capture before chasing it. If it reproduces, it is real.
+
 ## Regenerating the state targets
 
 `state-targets.json` is derived, not hand-written. After any change to the
