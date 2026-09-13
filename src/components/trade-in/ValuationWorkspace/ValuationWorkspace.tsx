@@ -76,7 +76,7 @@ function Question({
 }) {
   return (
     <div className="t-q">
-      <div className="t-q__l">{label}</div>
+      <div className="t-q__l uppercase">{label}</div>
       <div className="t-chips">
         {options.map((o) => (
           <Chip
@@ -115,7 +115,7 @@ function Field({
 
   return (
     <div className="t-field">
-      <label className="t-q__l" htmlFor={id}>
+      <label className="t-q__l uppercase" htmlFor={id}>
         {label}
       </label>
       <input
@@ -304,7 +304,7 @@ export function ValuationWorkspace() {
         <div className="t-steps" data-sent={a.locked} ref={stepTopRef}>
           <div className="t-grp" data-active={activeGroup === 0}>
             <div className="t-sub" data-active={step === 0}>
-              <div className="t-grp__h">
+              <div className="t-grp__h flex">
                 <span className="t-grp__n">{cs.device.n}</span>
                 <h3 className="t-grp__t">{cs.device.title}</h3>
               </div>
@@ -320,7 +320,7 @@ export function ValuationWorkspace() {
                   >
                     <span className="t-catc__ph" />
                     <span className="t-catc__t">{c.title}</span>
-                    <span className="t-catc__s">{c.sub}</span>
+                    <span className="t-catc__s uppercase">{c.sub}</span>
                   </button>
                 ))}
               </div>
@@ -328,7 +328,7 @@ export function ValuationWorkspace() {
 
             {a.cat && (
               <div className="t-sub" data-active={step === 1}>
-                <div className="t-grp__h t-wiz-only">
+                <div className="t-grp__h t-wiz-only flex">
                   <span className="t-grp__n">{cs.device.subN}</span>
                   <h3 className="t-grp__t">{cs.device.subTitle}</h3>
                 </div>
@@ -359,7 +359,7 @@ export function ValuationWorkspace() {
           </div>
 
           <div className={`t-grp${deviceDone ? "" : " locked"}`} data-active={activeGroup === 1}>
-            <div className="t-grp__h">
+            <div className="t-grp__h flex">
               <span className="t-grp__n">{cs.condition.n}</span>
               <h3 className="t-grp__t">{cs.condition.title}</h3>
             </div>
@@ -412,10 +412,10 @@ export function ValuationWorkspace() {
           </div>
 
           <div className={`t-grp${condOK ? "" : " locked"}`} data-active={activeGroup === 2}>
-            <div className="t-grp__h">
+            <div className="t-grp__h flex">
               <span className="t-grp__n">{cs.evidence.n}</span>
               <h3 className="t-grp__t">{cs.evidence.title}</h3>
-              <span className="t-grp__req">
+              <span className="t-grp__req uppercase whitespace-nowrap">
                 {uploads}/4 {cs.evidence.req}
               </span>
             </div>
@@ -432,7 +432,7 @@ export function ValuationWorkspace() {
                     onClick={() => togglePhoto(t.key)}
                   >
                     <span className="t-drop__chk">✓</span>
-                    <span className="t-drop__tag">{on ? `✓ ${t.file}` : `▣ ADD ${t.label}`}</span>
+                    <span className="t-drop__tag text-left">{on ? `✓ ${t.file}` : `▣ ADD ${t.label}`}</span>
                   </button>
                 );
               })}
@@ -445,7 +445,7 @@ export function ValuationWorkspace() {
                 onClick={() => togglePhoto("video")}
               >
                 <span className="t-drop__chk">✓</span>
-                <span className="t-drop__tag">
+                <span className="t-drop__tag text-left">
                   {a.photos.video ? cs.evidence.videoOn : cs.evidence.videoOff}
                 </span>
               </button>
@@ -453,10 +453,10 @@ export function ValuationWorkspace() {
           </div>
 
           <div className={`t-grp${evidenceOK ? "" : " locked"}`} data-active={activeGroup === 3}>
-            <div className="t-grp__h">
+            <div className="t-grp__h flex">
               <span className="t-grp__n">{cs.contact.n}</span>
               <h3 className="t-grp__t">{cs.contact.title}</h3>
-              <span className="t-grp__req">{cs.contact.req}</span>
+              <span className="t-grp__req uppercase whitespace-nowrap">{cs.contact.req}</span>
             </div>
             <p className="t-grp__hint">{cs.contact.hint}</p>
 
@@ -562,12 +562,12 @@ export function ValuationWorkspace() {
 
         {a.locked && !ineligible && (
           <div className="t-outcome" ref={outcomeRef}>
-            <div className="t-outcome__h">
+            <div className="t-outcome__h uppercase flex justify-between flex-wrap">
               <span>{oc.submitted}</span>
               <span>Ref {REF}</span>
             </div>
             <div className="t-outcome__b">
-              <div className="t-label mb-3">{oc.subLabel}</div>
+              <div className="t-label uppercase mb-3">{oc.subLabel}</div>
               <div className="t-outcome__fig">
                 {formatNaira(v.lo)}
                 {"\u2009–\u2009"}
@@ -592,7 +592,7 @@ export function ValuationWorkspace() {
 
               <div className="t-trade">
                 <div className="t-trade__h">
-                  <span className="t-label">{oc.optionALabel}</span>
+                  <span className="t-label uppercase">{oc.optionALabel}</span>
                   <div className="t-dm mt-2">{oc.optionATitle}</div>
                   <P className="mt-[10px] max-w-[52ch]">{oc.optionABody}</P>
                 </div>
@@ -610,7 +610,7 @@ export function ValuationWorkspace() {
                     >
                       <span className="t-upc__ph" />
                       <span className="t-upc__t">{u.name}</span>
-                      <span className="t-upc__k">{u.kind}</span>
+                      <span className="t-upc__k uppercase">{u.kind}</span>
                       <span className="t-upc__p">{formatNaira(u.price)}</span>
                     </button>
                   ))}
@@ -618,18 +618,18 @@ export function ValuationWorkspace() {
 
                 {upgrade && um && model ? (
                   <div className="t-calc" key={upgrade.id}>
-                    <div className="t-calc__r">
-                      <span className="t-calc__k">{upgrade.name}</span>
+                    <div className="t-calc__r flex">
+                      <span className="t-calc__k whitespace-nowrap">{upgrade.name}</span>
                       <span className="t-calc__dot" />
-                      <span className="t-calc__v">{formatNaira(upgrade.price)}</span>
+                      <span className="t-calc__v whitespace-nowrap">{formatNaira(upgrade.price)}</span>
                     </div>
-                    <div className="t-calc__r">
-                      <span className="t-calc__k">Less your {model.label}</span>
+                    <div className="t-calc__r flex">
+                      <span className="t-calc__k whitespace-nowrap">Less your {model.label}</span>
                       <span className="t-calc__dot" />
-                      <span className="t-calc__v">−{formatNaira(v.mid)}</span>
+                      <span className="t-calc__v whitespace-nowrap">−{formatNaira(v.mid)}</span>
                     </div>
-                    <div className="t-calc__tot">
-                      <span className="t-calc__totl">{oc.youBring}</span>
+                    <div className="t-calc__tot flex justify-between flex-wrap">
+                      <span className="t-calc__totl uppercase">{oc.youBring}</span>
                       <span className="t-calc__totv">
                         {um.surplus ? "₦0" : formatNaira(um.payMid)}
                       </span>
@@ -657,7 +657,7 @@ export function ValuationWorkspace() {
 
               <div className="t-altb">
                 <div>
-                  <span className="t-label">{oc.optionBLabel}</span>
+                  <span className="t-label uppercase">{oc.optionBLabel}</span>
                   <div className="t-altb__t">{oc.optionBTitle}</div>
                   <p className="t-altb__b">{oc.optionBBody}</p>
                 </div>
@@ -674,8 +674,8 @@ export function ValuationWorkspace() {
 
       <aside className="t-ledger" aria-label="Live valuation" ref={ledgerRef}>
         <div className="t-rcpt" data-live={!!model && !a.locked}>
-          <div className="t-rcpt__h">
-            <span className="t-rcpt__live">
+          <div className="t-rcpt__h flex justify-between items-center uppercase">
+            <span className="t-rcpt__live inline-flex items-center">
               <span className="t-rcpt__dot" aria-hidden="true" />
               {rc.title}
             </span>
@@ -684,7 +684,7 @@ export function ValuationWorkspace() {
 
           <div className="t-rcpt__dev" data-empty={!model}>
             <div className="t-rcpt__devt">{model ? model.label : rc.noDevice}</div>
-            <div className="t-rcpt__devs">
+            <div className="t-rcpt__devs uppercase">
               {model && a.cat
                 ? `${a.storageIdx != null ? `${STORAGE[a.cat][a.storageIdx][0]} · ` : ""}${
                     a.cat.charAt(0).toUpperCase() + a.cat.slice(1)
@@ -730,9 +730,9 @@ export function ValuationWorkspace() {
             ) : (
               v.lines.map((l) => (
                 <div className="t-line post" data-sign={l.v < 0 ? "down" : "up"} key={l.k}>
-                  <span className="t-line__k">{l.k}</span>
+                  <span className="t-line__k whitespace-nowrap">{l.k}</span>
                   <span className="t-line__dot" />
-                  <span className="t-line__v">
+                  <span className="t-line__v whitespace-nowrap">
                     {l.v > 0 ? "+" : ""}
                     {formatNaira(l.v)}
                   </span>
@@ -742,9 +742,9 @@ export function ValuationWorkspace() {
           </div>
 
           <div className={`t-total${ineligible ? " void" : ""}`} aria-live="polite">
-            <div className="t-total__row">
-              <span className="t-total__l">{rc.totalLabel}</span>
-              {!ineligible && <span className="t-total__chip">{rc.totalChip}</span>}
+            <div className="t-total__row flex justify-between items-center">
+              <span className="t-total__l uppercase">{rc.totalLabel}</span>
+              {!ineligible && <span className="t-total__chip uppercase whitespace-nowrap">{rc.totalChip}</span>}
             </div>
             <div className="t-total__fig" key={figure} data-range={isRange}>
               {figure}
@@ -777,7 +777,7 @@ export function ValuationWorkspace() {
               )}
               {checking && <div className="t-check" aria-hidden="true" />}
               {!checking && (
-                <div className="t-rcpt__note">
+                <div className="t-rcpt__note uppercase text-center">
                   {canLock ? rc.noteReady : rc.noteNotReady}
                 </div>
               )}
@@ -788,12 +788,12 @@ export function ValuationWorkspace() {
             <div className="t-void">
               <div className="t-void__t">{vd.title}</div>
               {v.reasons.map((r) => (
-                <div className="t-void__r" key={r}>
+                <div className="t-void__r flex" key={r}>
                   <span>×</span>
                   <span>{r}</span>
                 </div>
               ))}
-              <div className="t-void__alts">
+              <div className="t-void__alts grid">
                 <div className="t-void__alt">
                   <div className="t-void__altt">{vd.recycleTitle}</div>
                   <div className="t-void__altb">{vd.recycleBody}</div>

@@ -18,7 +18,7 @@ export function TradeInHero() {
         <p className="t-lede mt-[22px]">{hero.lede}</p>
         <div className="t-tick flex flex-wrap">
           {hero.ticks.map((tick) => (
-            <span className="t-label" key={tick}>
+            <span className="t-label uppercase" key={tick}>
               {tick}
             </span>
           ))}

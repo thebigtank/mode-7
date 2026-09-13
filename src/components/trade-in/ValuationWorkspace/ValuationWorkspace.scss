@@ -628,7 +628,6 @@
   }
 
   .t-grp__h {
-    display: flex;
     align-items: baseline;
     gap: #{rem-calc(12)};
     margin-bottom: #{rem-calc(4)};
@@ -673,7 +672,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11)};
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
     margin-bottom: #{rem-calc(9)};
 
@@ -711,9 +709,7 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
-    white-space: nowrap;
   }
 
   .t-catc__ph {
@@ -735,7 +731,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.03em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
@@ -744,7 +739,6 @@
     font-size: #{rem-calc(10)};
     letter-spacing: 0.03em;
     color: var(--color-v2-muted);
-    text-align: left;
   }
 
   .t-drop__chk {
@@ -758,9 +752,6 @@
 
   .t-rcpt__h {
     flex: 0 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: #{rem-calc(10)};
     padding: #{rem-calc(11)} var(--rp);
     border-bottom: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
@@ -768,13 +759,10 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.07em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
   .t-rcpt__live {
-    display: inline-flex;
-    align-items: center;
     gap: #{rem-calc(8)};
   }
 
@@ -806,7 +794,6 @@
     font-size: #{rem-calc(10)};
     color: var(--color-v2-muted);
     letter-spacing: 0.045em;
-    text-transform: uppercase;
     margin-top: #{rem-calc(5)};
   }
 
@@ -833,7 +820,6 @@
   }
 
   .t-line__k {
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 60%;
@@ -848,7 +834,6 @@
   }
 
   .t-line__v {
-    white-space: nowrap;
     font-variant-numeric: tabular-nums;
     font-size: #{rem-calc(12.5)};
     color: var(--color-v2-ink);
@@ -869,9 +854,6 @@
   }
 
   .t-total__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: #{rem-calc(10)};
   }
 
@@ -879,7 +861,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.07em;
-    text-transform: uppercase;
     color: rgb(var(--color-v2-white-rgb) / 0.5);
   }
 
@@ -887,13 +868,11 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(9)};
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: rgb(var(--color-v2-white-rgb) / 0.8);
     border: 1px solid rgb(var(--color-v2-white-rgb) / 0.22);
     background: rgb(var(--color-v2-white-rgb) / 0.07);
     border-radius: #{rem-calc(99)};
     padding: #{rem-calc(4)} #{rem-calc(10)};
-    white-space: nowrap;
     transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
 
@@ -946,9 +925,7 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(9.5)};
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: rgb(var(--color-v2-white-rgb) / 0.36);
-    text-align: center;
   }
 
   .t-void__t {
@@ -963,12 +940,10 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11.5)};
     color: var(--color-v2-ink);
-    display: flex;
     gap: #{rem-calc(8)};
   }
 
   .t-void__alts {
-    display: grid;
     gap: #{rem-calc(8)};
     margin-top: #{rem-calc(2)};
   }
@@ -1181,12 +1156,8 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(11)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
-    display: flex;
-    justify-content: space-between;
     gap: #{rem-calc(10)};
-    flex-wrap: wrap;
   }
 
   .t-outcome__b {
@@ -1248,7 +1219,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(9.5)};
     letter-spacing: 0.045em;
-    text-transform: uppercase;
     color: var(--color-v2-muted);
   }
 
@@ -1260,7 +1230,6 @@
   }
 
   .t-calc__r {
-    display: flex;
     align-items: baseline;
     gap: #{rem-calc(10)};
     padding: #{rem-calc(7)} 0;
@@ -1270,7 +1239,6 @@
 
   .t-calc__k {
     color: rgb(var(--color-v2-white-rgb) / 0.6);
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 62%;
@@ -1285,15 +1253,11 @@
 
   .t-calc__v {
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
 
   .t-calc__tot {
-    display: flex;
-    justify-content: space-between;
     align-items: baseline;
     gap: #{rem-calc(12)};
-    flex-wrap: wrap;
     margin-top: #{rem-calc(12)};
     padding-top: #{rem-calc(14)};
     border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.2);
@@ -1303,7 +1267,6 @@
     font-family: var(--font-v2-label);
     font-size: #{rem-calc(10)};
     letter-spacing: 0.07em;
-    text-transform: uppercase;
     color: rgb(var(--color-v2-white-rgb) / 0.55);
   }
 
