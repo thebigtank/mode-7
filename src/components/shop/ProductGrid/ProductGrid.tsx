@@ -112,7 +112,7 @@ export function ProductGrid() {
     <>
       <div className="shop-grid">
         {PRODUCTS.map((p) => (
-          <div key={p.id} className="shop-card">
+          <div key={p.id} className="m7-shop-card shop-card">
             <Link href="/product" className="shop-card__link">
               <div className="shop-card__img" style={{ background: stripe() }}>
                 <div className="shop-card__label">▣ {p.name.toUpperCase()}</div>

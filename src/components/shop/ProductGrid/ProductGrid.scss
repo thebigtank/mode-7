@@ -281,10 +281,6 @@
     transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
       border-color 0.2s ease;
 
-    &:hover {
-      border-color: var(--color-m7-neutral-ink);
-    }
-
     &:active {
       transform: scale(0.97);
     }

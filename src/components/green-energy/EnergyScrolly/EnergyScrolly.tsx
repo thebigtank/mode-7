@@ -192,7 +192,7 @@ export function EnergyScrolly() {
 
   return (
     <section ref={sectionRef} className="ge-scrolly" data-stacked={stacked || undefined}>
-      <div className="ge-scrolly__media">
+      <div className="ge-scrolly__media" data-stacked={stacked || undefined}>
         <Placeholder label="ENERGY SYSTEM" height="100%" radius={0} style={{ width: "100%" }}>
           {WIREFRAME.showAnnotations && (
             <Annotation
