@@ -11,6 +11,14 @@ const nextConfig = {
   // otherwise land in every parity screenshot.
   devIndicators: false,
 
+  // Component stylesheets are colocated with their components and each opens
+  // with a bare `@use 'utils' as *;`. loadPaths is what makes that one line
+  // resolve from anywhere in the tree instead of a ../../../ chain, and it is
+  // honoured by Turbopack in both `next dev` and `next build`.
+  sassOptions: {
+    loadPaths: [new URL("./src/app/scss", import.meta.url).pathname],
+  },
+
   // A `next dev` server and a `next build` cannot share a build directory — the
   // build clobbers the CSS chunk next/font generates, which silently drops the
   // --font-* variables and drops the whole site to the browser's default serif.
