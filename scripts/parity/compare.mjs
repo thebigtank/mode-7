@@ -107,6 +107,7 @@ async function tier2() {
   if (!files.length) return;
   note(`\n=== TIER 2 — pixel diff (${files.length} screenshots) ===`);
   let bad = 0;
+  const subPerceptual = [];
   for (const f of files) {
     if (!existsSync(join(db, f))) { note(`  MISSING  ${f}`); hardFailures++; continue; }
     const pa = PNG.sync.read(await readFile(join(da, f)));
@@ -117,9 +118,27 @@ async function tier2() {
     }
     const diff = new PNG({ width: pa.width, height: pa.height });
     const n = pixelmatch(pa.data, pb.data, diff.data, pa.width, pa.height, { threshold: 0 });
-    if (n > 0) { note(`  ${String(n).padStart(9)} px  ${f}`); bad++; }
+    if (n === 0) continue;
+    // How far off, not just how many. A whole channel off by 1 of 255 is the
+    // rasteriser dithering a gradient, not a design change -- Chrome resolves a
+    // var()-substituted gradient a hair differently from the same gradient
+    // written inline. Anything a person could see moves at least 2, and a flat
+    // colour that actually changed is caught by tier 1's computed styles.
+    let max = 0;
+    for (let i = 0; i < pa.data.length; i += 4)
+      for (let k = 0; k < 3; k++) {
+        const d = Math.abs(pa.data[i + k] - pb.data[i + k]);
+        if (d > max) max = d;
+      }
+    if (max <= 1) { subPerceptual.push(`${String(n).padStart(9)} px  ${f}`); continue; }
+    note(`  ${String(n).padStart(9)} px  maxΔ ${max}  ${f}`);
+    bad++;
   }
-  note(bad ? `  ${bad}/${files.length} screenshots differ` : `  all ${files.length} identical`);
+  if (subPerceptual.length) {
+    note(`  ${subPerceptual.length} screenshot(s) differ only at maxΔ 1 (sub-perceptual):`);
+    for (const line of subPerceptual.slice(0, 8)) note(`    ${line}`);
+  }
+  note(bad ? `  ${bad}/${files.length} screenshots differ perceptibly` : `  ${files.length} screenshots: no perceptible difference`);
   if (bad) hardFailures++;
 }
 

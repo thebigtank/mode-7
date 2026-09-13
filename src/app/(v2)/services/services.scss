@@ -1,0 +1,176 @@
+@use 'utils' as *;
+
+@layer components {
+  .services-page {
+    --svc-hair: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+    --svc-stripe: repeating-linear-gradient(
+      135deg,
+      rgb(var(--color-v2-ink-rgb) / 0.07) 0 9px,
+      rgb(var(--color-v2-ink-rgb) / 0.03) 9px 18px
+    );
+    --svc-bleed: max(var(--m7-pad), calc((100vw - 1320px) / 2 + var(--m7-pad)));
+  }
+
+  .services-page .svc-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 26px rgb(var(--color-v2-ink-rgb) / 0.08);
+    }
+  }
+
+  .services-page .svc-lift-dark:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgb(var(--color-v2-ink-rgb) / 0.24);
+  }
+
+  .services-page .svc-pill {
+    gap: 8px;
+    border: 1px solid var(--color-v2-navy);
+    border-radius: 99px;
+    padding: 11px 20px;
+    background: transparent;
+    color: var(--color-v2-navy);
+    font-family: var(--font-v2-body);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-v2-navy);
+      color: var(--color-v2-white);
+      border-color: var(--color-v2-navy);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-v2-navy);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .services-page .svc-card {
+    background: var(--color-v2-white);
+    border: var(--svc-hair);
+    border-radius: 4px;
+  }
+
+  .services-page .svc-tilestripe {
+    border-radius: 4px;
+    background: var(--svc-stripe);
+    border: var(--svc-hair);
+  }
+
+  .services-page .svc-head {
+    margin-bottom: 36px;
+  }
+
+  .services-page .svc-head__h2 {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: clamp(25px, 3.5vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+    color: var(--color-v2-ink);
+    margin: 0;
+    text-wrap: balance;
+
+    &[data-lede="true"] {
+      margin-bottom: 14px;
+    }
+  }
+
+  .services-page .svc-head__lede {
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .services-page .svc-stripe-label {
+    top: 16px;
+    left: 18px;
+    font-family: var(--font-v2-label);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--color-v2-muted);
+  }
+
+  .services-page .svc-minirow {
+    background: var(--color-v2-white);
+    border: var(--svc-hair);
+    border-radius: 4px;
+    padding: 12px 14px;
+    gap: 11px;
+  }
+
+  .services-page .svc-minirow__title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .services-page .svc-minirow__sub {
+    font-family: var(--font-v2-label);
+    font-size: 9px;
+    letter-spacing: 0.02em;
+    color: var(--color-v2-muted);
+    margin-top: 3px;
+  }
+
+  .services-page .svc-tile__media {
+    height: 150px;
+    background: var(--svc-stripe);
+    border-bottom: var(--svc-hair);
+  }
+
+  .services-page .svc-tile__icon {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .services-page .svc-tile__body {
+    padding: 20px 22px;
+    gap: 12px;
+  }
+
+  .services-page .svc-tile__label {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .services-page .svc-tile__sub {
+    font-family: var(--font-v2-label);
+    font-size: 10px;
+    letter-spacing: 0.025em;
+    color: var(--color-v2-muted);
+    margin-top: 4px;
+  }
+
+  .services-page .svc-bento {
+    padding: 24px;
+  }
+
+  .services-page .svc-bento__title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .services-page .svc-bento__sub {
+    font-family: var(--font-v2-body);
+    font-size: 14px;
+    color: var(--color-v2-muted);
+  }
+}

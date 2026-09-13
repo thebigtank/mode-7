@@ -38,7 +38,9 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     ".next-parity/types/**/*.ts",
-    ".next-parity/dev/types/**/*.ts"
+    ".next-parity/dev/types/**/*.ts",
+    ".next-old/types/**/*.ts",
+    ".next-old/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

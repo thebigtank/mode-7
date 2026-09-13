@@ -15,31 +15,6 @@ export const metadata: Metadata = {
     "From flagship launches to certified refurbished, instant trade-ins to concierge checkout — the premium tech store built around how you buy.",
 };
 
-const v2Stripe = (
-  a = "rgba(23,29,29,0.07)",
-  b = "rgba(23,29,29,0.03)",
-  size = 9,
-) => `repeating-linear-gradient(135deg,${a} 0 ${size}px,${b} ${size}px ${size * 2}px)`;
-
-const pad = (px = 48) => {
-  const gutter = px === 48 ? "var(--m7-pad)" : `clamp(20px,4vw,${px}px)`;
-  return `max(${gutter}, calc((100vw - 1320px)/2 + ${gutter}))`;
-};
-
-const card: CSSProperties = {
-  background: V2.white,
-  border: V2_HAIR,
-  borderRadius: 4,
-};
-
-const tileStripe: CSSProperties = {
-  position: "relative",
-  borderRadius: 4,
-  overflow: "hidden",
-  background: v2Stripe(),
-  border: V2_HAIR,
-};
-
 function SectionHead({
   overline,
   title,
@@ -52,26 +27,15 @@ function SectionHead({
   maxWidth?: number;
 }) {
   return (
-    <div style={{ maxWidth, marginBottom: 36 }}>
-      <Mono dot style={{ marginBottom: 16 }}>
+    <div className="svc-head" style={{ maxWidth }}>
+      <Mono dot className="mb-4">
         {overline}
       </Mono>
-      <h2
-        style={{
-          fontFamily: V2_FONT.display,
-          fontWeight: 400,
-          fontSize: "clamp(25px, 3.5vw, 40px)",
-          lineHeight: 1.18,
-          letterSpacing: "-0.016em",
-          color: V2.ink,
-          margin: lede ? "0 0 14px" : 0,
-          textWrap: "balance",
-        }}
-      >
+      <h2 className="svc-head__h2" data-lede={lede ? "true" : "false"}>
         {title}
       </h2>
       {lede && (
-        <P size={18} style={{ lineHeight: 1.6, maxWidth: 520 }}>
+        <P size={18} className="svc-head__lede">
           {lede}
         </P>
       )}
@@ -80,22 +44,7 @@ function SectionHead({
 }
 
 function StripeLabel({ children }: { children: ReactNode }) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 16,
-        left: 18,
-        fontFamily: V2_FONT.mono,
-        fontSize: 11,
-        letterSpacing: "0.04em",
-        color: V2.muted,
-        zIndex: 2,
-      }}
-    >
-      ▣ {children}
-    </div>
-  );
+  return <div className="svc-stripe-label absolute z-[2]">▣ {children}</div>;
 }
 
 function MiniRow({
@@ -108,42 +57,11 @@ function MiniRow({
   sub: string;
 }) {
   return (
-    <div
-      style={{
-        background: V2.white,
-        border: V2_HAIR,
-        borderRadius: 4,
-        padding: "12px 14px",
-        display: "flex",
-        alignItems: "center",
-        gap: 11,
-      }}
-    >
+    <div className="svc-minirow flex items-center">
       <Glyph name={icon} size={20} strokeWidth={1.7} stroke={V2.ink} />
       <div>
-        <div
-          style={{
-            fontFamily: V2_FONT.display,
-            fontWeight: 400,
-            fontSize: 14,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.3,
-          }}
-        >
-          {title}
-        </div>
-        <div
-          style={{
-            fontFamily: V2_FONT.mono,
-            fontSize: 9,
-            letterSpacing: "0.02em",
-            textTransform: "uppercase",
-            color: V2.muted,
-            marginTop: 3,
-          }}
-        >
-          {sub}
-        </div>
+        <div className="svc-minirow__title">{title}</div>
+        <div className="svc-minirow__sub uppercase">{sub}</div>
       </div>
     </div>
   );
@@ -159,56 +77,17 @@ function CategoryTile({
   icon: GlyphName;
 }) {
   return (
-    <div
-      className="svc-lift"
-      style={{ ...card, overflow: "hidden", display: "flex", flexDirection: "column" }}
-    >
-      <div
-        style={{
-          position: "relative",
-          height: 150,
-          background: v2Stripe(),
-          borderBottom: V2_HAIR,
-        }}
-      >
+    <div className="svc-lift svc-card flex flex-col overflow-hidden">
+      <div className="svc-tile__media relative">
         <StripeLabel>{label.toUpperCase()}</StripeLabel>
-        <span style={{ position: "absolute", right: 14, bottom: 14 }}>
+        <span className="svc-tile__icon absolute">
           <Glyph name={icon} size={26} stroke={V2.ink} />
         </span>
       </div>
-      <div
-        style={{
-          padding: "20px 22px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 12,
-        }}
-      >
+      <div className="svc-tile__body flex items-center justify-between">
         <div>
-          <div
-            style={{
-              fontFamily: V2_FONT.display,
-              fontWeight: 400,
-              fontSize: 18,
-              letterSpacing: "-0.01em",
-              lineHeight: 1.3,
-            }}
-          >
-            {label}
-          </div>
-          <div
-            style={{
-              fontFamily: V2_FONT.mono,
-              fontSize: 10,
-              letterSpacing: "0.025em",
-              textTransform: "uppercase",
-              color: V2.muted,
-              marginTop: 4,
-            }}
-          >
-            {sub}
-          </div>
+          <div className="svc-tile__label">{label}</div>
+          <div className="svc-tile__sub uppercase">{sub}</div>
         </div>
         <ArrowRightIcon size={20} strokeWidth={1.8} stroke={V2.ink} />
       </div>
@@ -229,33 +108,13 @@ function BentoCell({
 }) {
   return (
     <div
-      className="svc-lift"
-      style={{
-        ...card,
-        padding: 24,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        ...style,
-      }}
+      className="svc-lift svc-card svc-bento flex flex-col justify-between"
+      style={style}
     >
       <Glyph name={icon} size={28} stroke={V2.ink} />
       <div>
-        <div
-          style={{
-            fontFamily: V2_FONT.display,
-            fontWeight: 400,
-            fontSize: 18,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.3,
-            marginBottom: 4,
-          }}
-        >
-          {title}
-        </div>
-        <div style={{ fontFamily: V2_FONT.body, fontSize: 14, color: V2.muted }}>
-          {sub}
-        </div>
+        <div className="svc-bento__title">{title}</div>
+        <div className="svc-bento__sub">{sub}</div>
       </div>
     </div>
   );
@@ -340,7 +199,7 @@ export default function ServicesPage() {
             width: "100%",
             height: "min(82vh,820px)",
             overflow: "hidden",
-            background: v2Stripe(),
+            background: "var(--svc-stripe)",
             color: V2.ink,
           }}
         >
@@ -362,7 +221,7 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              left: pad(),
+              left: "var(--svc-bleed)",
               bottom: 72,
               maxWidth: 540,
             }}
@@ -399,7 +258,7 @@ export default function ServicesPage() {
           <div
             style={{
               position: "absolute",
-              right: pad(),
+              right: "var(--svc-bleed)",
               bottom: 72,
               background: "rgba(255,255,255,0.72)",
               backdropFilter: "blur(14px)",
@@ -549,7 +408,7 @@ export default function ServicesPage() {
             <div
               style={{
                 position: "relative",
-                background: v2Stripe(),
+                background: "var(--svc-stripe)",
                 borderLeft: V2_HAIR,
                 minHeight: 460,
               }}
@@ -658,9 +517,8 @@ export default function ServicesPage() {
           </div>
 
           <div
-            className="svc-lift"
+            className="svc-lift svc-card"
             style={{
-              ...card,
               padding: "30px 34px",
               display: "flex",
               alignItems: "center",
@@ -743,9 +601,8 @@ export default function ServicesPage() {
             }}
           >
             <div
-              className="svc-lift"
+              className="svc-lift svc-tilestripe relative overflow-hidden"
               style={{
-                ...tileStripe,
                 gridColumn: "1 / span 2",
                 gridRow: "1 / span 2",
               }}
@@ -861,9 +718,8 @@ export default function ServicesPage() {
             }}
           >
             <div
-              className="svc-lift"
+              className="svc-lift svc-tilestripe relative overflow-hidden"
               style={{
-                ...tileStripe,
                 gridColumn: "1 / span 2",
                 gridRow: "1 / span 2",
               }}
@@ -900,8 +756,8 @@ export default function ServicesPage() {
               </div>
             </div>
             <div
-              className="svc-lift"
-              style={{ ...tileStripe, gridColumn: 3, gridRow: "1 / span 2" }}
+              className="svc-lift svc-tilestripe relative overflow-hidden"
+              style={{ gridColumn: 3, gridRow: "1 / span 2" }}
             >
               <StripeLabel>BATTERY STACK</StripeLabel>
               <div style={{ position: "absolute", left: 20, bottom: 18, right: 20 }}>
@@ -933,8 +789,8 @@ export default function ServicesPage() {
               </span>
             </div>
             <div
-              className="svc-lift"
-              style={{ ...tileStripe, gridColumn: 4, gridRow: 1 }}
+              className="svc-lift svc-tilestripe relative overflow-hidden"
+              style={{ gridColumn: 4, gridRow: 1 }}
             >
               <StripeLabel>POWER STATION</StripeLabel>
               <div style={{ position: "absolute", left: 20, bottom: 18, right: 20 }}>
@@ -1144,9 +1000,8 @@ export default function ServicesPage() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="svc-lift"
+                className="svc-lift svc-card"
                 style={{
-                  ...card,
                   gridColumn: c.col,
                   gridRow: 1,
                   padding: "30px 28px",
@@ -1210,9 +1065,8 @@ export default function ServicesPage() {
             ))}
 
             <div
-              className="svc-lift"
+              className="svc-lift svc-card"
               style={{
-                ...card,
                 gridColumn: "2 / span 2",
                 gridRow: 2,
                 padding: 34,

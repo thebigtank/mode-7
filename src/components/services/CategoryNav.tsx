@@ -26,7 +26,7 @@ export function CategoryNav() {
               key={p.id}
               href={`#${p.id}`}
               onClick={(e) => scrollTo(e, p.id)}
-              className="svc-pill"
+              className="svc-pill inline-flex items-center no-underline cursor-pointer"
             >
               {p.label}
             </a>
