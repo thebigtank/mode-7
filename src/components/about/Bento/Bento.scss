@@ -1,0 +1,91 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: clamp(28px, 3.5vw, 48px);
+
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+
+  .a-bcell {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    padding: clamp(24px, 2.5vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 212px;
+  }
+
+  .a-bcell__t {
+    font-family: var(--f-head);
+    font-weight: 400;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    margin: 0;
+    font-size: clamp(21px, 2.1vw, 28px);
+  }
+
+  .a-bcell__b {
+    color: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .a-bcell__fill {
+    flex: 1;
+    min-height: 96px;
+    border-radius: 3px;
+    background: var(--stripe-soft);
+    border: 1px solid var(--rule);
+  }
+
+  .a-bcell--ink {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--color-v2-white);
+  }
+
+  .a-bcell--ink .a-bcell__b {
+    color: var(--color-v2-faint);
+  }
+
+  .a-b1 {
+    @media (min-width: 900px) {
+      grid-column: span 7;
+      grid-row: span 2;
+    }
+  }
+
+  .a-b2 {
+    @media (min-width: 900px) {
+      grid-column: span 5;
+    }
+  }
+
+  .a-b3 {
+    @media (min-width: 900px) {
+      grid-column: span 5;
+    }
+  }
+
+  .a-b4 {
+    @media (min-width: 900px) {
+      grid-column: span 4;
+    }
+  }
+
+  .a-b5 {
+    @media (min-width: 900px) {
+      grid-column: span 8;
+    }
+  }
+}

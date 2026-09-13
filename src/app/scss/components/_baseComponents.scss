@@ -9,6 +9,13 @@
 @use '../../../components/ui/BtnOutline/BtnOutline';
 @use '../../../components/ui/PlusToggle/PlusToggle';
 @use '../../../components/ui/ButtonV2/ButtonV2';
+@use '../../../components/about/about';
+@use '../../../components/about/AboutHero/AboutHero';
+@use '../../../components/about/StatRow/StatRow';
+@use '../../../components/about/Masonry/Masonry';
+@use '../../../components/about/ServeGrid/ServeGrid';
+@use '../../../components/about/Bento/Bento';
+@use '../../../components/about/SpecSheet/SpecSheet';
 @use '../../../components/about/ConditionsLedger/ConditionsLedger';
 @use '../../../components/services/services';
 @use '../../../components/services/BentoCell/BentoCell';

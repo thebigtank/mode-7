@@ -1,0 +1,60 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-mason {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: clamp(320px, 42vw, 560px);
+    overflow: hidden;
+    margin-top: clamp(28px, 3.5vw, 48px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, var(--ink) 11%, var(--ink) 89%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, var(--ink) 11%, var(--ink) 89%, transparent 100%);
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (min-width: 1040px) {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+
+  .a-mcol {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    animation: m7drift 46s linear infinite;
+    will-change: transform;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .a-mason:hover .a-mcol {
+    animation-play-state: paused;
+  }
+
+  .a-tile {
+    position: relative;
+    background: var(--stripe-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .a-tile__tag {
+    position: absolute;
+    left: 10px;
+    right: 8px;
+    bottom: 9px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--decor);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

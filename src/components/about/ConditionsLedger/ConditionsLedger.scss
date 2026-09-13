@@ -71,4 +71,114 @@
   .about-page .a-cond.is-active .a-cond__t, .about-page .a-cond.is-active .a-cond__b {
     color: var(--accent-on);
   }
+
+  .about-page .a-cond__fill {
+    position: absolute;
+    inset: 0 0 -1px 0;
+    z-index: 0;
+    border-radius: 4px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+
+  .about-page .a-cond__t {
+    position: relative;
+    z-index: 1;
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: clamp(20px, 1.9vw, 25px);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0;
+    transition: color 0.22s ease;
+  }
+
+  .about-page .a-cond__b {
+    position: relative;
+    z-index: 1;
+    color: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    transition: color 0.22s ease;
+
+    @media (min-width: 1180px) {
+      grid-column: 3;
+    }
+  }
+
+  .about-page .a-cond__shot {
+    position: absolute;
+    z-index: 2;
+    left: calc(var(--cond-pad) + 22ch + 56px);
+    top: 50%;
+    width: 176px;
+    height: 176px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.94);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 1179px) {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: translateY(-50%) rotate(-4deg) !important;
+    }
+  }
+
+  .about-page .a-cond__shot::before, .about-page .a-cond__shot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    transform: rotate(0deg);
+    transition: transform 0.42s cubic-bezier(0.22, 0.9, 0.26, 1.12);
+  }
+
+  .about-page .a-cond__shot::before {
+    background: var(--paper);
+    transition-duration: 0.52s;
+    transition-delay: 0.07s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: rotate(-11deg) translate(-9px, 2px);
+    }
+  }
+
+  .about-page .a-cond__shot::after {
+    background-image: var(--a-cond-shot);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 6px 14px rgb(var(--color-v2-ink-rgb) / 0.16);
+    transition:         transform 0.42s cubic-bezier(0.22, 0.9, 0.26, 1.12),         box-shadow 0.42s ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: rotate(-4deg);
+      box-shadow: 0 16px 34px rgb(var(--color-v2-ink-rgb) / 0.26);
+    }
+  }
+
+  .about-page .a-cond__shot[data-shot="devices"]::after {
+    background-position: 12% center;
+  }
+
+  .about-page .a-cond__shot, .about-page .a-cond__shot::before, .about-page .a-cond__shot::after {
+    @media (prefers-reduced-motion: reduce) {
+      transition: opacity 0.01ms linear;
+      transition-delay: 0s;
+    }
+  }
+
+  .about-page .a-cond__fill, .about-page .a-cond__shot, .about-page .a-cond__icon, .about-page .a-cond__t, .about-page .a-cond__b {
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
+  }
 }
