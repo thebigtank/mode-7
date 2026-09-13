@@ -108,12 +108,12 @@
      to the optimised face. A font-family whose var() does not resolve is
      dropped ENTIRELY and does not fall through to the fallbacks beside it.
      ----------------------------------------------------------------------- */
-  --font-m7-head: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
-  --font-m7-body: var(--font-outfit), "Helvetica Neue", Arial, sans-serif;
-  --font-m7-mono: var(--font-space-mono), ui-monospace, monospace;
-  --font-v2-display: var(--font-alegreya), Georgia, "Times New Roman", serif;
-  --font-v2-body: var(--font-outfit), var(--font-inter), "Helvetica Neue", Arial, sans-serif;
-  --font-v2-label: var(--font-outfit), var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-m7-head: var(--font-space-grotesk), sans-serif;
+  --font-m7-body: var(--font-outfit), sans-serif;
+  --font-m7-mono: var(--font-space-mono), monospace;
+  --font-v2-display: var(--font-alegreya), Georgia, 'Times New Roman', serif;
+  --font-v2-body: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  --font-v2-label: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
 
   /* --- breakpoints ---------------------------------------------------------
      Mirrors $breakpoints in src/app/scss/utils/_breakpoints.scss. The two are
