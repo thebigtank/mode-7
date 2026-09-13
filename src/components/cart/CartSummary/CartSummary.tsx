@@ -1,42 +1,39 @@
+import type { CSSProperties } from "react";
 import { ArrowButton } from "@/components/ArrowButton";
 import { CheckoutButton } from "@/components/checkout/CheckoutModal";
+import content from "@/content/cart.json";
 import { stripe } from "@/lib/theme";
 
-const totals: [string, string][] = [
-  ["Subtotal", "₦2,820,000"],
-  ["Trade-in estimate applied", "−₦700,000"],
-  ["Delivery", "Free"],
-  ["VAT (7.5%)", "₦159,000"],
-];
-
-const TOTAL = "₦2,279,000";
-
 export function CartSummary() {
-  return (
-    <aside className="m7-cart-summary cart-summary">
-      <div className="cart-summary__title">Order summary</div>
+  const c = content.summary;
 
-      {totals.map(([k, v]) => (
-        <div key={k} className="cart-summary__row">
-          <span>{k}</span>
-          <span className="cart-summary__value">{v}</span>
+  return (
+    <aside
+      className="cart-summary"
+      style={{ "--cart-summary-stripe": stripe() } as CSSProperties}
+    >
+      <div className="cart-summary__title">{c.title}</div>
+
+      {c.rows.map((r) => (
+        <div key={r.label} className="cart-summary__row flex justify-between">
+          <span>{r.label}</span>
+          <span className="cart-summary__value">{r.value}</span>
         </div>
       ))}
 
-      <div className="cart-summary__total">
-        <span>Total</span>
-        <span className="cart-summary__value">{TOTAL}</span>
+      <div className="cart-summary__total flex justify-between">
+        <span>{c.totalLabel}</span>
+        <span className="cart-summary__value">{c.totalValue}</span>
       </div>
 
-      <div className="cart-summary__actions">
+      <div className="cart-summary__actions flex flex-col items-start">
         <CheckoutButton />
-        <ArrowButton label="Continue shopping" variant="outline" href="/shop" />
+        <ArrowButton label={c.continueLabel} variant="outline" href={c.continueHref} />
       </div>
 
-      <div className="cart-summary__note">
-        <span className="cart-summary__note-swatch" style={{ background: stripe() }} />
-        No card details here. Your bag goes to an agent who confirms stock
-        and payment with you directly.
+      <div className="cart-summary__note flex items-start">
+        <span className="cart-summary__note-swatch shrink-0" />
+        {c.note}
       </div>
     </aside>
   );

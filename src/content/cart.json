@@ -1,0 +1,33 @@
+{
+  "eyebrow": "// Cart",
+  "heading": "Your bag.",
+  "steps": ["Bag", "Agent confirms", "Payment & delivery"],
+  "stepper": {
+    "decrementLabel": "−",
+    "incrementLabel": "+",
+    "value": "1"
+  },
+  "lines": {
+    "items": [
+      { "name": "Mode Flagship X", "variant": "256GB · New", "price": "₦1,850,000" },
+      { "name": "Studio Headphones", "variant": "Midnight", "price": "₦630,000" },
+      { "name": "Smart Hub", "variant": "Gen 2", "price": "₦340,000" }
+    ],
+    "removeLabel": "Remove",
+    "annotation": "QUANTITY + REMOVE — UPDATES TOTALS"
+  },
+  "summary": {
+    "title": "Order summary",
+    "rows": [
+      { "label": "Subtotal", "value": "₦2,820,000" },
+      { "label": "Trade-in estimate applied", "value": "−₦700,000" },
+      { "label": "Delivery", "value": "Free" },
+      { "label": "VAT (7.5%)", "value": "₦159,000" }
+    ],
+    "totalLabel": "Total",
+    "totalValue": "₦2,279,000",
+    "continueLabel": "Continue shopping",
+    "continueHref": "/shop",
+    "note": "No card details here. Your bag goes to an agent who confirms stock and payment with you directly."
+  }
+}

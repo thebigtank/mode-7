@@ -3,19 +3,18 @@
 @layer components {
   .cart-eyebrow {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: #{rem-calc(16)};
   }
 
   .cart-heading {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(30px, 4.6vw, 44px);
+    font-size: #{fluid(30, 44)};
     line-height: 1.04;
     letter-spacing: -0.04em;
-    margin: 0 0 22px;
+    margin: 0 0 #{rem-calc(22)};
   }
 }

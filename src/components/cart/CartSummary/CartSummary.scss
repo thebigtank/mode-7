@@ -1,34 +1,30 @@
 @use 'utils' as *;
 
 @layer components {
-  @media (max-width: 900px) {
-    .m7-cart-summary {
-      position: static !important;
-    }
-  }
-
   .cart-summary {
+    position: sticky;
+    top: #{rem-calc(100)};
     border: 1px solid var(--color-m7-neutral-border-soft);
     border-radius: 4px;
-    padding: clamp(22px, 3vw, 30px) clamp(20px, 3vw, 30px) 34px;
-    position: sticky;
-    top: 100px;
+    padding: #{fluid(22, 30)} #{fluid(20, 30)} #{rem-calc(34)};
     background: var(--color-m7-neutral-surface-soft);
+
+    @media (max-width: #{rem-calc(900)}) {
+      position: static;
+    }
   }
 
   .cart-summary__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 22px;
+    font-size: #{rem-calc(18)};
+    margin-bottom: #{rem-calc(22)};
   }
 
   .cart-summary__row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
+    font-size: #{rem-calc(15)};
     color: var(--color-m7-neutral-muted);
-    padding: 0 0 14px;
+    padding: 0 0 #{rem-calc(14)};
   }
 
   .cart-summary__value {
@@ -36,39 +32,32 @@
   }
 
   .cart-summary__total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
+    font-size: #{rem-calc(20)};
     font-family: var(--font-m7-head);
     font-weight: 700;
-    padding: 18px 0 0;
+    padding: #{rem-calc(18)} 0 0;
     border-top: 1px solid var(--color-m7-neutral-border-soft);
-    margin-top: 6px;
+    margin-top: #{rem-calc(6)};
   }
 
   .cart-summary__actions {
-    margin-top: 26px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
+    margin-top: #{rem-calc(26)};
+    gap: #{rem-calc(12)};
   }
 
   .cart-summary__note {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 22px;
-    font-size: 13px;
+    gap: #{rem-calc(10)};
+    margin-top: #{rem-calc(22)};
+    font-size: #{rem-calc(13)};
     line-height: 1.55;
     color: var(--color-m7-neutral-muted-soft);
   }
 
   .cart-summary__note-swatch {
-    width: 30px;
-    height: 30px;
+    width: #{rem-calc(30)};
+    height: #{rem-calc(30)};
     border-radius: 50%;
     border: 1px solid var(--color-m7-neutral-border);
-    flex: 0 0 auto;
+    background: var(--cart-summary-stripe);
   }
 }

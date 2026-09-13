@@ -12,24 +12,14 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <>
-      <section className="m7-wrap m7-top-md">
-        <CartHeading />
-        <CartSteps />
+    <section className="m7-wrap m7-top-md">
+      <CartHeading />
+      <CartSteps />
 
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.5fr 1fr",
-            gap: "clamp(28px, 4vw, 48px)",
-            alignItems: "start",
-          }}
-        >
-          <CartLineItems />
-          <CartSummary />
-        </div>
-      </section>
-    </>
+      <div className="cart-split grid">
+        <CartLineItems />
+        <CartSummary />
+      </div>
+    </section>
   );
 }

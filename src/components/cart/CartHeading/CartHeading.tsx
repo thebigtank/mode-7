@@ -1,8 +1,10 @@
+import content from "@/content/cart.json";
+
 export function CartHeading() {
   return (
     <>
-      <div className="cart-eyebrow">{"// Cart"}</div>
-      <h2 className="cart-heading">Your bag.</h2>
+      <div className="cart-eyebrow uppercase">{content.eyebrow}</div>
+      <h2 className="cart-heading">{content.heading}</h2>
     </>
   );
 }
