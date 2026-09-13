@@ -1,19 +1,23 @@
 import type { ReactNode } from "react";
-// Order is the cascade, and main.scss HAS to come first.
+// Import order IS the cascade order, and it cannot be declared.
 //
-// A cascade layer's position is fixed by where it is first mentioned, and
-// Tailwind's PostCSS plugin strips a bare `@layer a, b, c;` ordering statement
-// out of the file it processes -- so the order cannot be declared, only
-// arranged. globals.css first would register theme and utilities before
-// main.scss registers base and components, putting components AFTER utilities
-// and making every component class beat every utility: the exact inverse of
-// the rule this architecture exists to enforce.
+// A layer's position is fixed where it is first mentioned, and Tailwind's
+// PostCSS plugin strips a bare `@layer a, b, c;` ordering statement out of the
+// file it processes -- confirmed, including with the statement on line 1. So
+// the order is arranged here instead:
 //
-// legacy.css stays last and stays unlayered, so it still outranks both until
-// each of its routes is ported out of it.
+//   base.scss    @layer base        resets and document defaults
+//   legacy.css   @layer legacy      the original stylesheet, shrinking
+//   main.scss    @layer components  everything ported so far
+//   globals.css  @layer theme, utilities
+//
+// A ported component rule therefore beats a rule still in legacy.css, and a
+// Tailwind utility beats both. Reordering these four lines silently inverts
+// one of those and nothing errors.
+import "../scss/base.scss";
+import "../legacy.css";
 import "../scss/main.scss";
 import "../globals.css";
-import "../legacy.css";
 import { Document, siteMetadata } from "../document";
 import { V2Chrome } from "@/components/site/V2Chrome";
 

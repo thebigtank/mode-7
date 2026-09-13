@@ -13,8 +13,13 @@ data-attributes.** Nothing is styled by an inline `style` object.
 src/components/<group>/<Name>/
   <Name>.tsx
   <Name>.scss
-  index.ts     export * from "./<Name>"; export { default } from "./<Name>";
+  index.ts     export * from "./<Name>";
 ```
+
+The barrel exists so that moving a component into a folder costs zero call-site
+edits: `@/components/trade-in/ValuationWorkspace` keeps resolving. Components
+here use named exports, so one re-export line is the whole file; add
+`export { default } from "./<Name>";` only for one that actually has a default.
 
 Register the stylesheet in the matching aggregator — `src/app/scss/blocks/
 _baseBlocks.scss` for page sections, `components/_baseComponents.scss` for
@@ -155,16 +160,33 @@ token and Tailwind generates a utility for any that collide (`hidden`, `block`,
 
 - **Cascade order cannot be declared, only arranged.** Tailwind's PostCSS
   plugin strips a bare `@layer a, b, c;` statement out of the file it
-  processes, so `main.scss` is imported **before** `globals.css` in
-  `layout.tsx`. Reversing those two imports silently makes every component
-  class beat every utility.
+  processes, so the order is set by the import order in each route group
+  layout, and nothing errors if you get it wrong:
+
+  ```
+  base.scss    @layer base        resets and document defaults
+  legacy.css   @layer legacy      the original stylesheet, shrinking
+  main.scss    @layer components  everything ported so far
+  globals.css  @layer theme, utilities
+  ```
+
+  A ported rule beats a rule still in legacy.css; a utility beats both.
 - **`_utils.scss` must emit zero CSS.** It is `@use`d from every component
   stylesheet; anything emitting would emit once, from whichever of them Sass
   loaded first, and land wherever that fell in the cascade.
-- **`legacy.css` is unlayered and therefore beats everything**, including
-  utilities. That is deliberate and temporary: it is what keeps unported
-  routes rendering. A utility that appears to do nothing on an unported route
-  is being outranked by a rule still in there.
+- **A ported rule must beat the legacy rule it replaces, and only layering
+  makes that true.** While legacy.css was unlayered it outranked every layered
+  rule regardless of specificity, so porting /trade-in dropped its lede from
+  18px to 15px (a bare `p { font-size }` in legacy beating
+  `.tradein-page .t-lede`) and its input's radius from 4px to 3px (a global
+  `:focus-visible { border-radius: 3px }` beating `.t-input`). Neither errored;
+  the second was visible only to tier 3. legacy.css is now `@layer legacy`,
+  which settles the whole class of them.
+
+- **Overrides of a not-yet-ported shared component stay in legacy.css.** The
+  `.tradein-page .m7-ss*` SearchSelect reskin overrides base `.m7-ss*` rules
+  defined in the same file, and they settle by specificity only while both sit
+  in the same layer. Port the override with the component, not before.
 - **Preflight is currently OFF.** Tailwind is composed from `theme.css` and
   `utilities.css` by hand. Do not restore `@import "tailwindcss"` until
   `legacy.css` is gone — it moved all 561 parity captures when tried.

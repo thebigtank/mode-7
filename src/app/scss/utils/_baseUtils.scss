@@ -1,5 +1,0 @@
-// Emitting utils only. Functions, mixins and the breakpoint map are reached
-// through _utils.scss instead, which every component stylesheet @use's and
-// which must stay silent.
-@use 'layout';
-@use 'wrapper';

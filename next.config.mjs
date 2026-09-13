@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+
 import { withPayload } from "@payloadcms/next/withPayload";
 
 /** @type {import('next').NextConfig} */
@@ -17,8 +19,13 @@ const nextConfig = {
   // with a bare `@use 'utils' as *;`. loadPaths is what makes that one line
   // resolve from anywhere in the tree instead of a ../../../ chain, and it is
   // honoured by Turbopack in both `next dev` and `next build`.
+  //
+  // fileURLToPath, never URL.pathname: this project lives under a directory
+  // with spaces in its name, and .pathname hands back a percent-encoded string
+  // that Sass cannot resolve -- the import fails with "Can't find stylesheet to
+  // import" pointing at the @use line rather than at the path.
   sassOptions: {
-    loadPaths: [new URL("./src/app/scss", import.meta.url).pathname],
+    loadPaths: [fileURLToPath(new URL("./src/app/scss", import.meta.url))],
   },
 
   // A `next dev` server and a `next build` cannot share a build directory — the
