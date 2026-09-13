@@ -15,7 +15,15 @@ import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
  * page ground shows either side of it and it reads as detached. Square corners,
  * no border — the panel is one step lighter than the page (`washSoft` over
  * `wash`), and carries a soft ground shadow because content now passes through
- * the GAP above it and the lift alone no longer separates the two.
+ * the GAP above it and the lift alone no longer separates the two. The panel
+ * is frosted glass: `washSoft` at 40% opacity plus a backdrop blur, so
+ * whatever scrolls behind it (the GAP, page content once stuck) shows
+ * through as blurred shapes rather than washing out to a flat tint — a
+ * higher fill (72% was tried first) reads as an opaque card over dark
+ * sections, not glass. A light top/side border stands in for the edge a
+ * real pane would catch, since the fill alone is now too faint to read as a
+ * distinct panel. Both the unprefixed and `-webkit-` `backdropFilter` are
+ * set — Safari has no fallback for the unprefixed one.
  *
  * It hides on scroll down and returns on scroll up via the shared
  * `useHeaderHide`, which sets `translateY(-100%)`. See the `GAP` note on the
@@ -200,7 +208,20 @@ export function HeaderV2({ onOpenSearch }: { onOpenSearch?: () => void }) {
         <div style={{ ...V2_CONTAINER, height: "100%" }}>
           <div
             style={{
-              background: V2.washSoft,
+              /* 72% of washSoft fully washed out anything dark behind it —
+                 over an ink section the panel just read as a flat opaque
+                 grey card, no different from a solid fill. Dropped to 40%
+                 so dark content blurs through as recognisable dark shapes
+                 (the glass idiom), not as a uniform light box; a thin
+                 top-biased light border stands in for the specular edge a
+                 real glass pane would catch, since the fill alone is now too
+                 faint to read as a distinct panel on its own. */
+              background: "rgba(237,240,237,0.4)",
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+              borderTop: "1px solid rgba(255,255,255,0.5)",
+              borderLeft: "1px solid rgba(255,255,255,0.25)",
+              borderRight: "1px solid rgba(255,255,255,0.25)",
               height: "100%",
               pointerEvents: "auto",
               /* With a gap, content scrolls through the space above the panel,
