@@ -2,10 +2,54 @@
 
 @layer components {
   .ui-buttonv2 {
+    --ui-buttonv2-bg: var(--color-v2-accent);
+    --ui-buttonv2-bg-hover: var(--color-v2-accent-hover);
+    --ui-buttonv2-color: var(--color-v2-accent-on);
+    --ui-buttonv2-border: none;
+    --ui-buttonv2-tile-bg: var(--color-v2-ink);
+    --ui-buttonv2-dotfill: rgb(var(--color-v2-accent-rgb) / 0.20);
     background: var(--ui-buttonv2-bg);
     color: var(--ui-buttonv2-color);
     border: var(--ui-buttonv2-border);
     transition: background .18s ease, border-color .18s ease;
+
+    &:hover {
+      background: var(--ui-buttonv2-bg-hover);
+    }
+
+    &[data-variant='ink'] {
+      --ui-buttonv2-bg: var(--color-v2-ink);
+      --ui-buttonv2-bg-hover: var(--color-v2-ink-hover);
+      --ui-buttonv2-color: var(--color-v2-white);
+      --ui-buttonv2-tile-bg: var(--color-v2-accent);
+      --ui-buttonv2-dotfill: rgb(var(--color-v2-ink-rgb) / 0.20);
+    }
+
+    &[data-variant='outline'] {
+      --ui-buttonv2-bg: transparent;
+      --ui-buttonv2-bg-hover: rgb(var(--color-v2-ink-rgb) / 0.06);
+      --ui-buttonv2-color: var(--color-v2-ink);
+      --ui-buttonv2-border: 1px solid var(--color-v2-ink);
+      --ui-buttonv2-tile-bg: var(--color-v2-ink);
+      --ui-buttonv2-dotfill: rgb(var(--color-v2-accent-rgb) / 0.20);
+    }
+
+    &[data-variant='outline'][data-border='strong'] {
+      --ui-buttonv2-border: 1px solid rgb(var(--color-v2-ink-rgb) / 0.5);
+    }
+
+    &[data-variant='outline'][data-ondark][data-border='strong'] {
+      --ui-buttonv2-border: 1px solid rgb(var(--color-v2-white-rgb) / 0.5);
+    }
+
+    &[data-variant='outline'][data-ondark] {
+      --ui-buttonv2-bg: transparent;
+      --ui-buttonv2-bg-hover: rgb(var(--color-v2-white-rgb) / 0.08);
+      --ui-buttonv2-color: var(--color-v2-white);
+      --ui-buttonv2-border: 1px solid rgb(var(--color-v2-white-rgb) / 0.28);
+      --ui-buttonv2-tile-bg: var(--color-v2-white);
+      --ui-buttonv2-dotfill: rgb(var(--color-v2-ink-rgb) / 0.20);
+    }
   }
 
   .ui-buttonv2__label {
@@ -16,5 +60,37 @@
 
   .ui-buttonv2__tile {
     background: var(--ui-buttonv2-tile-bg);
+  }
+
+  .ui-buttonv2__dot {
+    fill: var(--ui-buttonv2-dotfill);
+  }
+
+  .ui-buttonv2__arrow {
+    fill: var(--color-v2-accent);
+  }
+
+  .ui-buttonv2[data-variant='ink'] .ui-buttonv2__arrow {
+    fill: var(--color-v2-ink);
+  }
+
+  .ui-buttonv2[data-variant='outline'] .ui-buttonv2__arrow {
+    fill: var(--color-v2-accent);
+  }
+
+  .ui-buttonv2[data-variant='outline'][data-ondark] .ui-buttonv2__arrow {
+    fill: var(--color-v2-ink);
+  }
+
+  .ui-buttonv2__arrow-group {
+    animation: none;
+  }
+
+  .ui-buttonv2:hover .ui-buttonv2__arrow-group {
+    animation: m7arrowLoop 0.75s linear infinite;
+  }
+
+  .ui-buttonv2[data-direction='up']:hover .ui-buttonv2__arrow-group {
+    animation: m7arrowLoopUp 0.75s linear infinite;
   }
 }

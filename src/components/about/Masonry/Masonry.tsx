@@ -1,7 +1,7 @@
-const M_LABELS = [
-  "STUDENT", "TAILOR", "NURSE", "DRIVER", "TEACHER", "TRADER", "FAMILY", "BARBER",
-  "CHEF", "WRITER", "MECHANIC", "STYLIST", "WELDER", "FARMER", "ARTIST", "CASHIER",
-];
+import type { CSSProperties } from "react";
+import content from "@/content/about.json";
+
+const M_LABELS: string[] = content.serve.masonryLabels;
 const M_HEIGHTS = [150, 212, 176, 240, 192, 164, 226, 200];
 const M_NCOLS = 7;
 const M_PER_COL = 3;
@@ -22,13 +22,19 @@ export function Masonry() {
           <div
             className="a-mcol"
             key={col}
-            style={{
-              animationDuration: `${38 + (col % 5) * 6}s`,
-              animationDirection: col % 2 ? "reverse" : "normal",
-            }}
+            style={
+              {
+                "--a-mcol-duration": `${38 + (col % 5) * 6}s`,
+                "--a-mcol-direction": col % 2 ? "reverse" : "normal",
+              } as CSSProperties
+            }
           >
             {tiles.map((t, ti) => (
-              <div className="a-tile" key={ti} style={{ height: t.h }}>
+              <div
+                className="a-tile"
+                key={ti}
+                style={{ "--a-tile-h": `${t.h}px` } as CSSProperties}
+              >
                 <span className="a-tile__tag">▣ {t.label}</span>
               </div>
             ))}

@@ -1,10 +1,9 @@
 import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from "react";
-import { V2, V2_TYPE } from "@/lib/theme-v2";
 
 export function P({
   children,
-  color = V2.muted,
-  size = V2_TYPE.body.fontSize,
+  color = "var(--color-v2-muted)",
+  size = 16,
   className,
   style,
   ...rest

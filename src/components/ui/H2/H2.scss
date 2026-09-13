@@ -4,7 +4,7 @@
   .ui-h2 {
     font-family: var(--font-v2-display);
     font-weight: 400;
-    font-size: var(--ui-h2-size);
+    font-size: var(--ui-h2-size, #{fluid(30, 40)});
     line-height: var(--ui-h2-line-height);
     letter-spacing: -0.4px;
     color: var(--ui-h2-color);

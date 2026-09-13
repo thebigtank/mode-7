@@ -3,17 +3,17 @@
 @layer components {
   .about-page .a-ledger {
     border-top: 2px solid var(--ink);
-    margin-top: clamp(30px, 4vw, 48px);
+    margin-top: #{fluid(30, 48)};
     overflow: visible;
   }
 
   .about-page .a-cond {
-    --cond-pad: clamp(16px, 2vw, 28px);
+    --cond-pad: #{fluid(16, 28)};
     position: relative;
     display: grid;
     gap: 6px 32px;
     grid-template-columns: 1fr;
-    padding-block: clamp(24px, 2.8vw, 36px);
+    padding-block: #{fluid(24, 36)};
     padding-inline: var(--cond-pad);
     border-bottom: 1px solid var(--rule);
     border-radius: 4px;
@@ -43,7 +43,7 @@
 
   .about-page .a-cond.is-active .a-cond__shot::after {
     transform: rotate(-4deg);
-    box-shadow: 0 16px 34px rgba(23, 29, 29, 0.26);
+    box-shadow: 0 16px 34px rgb(var(--color-v2-ink-rgb) / 0.26);
   }
 
   .about-page .a-cond.is-active {
@@ -87,7 +87,7 @@
     z-index: 1;
     font-family: var(--f-head);
     font-weight: 400;
-    font-size: clamp(20px, 1.9vw, 25px);
+    font-size: #{fluid(20, 25)};
     letter-spacing: -0.01em;
     line-height: 1.25;
     margin: 0;

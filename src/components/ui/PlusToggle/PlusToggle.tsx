@@ -1,10 +1,9 @@
 import type { CSSProperties } from "react";
-import { V2, V2_HAIR } from "@/lib/theme-v2";
 
 export function PlusToggle({
   open,
   size = 30,
-  color = V2.ink,
+  color = "var(--color-v2-ink)",
   border,
   className,
   style,
@@ -25,11 +24,11 @@ export function PlusToggle({
       ]
         .filter(Boolean)
         .join(" ")}
+      data-open={open || undefined}
       style={
         {
           "--ui-plus-toggle-size": `${size}px`,
-          "--ui-plus-toggle-border": border ?? V2_HAIR,
-          transform: open ? "rotate(45deg)" : "rotate(0deg)",
+          "--ui-plus-toggle-border": border ?? "var(--v2-hair)",
           ...style,
         } as CSSProperties
       }

@@ -1,47 +1,34 @@
 import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
-import { V2 } from "@/lib/theme-v2";
-
-const stats: [string, string][] = [
-  ["50K+", "Devices vetted & sealed"],
-  ["12", "Cities served"],
-  ["100%", "Sealed and warrantied — new or renewed"],
-  ["13", "Premium brands under one roof"],
-];
+import content from "@/content/about.json";
 
 export function StatRow() {
+  const { stats } = content;
   return (
     <section className="a-band a-band--ink">
       <div className="a-wrap">
         <div data-rv>
-          <Mono dot tone="faint">Mission &amp; Vision</Mono>
+          <Mono dot tone="faint">{stats.eyebrow}</Mono>
         </div>
         <div className="a-mv">
           <div className="a-mv__cell" data-rv>
-            <span className="a-label">Mission</span>
-            <p className="a-dm" style={{ color: V2.white }}>
-              To make premium technology dependable.
-            </p>
-            <P color={V2.faint} style={{ maxWidth: "66ch" }}>
-              Sourced, verified, powered and renewed against a single standard — so
-              that owning it is never a risk the buyer carries alone.
+            <span className="a-label">{stats.mission.label}</span>
+            <p className="a-dm">{stats.mission.statement}</p>
+            <P color="var(--color-v2-faint)" className="max-w-[66ch]">
+              {stats.mission.body}
             </P>
           </div>
           <div className="a-mv__cell" data-rv>
-            <span className="a-label">Vision</span>
-            <p className="a-dm" style={{ color: V2.white }}>
-              A market where trust is the default, not the exception.
-            </p>
-            <P color={V2.faint} style={{ maxWidth: "66ch" }}>
-              Every device with a verifiable history. Every home in control of its
-              own power. Upgrading decided by what you need — never by whether the
-              seller can be believed.
+            <span className="a-label">{stats.vision.label}</span>
+            <p className="a-dm">{stats.vision.statement}</p>
+            <P color="var(--color-v2-faint)" className="max-w-[66ch]">
+              {stats.vision.body}
             </P>
           </div>
         </div>
 
         <div className="a-stats">
-          {stats.map(([n, l]) => (
+          {stats.stats.map(([n, l]) => (
             <div className="a-stat" data-rv key={l}>
               <div className="a-stat__n a-num">{n}</div>
               <div className="a-stat__l">{l}</div>

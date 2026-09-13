@@ -6,7 +6,7 @@
     border-radius: 4px;
     overflow: hidden;
     background: var(--paper);
-    margin-top: clamp(28px, 3.5vw, 46px);
+    margin-top: #{fluid(28, 46)};
   }
 
   .a-spec__bar {
@@ -14,7 +14,7 @@
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
-    padding: 13px clamp(20px, 2.4vw, 32px);
+    padding: 13px #{fluid(20, 32)};
     background: var(--wash);
     border-bottom: 1px solid var(--rule);
   }
@@ -29,7 +29,7 @@
   }
 
   .a-spec__word {
-    padding: clamp(26px, 3vw, 42px) clamp(20px, 2.4vw, 32px);
+    padding: #{fluid(26, 42)} #{fluid(20, 32)};
     border-bottom: 1px solid var(--rule);
     display: grid;
     gap: 10px;
@@ -45,7 +45,7 @@
   .a-spec__w {
     font-family: var(--f-head);
     font-weight: 400;
-    font-size: clamp(30px, 3.4vw, 46px);
+    font-size: #{fluid(30, 46)};
     line-height: 1;
     letter-spacing: -0.018em;
   }
@@ -72,7 +72,7 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 20px;
-    padding: 13px clamp(20px, 2.4vw, 32px);
+    padding: 13px #{fluid(20, 32)};
     border-bottom: 1px solid var(--rule);
   }
 

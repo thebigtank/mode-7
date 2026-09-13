@@ -1,11 +1,10 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { V2 } from "@/lib/theme-v2";
 
 export function BtnOutline({
   label,
   href,
-  color = V2.ink,
+  color = "var(--color-v2-ink)",
   border,
   className,
   style,

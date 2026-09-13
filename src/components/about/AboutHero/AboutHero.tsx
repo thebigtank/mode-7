@@ -1,40 +1,31 @@
 import { ButtonV2 } from "@/components/ui/ButtonV2";
 import { Mono } from "@/components/ui/Mono";
 import { logos } from "@/lib/content";
-import { V2 } from "@/lib/theme-v2";
+import content from "@/content/about.json";
 
 export function AboutHero() {
+  const { hero } = content;
   return (
     <>
       <section className="a-hero">
         <div className="a-wrap">
         <div className="a-hero__grid">
           <div className="a-stack" data-rv>
-            <Mono dot>About Mode 7</Mono>
-            <h1 className="a-hero-h1">
-              Owning good technology should never be a gamble.
-            </h1>
+            <Mono dot>{hero.eyebrow}</Mono>
+            <h1 className="a-hero-h1">{hero.h1}</h1>
           </div>
           <div className="a-stack" data-rv>
-            <p className="a-lede">
-              Mode 7 is a technology hub built on one observation — that buying a
-              device, powering it and upgrading it are separate problems, and almost
-              nobody solves them together.
-            </p>
+            <p className="a-lede">{hero.lede}</p>
             <div>
-              <ButtonV2
-                label="Explore Our Services"
-                variant="fill"
-                href="/services"
-              />
+              <ButtonV2 label={hero.cta} variant="fill" href="/services" />
             </div>
           </div>
         </div>
 
         <div className="a-hero__meta" data-rv>
-          <span className="a-label">Founded 2019</span>
-          <span className="a-label">12 cities</span>
-          <span className="a-label">50K+ devices vetted</span>
+          {hero.meta.map((m) => (
+            <span className="a-label" key={m}>{m}</span>
+          ))}
           <span className="a-label">{logos.length} premium brands</span>
         </div>
         </div>
@@ -44,41 +35,36 @@ export function AboutHero() {
         <picture>
           <source
             media="(max-width: 900px)"
-            srcSet="/hero/about-hero-portrait.webp"
+            srcSet={hero.second.image.portraitSrc}
             width={941}
             height={1672}
           />
           <img
             className="a-hero2__img"
-            src="/hero/about-hero.webp"
+            src={hero.second.image.src}
             width={1672}
             height={941}
-            alt="A technician in white gloves polishing a smartphone at an inspection bench, with precision screwdrivers, a loupe, tweezers and cleaning supplies laid out around them."
+            alt={hero.second.image.alt}
           />
         </picture>
         <div className="a-hero2__content">
-          <Mono dot tone="white">About Mode 7</Mono>
-          <h2 className="a-hero2__h">
-            A device is only as good as everything standing behind it.
-          </h2>
-          <p className="a-hero2__lede">
-            Every unit carrying our name is sourced, inspected, sealed and
-            warrantied by us.
-          </p>
+          <Mono dot tone="white">{hero.eyebrow}</Mono>
+          <h2 className="a-hero2__h">{hero.second.h}</h2>
+          <p className="a-hero2__lede">{hero.second.lede}</p>
           <div className="a-hero2__actions">
-            <ButtonV2 label="Explore Our Services" variant="fill" href="/services" />
+            <ButtonV2 label={hero.second.ctaPrimary} variant="fill" href="/services" />
             <ButtonV2
-              label="Value Your Device"
+              label={hero.second.ctaSecondary}
               variant="outline"
               href="/trade-in"
               onDark
-              style={{ border: "1px solid rgba(255,255,255,0.5)" }}
+              borderStrong
             />
           </div>
         </div>
         <div className="a-hero2__card">
-          <div className="a-hero2__card-n">50K+</div>
-          <div className="a-hero2__card-l">Devices vetted &amp; sealed</div>
+          <div className="a-hero2__card-n">{hero.second.cardNumber}</div>
+          <div className="a-hero2__card-l">{hero.second.cardLabel}</div>
         </div>
       </div>
     </>

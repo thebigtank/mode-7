@@ -2,21 +2,19 @@
 
 import { type CSSProperties, useCallback, useState } from "react";
 
-type Condition = { t: string; b: string };
+type Condition = { t: string; b: string; shot?: string; shotKey?: string };
 
-const SHOT: Record<string, string> = {
-  "Unreliable grid power": "/hero/lifecycle-solar.webp",
-  "Trust is scarce": "/hero/workshop.webp",
-  "Hardware outpaces income": "/hero/lifecycle-devices.webp",
-  "Devices are livelihoods": "/hero/lifecycle-refurb.webp",
-};
+const SHOT_KEYS = {
+  solar: "solar",
+  workshop: "workshop",
+  devices: "devices",
+  refurb: "refurb",
+} as const;
 
-const SHOT_KEY: Record<string, string> = {
-  "Unreliable grid power": "solar",
-  "Trust is scarce": "workshop",
-  "Hardware outpaces income": "devices",
-  "Devices are livelihoods": "refurb",
-};
+function normalizeShotKey(key: string | undefined) {
+  if (!key) return undefined;
+  return SHOT_KEYS[key as keyof typeof SHOT_KEYS];
+}
 
 export function ConditionsLedger({ conditions }: { conditions: Condition[] }) {
   const [hover, setHover] = useState<number | null>(null);
@@ -33,38 +31,34 @@ export function ConditionsLedger({ conditions }: { conditions: Condition[] }) {
 
   return (
     <div className="a-ledger">
-      {conditions.map((c, i) => {
-        const shot = SHOT[c.t];
-        const shotKey = SHOT_KEY[c.t];
-        return (
-          <div data-rv key={c.t}>
-            <article
-              tabIndex={0}
-              className={`a-cond${active === i ? " is-active" : ""}`}
-              onPointerEnter={() => setHover(i)}
-              onPointerLeave={() => setHover((h) => (h === i ? null : h))}
-              onFocus={(e) => {
-                if (isFocusVisible(e.currentTarget)) setFocus(i);
-              }}
-              onBlur={() => setFocus((f) => (f === i ? null : f))}
-              style={
-                shot
-                  ? ({ "--a-cond-shot": `url(${shot})` } as CSSProperties)
-                  : undefined
-              }
-            >
-              <span className="a-cond__fill" aria-hidden />
+      {conditions.map((c, i) => (
+        <div data-rv key={c.t}>
+          <article
+            tabIndex={0}
+            className={`a-cond${active === i ? " is-active" : ""}`}
+            onPointerEnter={() => setHover(i)}
+            onPointerLeave={() => setHover((h) => (h === i ? null : h))}
+            onFocus={(e) => {
+              if (isFocusVisible(e.currentTarget)) setFocus(i);
+            }}
+            onBlur={() => setFocus((f) => (f === i ? null : f))}
+            style={
+              c.shot
+                ? ({ "--a-cond-shot": `url(${c.shot})` } as CSSProperties)
+                : undefined
+            }
+          >
+            <span className="a-cond__fill" aria-hidden />
 
-              <h3 className="a-cond__t">{c.t}</h3>
-              <p className="a-cond__b">{c.b}</p>
+            <h3 className="a-cond__t">{c.t}</h3>
+            <p className="a-cond__b">{c.b}</p>
 
-              {shot && (
-                <span className="a-cond__shot" data-shot={shotKey} aria-hidden />
-              )}
-            </article>
-          </div>
-        );
-      })}
+            {c.shot && (
+              <span className="a-cond__shot" data-shot={normalizeShotKey(c.shotKey)} aria-hidden />
+            )}
+          </article>
+        </div>
+      ))}
     </div>
   );
 }

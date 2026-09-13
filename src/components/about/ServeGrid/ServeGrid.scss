@@ -14,7 +14,7 @@
   .a-serve__c {
     border: 1px solid var(--rule);
     border-radius: 4px;
-    padding: clamp(24px, 2.4vw, 34px);
+    padding: #{fluid(24, 34)};
     display: grid;
     gap: 12px;
     align-content: start;

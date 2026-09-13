@@ -1,12 +1,11 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { V2 } from "@/lib/theme-v2";
 import { RingArrow } from "@/components/ui/RingArrow";
 
 export function ArrowLink({
   label,
   href,
-  color = V2.ink,
+  color = "var(--color-v2-ink)",
   size = 16,
   weight = 500,
   className,

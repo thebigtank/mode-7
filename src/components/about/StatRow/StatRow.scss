@@ -1,16 +1,6 @@
 @use 'utils' as *;
 
 @layer components {
-  .a-dm {
-    font-family: var(--f-head);
-    font-weight: 400;
-    margin: 0;
-    text-wrap: balance;
-    font-size: clamp(23px, 2.5vw, 34px);
-    line-height: 1.2;
-    letter-spacing: -0.014em;
-  }
-
   .a-mv {
     display: grid;
     gap: 1px;
@@ -18,7 +8,7 @@
     border: var(--v2-hair-dark);
     border-radius: 4px;
     overflow: hidden;
-    margin-top: clamp(28px, 3.5vw, 48px);
+    margin-top: #{fluid(28, 48)};
 
     @media (min-width: 860px) {
       grid-template-columns: repeat(2, 1fr);
@@ -27,7 +17,7 @@
 
   .a-mv__cell {
     background: var(--ink);
-    padding: clamp(28px, 3.2vw, 46px);
+    padding: #{fluid(28, 46)};
     display: grid;
     gap: 16px;
     align-content: start;
@@ -37,7 +27,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.16);
-    margin-top: clamp(32px, 4vw, 52px);
+    margin-top: #{fluid(32, 52)};
 
     @media (min-width: 860px) {
       grid-template-columns: repeat(4, 1fr);
@@ -45,7 +35,7 @@
   }
 
   .a-stat {
-    padding: clamp(22px, 2.2vw, 30px) 24px clamp(22px, 2.2vw, 30px) 0;
+    padding: #{fluid(22, 30)} 24px #{fluid(22, 30)} 0;
     border-bottom: 1px solid rgb(var(--color-v2-white-rgb) / 0.16);
 
     @media (min-width: 860px) {
@@ -56,7 +46,7 @@
   .a-stat__n {
     font-family: var(--f-head);
     font-weight: 400;
-    font-size: clamp(28px, 3.2vw, 44px);
+    font-size: #{fluid(28, 44)};
     line-height: 1;
     letter-spacing: -0.018em;
   }

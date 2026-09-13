@@ -19,7 +19,7 @@
   }
 
   .a-band {
-    padding-block: clamp(64px, 9vw, 120px);
+    padding-block: #{fluid(64, 120)};
     background: var(--wash);
   }
 
@@ -34,7 +34,7 @@
   }
 
   .a-band--tight {
-    padding-block: clamp(52px, 6.5vw, 88px);
+    padding-block: #{fluid(52, 88)};
   }
 
   .a-dl {
@@ -42,7 +42,7 @@
     font-weight: 400;
     margin: 0;
     text-wrap: balance;
-    font-size: clamp(30px, 3.6vw, 44px);
+    font-size: #{fluid(30, 44)};
     line-height: 1.18;
     letter-spacing: -0.016em;
   }
@@ -66,9 +66,27 @@
     font-variant-numeric: tabular-nums;
   }
 
+  .a-dm {
+    font-family: var(--f-head);
+    font-weight: 400;
+    margin: 0;
+    text-wrap: balance;
+    font-size: #{fluid(23, 34)};
+    line-height: 1.2;
+    letter-spacing: -0.014em;
+  }
+
+  .a-band--ink .a-dm {
+    color: var(--color-v2-white);
+  }
+
+  .a-dm__ch {
+    color: var(--color-v2-accent);
+  }
+
   .a-split {
     display: grid;
-    gap: clamp(28px, 4vw, 64px);
+    gap: #{fluid(28, 64)};
     grid-template-columns: 1fr;
   }
 
@@ -99,7 +117,7 @@
   }
 
   .a-stack--lg {
-    gap: clamp(28px, 3.5vw, 46px);
+    gap: #{fluid(28, 46)};
   }
 
   .about-page [data-rv] {

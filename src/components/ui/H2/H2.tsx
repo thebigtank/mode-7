@@ -1,10 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
-import { V2 } from "@/lib/theme-v2";
 
 export function H2({
   children,
-  color = V2.ink,
-  size = "clamp(30px,3.1vw,40px)",
+  color = "var(--color-v2-ink)",
+  size,
   lineHeight = 1.2,
   className,
   style,
@@ -25,7 +24,7 @@ export function H2({
       style={
         {
           "--ui-h2-color": color,
-          "--ui-h2-size": size,
+          ...(size ? { "--ui-h2-size": size } : {}),
           "--ui-h2-line-height": lineHeight,
           ...style,
         } as CSSProperties

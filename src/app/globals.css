@@ -70,6 +70,9 @@
   --color-m7-hair: #a39a7e;
   --color-m7-stripe-a: #d9cdb2;
   --color-m7-stripe-b: #e7dbc0;
+  --color-m7-stripe-dark-a: #271f18;
+  --color-m7-stripe-dark-b: #362e25;
+  --color-v2-scrim-rgb: 10 10 10;
 
   /* --- v1: on the bands --------------------------------------------------- */
   --color-m7-on-rust: #efe6d1;
@@ -119,8 +122,8 @@
   --color-m7-neutral-black-rgb: 0 0 0;
   --color-m7-neutral-ink-rgb: 18 18 18;
   --color-m7-neutral-white-rgb: 255 255 255;
-  --color-m7-stripe: repeating-linear-gradient(135deg, #d9cdb2 0 9px, #e7dbc0 9px 18px);
-  --color-m7-stripe-dark: repeating-linear-gradient(135deg, #271f18 0 9px, #362e25 9px 18px);
+  --color-m7-stripe: repeating-linear-gradient(135deg, var(--color-m7-stripe-a) 0 9px, var(--color-m7-stripe-b) 9px 18px);
+  --color-m7-stripe-dark: repeating-linear-gradient(135deg, var(--color-m7-stripe-dark-a) 0 9px, var(--color-m7-stripe-dark-b) 9px 18px);
 
   /* --- v2 ------------------------------------------------------------------
      Gold is a GROUND, not a text colour: 1.40:1 on wash, 1.70:1 on white,

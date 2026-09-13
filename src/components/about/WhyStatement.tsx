@@ -2,18 +2,17 @@
 
 import { useRef } from "react";
 import { useReveal } from "@/hooks/useReveal";
-import { V2 } from "@/lib/theme-v2";
-
-const TEXT = "A device is only as good as everything standing behind it.";
+import content from "@/content/about.json";
 
 export function WhyStatement() {
   const ref = useRef<HTMLParagraphElement>(null);
-  useReveal(ref, V2.ink, V2.accent);
+  useReveal(ref, "var(--color-v2-ink)", "var(--color-v2-accent)");
+  const text = content.why.statement;
 
   return (
-    <p ref={ref} className="a-dm" data-rv style={{ margin: 0 }}>
-      {TEXT.split("").map((ch, i) => (
-        <span key={i} style={{ color: V2.accent }}>
+    <p ref={ref} className="a-dm" data-rv>
+      {text.split("").map((ch, i) => (
+        <span key={i} className="a-dm__ch">
           {ch}
         </span>
       ))}

@@ -1,12 +1,11 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { V2 } from "@/lib/theme-v2";
 
 export function BtnFill({
   label,
   href,
-  ground = V2.accent,
-  color = V2.accentOn,
+  ground = "var(--color-v2-accent)",
+  color = "var(--color-v2-accent-on)",
   className,
   style,
 }: {
