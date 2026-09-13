@@ -47,6 +47,7 @@
   /* --- v1: section grounds ------------------------------------------------ */
   --color-m7-cream: #efe6d1;
   --color-m7-card: #f7efdd;
+  --color-m7-card-rgb: 247 239 221;
   --color-m7-sage: #cbc5aa;
   --color-m7-rust: #9e4b2a;
   --color-m7-ember: #b75a24;
@@ -67,6 +68,8 @@
   --color-m7-line: #dcd1b6;
   --color-m7-line-strong: #cec3a8;
   --color-m7-hair: #a39a7e;
+  --color-m7-stripe-a: #d9cdb2;
+  --color-m7-stripe-b: #e7dbc0;
 
   /* --- v1: on the bands --------------------------------------------------- */
   --color-m7-on-rust: #efe6d1;
@@ -116,6 +119,8 @@
   --color-m7-neutral-black-rgb: 0 0 0;
   --color-m7-neutral-ink-rgb: 18 18 18;
   --color-m7-neutral-white-rgb: 255 255 255;
+  --color-m7-stripe: repeating-linear-gradient(135deg, #d9cdb2 0 9px, #e7dbc0 9px 18px);
+  --color-m7-stripe-dark: repeating-linear-gradient(135deg, #271f18 0 9px, #362e25 9px 18px);
 
   /* --- v2 ------------------------------------------------------------------
      Gold is a GROUND, not a text colour: 1.40:1 on wash, 1.70:1 on white,
@@ -129,11 +134,14 @@
   --color-v2-wash-soft: #edf0ed;
   --color-v2-white: #ffffff;
   --color-v2-accent: #f0c044;
+  --color-v2-accent-rgb: 240 192 68;
+  --color-v2-accent-hover: #f5ce65;
   --color-v2-accent-on: #1c150f;
   --color-v2-accent-text: #79662f;
   --color-v2-muted: #5a6160;
   --color-v2-faint: #aab0ae;
   --color-v2-navy: #14213d;
+  --color-v2-ink-hover: #222a2a;
 
   /* --- fonts ---------------------------------------------------------------
      Named for the next/font variable, never the family string: next/font
