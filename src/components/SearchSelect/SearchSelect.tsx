@@ -25,6 +25,7 @@ export function SearchSelect({
   value,
   onPick,
   searchPlaceholder = "Search…",
+  variant,
 }: {
   label: string;
   placeholder: string;
@@ -32,6 +33,7 @@ export function SearchSelect({
   value: string | null;
   onPick: (v: string) => void;
   searchPlaceholder?: string;
+  variant?: "tradein";
 }) {
   const id = useId();
   const listId = `${id}-list`;
@@ -130,7 +132,7 @@ export function SearchSelect({
         {label}
       </span>
 
-      <div className="m7-ss" ref={rootRef}>
+      <div className="m7-ss" data-variant={variant} ref={rootRef}>
         <button
           ref={btnRef}
           type="button"
