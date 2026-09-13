@@ -65,6 +65,23 @@ guard, so a screenshot catches whatever blink phase it lands in. Freezing
 computed styles are still covered by tier 1; only the animated canvas content
 is out of scope.
 
+## When tier 1 reports differences
+
+`compare.mjs` only prints samples for content-keyed nodes, so a wall of
+structural-key differences arrives with no detail. `diffprops.mjs` answers
+"which property, and what did it become":
+
+```sh
+node scripts/parity/diffprops.mjs
+```
+
+It histograms every differing computed property across all captures and shows
+one worked example of each. It is how 1,071 unexplained differences turned out
+to be a single property on a single element: `border-radius: 50%` had become
+Tailwind's `rounded-full`, which compiles to `calc(infinity * 1px)` and
+serialises as `3.35544e+07px`. Identical on a square element, different on any
+other. `rounded-[50%]` is the exact spelling.
+
 ## Known rare noise
 
 A capture of `/shop` at 1200 has once produced **6 pixels at delta 1** against
