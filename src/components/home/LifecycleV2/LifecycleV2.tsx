@@ -2,23 +2,8 @@
 
 import Link from "next/link";
 import { type CSSProperties, useCallback, useState } from "react";
-import { pillars } from "@/lib/content";
-import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
+import content from "@/content/home.json";
 import { Band } from "@/components/ui/Band";
-
-const PILLAR_IMAGE: Record<string, string> = {
-  "Premium Devices": "/hero/lifecycle-devices.webp",
-  "Certified Refurbished": "/hero/lifecycle-refurb.webp",
-  "Smart Home Automation": "/hero/lifecycle-smarthome.webp",
-  "Solar & Green Energy": "/hero/lifecycle-solar.webp",
-};
-
-const PILLAR_HREF: Record<string, string> = {
-  "Premium Devices": "/shop",
-  "Certified Refurbished": "/shop",
-  "Smart Home Automation": "/smart-home",
-  "Solar & Green Energy": "/green-energy",
-};
 
 export function LifecycleV2() {
   const [hover, setHover] = useState<number | null>(null);
@@ -35,63 +20,21 @@ export function LifecycleV2() {
 
   return (
     <Band ground="wash" className="v2-life-band">
-      <div style={{ textAlign: "center" }}>
-        <span
-          style={{
-            display: "inline-block",
-            padding: "7px 16px",
-            borderRadius: 99,
-            border: `1px solid ${V2.ink}`,
-            background: "transparent",
-            fontFamily: V2_FONT.mono,
-            fontSize: 11,
-            letterSpacing: V2_TYPE.mono.letterSpacing,
-            lineHeight: 1.2,
-            textTransform: "uppercase",
-            color: V2.ink,
-          }}
-        >
-          The ecosystem
+      <div className="v2-life-intro text-center">
+        <span className="v2-life-eyebrow inline-block uppercase">
+          {content.lifecycle.label}
         </span>
 
-        <h2
-          style={{
-            margin: "clamp(20px,2.1vw,30px) auto 0",
-            maxWidth: 900,
-            fontFamily: V2_FONT.display,
-            fontWeight: 400,
-            fontSize: "clamp(34px,3.9vw,56px)",
-            lineHeight: 1.2,
-            letterSpacing: V2_TYPE.h2.letterSpacing,
-            color: V2.ink,
-            textWrap: "balance",
-          }}
-        >
-          A fully integrated technology lifecycle.
-        </h2>
+        <h2 className="v2-life-heading text-pretty">{content.lifecycle.heading}</h2>
 
-        <p
-          style={{
-            margin: "clamp(14px,1.4vw,20px) auto 0",
-            maxWidth: 560,
-            fontFamily: V2_FONT.body,
-            fontWeight: 300,
-            fontSize: V2_TYPE.body.fontSize,
-            lineHeight: 1.55,
-            color: V2.muted,
-            textWrap: "pretty",
-          }}
-        >
-          From the moment you buy to the day you upgrade, every part of the Mode 7
-          ecosystem works together.
-        </p>
+        <p className="v2-life-body text-pretty">{content.lifecycle.body}</p>
       </div>
 
       <div className="v2-life-list">
-        {pillars.map((p, i) => (
+        {content.pillars.map((p, i) => (
           <Link
             key={p.title}
-            href={PILLAR_HREF[p.title] ?? "/services"}
+            href={p.href}
             className={`v2-life-row${active === i ? " is-active" : ""}`}
             onPointerEnter={() => setHover(i)}
             onPointerLeave={() => setHover((h) => (h === i ? null : h))}
@@ -99,11 +42,7 @@ export function LifecycleV2() {
               if (isFocusVisible(e.currentTarget)) setFocus(i);
             }}
             onBlur={() => setFocus((f) => (f === i ? null : f))}
-            style={
-              {
-                "--v2-life-shot": `url(${PILLAR_IMAGE[p.title] ?? ""})`,
-              } as CSSProperties
-            }
+            style={{ "--v2-life-shot": `url(${p.image})` } as CSSProperties}
           >
             <span className="v2-life-fill" aria-hidden />
 
