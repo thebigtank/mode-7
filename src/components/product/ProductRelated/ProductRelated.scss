@@ -1,0 +1,26 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-related__eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--color-m7-neutral-faint);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .product-related__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: clamp(26px, 3.6vw, 34px);
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    margin: 0 0 22px;
+  }
+
+  .product-related__grid {
+    gap: clamp(12px, 1.6vw, 14px);
+    margin-top: 30px;
+  }
+}

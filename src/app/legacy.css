@@ -1201,13 +1201,6 @@ input,
 .m7-statstrip { grid-template-columns: minmax(0, 1fr) !important; }
 }
 
-  /* Product + cart ----------------------------------------------------------
-     Sticky panels only make sense beside something that scrolls past them. Once
-     the layout is stacked they'd pin over the content below, so they let go. */
-  @media (max-width: 900px) {
-.m7-buybox { position: static !important; }
-}
-
   @keyframes m7drift {
 from { transform: translateY(0); } to { transform: translateY(-50%); }
 }

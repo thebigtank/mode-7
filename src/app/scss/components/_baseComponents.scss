@@ -29,3 +29,9 @@
 @use '../../../components/cart/CartLineItems/CartLineItems';
 @use '../../../components/cart/CartSummary/CartSummary';
 @use '../../../components/checkout/CheckoutModal/CheckoutModal';
+@use '../../../components/product/ProductBreadcrumb/ProductBreadcrumb';
+@use '../../../components/product/ProductGallery/ProductGallery';
+@use '../../../components/product/ProductOption/ProductOption';
+@use '../../../components/product/ProductBuyBox/ProductBuyBox';
+@use '../../../components/product/ProductOverview/ProductOverview';
+@use '../../../components/product/ProductRelated/ProductRelated';

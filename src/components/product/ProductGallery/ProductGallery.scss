@@ -1,0 +1,40 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+  }
+
+  .product-gallery__main {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-m7-neutral-border);
+    height: clamp(300px, 46vw, 520px);
+  }
+
+  .product-gallery__label {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    font-family: var(--font-m7-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .product-gallery__thumbs {
+    gap: clamp(10px, 1.4vw, 14px);
+  }
+
+  .product-gallery__thumb {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-m7-neutral-border);
+    height: clamp(72px, 9vw, 110px);
+  }
+}
