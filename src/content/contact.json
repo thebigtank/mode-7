@@ -1,0 +1,69 @@
+{
+  "hero": {
+    "overline": "Contact",
+    "intro": "Sales, support, or a trade-in valuation — pick a lane below or send us a message. Seven can also help right now from the corner of any page."
+  },
+  "lanes": {
+    "eyebrow": "Where do you want to go?",
+    "items": [
+      {
+        "title": "Sales & Orders",
+        "body": "Questions about devices, availability, bulk and business orders.",
+        "cta": "Talk to sales"
+      },
+      {
+        "title": "Support",
+        "body": "Setup help, warranty, repairs and anything post-purchase.",
+        "cta": "Get support"
+      },
+      {
+        "title": "Trade-In",
+        "body": "Value your current device and start an upgrade in minutes.",
+        "cta": "Value a device"
+      }
+    ]
+  },
+  "form": {
+    "eyebrow": "Send a message",
+    "title": "Tell us what you need.",
+    "fields": {
+      "name": { "label": "Full name", "placeholder": "Jane Doe" },
+      "email": { "label": "Email", "placeholder": "jane@email.com" },
+      "enquiry": { "label": "Enquiry type", "value": "Sales & Orders" },
+      "message": { "label": "Message", "placeholder": "How can we help?" }
+    },
+    "submit": "Send message",
+    "note": "We reply within one business day.",
+    "annotation": "FORM VALIDATION + ENQUIRY ROUTING"
+  },
+  "channels": {
+    "title": "Support channels",
+    "items": [
+      "WhatsApp Concierge",
+      "Seven AI — 24/7",
+      "+44 20 7946 0000",
+      "hello@mode7.com"
+    ]
+  },
+  "hours": {
+    "title": "Business hours",
+    "items": [
+      { "day": "Mon – Fri", "time": "8:00 – 20:00" },
+      { "day": "Saturday", "time": "9:00 – 18:00" },
+      { "day": "Sunday", "time": "10:00 – 16:00" },
+      { "day": "Seven AI", "time": "Always on" }
+    ]
+  },
+  "stores": {
+    "eyebrow": "Visit us",
+    "title": "Find a Mode 7 store.",
+    "mapLabel": "INTERACTIVE STORE MAP",
+    "mapAnnotation": "LIVE MAP — CLICK A PIN TO SELECT STORE",
+    "items": [
+      { "city": "London", "address": "21 Fitzrovia Court, W1T" },
+      { "city": "Manchester", "address": "8 Deansgate Sq, M3" },
+      { "city": "Lagos", "address": "14 Admiralty Way, Lekki" },
+      { "city": "Nairobi", "address": "3 Riverside Dr, Westlands" }
+    ]
+  }
+}
