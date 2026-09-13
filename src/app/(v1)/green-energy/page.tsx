@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ArrowButton } from "@/components/ArrowButton";
 import { EnergyFaq } from "@/components/green-energy/EnergyFaq";
 import { EnergyScrolly } from "@/components/green-energy/EnergyScrolly";
-import { PageHero } from "@/components/page/Blocks";
+import { PageHero } from "@/components/page/PageHero";
 import { Glyph, type GlyphName } from "@/components/page/ServiceIcons";
 import { Annotation, Placeholder } from "@/components/wireframe/Primitives";
 import { FONT, stripe } from "@/lib/theme";

@@ -1,5 +1,5 @@
 import { ArrowButton } from "@/components/ArrowButton";
-import { MediaPanel } from "@/components/page/Blocks";
+import { MediaPanel } from "@/components/page/MediaPanel";
 
 const assurances = [
   {

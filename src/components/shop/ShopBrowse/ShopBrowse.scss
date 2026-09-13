@@ -1,0 +1,111 @@
+@use 'utils' as *;
+
+@layer components {
+  .shop-browse {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: clamp(18px, 3vw, 40px);
+    align-items: start;
+
+    @media (max-width: 900px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .shop-browse__aside {
+    position: sticky;
+    top: 100px;
+
+    @media (max-width: 900px) {
+      position: static;
+    }
+  }
+
+  .shop-browse__note {
+    margin-top: 18px;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  .shop-browse__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+    border-bottom: 1px solid var(--color-m7-neutral-border-soft);
+    padding-bottom: 18px;
+  }
+
+  .shop-browse__count {
+    font-size: 15px;
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .shop-browse__count-n {
+    color: var(--color-m7-neutral-ink);
+    font-weight: 600;
+  }
+
+  .shop-browse__sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+  }
+
+  .shop-browse__sort-label {
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .shop-browse__sort-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--color-m7-neutral-border);
+    border-radius: 4px;
+    padding: 9px 14px;
+    color: var(--color-m7-neutral-text);
+  }
+
+  .shop-browse__sort-icon {
+    display: inline-flex;
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .shop-browse__pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 44px;
+  }
+
+  .shop-browse__page {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-m7-neutral-border);
+    background: var(--color-m7-neutral-white);
+    color: var(--color-m7-neutral-text);
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+
+    &[data-active] {
+      border-color: var(--color-m7-neutral-ink);
+      background: var(--color-m7-neutral-ink);
+      color: var(--color-m7-neutral-white);
+    }
+  }
+
+  .shop-browse__ai-note {
+    display: flex;
+    justify-content: center;
+    margin-top: 26px;
+  }
+}

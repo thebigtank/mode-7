@@ -28,6 +28,13 @@
 @use '../../../components/services/SectionHead/SectionHead';
 @use '../../../components/services/StripeLabel/StripeLabel';
 @use '../../../components/page/Cards/Cards';
+@use '../../../components/page/PageHero/PageHero';
+@use '../../../components/page/PageSection/PageSection';
+@use '../../../components/page/IconCard/IconCard';
+@use '../../../components/page/MediaPanel/MediaPanel';
+@use '../../../components/page/DarkPanel/DarkPanel';
+@use '../../../components/page/DarkStat/DarkStat';
+@use '../../../components/page/StatBar/StatBar';
 @use '../../../components/smart-home/smart-home';
 @use '../../../components/smart-home/CategoryShowcase/CategoryShowcase';
 @use '../../../components/smart-home/MediaBanner/MediaBanner';
@@ -46,3 +53,6 @@
 @use '../../../components/product/ProductOverview/ProductOverview';
 @use '../../../components/product/ProductRelated/ProductRelated';
 @use '../../../components/checkout/OrderReceived/OrderReceived';
+@use '../../../components/shop/ProductGrid/ProductGrid';
+@use '../../../components/shop/ShopFilters/ShopFilters';
+@use '../../../components/shop/ShopBrowse/ShopBrowse';

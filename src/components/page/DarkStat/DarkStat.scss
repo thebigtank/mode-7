@@ -1,0 +1,24 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-dark-stat {
+    background: rgb(var(--color-m7-neutral-white-rgb) / 0.06);
+    border: 1px solid rgb(var(--color-m7-neutral-white-rgb) / 0.12);
+    border-radius: 4px;
+    padding: 24px 26px;
+  }
+
+  .pg-dark-stat__n {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: clamp(27px, 3.8vw, 44px);
+    line-height: 1;
+    color: var(--color-m7-neutral-white);
+  }
+
+  .pg-dark-stat__label {
+    font-size: 14px;
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.5);
+    margin-top: 8px;
+  }
+}

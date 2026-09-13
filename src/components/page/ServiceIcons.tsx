@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export function Glyph({
   name,
   size = 26,
-  stroke = "#121212",
+  stroke = "var(--color-m7-neutral-ink)",
   strokeWidth = 1.6,
 }: {
   name: GlyphName;
@@ -21,7 +21,7 @@ export function Glyph({
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ flex: "0 0 auto" }}
+      className="flex-none"
     >
       {paths[name]}
     </svg>

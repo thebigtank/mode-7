@@ -1,0 +1,50 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-dark-panel {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-m7-neutral-strong-soft);
+    padding: clamp(28px, 4.4vw, 64px);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(26px, 3.6vw, 48px);
+    align-items: center;
+
+    @media (max-width: 900px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .pg-dark-panel__overline {
+    font-family: var(--font-m7-head);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--color-m7-neutral-muted-mid);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .pg-dark-panel__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: clamp(24px, 3.3vw, 38px);
+    line-height: 1.02;
+    letter-spacing: -3px;
+    margin: 0 0 20px;
+    color: var(--color-m7-neutral-white);
+  }
+
+  .pg-dark-panel__body {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.62);
+    margin: 0 0 28px;
+    max-width: 520px;
+  }
+
+  .pg-dark-panel__aside {
+    position: relative;
+  }
+}

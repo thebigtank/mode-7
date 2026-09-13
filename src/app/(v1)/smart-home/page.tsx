@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowButton } from "@/components/ArrowButton";
-import { PageHero, PageSection } from "@/components/page/Blocks";
+import { PageHero } from "@/components/page/PageHero";
+import { PageSection } from "@/components/page/PageSection";
 import { BestSellers } from "@/components/smart-home/BestSellers";
 import { CategoryShowcase } from "@/components/smart-home/CategoryShowcase";
 import { MediaBanner } from "@/components/smart-home/MediaBanner";
