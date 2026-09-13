@@ -331,6 +331,7 @@ export function ValuationWorkspace() {
                   label={`Model — ${MODELS[a.cat].length} accepted`}
                   placeholder="Choose your device…"
                   searchPlaceholder="Search devices…"
+                  variant="tradein"
                   value={a.model}
                   options={MODELS[a.cat].map((m) => ({
                     v: m.id,
