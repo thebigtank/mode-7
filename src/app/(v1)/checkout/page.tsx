@@ -14,10 +14,7 @@ export default function CheckoutPage() {
     <>
       <OrderReceived />
       {WIREFRAME.showAnnotations && (
-        <div
-          className="m7-wrap"
-          style={{ display: "flex", justifyContent: "center", paddingTop: 34 }}
-        >
+        <div className="m7-wrap flex justify-center pt-[34px]">
           <Annotation style={{ fontSize: 10, padding: "6px 13px" }}>
             WHATSAPP HANDOFF — NO CARD DETAILS TAKEN ON SITE
           </Annotation>

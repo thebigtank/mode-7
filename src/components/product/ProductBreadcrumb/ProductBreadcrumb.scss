@@ -1,0 +1,18 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-breadcrumb {
+    font-size: 13px;
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: 26px;
+  }
+
+  .product-breadcrumb__link {
+    color: var(--color-m7-neutral-faint);
+    text-decoration: none;
+  }
+
+  .product-breadcrumb__current {
+    color: var(--color-m7-neutral-text);
+  }
+}

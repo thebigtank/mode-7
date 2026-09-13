@@ -1,0 +1,12 @@
+@use 'utils' as *;
+
+@layer components {
+  .sh-bestsellers__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: clamp(24px, 3.3vw, 38px);
+    line-height: 1.02;
+    letter-spacing: -3px;
+    margin: 0;
+  }
+}

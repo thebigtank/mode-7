@@ -1,0 +1,230 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-oc-rise {
+    animation: m7ocRise 0.62s cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  @keyframes m7ocRise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .m7-oc-mark {
+    animation: m7ocPop 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+  }
+
+  @keyframes m7ocPop {
+    from {
+      opacity: 0;
+      transform: scale(0.82);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .m7-oc-tick {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: m7ocTick 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.26s both;
+  }
+
+  @keyframes m7ocTick {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .m7-oc-steps {
+    display: grid;
+    gap: 28px 24px;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  @media (min-width: 780px) {
+    .m7-oc-steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .m7-oc-steps::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: var(--m7-line);
+    }
+  }
+
+  .m7-oc-step {
+    position: relative;
+    padding-top: 26px;
+  }
+
+  .m7-oc-step__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 99px;
+    background: var(--m7-card);
+    border: 1px solid var(--m7-ink);
+    box-shadow: 0 0 0 4px var(--m7-card);
+  }
+
+  @media (min-width: 780px) {
+    .m7-oc-step:first-child .m7-oc-step__dot {
+      background: var(--m7-ink);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m7-oc-rise,
+    .m7-oc-mark {
+      animation: m7aiFade 0.3s ease both;
+    }
+
+    .m7-oc-tick {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .oc {
+    padding-top: clamp(48px, 7vw, 96px);
+  }
+
+  .oc__intro {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .oc-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--color-m7-neutral-ink);
+    color: var(--color-m7-neutral-white);
+  }
+
+  .oc__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: clamp(34px, 4.8vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -2.4px;
+    margin: 28px 0 0;
+  }
+
+  .oc__lede {
+    font-size: clamp(17px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 22px auto 0;
+    max-width: 54ch;
+  }
+
+  .oc-summary {
+    margin-top: 34px;
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 6px;
+    background: var(--color-m7-neutral-surface-soft);
+    padding: 8px 24px 20px;
+  }
+
+  .oc-summary__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--color-m7-neutral-border-soft);
+    text-align: left;
+  }
+
+  .oc-summary__row[data-last] {
+    padding: 11px 0 0;
+    border-bottom: none;
+  }
+
+  .oc-summary__key {
+    font-family: var(--font-m7-mono);
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--color-m7-neutral-faint);
+    flex: 0 0 auto;
+  }
+
+  .oc-summary__value {
+    font-size: 15px;
+    color: var(--color-m7-neutral-strong);
+    text-align: right;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  .oc-summary__value[data-last] {
+    line-height: 1.55;
+  }
+
+  .oc-next {
+    max-width: 1000px;
+    margin: clamp(48px, 6vw, 76px) auto 0;
+  }
+
+  .oc-next__eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--color-m7-neutral-faint);
+    text-transform: uppercase;
+    margin-bottom: 26px;
+    text-align: center;
+  }
+
+  .oc-step__num {
+    font-family: var(--font-m7-mono);
+    font-size: 11px;
+    color: var(--color-m7-neutral-line);
+    letter-spacing: 1px;
+  }
+
+  .oc-step__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.4px;
+    margin: 10px 0 8px;
+    line-height: 1.25;
+  }
+
+  .oc-step__body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-m7-neutral-body);
+  }
+
+  .oc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+}
