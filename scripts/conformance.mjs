@@ -136,7 +136,8 @@ for (const file of tsx) {
     const st = raw.trim();
     if (/style=\{\{/.test(st) && !/--[a-z]/.test(raw)) add("inline-style", file, line, st.slice(0, 90));
     if (/from "@\/lib\/theme(-v2)?"/.test(st)) add("theme-import", file, line, st);
-    if (/\/\*/.test(st) || (/(^|\s)\/\//.test(st) && !/eslint|https?:|\{"\/\//.test(st)))
+    const isDirective = /eslint|@ts-|prettier-ignore|webpackChunkName/.test(st);
+    if (!isDirective && (/\/\*/.test(st) || (/(^|\s)\/\//.test(st) && !/https?:|\{"\/\//.test(st))))
       add("comment", file, line, st.slice(0, 90));
   });
 }
@@ -156,8 +157,8 @@ for (const rule of order) {
   if (!list) continue;
   total += list.length;
   console.log(`\n${rule}  (${list.length})`);
-  if (!quiet) for (const f of list.slice(0, 12)) console.log(`  ${f.file}:${f.line}  ${f.detail}`);
-  if (!quiet && list.length > 12) console.log(`  … ${list.length - 12} more`);
+  if (!quiet) for (const f of list.slice(0, 200)) console.log(`  ${f.file}:${f.line}  ${f.detail}`);
+  if (!quiet && list.length > 200) console.log(`  … ${list.length - 200} more`);
 }
 
 console.log(`\n${total} findings across ${scss.length} stylesheets and ${tsx.length} components in ${root}`);
