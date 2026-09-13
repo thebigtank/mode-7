@@ -35,7 +35,7 @@ export function CartLineItems() {
             </div>
           </div>
 
-          <div className="cart-line__price">{it.price}</div>
+          <div className="cart-line__price whitespace-nowrap">{it.price}</div>
         </div>
       ))}
 

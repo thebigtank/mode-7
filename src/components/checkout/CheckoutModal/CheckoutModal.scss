@@ -2,7 +2,6 @@
 
 @layer components {
   .checkout-modal {
-    align-items: center;
     background: rgb(var(--color-m7-neutral-ink-rgb) / 0.42);
     backdrop-filter: blur(3px);
     animation: m7aiFade 0.2s ease both;

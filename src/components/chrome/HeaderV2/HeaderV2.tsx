@@ -43,7 +43,7 @@ export function HeaderV2({ onOpenSearch }: { onOpenSearch?: () => void }) {
                 {c.logoLabel}
               </Link>
 
-              <nav className="v2-navlinks" aria-label="Primary">
+              <nav className="v2-navlinks items-center" aria-label="Primary">
                 {c.nav.map((n, i) => (
                   <Link
                     key={n.label}

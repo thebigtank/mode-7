@@ -77,7 +77,6 @@
   .v2-navlinks {
     display: flex;
     gap: #{fluid(16, 32)};
-    align-items: center;
 
     @media (max-width: #{rem-calc(980)}) {
       display: none;

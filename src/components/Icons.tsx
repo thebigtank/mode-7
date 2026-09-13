@@ -100,7 +100,7 @@ export const AsteriskMark = ({ size = 34 }: { size?: number }) => (
     stroke="#121212"
     strokeWidth={2}
     strokeLinecap="round"
-    style={{ flex: "0 0 auto" }}
+    className="flex-none"
   >
     <line x1="17" y1="3" x2="17" y2="31" />
     <line x1="3" y1="17" x2="31" y2="17" />

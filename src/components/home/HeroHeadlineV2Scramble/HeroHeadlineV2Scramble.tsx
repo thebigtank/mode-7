@@ -212,11 +212,11 @@ export function HeroHeadlineV2() {
             className="v2-hero-band"
             style={widths ? { width: widths[target] } : undefined}
           >
-            <span className="v2-hero-bandsize">{POOL[target]}</span>
+            <span className="v2-hero-bandsize whitespace-nowrap">{POOL[target]}</span>
           </span>
 
           <span className="v2-hero-mask">
-            <span className="v2-hero-scramble block">
+            <span className="v2-hero-scramble block whitespace-nowrap">
               {displayChars.map((c, i) => (
                 <span
                   key={i}

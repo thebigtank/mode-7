@@ -120,7 +120,7 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label={c.dialogLabel}
       onClick={onClose}
-      className="m7-modal checkout-modal fixed inset-0 z-[90000] flex justify-center"
+      className="m7-modal checkout-modal fixed inset-0 z-[90000] flex items-center justify-center"
     >
       <form
         ref={panelRef}

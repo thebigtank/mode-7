@@ -41,7 +41,7 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
       aria-modal="true"
       aria-label={`Seven on the ${product.name}`}
       onClick={onClose}
-      className="m7-modal ai-panel fixed inset-0 z-[90000] flex justify-center"
+      className="m7-modal ai-panel fixed inset-0 z-[90000] flex items-center justify-center"
     >
       <div
         ref={panelRef}
@@ -131,7 +131,7 @@ export function ProductGrid() {
                   <div className="shop-card__name">{p.name}</div>
                   <div className="shop-card__meta">{p.meta}</div>
                 </div>
-                <div className="shop-card__price">{priceLabel(p)}</div>
+                <div className="shop-card__price whitespace-nowrap">{priceLabel(p)}</div>
               </div>
             </Link>
 

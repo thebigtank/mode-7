@@ -2,7 +2,6 @@
 
 @layer components {
   .ai-panel {
-    align-items: center;
     background: rgb(var(--color-m7-neutral-ink-rgb) / 0.42);
     backdrop-filter: blur(3px);
     animation: m7aiFade 0.2s ease both;
@@ -224,7 +223,6 @@
     font-family: var(--font-m7-head);
     font-weight: 700;
     font-size: #{rem-calc(17)};
-    white-space: nowrap;
   }
 
   .shop-ai-chip {
