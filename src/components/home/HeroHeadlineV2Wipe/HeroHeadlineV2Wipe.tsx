@@ -2,17 +2,16 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { V2, V2_FONT } from "@/lib/theme-v2";
+import content from "@/content/home.json";
 
-const POOL = ["Pocket", "Home", "Office", "Studio", "Commute", "Future"] as const;
+const POOL = content.hero.wordPool;
 
 const DWELL_MS = 2300;
 const COVER_MS = 360;
 const HOLD_COVERED_MS = 110;
 const COLLAPSE_MS = 340;
 
-const ARIA_LABEL =
-  "Powering your pocket with tech that's vetted, sealed and guaranteed.";
+const ARIA_LABEL = content.hero.ariaLabel;
 
 const useIsoLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -143,16 +142,7 @@ export function HeroHeadlineV2() {
   }, []);
 
   return (
-    <h1
-      className="v2-hero-h1"
-      aria-label={ARIA_LABEL}
-      style={{
-        margin: 0,
-        fontFamily: V2_FONT.display,
-        fontWeight: 400,
-        color: V2.ink,
-      }}
-    >
+    <h1 className="v2-hero-h1" aria-label={ARIA_LABEL}>
       <span aria-hidden="true" className="v2-hero-line">
         Powering your{" "}
         <span className="v2-hero-slot" ref={slotRef}>

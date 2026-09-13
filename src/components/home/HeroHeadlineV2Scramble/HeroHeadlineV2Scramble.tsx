@@ -7,9 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { V2, V2_FONT } from "@/lib/theme-v2";
+import content from "@/content/home.json";
 
-const POOL = ["Pocket", "Home", "Office", "Studio", "Commute", "Future"] as const;
+const POOL = content.hero.wordPool;
 
 const DWELL_MS = 2200;
 
@@ -22,8 +22,7 @@ const FLICKER_SWAP_MS = 55;
 const SCRAMBLE_CHARS_HEAD = "ABCDEFHIKLMNORSTUVWXZ";
 const SCRAMBLE_CHARS_TAIL = "abcdefhiklmnorstuvwxz";
 
-const ARIA_LABEL =
-  "Powering your pocket with tech that's vetted, sealed and guaranteed.";
+const ARIA_LABEL = content.hero.ariaLabel;
 
 const useIsoLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -195,16 +194,7 @@ export function HeroHeadlineV2() {
   const displayChars = scrambleFrame ?? toResolved(POOL[index]);
 
   return (
-    <h1
-      className="v2-hero-h1"
-      aria-label={ARIA_LABEL}
-      style={{
-        margin: 0,
-        fontFamily: V2_FONT.display,
-        fontWeight: 400,
-        color: V2.ink,
-      }}
-    >
+    <h1 className="v2-hero-h1" aria-label={ARIA_LABEL}>
       <span aria-hidden="true" className="v2-hero-line">
         Powering your{" "}
         <span className="v2-hero-slot" ref={slotRef}>
