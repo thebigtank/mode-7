@@ -186,8 +186,6 @@ export function HeroHeadlineV2() {
 
     raf = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(raf);
-    /* `scrambling` is the only thing that should retrigger this: `index` and
-       `next` are read once to seed the timeline, not tracked live. */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrambling]);
 

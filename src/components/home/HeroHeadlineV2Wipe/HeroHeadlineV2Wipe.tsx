@@ -130,9 +130,6 @@ export function HeroHeadlineV2() {
         });
     }, DWELL_MS);
     return () => window.clearTimeout(id);
-    /* This effect depends on `index` and re-runs (clearing the previous
-       timeout) every time it changes, so the closure above always sees the
-       CURRENT word — no ref needed to dodge staleness. */
   }, [gateOn, reduced, widths, index]);
 
   useEffect(() => {
