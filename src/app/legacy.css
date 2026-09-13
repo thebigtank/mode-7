@@ -925,12 +925,6 @@ input,
 .m7-why-grid { grid-template-columns: 1fr !important; }
 }
 
-  /* Numbered step rows: a 64px number column beside the text, stacked on phones. */
-  .m7-steprow { grid-template-columns: 64px minmax(0, 1fr); }
-  @media (max-width: 620px) {
-.m7-steprow { grid-template-columns: minmax(0, 1fr); }
-}
-
   /* Team mosaic. The 240px fixed row height is fine at 3-up but far too tall
      for a full-width phone tile, so the rows shrink with the columns. */
   .m7-team-grid {
