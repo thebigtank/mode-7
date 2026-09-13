@@ -21,3 +21,4 @@ tsconfig.tsbuildinfo
 /*.jpg
 /*.jpeg
 /Screenshot*
+.next-parity
