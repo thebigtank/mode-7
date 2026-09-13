@@ -82,6 +82,19 @@ Tailwind's `rounded-full`, which compiles to `calc(infinity * 1px)` and
 serialises as `3.35544e+07px`. Identical on a square element, different on any
 other. `rounded-[50%]` is the exact spelling.
 
+## Tier 3 is blind to anything that is not in the DOM at rest
+
+`discover-states.mjs` walks the loaded stylesheets, strips the pseudo-class and
+keeps a selector only if `document.querySelectorAll` matches something **on the
+page as loaded**. A control whose panel, options or scrim only exist once it is
+open therefore contributes nothing, and tier 3 reports clean while never having
+touched it. `.m7-ss*` (SearchSelect) is the known case: 54 targets, none of
+them that control. The mega menu, checkout modal and search overlay are the
+same shape.
+
+For those, drive the component by hand on both builds and compare computed
+styles. Automated discovery cannot reach them.
+
 ## Gating something that renders nowhere
 
 The parked components -- `LifecycleV2`, `WhyV2`, `InsightsV2`, `CtaBandV2`,

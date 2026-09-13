@@ -55,7 +55,24 @@ preserved on their own branches and is NOT yet merged or verified here.
 | branch | holds |
 |---|---|
 | `worktree-agent-a361174e2d1af92da` | `/shop` + `page/Blocks.tsx` (committed, agent-gated). `/green-energy` and `/contact` possibly partial. |
-| `worktree-agent-ac77958c521c99759` | `SearchSelect` + its `/trade-in` reskin, at least at a WIP commit. |
+| `worktree-agent-ac77958c521c99759` | `SearchSelect` + its `/trade-in` reskin. **Finished and gated** — commit `2798705`. 255 lines out of `legacy.css`, including the whole `.tradein-page .m7-ss*` reskin that had been held back through nine route ports. |
+
+`SearchSelect` gained a `variant?: "tradein"` prop rendered as `data-variant`,
+with `--ss-*` custom properties on `.m7-ss` that the variant repoints at the v2
+aliases — one component painted per surface, matching the `SearchOverlay`
+precedent rather than forking it. Existing consumers are byte-identical
+because the attribute is omitted entirely when no variant is passed.
+
+**But its interactivity is NOT verified, and this is a gap in the harness, not
+just in that work.** `scripts/parity/state-targets.json` holds 54 targets and
+**not one of them is a `.m7-ss*` selector**, so tier 3's "clean" result says
+nothing about this control. The cause: `discover-states.mjs` keeps only
+selectors matching elements that exist *at rest*, and this control's panel,
+options, scrim and filter field only exist once it is open. Before trusting
+that commit, drive it by hand on both builds — open the panel, hover an option,
+focus the search field, tab through, Escape to close — and compare computed
+styles. The same blind spot applies to any other control whose markup is
+conditional: the mega menu, the checkout modal, the search overlay.
 
 Merge each, then **re-gate the merged tree yourself**. Three agents' green gates
 against three separate baselines do not compose into one green result — that has
