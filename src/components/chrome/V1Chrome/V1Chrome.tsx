@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import { MegaMenu } from "./MegaMenu";
-import { RevealWordmark } from "./RevealWordmark";
-import { SearchOverlay } from "./SearchOverlay";
-import { SevenWidget } from "./SevenWidget";
+import { Footer } from "../Footer";
+import { Header } from "../Header";
+import { MegaMenu } from "../MegaMenu";
+import { RevealWordmark } from "../RevealWordmark";
+import { SearchOverlay } from "../SearchOverlay";
+import { SevenWidget } from "../SevenWidget";
 import { lockPageScroll, unlockPageScroll, useLenis } from "@/hooks/useLenis";
 import { COLOR, FONT } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";

@@ -1,0 +1,9 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-reveal-spacer {
+    @media (max-width: 900px) {
+      height: 118px !important;
+    }
+  }
+}

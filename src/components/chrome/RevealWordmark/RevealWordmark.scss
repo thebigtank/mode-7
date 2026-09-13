@@ -1,0 +1,9 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-reveal-mark {
+    @media (max-width: 900px) {
+      display: none !important;
+    }
+  }
+}

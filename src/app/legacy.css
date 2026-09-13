@@ -13,7 +13,6 @@
    it and is deleted in Phase 5.
    ========================================================================== */
 @layer legacy {
-
   /* ==========================================================================
      Mode 7 — global styles
      Ported 1:1 from the "Mode 7 Wireframe" Claude Design component.
@@ -172,11 +171,6 @@
     outline-offset: 2px;
     border-radius: 3px;
   }
-  /* On a dark band the ring inverts, or it vanishes into the ground. */
-  .m7-on-dark :focus-visible,
-  .m7-on-dark:focus-visible {
-    outline-color: var(--m7-cream);
-  }
   /* Prices, valuations and counters must not jitter as digits change. */
   .m7-num,
   [data-num] {
@@ -209,40 +203,6 @@
     display: none;
     width: 0;
     height: 0;
-  }
-
-  /* Hover states — inline styles can't express :hover, so the few hover-driven
-     colours live here as utility classes. */
-  .m7-social {
-    transition: all 0.2s ease;
-  }
-  .m7-social:hover {
-    background: var(--m7-ink);
-    border-color: var(--m7-ink);
-    color: var(--m7-card);
-  }
-  .m7-social-dark:hover {
-    border-color: var(--m7-card);
-    background: var(--m7-card);
-    color: var(--m7-ink);
-  }
-  .m7-muted-link {
-    transition: color 0.2s ease;
-  }
-  .m7-muted-link:hover {
-    color: var(--m7-ink);
-  }
-  .m7-footer-link {
-    transition: color 0.2s ease;
-  }
-  .m7-footer-link:hover {
-    color: var(--m7-card);
-  }
-  .m7-search-result:hover {
-    background: var(--m7-cream);
-  }
-  .m7-search-close:hover {
-    color: var(--m7-ink);
   }
   .m7-pill:hover {
     background: var(--m7-ink);
@@ -290,8 +250,8 @@
     transform: none;
   }
   @media (hover: none) {
-    .m7-ai-chip { opacity: 1; transform: none; }
-  }
+.m7-ai-chip { opacity: 1; transform: none; }
+}
   .m7-ai-chip:hover { border-color: var(--m7-ink); }
   .m7-ai-chip:active { transform: scale(0.97); }
 
@@ -300,21 +260,23 @@
      just being there. Delays are set inline, per element. */
   .m7-oc-rise { animation: m7ocRise 0.62s cubic-bezier(0.23, 1, 0.32, 1) both; }
   @keyframes m7ocRise {
-    from { opacity: 0; transform: translateY(14px); }
+from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: none; }
-  }
+}
   /* the ink disc pops, then the tick draws itself inside it */
   .m7-oc-mark { animation: m7ocPop 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both; }
   @keyframes m7ocPop {
-    from { opacity: 0; transform: scale(0.82); }
+from { opacity: 0; transform: scale(0.82); }
     to { opacity: 1; transform: none; }
-  }
+}
   .m7-oc-tick {
     stroke-dasharray: 30;
     stroke-dashoffset: 30;
     animation: m7ocTick 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.26s both;
   }
-  @keyframes m7ocTick { to { stroke-dashoffset: 0; } }
+  @keyframes m7ocTick {
+to { stroke-dashoffset: 0; }
+}
 
   .m7-oc-steps {
     display: grid;
@@ -323,7 +285,7 @@
     position: relative;
   }
   @media (min-width: 780px) {
-    .m7-oc-steps { grid-template-columns: repeat(3, 1fr); }
+.m7-oc-steps { grid-template-columns: repeat(3, 1fr); }
     /* the rule the dots sit on — desktop only, where the steps read as a row */
     .m7-oc-steps::before {
       content: "";
@@ -334,7 +296,7 @@
       height: 1px;
       background: var(--m7-line);
     }
-  }
+}
   .m7-oc-step { position: relative; padding-top: 26px; }
   .m7-oc-step__dot {
     position: absolute;
@@ -348,14 +310,14 @@
     box-shadow: 0 0 0 4px var(--m7-card);
   }
   @media (min-width: 780px) {
-    .m7-oc-step:first-child .m7-oc-step__dot { background: var(--m7-ink); }
-  }
+.m7-oc-step:first-child .m7-oc-step__dot { background: var(--m7-ink); }
+}
 
   @media (prefers-reduced-motion: reduce) {
-    .m7-oc-rise,
+.m7-oc-rise,
     .m7-oc-mark { animation: m7aiFade 0.3s ease both; }
     .m7-oc-tick { animation: none; stroke-dashoffset: 0; }
-  }
+}
 
   /* Modals ------------------------------------------------------------------
      Centred cards on desktop. On phones they become bottom sheets: full width,
@@ -370,7 +332,7 @@
 
   .m7-modal { padding: 24px; }
   @media (max-width: 620px) {
-    .m7-modal { padding: 0; align-items: flex-end !important; }
+.m7-modal { padding: 0; align-items: flex-end !important; }
     .m7-modal__panel {
       width: 100% !important;
       max-height: 92dvh !important;
@@ -379,14 +341,14 @@
       padding-bottom: env(safe-area-inset-bottom);
       animation: m7sheetIn 0.3s cubic-bezier(0.32, 0.72, 0, 1) both !important;
     }
-  }
+}
   @keyframes m7sheetIn {
-    from { transform: translateY(100%); }
+from { transform: translateY(100%); }
     to { transform: none; }
-  }
+}
   @media (prefers-reduced-motion: reduce) {
-    .m7-modal__panel { animation: m7aiFade 0.2s ease both !important; }
-  }
+.m7-modal__panel { animation: m7aiFade 0.2s ease both !important; }
+}
 
   /* Searchable select ========================================================
      Replaces the native <select>, whose option list is drawn by the OS and so
@@ -417,8 +379,8 @@
   }
   .m7-ss__btn[data-empty="true"] .m7-ss__value { color: var(--m7-muted); }
   @media (hover: hover) and (pointer: fine) {
-    .m7-ss__btn:hover { border-color: var(--m7-muted); }
-  }
+.m7-ss__btn:hover { border-color: var(--m7-muted); }
+}
   .m7-ss__btn:focus-visible,
   .m7-ss__btn[aria-expanded="true"] {
     outline: none;
@@ -456,9 +418,9 @@
     animation: m7ssIn 0.16s cubic-bezier(0.23, 1, 0.32, 1) both;
   }
   @keyframes m7ssIn {
-    from { opacity: 0; transform: translateY(-6px); }
+from { opacity: 0; transform: translateY(-6px); }
     to { opacity: 1; transform: none; }
-  }
+}
   /* the sheet header only earns its space on mobile */
   .m7-ss__head { display: none; }
 
@@ -539,7 +501,7 @@
 
   /* Bottom sheet on phones */
   @media (max-width: 620px) {
-    .m7-ss__scrim {
+.m7-ss__scrim {
       display: block;
       position: fixed;
       inset: 0;
@@ -586,60 +548,60 @@
       min-height: 44px;
     }
     .m7-ss__opt { padding: 14px 34px 14px 12px; }
-  }
+}
 
   @media (prefers-reduced-motion: reduce) {
-    .m7-ss__panel { animation: m7aiFade 0.15s ease both; }
+.m7-ss__panel { animation: m7aiFade 0.15s ease both; }
     .m7-ss__caret { transition: none; }
-  }
+}
 
   /* The checkout KYC grid: two columns, one on a phone. */
   .m7-kyc { grid-template-columns: 1fr 1fr; gap: 2px 16px; }
   @media (max-width: 560px) {
-    .m7-kyc { grid-template-columns: minmax(0, 1fr); }
-  }
+.m7-kyc { grid-template-columns: minmax(0, 1fr); }
+}
 
   @keyframes m7aiFade {
-    from { opacity: 0; }
+from { opacity: 0; }
     to { opacity: 1; }
-  }
+}
   @keyframes m7aiIn {
-    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+from { opacity: 0; transform: translateY(10px) scale(0.98); }
     to { opacity: 1; transform: none; }
-  }
+}
   @media (prefers-reduced-motion: reduce) {
-    .m7-ai-chip { transition: opacity 0.2s ease; transform: none; }
+.m7-ai-chip { transition: opacity 0.2s ease; transform: none; }
     .m7-ai-chip:active { transform: none; }
-  }
+}
 
   /* Keyframes ---------------------------------------------------------------- */
   @keyframes m7marL {
-    from {
+from {
       transform: translateX(0);
     }
     to {
       transform: translateX(-50%);
     }
-  }
+}
   @keyframes m7marR {
-    from {
+from {
       transform: translateX(-50%);
     }
     to {
       transform: translateX(0);
     }
-  }
+}
   @keyframes m7float {
-    0%,
+0%,
     100% {
       transform: translateY(0);
     }
     50% {
       transform: translateY(-9px);
     }
-  }
+}
   @keyframes sevenIn {
-    from {
+from {
       opacity: 0;
       transform: translateY(18px) scale(0.86);
     }
@@ -647,9 +609,9 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
-  }
+}
   @keyframes sevenOut {
-    from {
+from {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
@@ -657,9 +619,9 @@
       opacity: 0;
       transform: translateY(16px) scale(0.9);
     }
-  }
+}
   @keyframes sevenPillIn {
-    from {
+from {
       opacity: 0;
       transform: translateY(10px) scale(0.9);
     }
@@ -667,23 +629,23 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
-  }
+}
   @keyframes m7arrowLoop {
-    from {
+from {
       transform: translateX(0px);
     }
     to {
       transform: translateX(40px);
     }
-  }
+}
   @keyframes m7arrowLoopUp {
-    from {
+from {
       transform: translateY(0px);
     }
     to {
       transform: translateY(-40px);
     }
-  }
+}
 
   /* PlusToggle (src/components/ui/PlusToggle/PlusToggle.tsx) — the shared v2 accordion
      icon's rotation transition. Global and palette-free, same reasoning as
@@ -696,28 +658,28 @@
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
   @media (prefers-reduced-motion: reduce) {
-    .v2-plus-toggle {
+.v2-plus-toggle {
       transition: none;
     }
-  }
+}
   @keyframes m7menuIn {
-    from {
+from {
       opacity: 0;
     }
     to {
       opacity: 1;
     }
-  }
+}
   @keyframes m7menuOut {
-    from {
+from {
       opacity: 1;
     }
     to {
       opacity: 0;
     }
-  }
+}
   @keyframes m7menuRow {
-    from {
+from {
       opacity: 0;
       transform: translateX(-90px);
     }
@@ -725,9 +687,9 @@
       opacity: 1;
       transform: translateX(0);
     }
-  }
+}
   @keyframes m7menuRowOut {
-    from {
+from {
       opacity: 1;
       transform: translateX(0);
     }
@@ -735,9 +697,9 @@
       opacity: 0;
       transform: translateX(-40px);
     }
-  }
+}
   @keyframes m7panelDown {
-    from {
+from {
       opacity: 0;
       transform: translateY(-14px);
     }
@@ -745,9 +707,9 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
+}
   @keyframes m7panelUp {
-    from {
+from {
       opacity: 1;
       transform: translateY(0);
     }
@@ -755,9 +717,9 @@
       opacity: 0;
       transform: translateY(-18px);
     }
-  }
+}
   @keyframes m7searchPanel {
-    from {
+from {
       opacity: 0;
       transform: translateY(-22px) scale(0.965);
       filter: blur(6px);
@@ -767,9 +729,9 @@
       transform: translateY(0) scale(1);
       filter: blur(0);
     }
-  }
+}
   @keyframes m7searchPanelOut {
-    from {
+from {
       opacity: 1;
       transform: translateY(0) scale(1);
       filter: blur(0);
@@ -779,9 +741,9 @@
       transform: translateY(-14px) scale(0.98);
       filter: blur(4px);
     }
-  }
+}
   @keyframes m7suggIn {
-    from {
+from {
       opacity: 0;
       transform: translateY(9px);
     }
@@ -789,9 +751,9 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
+}
   @keyframes m7sevenOut {
-    0% {
+0% {
       transform: translateY(0);
     }
     22% {
@@ -801,9 +763,9 @@
       transform: translateY(170px);
       opacity: 0;
     }
-  }
+}
   @keyframes m7sevenIn {
-    0% {
+0% {
       transform: translateY(170px);
       opacity: 0;
     }
@@ -815,25 +777,25 @@
       transform: translateY(0);
       opacity: 1;
     }
-  }
+}
   @keyframes m7curtainDown {
-    from {
+from {
       transform: translateY(-100%);
     }
     to {
       transform: translateY(0);
     }
-  }
+}
   @keyframes m7curtainUp {
-    from {
+from {
       transform: translateY(0);
     }
     to {
       transform: translateY(-100%);
     }
-  }
+}
   @keyframes m7blurfade {
-    from {
+from {
       opacity: 0;
       filter: blur(16px);
       transform: scale(1.06);
@@ -843,9 +805,9 @@
       filter: blur(0);
       transform: scale(1);
     }
-  }
+}
   @keyframes m7blurfadeOut {
-    from {
+from {
       opacity: 1;
       filter: blur(0);
     }
@@ -853,7 +815,7 @@
       opacity: 0;
       filter: blur(10px);
     }
-  }
+}
 
   /* ==========================================================================
      Responsive primitives
@@ -898,22 +860,22 @@
   .m7-c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
   @media (max-width: 1080px) {
-    .m7-c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.m7-c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .m7-c3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
+}
   @media (max-width: 620px) {
-    .m7-c2,
+.m7-c2,
     .m7-c3,
     .m7-c4 { grid-template-columns: minmax(0, 1fr); }
-  }
+}
 
   /* Legacy helpers, kept because ~33 grids already use them. These DO need
      !important — the desktop columns are still declared inline on those. */
   @media (max-width: 1080px) {
-    .m7-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-  }
+.m7-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
   @media (max-width: 900px) {
-    .m7-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
+.m7-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
     /* Was capped at 44px, which left the hero looking undersized on a phone —
        with one column the headline has the full width to work with. */
     .m7-hero-h1 {
@@ -921,32 +883,26 @@
       line-height: 1.04 !important;
       letter-spacing: -0.045em !important;
     }
-  }
+}
   @media (max-width: 620px) {
-    .m7-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
-  }
-
-  /* Site chrome ------------------------------------------------------------- */
-  /* The mega-menu's preview panel is hover-driven; on touch it can never fill in. */
-  @media (max-width: 900px) {
-    .m7-menu-aside { display: none !important; }
-  }
+.m7-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+}
 
   /* iOS Safari zooms the whole page when a focused field is under 16px. Our form
      fields are 15px by design, so lift them on touch devices only — the desktop
      type scale is untouched. */
   @media (pointer: coarse) {
-    input,
+input,
     select,
     textarea {
       font-size: 16px !important;
     }
-  }
+}
 
   /* Touch targets: a 34px stepper button is below the 44px comfortable minimum. */
   @media (pointer: coarse) {
-    .m7-tap { min-width: 44px; min-height: 44px; }
-  }
+.m7-tap { min-width: 44px; min-height: 44px; }
+}
 
   /* Shop filters ------------------------------------------------------------
      One markup tree, two layouts. Desktop: a static rail. Below 900px: a drawer
@@ -958,7 +914,7 @@
   .m7-filters__panel { outline: none; }
 
   @media (max-width: 900px) {
-    .m7-filters__toggle {
+.m7-filters__toggle {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -1059,60 +1015,60 @@
 
     /* the wireframe annotation next to the rail has nothing to sit beside here */
     .m7-shop-note { display: none; }
-  }
+}
 
   @media (prefers-reduced-motion: reduce) {
-    .m7-filters__panel,
+.m7-filters__panel,
     .m7-filters__scrim { transition: none; }
-  }
+}
 
   /* Shop grid: 3-up, 2-up on tablets AND phones, 1-up only when truly narrow.
      A single full-width product card on a phone wastes the screen. */
   .m7-shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   @media (max-width: 1080px) {
-    .m7-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
+.m7-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
   @media (max-width: 430px) {
-    .m7-shop-grid { grid-template-columns: minmax(0, 1fr); }
-  }
+.m7-shop-grid { grid-template-columns: minmax(0, 1fr); }
+}
   @media (max-width: 900px) {
-    .m7-shop-aside { position: static !important; }
-  }
+.m7-shop-aside { position: static !important; }
+}
 
   /* Wireframe annotation pills are nowrap so they read as one line on desktop.
      On a phone a long one runs clean off the edge, so let them wrap. */
   @media (max-width: 620px) {
-    .m7-annot {
+.m7-annot {
       white-space: normal !important;
       max-width: calc(100vw - 2 * var(--m7-pad));
       text-align: left;
       line-height: 1.45;
     }
-  }
+}
 
   /* The full-bleed glass caption: a fixed image column beside text does not fit
      inside the card on a phone. */
   @media (max-width: 620px) {
-    .m7-fullbleed-card {
+.m7-fullbleed-card {
       grid-template-columns: minmax(0, 1fr) !important;
       max-width: calc(100% - 2 * var(--m7-pad)) !important;
     }
     .m7-fullbleed-card > :first-child { min-height: 92px; }
     .m7-fullbleed-card > :last-child { padding: 0 4px 6px !important; }
-  }
+}
 
   /* Ecosystem video ----------------------------------------------------------
      Desktop shows one video split across two framed panels. A phone only has
      room for one frame, so the second panel goes and the video layer stops
      being double-width — full-bleed inside a single panel. */
   @media (max-width: 900px) {
-    .m7-eco-panel:nth-of-type(2) { display: none; }
+.m7-eco-panel:nth-of-type(2) { display: none; }
     .m7-eco-panel:nth-of-type(1) { min-height: clamp(300px, 76vw, 420px); }
     .m7-eco-video {
       width: 100% !important;
       left: 0 !important;
     }
-  }
+}
 
   /* Featured capabilities — sticky card stack ---------------------------------
      The stack itself is pure CSS: each card sits in a normal-flow wrapper that is
@@ -1120,17 +1076,17 @@
      the travel it gets before the next one pins over it. Only the footer needs a
      breakpoint. */
   @media (max-width: 760px) {
-    /* Three columns of mono bullets do not fit a phone; stack them and let the
+/* Three columns of mono bullets do not fit a phone; stack them and let the
        card grow rather than clipping the footer over the copy. */
     .m7-stack__foot { grid-template-columns: 1fr !important; }
-  }
+}
   @media (prefers-reduced-motion: reduce) {
-    .m7-stack__card { transform: none !important; filter: none !important; }
-  }
+.m7-stack__card { transform: none !important; filter: none !important; }
+}
 
   /* Team: grid above 620px, swipeable carousel below -------------------------- */
   @media (max-width: 620px) {
-    .m7-team-grid {
+.m7-team-grid {
       display: flex !important;
       grid-template-columns: none !important;
       grid-auto-rows: auto !important;
@@ -1148,64 +1104,32 @@
       height: 260px;
       scroll-snap-align: start;
     }
-  }
-
-  /* Footer wordmark ---------------------------------------------------------- */
-  .m7-footer-mark { display: none; }
-  @media (max-width: 900px) {
-    /* the reveal is a desktop effect; mobile states the wordmark outright */
-    .m7-reveal-mark { display: none !important; }
-    /* Scroll room still has to uncover the legal row — the giant wordmark is
-       what's hidden, not the copyright and policy links underneath it. Zeroing
-       this hid those too. Measured at 105px where the links wrap to two rows,
-       65px where they don't; 118px covers both with a little air. */
-    .m7-reveal-spacer { height: 118px !important; }
-
-    .m7-footer-mark {
-      display: block;
-      margin-top: clamp(34px, 8vw, 56px);
-      font-family: var(--font-outfit), sans-serif;
-      font-weight: 700;
-      /* fills the black card's width, matching the desktop wordmark's presence.
-         23vw not 25vw so it clears the gutters at 360px rather than sitting
-         exactly flush. */
-      font-size: clamp(48px, 23vw, 140px);
-      /* a sub-1 line-height lets the glyphs sit outside their box, and the
-         footer clips overflow — so pad the box back out under them */
-      line-height: 0.86;
-      padding-bottom: 0.08em;
-      letter-spacing: -0.045em;
-      color: var(--m7-card);
-      text-align: left;
-      white-space: nowrap;
-      user-select: none;
-    }
-  }
+}
 
   /* Home hero + Mission ------------------------------------------------------ */
   /* Five feature cells across a 350px column give each ~70px, which overflows.
      Two-up on tablets, one column on phones, with the dividers redrawn. */
   .m7-herofeat { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   @media (max-width: 1080px) and (min-width: 621px) {
-    .m7-herofeat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.m7-herofeat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .m7-herofeat > * { border-right: 0 !important; border-bottom: 1px solid var(--m7-line); }
-  }
+}
   /* The headline's three hard line breaks are a desktop composition. Keeping
      them on a phone caps the type at ~44px before "Powering your home," wraps
      anyway. Dropping the breaks lets it set naturally and go substantially
      larger, which is what gives the hero presence at this width. */
   @media (max-width: 620px) {
-    .m7-hero-h1 br { display: none; }
+.m7-hero-h1 br { display: none; }
     .m7-hero-h1 {
       font-size: clamp(44px, 13.2vw, 64px) !important;
       text-wrap: balance;
     }
-  }
+}
 
   /* Below 620px this is a swipeable row rather than five stacked rows — five
      full-width bars added a screen and a half of scrolling for a feature list. */
   @media (max-width: 620px) {
-    .m7-herofeat {
+.m7-herofeat {
       display: flex !important;
       grid-template-columns: none !important;
       overflow-x: auto;
@@ -1224,18 +1148,18 @@
       border-right: 0 !important;
     }
     .m7-herofeat > * + * { padding-left: 22px !important; border-left: 1px solid var(--m7-line); }
-  }
+}
 
   /* The stat card deliberately overhangs the image on desktop; on a narrow
      screen that overhang lands off the left edge, so it tucks back inside. */
   @media (max-width: 900px) {
-    .m7-mission-chip {
+.m7-mission-chip {
       left: 12px !important;
       bottom: 12px !important;
       width: min(208px, 52vw) !important;
       height: 128px !important;
     }
-  }
+}
 
   /* Home carousels ----------------------------------------------------------
      Horizontal scrollers are legitimate here — the fixes are about the track
@@ -1247,14 +1171,14 @@
      assigns scrollLeft directly to wrap the infinite copies, and mandatory snap
      fights a programmatic jump like that. */
   @media (max-width: 900px) {
-    .m7-scroll {
+.m7-scroll {
       scroll-snap-type: x proximity;
       scroll-padding-left: var(--m7-pad);
     }
     .m7-scroll > * { scroll-snap-align: start; }
-  }
+}
   @media (max-width: 760px) {
-    .m7-brandstrip {
+.m7-brandstrip {
       flex-direction: column;
       align-items: stretch !important;
       gap: 16px;
@@ -1267,7 +1191,7 @@
       max-width: none !important;
       white-space: nowrap;
     }
-  }
+}
 
   /* Content-page grids ------------------------------------------------------ */
   /* Decorative bento mosaics whose tiles are placed by explicit grid-column /
@@ -1276,12 +1200,12 @@
      tracks and pushing the page sideways. Switching the container to flex makes
      the browser ignore the placement entirely — no per-tile overrides needed. */
   @media (max-width: 900px) {
-    .m7-mosaic {
+.m7-mosaic {
       display: flex !important;
       flex-direction: column;
     }
     .m7-mosaic > * { min-height: 200px; }
-  }
+}
   /* Why Mode 7 — column hover + responsive collapse -------------------------- */
   .m7-why-col { transition: background .4s ease; }
   /* the design's own hover tint: the site's gold #F0C044 at 7% */
@@ -1291,18 +1215,18 @@
      the element, and an inline style outranks any selector here without it. */
   .m7-why-num { transition: color .4s ease; }
   @media (max-width: 1080px) {
-    .m7-why-grid { grid-template-columns: 1fr 1fr !important; }
+.m7-why-grid { grid-template-columns: 1fr 1fr !important; }
     .m7-why-col { border-top: 1px solid rgba(28, 21, 15, 0.16); }
-  }
+}
   @media (max-width: 620px) {
-    .m7-why-grid { grid-template-columns: 1fr !important; }
-  }
+.m7-why-grid { grid-template-columns: 1fr !important; }
+}
 
   /* Numbered step rows: a 64px number column beside the text, stacked on phones. */
   .m7-steprow { grid-template-columns: 64px minmax(0, 1fr); }
   @media (max-width: 620px) {
-    .m7-steprow { grid-template-columns: minmax(0, 1fr); }
-  }
+.m7-steprow { grid-template-columns: minmax(0, 1fr); }
+}
 
   /* Team mosaic. The 240px fixed row height is fine at 3-up but far too tall
      for a full-width phone tile, so the rows shrink with the columns. */
@@ -1311,28 +1235,28 @@
     grid-auto-rows: 240px;
   }
   @media (max-width: 1080px) {
-    .m7-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 210px; }
-  }
+.m7-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 210px; }
+}
   @media (max-width: 560px) {
-    .m7-team-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 180px; }
-  }
+.m7-team-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 180px; }
+}
 
   /* Stat strip: column count comes from the data, so only the collapse is here.
      Keeps the dividing borders sane by re-drawing them for the wrapped layout. */
   @media (max-width: 900px) {
-    .m7-statstrip { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-  }
+.m7-statstrip { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
   @media (max-width: 460px) {
-    .m7-statstrip { grid-template-columns: minmax(0, 1fr) !important; }
-  }
+.m7-statstrip { grid-template-columns: minmax(0, 1fr) !important; }
+}
 
   /* Product + cart ----------------------------------------------------------
      Sticky panels only make sense beside something that scrolls past them. Once
      the layout is stacked they'd pin over the content below, so they let go. */
   @media (max-width: 900px) {
-    .m7-buybox,
+.m7-buybox,
     .m7-cart-summary { position: static !important; }
-  }
+}
 
   /* Cart line: thumb | details | price. Below 560px the price drops under the
      details rather than squeezing the middle column to nothing. */
@@ -1342,7 +1266,7 @@
   }
   .m7-cart-line__img { height: 96px; }
   @media (max-width: 560px) {
-    .m7-cart-line {
+.m7-cart-line {
       grid-template-columns: 72px minmax(0, 1fr);
       gap: 14px 16px;
       align-items: start;
@@ -1352,7 +1276,7 @@
       grid-column: 2;
       font-size: 17px;
     }
-  }
+}
 
   /* ==========================================================================
      About page (/about) — scoped editorial layout, ON THE V2 PALETTE.
@@ -1463,7 +1387,9 @@
      section's own background), never a wash gap. */
   .about-page .a-hero { padding-block: clamp(44px, 6vw, 80px) clamp(40px, 5vw, 64px); background: var(--paper); }
   .about-page .a-hero__grid { display: grid; gap: clamp(24px, 3vw, 48px); grid-template-columns: 1fr; }
-  @media (min-width: 900px) { .about-page .a-hero__grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: end; } }
+  @media (min-width: 900px) {
+.about-page .a-hero__grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: end; }
+}
   .about-page .a-hero__meta { display: flex; flex-wrap: wrap; gap: 10px 34px; padding-top: 24px; margin-top: clamp(28px, 3.5vw, 44px); border-top: 1px solid var(--rule); }
 
   /* ── HERO 02 — full-bleed verification-bench photo ──────────────────────
@@ -1536,7 +1462,7 @@
      same cramped row, which is what the literal reference does at narrow
      widths with no mobile handling of its own. */
   @media (max-width: 900px) {
-    .about-page .a-hero2 { height: auto; }
+.about-page .a-hero2 { height: auto; }
     /* Taller than the 280px this was when the only source was a landscape
        crop: below 900px the <picture> serves the 941x1672 PORTRAIT frame, and
        280px reduced it to a letterbox slice that threw away the composition
@@ -1549,15 +1475,15 @@
     .about-page .a-hero2__content { position: static; max-width: none; padding: 28px var(--pad) 24px; background: var(--ink); }
     .about-page .a-hero2__lede { color: #aab0ae; } /* V2.faint — matches every other ink-band body copy on this page */
     .about-page .a-hero2__card { position: static; margin: 0 var(--pad) 28px; background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; border: 1px solid var(--rule); }
-  }
+}
 
   /* layout helpers */
   .about-page .a-split { display: grid; gap: clamp(28px, 4vw, 64px); grid-template-columns: 1fr; }
   @media (min-width: 900px) {
-    .about-page .a-split--sticky { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; }
+.about-page .a-split--sticky { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; }
     .about-page .a-split--wide { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: end; }
     .about-page .a-sticky { position: sticky; top: 100px; }
-  }
+}
   .about-page .a-stack { display: grid; gap: 20px; }
   .about-page .a-stack--lg { gap: clamp(28px, 3.5vw, 46px); }
 
@@ -1625,7 +1551,9 @@
     border-bottom: 1px solid var(--rule);
     border-radius: 4px;
   }
-  @media (min-width: 760px) { .about-page .a-cond { grid-template-columns: minmax(0, 22ch) minmax(0, 1fr); align-items: start; } }
+  @media (min-width: 760px) {
+.about-page .a-cond { grid-template-columns: minmax(0, 22ch) minmax(0, 1fr); align-items: start; }
+}
   /* 1180, not 1024: the image track is a fixed 224px, so at 1024 (998px of
        content) it plus the 22ch title left the paragraph ~423px — about 48
        characters, six lines deep, beside a title column that was nearly empty.
@@ -1633,7 +1561,9 @@
        the measure the rest of this page's running copy sets. Below it the row
        keeps the 760px two-track layout and no image, exactly as it already did
        below 1024. */
-  @media (min-width: 1180px) { .about-page .a-cond { grid-template-columns: minmax(0, 22ch) 224px minmax(0, 1fr); } }
+  @media (min-width: 1180px) {
+.about-page .a-cond { grid-template-columns: minmax(0, 22ch) 224px minmax(0, 1fr); }
+}
   .about-page .a-cond:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 
   /* the gold ground — an overlay, so it adds no height. -1px bottom covers the
@@ -1659,7 +1589,9 @@
      #3 in a different costume — an empty/absent grid child letting a later one
      drift up a column. Only set at the width where track 2 exists at all. */
   .about-page .a-cond__b { position: relative; z-index: 1; color: var(--body); font-size: 17px; line-height: 1.6; margin: 0; transition: color 0.22s ease; }
-  @media (min-width: 1180px) { .about-page .a-cond__b { grid-column: 3; } }
+  @media (min-width: 1180px) {
+.about-page .a-cond__b { grid-column: 3; }
+}
 
   /* ── the floating image stack ────────────────────────────────────────────
      One span, two squares, both pseudo-elements: `::before` is the solid white
@@ -1785,14 +1717,14 @@
      squares are simply already at their angles and only opacity crosses. Same
      pattern as the other reduced-motion blocks in this file. */
   @media (prefers-reduced-motion: reduce) {
-    .about-page .a-cond__shot,
+.about-page .a-cond__shot,
     .about-page .a-cond__shot::before,
     .about-page .a-cond__shot::after { transition: opacity 0.01ms linear; transition-delay: 0s; }
     .about-page .a-cond__shot { transform: translateY(-50%); }
     .about-page .a-cond.is-active .a-cond__shot { transform: translateY(-50%); }
     .about-page .a-cond__shot::before { transform: rotate(-11deg) translate(-9px, 2px); }
     .about-page .a-cond__shot::after { transform: rotate(-4deg); box-shadow: 0 16px 34px rgba(23, 29, 29, 0.26); }
-  }
+}
 
   /* narrow: below 1180px the row has no image track for the stack to sit in,
      and below 760px it collapses to a single column. Kept in step with the
@@ -1801,17 +1733,23 @@
      and the colour swap still work at any width (they only need the row's own
      box), so they stay on; only the floating image is width-gated. */
   @media (max-width: 1179px) {
-    .about-page .a-cond__shot { display: none; }
-  }
+.about-page .a-cond__shot { display: none; }
+}
 
   /* mission / vision */
   .about-page .a-mv { display: grid; gap: 1px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; overflow: hidden; margin-top: clamp(28px, 3.5vw, 48px); }
-  @media (min-width: 860px) { .about-page .a-mv { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 860px) {
+.about-page .a-mv { grid-template-columns: repeat(2, 1fr); }
+}
   .about-page .a-mv__cell { background: var(--ink); padding: clamp(28px, 3.2vw, 46px); display: grid; gap: 16px; align-content: start; }
   .about-page .a-stats { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid rgba(255, 255, 255, 0.16); margin-top: clamp(32px, 4vw, 52px); }
-  @media (min-width: 860px) { .about-page .a-stats { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 860px) {
+.about-page .a-stats { grid-template-columns: repeat(4, 1fr); }
+}
   .about-page .a-stat { padding: clamp(22px, 2.2vw, 30px) 24px clamp(22px, 2.2vw, 30px) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
-  @media (min-width: 860px) { .about-page .a-stat { border-bottom: 0; } }
+  @media (min-width: 860px) {
+.about-page .a-stat { border-bottom: 0; }
+}
   .about-page .a-stat__n { font-family: var(--f-head); font-weight: 400; font-size: clamp(28px, 3.2vw, 44px); line-height: 1; letter-spacing: -0.018em; }
   .about-page .a-stat__l { font-weight: 400; font-size: 14px; color: #aab0ae; margin-top: 9px; max-width: 22ch; } /* V2.faint — 7.75:1 on ink */
 
@@ -1822,23 +1760,33 @@
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 11%, #000 89%, transparent 100%);
     mask-image: linear-gradient(180deg, transparent 0, #000 11%, #000 89%, transparent 100%);
   }
-  @media (min-width: 700px) { .about-page .a-mason { grid-template-columns: repeat(5, 1fr); } }
-  @media (min-width: 1040px) { .about-page .a-mason { grid-template-columns: repeat(7, 1fr); } }
+  @media (min-width: 700px) {
+.about-page .a-mason { grid-template-columns: repeat(5, 1fr); }
+}
+  @media (min-width: 1040px) {
+.about-page .a-mason { grid-template-columns: repeat(7, 1fr); }
+}
   .about-page .a-mcol { display: grid; gap: 10px; align-content: start; animation: m7drift 46s linear infinite; will-change: transform; }
-  @keyframes m7drift { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+  @keyframes m7drift {
+from { transform: translateY(0); } to { transform: translateY(-50%); }
+}
   .about-page .a-mason:hover .a-mcol { animation-play-state: paused; }
   .about-page .a-tile { position: relative; background: var(--stripe-soft); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
   .about-page .a-tile__tag { position: absolute; left: 10px; right: 8px; bottom: 9px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--decor); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* tracking was 0.06em for JetBrains Mono */
 
   .about-page .a-serve { display: grid; gap: 14px; margin-top: 14px; }
-  @media (min-width: 860px) { .about-page .a-serve { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 860px) {
+.about-page .a-serve { grid-template-columns: repeat(3, 1fr); }
+}
   .about-page .a-serve__c { border: 1px solid var(--rule); border-radius: 4px; padding: clamp(24px, 2.4vw, 34px); display: grid; gap: 12px; align-content: start; background: var(--paper); }
   .about-page .a-serve__i { font-size: 13px; color: var(--decor); }
   .about-page .a-hs { font-family: var(--f-head); font-weight: 400; font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; margin: 0; }
 
   /* focus — asymmetric bento */
   .about-page .a-bento { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: clamp(28px, 3.5vw, 48px); }
-  @media (min-width: 900px) { .about-page .a-bento { grid-template-columns: repeat(12, 1fr); } }
+  @media (min-width: 900px) {
+.about-page .a-bento { grid-template-columns: repeat(12, 1fr); }
+}
   .about-page .a-bcell { border: 1px solid var(--rule); border-radius: 4px; background: var(--paper); padding: clamp(24px, 2.5vw, 34px); display: flex; flex-direction: column; gap: 12px; min-height: 212px; }
   .about-page .a-bcell__t { font-family: var(--f-head); font-weight: 400; letter-spacing: -0.014em; line-height: 1.2; margin: 0; font-size: clamp(21px, 2.1vw, 28px); }
   .about-page .a-bcell__b { color: var(--body); font-size: 16px; line-height: 1.6; margin: 0; max-width: 52ch; }
@@ -1846,27 +1794,37 @@
   .about-page .a-bcell--ink { background: var(--ink); border-color: var(--ink); color: #fff; }
   .about-page .a-bcell--ink .a-bcell__b { color: #aab0ae; } /* V2.faint — 7.75:1 on ink */
   @media (min-width: 900px) {
-    .about-page .a-b1 { grid-column: span 7; grid-row: span 2; }
+.about-page .a-b1 { grid-column: span 7; grid-row: span 2; }
     .about-page .a-b2 { grid-column: span 5; }
     .about-page .a-b3 { grid-column: span 5; }
     .about-page .a-b4 { grid-column: span 4; }
     .about-page .a-b5 { grid-column: span 8; }
-  }
+}
   /* the standard — inspection certificate */
   .about-page .a-spec { border: 1px solid var(--rule-strong); border-radius: 4px; overflow: hidden; background: var(--paper); margin-top: clamp(28px, 3.5vw, 46px); }
   .about-page .a-spec__bar { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 13px clamp(20px, 2.4vw, 32px); background: var(--wash); border-bottom: 1px solid var(--rule); }
   .about-page .a-spec__trip { display: grid; grid-template-columns: 1fr; }
-  @media (min-width: 820px) { .about-page .a-spec__trip { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 820px) {
+.about-page .a-spec__trip { grid-template-columns: repeat(3, 1fr); }
+}
   .about-page .a-spec__word { padding: clamp(26px, 3vw, 42px) clamp(20px, 2.4vw, 32px); border-bottom: 1px solid var(--rule); display: grid; gap: 10px; align-content: start; }
-  @media (min-width: 820px) { .about-page .a-spec__word + .a-spec__word { border-left: 1px solid var(--rule); } }
+  @media (min-width: 820px) {
+.about-page .a-spec__word + .a-spec__word { border-left: 1px solid var(--rule); }
+}
   .about-page .a-spec__w { font-family: var(--f-head); font-weight: 400; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; letter-spacing: -0.018em; }
   .about-page .a-spec__d { color: var(--body); font-size: 16px; line-height: 1.55; margin: 0; max-width: 34ch; }
   .about-page .a-spec__sheet { display: grid; grid-template-columns: 1fr; }
-  @media (min-width: 820px) { .about-page .a-spec__sheet { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 820px) {
+.about-page .a-spec__sheet { grid-template-columns: repeat(2, 1fr); }
+}
   .about-page .a-spec__row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 13px clamp(20px, 2.4vw, 32px); border-bottom: 1px solid var(--rule); }
-  @media (min-width: 820px) { .about-page .a-spec__row:nth-child(even) { border-left: 1px solid var(--rule); } }
+  @media (min-width: 820px) {
+.about-page .a-spec__row:nth-child(even) { border-left: 1px solid var(--rule); }
+}
   .about-page .a-spec__row:nth-last-child(-n + 2) { border-bottom: 0; }
-  @media (max-width: 819px) { .about-page .a-spec__row:last-child { border-bottom: 0; } }
+  @media (max-width: 819px) {
+.about-page .a-spec__row:last-child { border-bottom: 0; }
+}
   .about-page .a-spec__k { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); } /* tracking was 0.09em for JetBrains Mono */
   .about-page .a-spec__v { font-family: var(--f-mono); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; text-align: right; }
 
@@ -1874,7 +1832,7 @@
   .about-page [data-rv] { opacity: 0; transform: translateY(18px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
   .about-page [data-rv].in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
-    .about-page [data-rv] { opacity: 1; transform: none; transition: none; }
+.about-page [data-rv] { opacity: 1; transform: none; transition: none; }
     .about-page .a-mcol { animation: none; }
     /* conditions ledger: the state change (gold fill, floating image, text
        colour) still happens — only the animated transition and the shot's
@@ -1887,7 +1845,7 @@
     .about-page .a-cond__b { transition: none !important; }
     .about-page .a-cond__shot,
     .about-page .a-cond.is-active .a-cond__shot { transform: translateY(-50%) rotate(-4deg) !important; }
-  }
+}
 
   /* ==========================================================================
      Trade-In page (/trade-in) — PORTED.
@@ -1913,8 +1871,8 @@
   .tradein-page .m7-ss__btn { background: var(--paper); border-color: var(--rule-strong); color: var(--ink); }
   .tradein-page .m7-ss__btn[data-empty="true"] .m7-ss__value { color: var(--muted); }
   @media (hover: hover) and (pointer: fine) {
-    .tradein-page .m7-ss__btn:hover { border-color: var(--hover); }
-  }
+.tradein-page .m7-ss__btn:hover { border-color: var(--hover); }
+}
   .tradein-page .m7-ss__btn:focus-visible,
   .tradein-page .m7-ss__btn[aria-expanded="true"] {
     border-color: var(--ink); box-shadow: 0 0 0 3px rgba(23, 29, 29, 0.12);
@@ -1933,11 +1891,11 @@
   .tradein-page .m7-ss__empty { color: var(--muted); }
   .tradein-page .m7-ss__foot { border-top-color: var(--rule); background: var(--wash); font-family: var(--f-mono); letter-spacing: 0.05em; color: var(--muted); } /* tracking was 0.1em for Space Mono */
   @media (max-width: 620px) {
-    .tradein-page .m7-ss__scrim { background: rgba(23, 29, 29, 0.46); }
+.tradein-page .m7-ss__scrim { background: rgba(23, 29, 29, 0.46); }
     .tradein-page .m7-ss__head { border-bottom-color: var(--rule); background: var(--wash); }
     .tradein-page .m7-ss__title { font-family: var(--f-mono); letter-spacing: 0.065em; color: var(--muted); } /* tracking was 0.13em for Space Mono */
     .tradein-page .m7-ss__close { color: var(--muted); }
-  }
+}
 
   /* ==========================================================================
      Services page (/services) — re-tokened onto the V2 palette. Unlike
@@ -1997,7 +1955,6 @@
     outline-offset: 2px;
   }
   @media (prefers-reduced-motion: reduce) {
-    .services-page .svc-pill { transition: none; }
-  }
-
+.services-page .svc-pill { transition: none; }
+}
 }

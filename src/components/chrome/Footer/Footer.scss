@@ -1,0 +1,40 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-on-dark :focus-visible, .m7-on-dark:focus-visible {
+    outline-color: var(--m7-cream);
+  }
+
+  .m7-social-dark:hover {
+    border-color: var(--m7-card);
+    background: var(--m7-card);
+    color: var(--m7-ink);
+  }
+
+  .m7-footer-link {
+    transition: color 0.2s ease;
+  }
+
+  .m7-footer-link:hover {
+    color: var(--m7-card);
+  }
+
+  .m7-footer-mark {
+    display: none;
+
+    @media (max-width: 900px) {
+      display: block;
+      margin-top: clamp(34px, 8vw, 56px);
+      font-family: var(--font-outfit), sans-serif;
+      font-weight: 700;
+      font-size: clamp(48px, 23vw, 140px);
+      line-height: 0.86;
+      padding-bottom: 0.08em;
+      letter-spacing: -0.045em;
+      color: var(--m7-card);
+      text-align: left;
+      white-space: nowrap;
+      user-select: none;
+    }
+  }
+}

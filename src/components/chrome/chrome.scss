@@ -1,0 +1,21 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-social {
+    transition: all 0.2s ease;
+  }
+
+  .m7-social:hover {
+    background: var(--m7-ink);
+    border-color: var(--m7-ink);
+    color: var(--m7-card);
+  }
+
+  .m7-muted-link {
+    transition: color 0.2s ease;
+  }
+
+  .m7-muted-link:hover {
+    color: var(--m7-ink);
+  }
+}

@@ -1,0 +1,11 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-search-result:hover {
+    background: var(--m7-cream);
+  }
+
+  .m7-search-close:hover {
+    color: var(--m7-ink);
+  }
+}
