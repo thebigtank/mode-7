@@ -54,7 +54,21 @@ preserved on their own branches and is NOT yet merged or verified here.
 
 | branch | holds |
 |---|---|
-| `worktree-agent-a361174e2d1af92da` | `/shop` + `page/Blocks.tsx` (committed, agent-gated). `/green-energy` and `/contact` possibly partial. |
+| `worktree-agent-a361174e2d1af92da` | **Two gated commits.** `971f779` `/shop` + `page/Blocks.tsx` split into seven folder components. `17bde86` `/green-energy` (six section components; `EnergyScrolly` gated twice for its known flakiness, both clean). `legacy.css` 1,193 -> 994 there. |
+
+`/contact` is the one route left half-done, and deliberately so: its hero was
+swapped for a `PageHero` call in the shop commit because `.m7-hero-h1` was
+losing its only other consumer, and that much is committed. The rest of the
+route -- support-channels panel, business-hours list, store locator grid,
+contact form -- is untouched, all inline styles. Nothing is dangling.
+
+**`.m7-hero-h1` is already gone**, removed in the shop commit once both its
+consumers were converted. **`.m7-grid-2` and `.m7-grid-3` cannot go yet**:
+`/cart`, `/product`, `/services`, smart-home's `BestSellers` and
+`WorksTogether`, `MegaMenu` and `Footer` all still declare
+`gridTemplateColumns` inline against them, and so does the unported half of
+`/contact`. They go with the last consumer, in the same commit as that
+consumer's inline style -- never a later one.
 | `worktree-agent-ac77958c521c99759` | `SearchSelect` + its `/trade-in` reskin. **Finished and gated** — commit `2798705`. 255 lines out of `legacy.css`, including the whole `.tradein-page .m7-ss*` reskin that had been held back through nine route ports. |
 
 `SearchSelect` gained a `variant?: "tradein"` prop rendered as `data-variant`,
