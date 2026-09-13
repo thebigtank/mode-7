@@ -1,0 +1,67 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ge-faq__item {
+    background: var(--color-m7-neutral-surface-soft);
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 4px;
+    padding: 24px 28px;
+  }
+
+  .ge-faq__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+  }
+
+  .ge-faq__q {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .ge-faq__chevron {
+    flex: 0 0 auto;
+    display: inline-flex;
+    color: var(--color-m7-neutral-ink);
+    transform: rotate(0deg);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &[data-open] {
+      transform: rotate(180deg);
+    }
+  }
+
+  .ge-faq__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+
+    &[data-open] {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+
+  .ge-faq__panel-inner {
+    overflow: hidden;
+  }
+
+  .ge-faq__a {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body-soft);
+    padding-top: 14px;
+    max-width: 780px;
+  }
+}

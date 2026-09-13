@@ -1,0 +1,86 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-herocards {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 44px var(--m7-pad) 0;
+  }
+
+  .ge-herocards__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+
+    @media (max-width: 1080px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 620px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .ge-herocard {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-m7-neutral-border);
+    height: min(64vh, 620px);
+    --ge-scrim-rgb: 10 22 14;
+  }
+
+  .ge-herocard__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0) 45%,
+      rgb(var(--ge-scrim-rgb) / 0.85) 100%
+    );
+  }
+
+  .ge-herocard__icon {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 46px;
+    height: 46px;
+    border-radius: 99px;
+    background: var(--color-m7-neutral-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ge-herocard__body {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .ge-herocard__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--color-m7-neutral-white);
+  }
+
+  .ge-herocard__sub {
+    font-size: 14px;
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.75);
+    margin-top: 6px;
+  }
+
+  .ge-herocard__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.9);
+    margin-top: 14px;
+  }
+}

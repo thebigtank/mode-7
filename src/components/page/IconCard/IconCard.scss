@@ -1,0 +1,44 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-iconcard {
+    background: var(--color-m7-neutral-surface-soft);
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 4px;
+    padding: 32px 30px 34px;
+    display: flex;
+    flex-direction: column;
+    min-height: var(--pg-iconcard-min-h);
+    box-shadow: 0 1px 0 rgb(var(--color-m7-neutral-black-rgb) / 0.02);
+  }
+
+  .pg-iconcard__icon {
+    margin-bottom: auto;
+    stroke: var(--color-m7-neutral-ink);
+  }
+
+  .pg-iconcard__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.3px;
+    margin: 26px 0 10px;
+  }
+
+  .pg-iconcard__accent {
+    font-family: var(--font-m7-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-m7-neutral-ink);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .pg-iconcard__body {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 0;
+  }
+}

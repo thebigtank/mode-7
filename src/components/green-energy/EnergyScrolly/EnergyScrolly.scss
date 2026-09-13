@@ -1,0 +1,157 @@
+@use 'utils' as *;
+
+@layer components {
+  @keyframes ge-scrolly-caption {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ge-scrolly {
+    position: relative;
+    width: 100%;
+    margin-top: clamp(55px, 7.1vw, 100px);
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+
+    &[data-stacked] {
+      height: auto;
+      flex-direction: column;
+      overflow: visible;
+    }
+  }
+
+  .ge-scrolly__media {
+    position: relative;
+    flex: 0 0 50%;
+    width: 50%;
+    height: 100%;
+    min-width: 0;
+
+    &[data-stacked] {
+      flex: 0 0 auto;
+      width: 100%;
+      height: clamp(300px, 52vw, 460px);
+    }
+  }
+
+  .ge-scrolly-caption {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    pointer-events: none;
+    animation: ge-scrolly-caption 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .ge-scrolly__col {
+    flex: 0 0 50%;
+    width: 50%;
+    min-width: 0;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+
+    &[data-stacked] {
+      flex: 0 0 auto;
+      width: 100%;
+      position: static;
+      height: auto;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 0 clamp(44px, 6vh, 64px);
+    }
+  }
+
+  .ge-scrolly__block {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(40px, 6vh, 72px) clamp(20px, 5vw, 48px);
+    opacity: 1;
+    filter: none;
+    transform: none;
+
+    &[data-stacked] {
+      position: static;
+      inset: auto;
+      min-height: auto;
+      overflow: visible;
+      padding: clamp(28px, 4vh, 44px) clamp(20px, 5vw, 48px);
+      border-top: 1px solid var(--color-m7-neutral-border-soft);
+    }
+
+    &[data-stacked][data-first] {
+      border-top: 0;
+    }
+  }
+
+  .ge-scrolly__n {
+    font-family: var(--font-m7-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: 14px;
+  }
+
+  .ge-scrolly__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.06;
+    letter-spacing: -2px;
+    margin: 0 0 16px;
+    max-width: 560px;
+    text-wrap: balance;
+  }
+
+  .ge-scrolly__body {
+    max-width: 560px;
+  }
+
+  .ge-scrolly__lead {
+    font-size: var(--m7-lede-size);
+    line-height: 1.6;
+    color: var(--color-m7-neutral-body);
+    margin: 0;
+  }
+
+  .ge-scrolly__para {
+    font-size: var(--m7-lede-size);
+    line-height: 1.6;
+    color: var(--color-m7-neutral-body);
+    margin: 14px 0 0;
+
+    &[data-first] {
+      margin: 0;
+    }
+  }
+
+  .ge-scrolly__para-label {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.2px;
+    color: var(--color-m7-neutral-ink);
+  }
+}

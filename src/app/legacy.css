@@ -205,34 +205,6 @@
     box-shadow: 0 12px 30px rgba(28, 21, 15, 0.24);
   }
 
-  /* Shop card. The image height is a variable because the "Ask Seven" chip is
-     positioned against the bottom of the image but lives outside the <Link>. */
-  .m7-shop-card {
-    position: relative;
-    --m7-card-img: clamp(190px, 26vw, 260px);
-  }
-  .m7-shop-card__img { height: var(--m7-card-img); }
-
-  /* "Ask Seven" chip on shop cards, and the panel it opens */
-  .m7-ai-chip {
-    top: calc(var(--m7-card-img) - 46px);
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
-      border-color 0.2s ease;
-  }
-  /* revealed on card hover; always visible on touch, where there is no hover */
-  .m7-shop-card:hover .m7-ai-chip,
-  .m7-ai-chip:focus-visible {
-    opacity: 1;
-    transform: none;
-  }
-  @media (hover: none) {
-.m7-ai-chip { opacity: 1; transform: none; }
-}
-  .m7-ai-chip:hover { border-color: var(--m7-ink); }
-  .m7-ai-chip:active { transform: scale(0.97); }
-
   /* Modals ------------------------------------------------------------------
      Centred cards on desktop. On phones they become bottom sheets: full width,
      anchored to the bottom so the panel sits near the thumb and the on-screen
@@ -241,8 +213,7 @@
      rule only applies while Lenis has its .lenis-smooth class, which it drops
      when stopped — so state this outright rather than depend on that. */
   .m7-modal__panel,
-  .m7-ss__list,
-  .m7-filters__body { overscroll-behavior: contain; }
+  .m7-ss__list { overscroll-behavior: contain; }
 
   .m7-modal { padding: 24px; }
   @media (max-width: 620px) {
@@ -477,11 +448,6 @@ from { opacity: 0; }
 from { opacity: 0; transform: translateY(10px) scale(0.98); }
     to { opacity: 1; transform: none; }
 }
-  @media (prefers-reduced-motion: reduce) {
-.m7-ai-chip { transition: opacity 0.2s ease; transform: none; }
-    .m7-ai-chip:active { transform: none; }
-}
-
   /* Keyframes ---------------------------------------------------------------- */
   @keyframes m7marL {
 from {
@@ -784,13 +750,6 @@ from {
 }
   @media (max-width: 900px) {
 .m7-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
-    /* Was capped at 44px, which left the hero looking undersized on a phone —
-       with one column the headline has the full width to work with. */
-    .m7-hero-h1 {
-      font-size: clamp(40px, 11.5vw, 60px) !important;
-      line-height: 1.04 !important;
-      letter-spacing: -0.045em !important;
-    }
 }
   @media (max-width: 620px) {
 .m7-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
@@ -805,137 +764,6 @@ input,
     textarea {
       font-size: 16px !important;
     }
-}
-
-  /* Shop filters ------------------------------------------------------------
-     One markup tree, two layouts. Desktop: a static rail. Below 900px: a drawer
-     behind a Filters button, so the product grid stays at the top of the page. */
-  .m7-filters__toggle,
-  .m7-filters__scrim,
-  .m7-filters__head,
-  .m7-filters__foot { display: none; }
-  .m7-filters__panel { outline: none; }
-
-  @media (max-width: 900px) {
-.m7-filters__toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--m7-card);
-      border: 1px solid var(--m7-ink);
-      border-radius: 4px;
-      padding: 11px 18px;
-      cursor: pointer;
-      font-family: var(--font-outfit), sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--m7-ink);
-      min-height: 44px;
-    }
-    .m7-filters__toggle:active { transform: scale(0.98); }
-
-    .m7-filters__scrim {
-      display: block;
-      position: fixed;
-      inset: 0;
-      z-index: 80000;
-      background: rgba(28, 21, 15, 0.46);
-      backdrop-filter: blur(3px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.26s ease;
-    }
-    .m7-filters__scrim[data-open="true"] { opacity: 1; pointer-events: auto; }
-
-    .m7-filters__panel {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 80001;
-      width: min(340px, 86vw);
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      background: var(--m7-card);
-      border-right: 1px solid var(--m7-ink);
-      box-shadow: 0 0 60px -10px rgba(28, 21, 15, 0.42);
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-      visibility: hidden;
-    }
-    .m7-filters__panel[data-open="true"] { transform: none; visibility: visible; }
-
-    .m7-filters__head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex: 0 0 auto;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--m7-line);
-      background: var(--m7-cream);
-    }
-    .m7-filters__close {
-      background: none;
-      border: 0;
-      cursor: pointer;
-      font-size: 26px;
-      line-height: 1;
-      color: var(--m7-muted);
-      padding: 4px 8px;
-      min-height: 44px;
-      min-width: 44px;
-    }
-
-    .m7-filters__body {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: 4px 20px 12px;
-    }
-
-    .m7-filters__foot {
-      display: block;
-      flex: 0 0 auto;
-      padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-      border-top: 1px solid var(--m7-line);
-      background: var(--m7-card);
-    }
-    .m7-filters__apply {
-      width: 100%;
-      background: var(--m7-ink);
-      color: var(--m7-card);
-      border: 0;
-      border-radius: 4px;
-      padding: 15px 20px;
-      font-family: var(--font-outfit), sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      min-height: 44px;
-    }
-
-    /* the wireframe annotation next to the rail has nothing to sit beside here */
-    .m7-shop-note { display: none; }
-}
-
-  @media (prefers-reduced-motion: reduce) {
-.m7-filters__panel,
-    .m7-filters__scrim { transition: none; }
-}
-
-  /* Shop grid: 3-up, 2-up on tablets AND phones, 1-up only when truly narrow.
-     A single full-width product card on a phone wastes the screen. */
-  .m7-shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  @media (max-width: 1080px) {
-.m7-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-  @media (max-width: 430px) {
-.m7-shop-grid { grid-template-columns: minmax(0, 1fr); }
-}
-  @media (max-width: 900px) {
-.m7-shop-aside { position: static !important; }
 }
 
   /* Wireframe annotation pills are nowrap so they read as one line on desktop.
@@ -1017,18 +845,6 @@ input,
 .m7-herofeat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .m7-herofeat > * { border-right: 0 !important; border-bottom: 1px solid var(--m7-line); }
 }
-  /* The headline's three hard line breaks are a desktop composition. Keeping
-     them on a phone caps the type at ~44px before "Powering your home," wraps
-     anyway. Dropping the breaks lets it set naturally and go substantially
-     larger, which is what gives the hero presence at this width. */
-  @media (max-width: 620px) {
-.m7-hero-h1 br { display: none; }
-    .m7-hero-h1 {
-      font-size: clamp(44px, 13.2vw, 64px) !important;
-      text-wrap: balance;
-    }
-}
-
   /* Below 620px this is a swipeable row rather than five stacked rows — five
      full-width bars added a screen and a half of scrolling for a feature list. */
   @media (max-width: 620px) {
@@ -1109,12 +925,6 @@ input,
 .m7-why-grid { grid-template-columns: 1fr !important; }
 }
 
-  /* Numbered step rows: a 64px number column beside the text, stacked on phones. */
-  .m7-steprow { grid-template-columns: 64px minmax(0, 1fr); }
-  @media (max-width: 620px) {
-.m7-steprow { grid-template-columns: minmax(0, 1fr); }
-}
-
   /* Team mosaic. The 240px fixed row height is fine at 3-up but far too tall
      for a full-width phone tile, so the rows shrink with the columns. */
   .m7-team-grid {
@@ -1126,15 +936,6 @@ input,
 }
   @media (max-width: 560px) {
 .m7-team-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 180px; }
-}
-
-  /* Stat strip: column count comes from the data, so only the collapse is here.
-     Keeps the dividing borders sane by re-drawing them for the wrapped layout. */
-  @media (max-width: 900px) {
-.m7-statstrip { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-}
-  @media (max-width: 460px) {
-.m7-statstrip { grid-template-columns: minmax(0, 1fr) !important; }
 }
 
   @keyframes m7drift {

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { ArrowButton } from "@/components/ArrowButton";
 import { ChevronDownIcon } from "@/components/Icons";
-import { MediaPanel } from "@/components/page/Blocks";
+import { MediaPanel } from "@/components/page/MediaPanel";
+import { PageHero } from "@/components/page/PageHero";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { FONT, stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
@@ -97,62 +98,17 @@ function Field({
 export default function ContactPage() {
   return (
     <>
-      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(35px, 4.6vw, 64px) var(--m7-pad) 0" }}>
-        <div
-          className="m7-grid-2"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.4fr 1fr",
-            gap: 48,
-            alignItems: "end",
-          }}
-        >
-          <div>
-            <div
-              style={{
-                fontFamily: FONT.head,
-                fontSize: 12,
-                letterSpacing: 2,
-                color: "#9a9a9a",
-                textTransform: "uppercase",
-                marginBottom: 16,
-              }}
-            >
-              {"// Contact"}
-            </div>
-            <h1
-              className="m7-hero-h1"
-              style={{
-                fontFamily: FONT.head,
-                fontWeight: 600,
-                fontSize: "clamp(41px, 5.7vw, 66px)",
-                lineHeight: 1,
-                letterSpacing: "-3px",
-                margin: 0,
-              }}
-            >
-              Let’s get you to the right&nbsp;team.
-            </h1>
-          </div>
-          <div>
-            <p
-              style={{
-                fontSize: "var(--m7-lede-size)",
-                lineHeight: 1.65,
-                color: "#5a5a5a",
-                margin: "0 0 24px",
-              }}
-            >
-              Sales, support, or a trade-in valuation — pick a lane below or send us a
-              message. Seven can also help right now from the corner of any page.
-            </p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <ArrowButton label="Message Seven" variant="fill" />
-              <ArrowButton label="Find a Store" variant="outline" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        overline="Contact"
+        title={<>Let’s get you to the right&nbsp;team.</>}
+        intro="Sales, support, or a trade-in valuation — pick a lane below or send us a message. Seven can also help right now from the corner of any page."
+        actions={
+          <>
+            <ArrowButton label="Message Seven" variant="fill" />
+            <ArrowButton label="Find a Store" variant="outline" />
+          </>
+        }
+      />
 
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(38px, 5.0vw, 70px) var(--m7-pad) 0" }}>
         <div

@@ -28,6 +28,13 @@
 @use '../../../components/services/SectionHead/SectionHead';
 @use '../../../components/services/StripeLabel/StripeLabel';
 @use '../../../components/page/Cards/Cards';
+@use '../../../components/page/PageHero/PageHero';
+@use '../../../components/page/PageSection/PageSection';
+@use '../../../components/page/IconCard/IconCard';
+@use '../../../components/page/MediaPanel/MediaPanel';
+@use '../../../components/page/DarkPanel/DarkPanel';
+@use '../../../components/page/DarkStat/DarkStat';
+@use '../../../components/page/StatBar/StatBar';
 @use '../../../components/smart-home/smart-home';
 @use '../../../components/smart-home/CategoryShowcase/CategoryShowcase';
 @use '../../../components/smart-home/MediaBanner/MediaBanner';
@@ -58,3 +65,13 @@
 @use '../../../components/home/StatsV2/StatsV2';
 @use '../../../components/home/WhyV2/WhyV2';
 @use '../../../components/home/WorkV2/WorkV2';
+@use '../../../components/shop/ProductGrid/ProductGrid';
+@use '../../../components/shop/ShopFilters/ShopFilters';
+@use '../../../components/shop/ShopBrowse/ShopBrowse';
+@use '../../../components/green-energy/green-energy';
+@use '../../../components/green-energy/HeroCards/HeroCards';
+@use '../../../components/green-energy/WhyItMatters/WhyItMatters';
+@use '../../../components/green-energy/SolarWorks/SolarWorks';
+@use '../../../components/green-energy/SolarLifting/SolarLifting';
+@use '../../../components/green-energy/EnergyFaq/EnergyFaq';
+@use '../../../components/green-energy/EnergyScrolly/EnergyScrolly';
