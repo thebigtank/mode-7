@@ -96,7 +96,7 @@ export const heroFeatures = [
  * as small logo images — untouched, so it still shows exactly the 13 brands it
  * always has (`BrandStrip` filters to entries that carry a `src`). `display`
  * is the full, properly spelled brand name for TEXT-ONLY contexts — the
- * homepage-v2 gold marquee, which spells everything out rather than showing a
+ * homepage gold marquee, which spells everything out rather than showing a
  * wordmark, so the 7 brands added there need no logo asset and carry no `src`.
  *
  * `logos.length` is read by `StatsV2` for the "premium brand partners" figure

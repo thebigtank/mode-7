@@ -113,9 +113,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, []);
 
   /**
-   * Every route in `V2_ROUTES` gets the v2 chrome — `V2Styles`, `HeaderV2`
+   * Every route matched below gets the v2 chrome — `V2Styles`, `HeaderV2`
    * and `FooterV2` — mounted HERE, once, rather than by each page itself
-   * (`src/app/homepage-v2/page.tsx` and `src/app/about/page.tsx` used to
+   * (`src/app/page.tsx` and `src/app/about/page.tsx` used to
    * render all three themselves; they now render only their own content).
    * This is the one place the route decision lives: which chrome a page gets
    * is entirely a function of `pathname`, never something a page opts into.
@@ -132,22 +132,33 @@ export function SiteShell({ children }: { children: ReactNode }) {
    * declared above and its note in `SearchOverlay.tsx`. `useLenis()` above
    * still runs regardless of branch, so smooth scroll applies to v2 too.
    *
-   * To port another page onto v2, add its path here — nothing else in this
-   * file needs to change.
+   * To port another page onto v2, add its path to `V2_PREFIX` — nothing else
+   * in this file needs to change.
+   *
+   * EXACT AND PREFIX MATCHES ARE KEPT APART ON PURPOSE. `"/"` cannot go in a
+   * `startsWith()` list: every pathname on the site starts with `"/"`, so one
+   * entry there would silently hand v2 chrome to the ENTIRE site — `/shop`,
+   * `/cart`, `/checkout`, `/product`, `/contact`, `/green-energy` and
+   * `/smart-home` included, none of which have a v2 design. The homepage is
+   * therefore matched exactly and everything else by prefix. Add a route to
+   * whichever list actually describes it; do not merge the two.
    *
    * This early return sits after EVERY hook call: putting it any higher would
    * make hook order conditional and break the rules of hooks on navigation
    * into or out of the route.
    */
-  const V2_ROUTES = ["/homepage-v2", "/about", "/trade-in", "/services"];
-  const isV2 = V2_ROUTES.some((route) => pathname.startsWith(route));
+  const V2_EXACT = ["/"];
+  const V2_PREFIX = ["/about", "/trade-in", "/services"];
+  const isV2 =
+    V2_EXACT.includes(pathname) ||
+    V2_PREFIX.some((route) => pathname.startsWith(route));
   /**
    * This root's own background is the ACTUAL SOURCE of the "wash" that shows
    * through wherever a v2 route doesn't paint its own — most visibly behind
    * `HeaderV2`'s rail, which is deliberately transparent so its inset
    * `washSoft` panel reads as floating over whatever ground sits here (see
-   * `HeaderV2`'s own file banner). `/homepage-v2`, `/about` and `/services`
-   * were repainted white for their first section; every one of that
+   * `HeaderV2`'s own file banner). `/` (the homepage), `/about` and
+   * `/services` were repainted white for their first section; every one of that
    * section's own child sections already declares its OWN background
    * explicitly (see `HeroV2`'s `<section>`, and every `id="sec-*"` block in
    * `services/page.tsx`) EXCEPT `/about`'s undecorated `.a-band` (no `--wash`
@@ -157,10 +168,16 @@ export function SiteShell({ children }: { children: ReactNode }) {
    * two bands. `/trade-in` (the fourth v2 route) is untouched here on
    * purpose — nothing asked its header gap to change, and it belongs to
    * a different pass of this work. */
-  const WHITE_GROUND_ROUTES = ["/homepage-v2", "/about", "/services"];
-  const rootGround = WHITE_GROUND_ROUTES.some((route) => pathname.startsWith(route))
-    ? V2.white
-    : V2.wash;
+  /* Same exact/prefix split as `V2_EXACT` / `V2_PREFIX` above, and for the
+     same reason — `"/"` in a `startsWith()` list would paint every route's
+     root white. */
+  const WHITE_EXACT = ["/"];
+  const WHITE_PREFIX = ["/about", "/services"];
+  const rootGround =
+    WHITE_EXACT.includes(pathname) ||
+    WHITE_PREFIX.some((route) => pathname.startsWith(route))
+      ? V2.white
+      : V2.wash;
   if (isV2) {
     return (
       <div

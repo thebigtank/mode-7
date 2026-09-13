@@ -1,11 +1,27 @@
 # Mode 7
 
-Next.js 15 / React 19 marketing site. Two parallel homepages:
+Next.js 15 / React 19 marketing site running **two design systems side by side**:
 
-- **`/`** — the Mode 7 homepage. Warm palette, tokens in `src/lib/theme.ts`.
-- **`/homepage-v2`** — a parallel homepage on a separate, colder palette. Tokens in
-  `src/lib/theme-v2.ts`. This file mostly documents v2, because it carries the most
-  non-obvious constraints.
+- **v2** (colder palette, tokens in `src/lib/theme-v2.ts`) — the **homepage at `/`**,
+  plus `/about`, `/services` and `/trade-in`. This file mostly documents v2, because
+  it carries the most non-obvious constraints.
+- **v1** (warm palette, tokens in `src/lib/theme.ts`) — `/shop`, `/cart`, `/checkout`,
+  `/product`, `/contact`, `/green-energy`, `/smart-home`. Still fully live; only the
+  v1 *homepage* is gone.
+
+**There is no longer a v1 homepage.** The v2 exploration that lived at `/homepage-v2`
+was promoted to `/`; the old v1 homepage route and its nine sections in
+`src/components/home/` were deleted, and `/homepage-v2` now 307-redirects to `/`
+(`next.config.mjs`). Restore any of it from git: `git show 54bf880:src/app/page.tsx`,
+or the same ref for anything under `src/components/home/`.
+
+Two things that deletion orphaned and that were deliberately NOT pruned, because
+neither is v1-only and both may well be wanted on a v2 section later:
+- the `team` array in `src/lib/content.ts` (`Team.tsx` was its only reader) and the
+  `team-1..8.webp` images it named;
+- the v1 homepage's CSS still sitting in `globals.css` (`.m7-team-grid` and
+  neighbours). Not swept, because v1 class names are shared with the seven live v1
+  routes and an untargeted sweep would be a guess.
 
 Dev server: `npm run dev`. **`npm run build` currently fails** on a pre-existing
 `react/no-unescaped-entities` error in `src/app/green-energy/page.tsx` (lines 291, 394).
@@ -14,9 +30,13 @@ server, taking the site down — prefer `npx tsc --noEmit` plus `npx eslint` whi
 
 ---
 
-## homepage-v2
+## The homepage (`/`)
 
-A parallel homepage whose **section structure and layout** reference bynd.com, built with
+Lived at `/homepage-v2` while it was an exploration; the section notes below were
+written then and still describe it, just at its new address. Its route file is
+`src/app/page.tsx`.
+
+A homepage whose **section structure and layout** reference bynd.com, built with
 **Mode 7's own content and images throughout**. Five content sections plus header and footer
 are live, in order: `HeroV2` -> `StatsV2` -> `CapabilityGridV2` -> `WorkV2` -> `QuoteV2`. Four
 more — "Why Mode 7", "What are you looking to power?", "The ecosystem" and "What our
@@ -54,7 +74,7 @@ fixing.
 ### Files
 
 ```
-src/app/homepage-v2/page.tsx        route
+src/app/page.tsx                    route (the homepage; was /homepage-v2)
 src/lib/theme-v2.ts                 V2 palette + V2_FONT + V2_TYPE
 src/components/home-v2/
   Ui.tsx                            Band, Mono, H2 and other shared primitives
@@ -69,8 +89,12 @@ src/components/home-v2/
 
 `SiteShell` is where the route decision lives: an `isV2` early return (placed after every
 hook so hook order stays stable) swaps the v1 header/footer for `V2Styles` + `HeaderV2` +
-`FooterV2`, mounted once for every route in its `V2_ROUTES` array (`/homepage-v2`, `/about`).
-Neither v2 page renders its own chrome — `src/app/homepage-v2/page.tsx` and
+`FooterV2`. It matches against **two lists, and they must stay separate**: `V2_EXACT`
+(`/`) and `V2_PREFIX` (`/about`, `/trade-in`, `/services`). **`"/"` can never go in a
+`startsWith()` list** — every pathname on the site starts with `/`, so one entry there
+hands v2 chrome to all seven v1 routes at once. `WHITE_GROUND_ROUTES` is split the same
+way and for the same reason.
+Neither v2 page renders its own chrome — `src/app/page.tsx` and
 `src/app/about/page.tsx` render only their own sections. Lenis smooth scroll still applies
 either branch. `SearchOverlay` is likewise mounted once by `SiteShell` for both branches —
 same component for v1 and v2, painted per-surface via its `variant` prop rather than forked;
@@ -95,7 +119,7 @@ The v2 accent is Mode 7's gold `#F0C044`. Measured:
 light surface. Therefore:
 
 - Gold as a **fill**, with `accentOn` `#1C150F` on top (10.60:1). Buttons, the CTA tile,
-  the lifecycle hover fill (parked with `LifecycleV2`, see homepage-v2 above — the rule
+  the lifecycle hover fill (parked with `LifecycleV2`, see the homepage section above — the rule
   stays true of its CSS, just not currently on screen). The hero marker is also a gold
   fill, but the word sitting over it is `V2.ink` `#171D1D`, not `accentOn` — a different,
   slightly lower figure (10.02:1); see the paragraph below.
@@ -198,15 +222,15 @@ keeps one animation and one source of truth.
 `HeaderV2`'s sticky rail is deliberately transparent (its inset `washSoft` panel is what
 should read as floating), so whatever colour shows through it is whatever `SiteShell`
 painted on the v2 root wrapper for that route — not anything the page itself controls.
-When `/homepage-v2`, `/about` and `/services`'s first sections went white, their own
+When `/`, `/about` and `/services`'s first sections went white, their own
 `background:white` only covered their own box; the header's gap above it, and any
 inter-section gap with nothing painted of its own (the `marginTop:84` spacer before
 `/services`'s second hero image, in particular), kept showing the OLD root colour
 (`wash`) straight through. The fix lives in `SiteShell.tsx`: the v2 root's background is
 now `V2.white` for those three routes and `V2.wash` for `/trade-in`, chosen per-`pathname`
-right next to `V2_ROUTES`. That's safe ONLY because every section on all three white
+right next to the v2 route lists. That's safe ONLY because every section on all three white
 routes already declares its own background explicitly (every `id="sec-*"` block in
-`services/page.tsx`, every `Band` on `/homepage-v2`) — except `/about`'s undecorated
+`services/page.tsx`, every `Band` on `/`) — except `/about`'s undecorated
 `.a-band` (no `--wash`/`--ink` modifier), which used to rely on this same root default for
 "Why We Exist" and "Who We Serve". That rule now sets `background: var(--wash)` itself, so
 it doesn't silently go white too. **Any new v2 section that paints nothing of its own is
@@ -222,7 +246,7 @@ section shape was **repurposed with real content, never filled with invented fac
 
 - Case-study rows carry the three `capabilities` and **no money metrics** — Mode 7 has none.
 - The insights row (`InsightsV2.tsx`) carries testimonials, not articles. No dates. It is
-  currently PARKED (see homepage-v2 above) and reads `testimonials[1..3]` when restored;
+  currently PARKED (see the homepage section above) and reads `testimonials[1..3]` when restored;
   with it off screen, `QuoteV2.tsx`'s `testimonials[0]` is the only testimonial displayed
   anywhere on this page.
 - The stats band renders `logos.length` and `pillars.length`, never hardcoded numbers.

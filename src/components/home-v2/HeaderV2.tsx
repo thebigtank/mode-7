@@ -7,7 +7,9 @@ import { useHeaderHide } from "@/hooks/useHeaderHide";
 import { V2, V2_CONTAINER, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
 
 /**
- * Chrome for `/homepage-v2`: the reference's dark announcement strip above a
+ * Chrome for the v2 routes (the homepage at `/`, plus `/about`, `/services`
+ * and `/trade-in` — `SiteShell` owns that list): the reference's dark
+ * announcement strip above a
  * sticky bar carrying wordmark, nav and a single dark action block.
  *
  * The bar itself is a full-width, 72px, TRANSPARENT sticky rail; the visible
@@ -260,7 +262,7 @@ export function HeaderV2({ onOpenSearch }: { onOpenSearch?: () => void }) {
               }}
             >
               <Link
-                href="/homepage-v2"
+                href="/"
                 style={{
                   flex: "0 0 auto",
                   fontFamily: V2_FONT.display,

@@ -212,7 +212,7 @@ export default function AboutPage() {
             sealed and warrantied by us.").
           - buttons: the same fill CTA already in the hero above it, paired
             with "Value Your Device" — the exact secondary-action label/route
-            already used this way on `/services` and `/homepage-v2`.
+            already used this way on `/services` and the homepage.
           - stat card: "50K+ / Devices vetted & sealed" is the exact figure
             and label already used in "Mission & Vision" below (`.a-stats`),
             not a new number for this one card.

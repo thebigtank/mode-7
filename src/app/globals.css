@@ -1341,7 +1341,7 @@ p {
 /* ==========================================================================
    About page (/about) — scoped editorial layout, ON THE V2 PALETTE.
    Structure ported unchanged from the approved "Mode 7 — About (wireframe)"
-   artifact; this block only repaints it — see CLAUDE.md's homepage-v2 section
+   artifact; this block only repaints it — see CLAUDE.md's v2 homepage section
    for the source of every value below. Colour and font-family are the ONLY
    things that changed here: every custom property is now derived from `V2` /
    `V2_FONT` in `src/lib/theme-v2.ts` (never from `@/lib/theme`'s `COLOR`), and
@@ -1369,7 +1369,7 @@ p {
    and Alegreya's deeper descender needs more leading than a grotesk did. The
    hero h1 adopts `.v2-hero-h1`'s own measured values (clamp(38px,5.1vw,66px)
    already matched; line-height 1.04, letter-spacing -0.02em) rather than
-   inventing new ones — those are proven at this exact size on /homepage-v2.
+   inventing new ones — those are proven at this exact size on the homepage.
    ========================================================================== */
 .about-page {
   --ink: #171d1d; /* V2.ink — 14.05:1 on wash, 17.07:1 on white */
@@ -1877,7 +1877,7 @@ p {
    Trade-In page (/trade-in) — scoped valuation workspace, ON THE V2 PALETTE.
    Ported from the approved "Mode 7 — Device Valuation (wireframe)" artifact;
    this pass only repaints the structure and interaction — see CLAUDE.md's
-   homepage-v2 section for the source of every value below. Colour and
+   v2 homepage section for the source of every value below. Colour and
    font-family are the ONLY things that changed here: every custom property is
    now derived from `V2` / `V2_FONT` in `src/lib/theme-v2.ts` (never from
    `@/lib/theme`'s `COLOR`), and the remaining literals (ink-alpha hairlines,

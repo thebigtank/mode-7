@@ -32,9 +32,10 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-/* ── /homepage-v2 only ──────────────────────────────────────────────────────
+/* ── v2 routes only ─────────────────────────────────────────────────────────
  * Two extra faces, added ALONGSIDE the three above (which v1 depends on and
- * which are untouched). They stand in for the reference site's licensed type:
+ * which are untouched — `/shop`, `/cart`, `/checkout`, `/product`,
+ * `/contact`, `/green-energy` and `/smart-home` are all still v1). They stand in for the reference site's licensed type:
  * Alegreya for display headings, Outfit for body/UI. Outfit also carries the
  * small uppercase labels now — JetBrains Mono, the label face, was removed
  * (see CLAUDE.md's Typography table); do not reintroduce

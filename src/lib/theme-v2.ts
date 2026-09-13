@@ -1,11 +1,13 @@
 /**
- * Palette for `/homepage-v2` ONLY.
+ * Palette for the v2 routes ONLY — the homepage at `/`, plus `/about`,
+ * `/services` and `/trade-in`. (This lived at `/homepage-v2` until that
+ * exploration became the homepage; the old path now redirects.)
  *
  * This is a parallel exploration: it reproduces the section structure and
  * colour palette of a reference homepage while carrying Mode 7's own content.
  * It lives in its own file so these values can never contaminate the Mode 7
  * design tokens in `src/lib/theme.ts` — the two palettes must not mix. Nothing
- * outside `src/components/home-v2`, `src/app/homepage-v2` and the single v2
+ * outside `src/components/home-v2`, `src/app/page.tsx` and the single v2
  * branch in `SiteShell.tsx` should import from here.
  *
  * Typefaces: v2 uses its OWN stack, `V2_FONT` below — Alegreya / Inter /
@@ -84,7 +86,7 @@ export const V2 = {
 } as const;
 
 /**
- * Typefaces for `/homepage-v2` ONLY.
+ * Typefaces for the v2 routes ONLY.
  *
  * Google-Fonts stand-ins for the reference site's three licensed faces:
  *   display  Serrif Condensed w300  ->  Alegreya 400
