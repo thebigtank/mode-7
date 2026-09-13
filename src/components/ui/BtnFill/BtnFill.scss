@@ -3,9 +3,9 @@
 @layer components {
   .ui-btn-fill {
     font-family: var(--font-v2-body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     font-weight: 500;
-    line-height: 22px;
+    line-height: #{rem-calc(22)};
     background: var(--ui-btn-fill-ground);
     color: var(--ui-btn-fill-color);
   }

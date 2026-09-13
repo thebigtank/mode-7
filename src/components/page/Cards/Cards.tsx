@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import { stripe } from "@/lib/theme";
 
 export function CategoryCard({
   label,
@@ -17,7 +16,7 @@ export function CategoryCard({
     <Link href={href} className="m7-lift pgc-category block">
       <div
         className="pgc-category__media"
-        style={{ "--pgc-media-h": `${height}px`, "--stripe-bg": stripe() } as CSSProperties}
+        style={{ "--pgc-media-h": `${height}px` } as CSSProperties}
       >
         <div className="pgc-category__label">▣ {label.toUpperCase()}</div>
       </div>
@@ -46,7 +45,7 @@ export function ProductCard({
     <Link href={href} className="pgc-product flex flex-col">
       <div
         className="pgc-product__media"
-        style={{ "--pgc-media-h": `${height}px`, "--stripe-bg": stripe() } as CSSProperties}
+        style={{ "--pgc-media-h": `${height}px` } as CSSProperties}
       >
         <div className="pgc-product__label">▣ {name.toUpperCase()}</div>
       </div>

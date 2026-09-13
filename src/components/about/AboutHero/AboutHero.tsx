@@ -9,12 +9,12 @@ export function AboutHero() {
     <>
       <section className="a-hero">
         <div className="a-wrap">
-        <div className="a-hero__grid">
-          <div className="a-stack" data-rv>
+        <div className="a-hero__grid grid">
+          <div className="a-stack grid" data-rv>
             <Mono dot>{hero.eyebrow}</Mono>
             <h1 className="a-hero-h1">{hero.h1}</h1>
           </div>
-          <div className="a-stack" data-rv>
+          <div className="a-stack grid" data-rv>
             <p className="a-lede">{hero.lede}</p>
             <div>
               <ButtonV2 label={hero.cta} variant="fill" href="/services" />
@@ -22,11 +22,11 @@ export function AboutHero() {
           </div>
         </div>
 
-        <div className="a-hero__meta" data-rv>
+        <div className="a-hero__meta flex flex-wrap" data-rv>
           {hero.meta.map((m) => (
-            <span className="a-label" key={m}>{m}</span>
+            <span className="a-label uppercase" key={m}>{m}</span>
           ))}
-          <span className="a-label">{logos.length} premium brands</span>
+          <span className="a-label uppercase">{logos.length} premium brands</span>
         </div>
         </div>
       </section>
@@ -40,7 +40,7 @@ export function AboutHero() {
             height={1672}
           />
           <img
-            className="a-hero2__img"
+            className="a-hero2__img block"
             src={hero.second.image.src}
             width={1672}
             height={941}
@@ -51,7 +51,7 @@ export function AboutHero() {
           <Mono dot tone="white">{hero.eyebrow}</Mono>
           <h2 className="a-hero2__h">{hero.second.h}</h2>
           <p className="a-hero2__lede">{hero.second.lede}</p>
-          <div className="a-hero2__actions">
+          <div className="a-hero2__actions flex flex-wrap">
             <ButtonV2 label={hero.second.ctaPrimary} variant="fill" href="/services" />
             <ButtonV2
               label={hero.second.ctaSecondary}

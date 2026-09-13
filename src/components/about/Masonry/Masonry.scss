@@ -2,9 +2,8 @@
 
 @layer components {
   .a-mason {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: #{rem-calc(10)};
     height: #{fluid(320, 560)};
     overflow: hidden;
     margin-top: #{fluid(28, 48)};
@@ -21,8 +20,7 @@
   }
 
   .a-mcol {
-    display: grid;
-    gap: 10px;
+    gap: #{rem-calc(10)};
     align-content: start;
     animation-name: m7drift;
     animation-duration: var(--a-mcol-duration, 46s);
@@ -51,14 +49,13 @@
 
   .a-tile__tag {
     position: absolute;
-    left: 10px;
+    left: #{rem-calc(10)};
     right: 8px;
     bottom: 9px;
     font-family: var(--f-mono);
-    font-size: 10px;
+    font-size: #{rem-calc(10)};
     letter-spacing: 0.03em;
     color: var(--decor);
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowButton } from "@/components/ArrowButton";
 import { Annotation } from "@/components/wireframe/Primitives";
 import content from "@/content/smart-home.json";
-import { stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 const categories = content.categories;
@@ -61,7 +60,7 @@ export function CategoryShowcase() {
   return (
     <>
       <Link href="/shop" className="m7-lift block no-underline text-inherit mt-[34px]">
-        <div className="sh-cat-hero__media" style={{ "--stripe-bg": stripe() } as CSSProperties}>
+        <div className="sh-cat-hero__media">
           <div className="sh-cat-hero__label">▣ {active.label.toUpperCase()}</div>
 
           {WIREFRAME.showAnnotations && (
@@ -122,7 +121,7 @@ export function CategoryShowcase() {
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(0)}
             >
-              <div className="sh-cat-card__media" style={{ "--stripe-bg": stripe() } as CSSProperties}>
+              <div className="sh-cat-card__media">
                 <div className="sh-cat-card__label">▣ {c.label.toUpperCase()}</div>
               </div>
 

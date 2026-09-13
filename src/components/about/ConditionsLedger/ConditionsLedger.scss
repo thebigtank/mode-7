@@ -11,7 +11,7 @@
     --cond-pad: #{fluid(16, 28)};
     position: relative;
     display: grid;
-    gap: 6px 32px;
+    gap: #{rem-calc(6)} #{rem-calc(32)};
     grid-template-columns: 1fr;
     padding-block: #{fluid(24, 36)};
     padding-inline: var(--cond-pad);
@@ -24,7 +24,7 @@
     }
 
     @media (min-width: 1180px) {
-      grid-template-columns: minmax(0, 22ch) 224px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 22ch) #{rem-calc(224)} minmax(0, 1fr);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -98,7 +98,7 @@
     position: relative;
     z-index: 1;
     color: var(--body);
-    font-size: 17px;
+    font-size: #{rem-calc(17)};
     line-height: 1.6;
     margin: 0;
     transition: color 0.22s ease;
@@ -111,10 +111,10 @@
   .about-page .a-cond__shot {
     position: absolute;
     z-index: 2;
-    left: calc(var(--cond-pad) + 22ch + 56px);
+    left: calc(var(--cond-pad) + 22ch + #{rem-calc(56)});
     top: 50%;
-    width: 176px;
-    height: 176px;
+    width: #{rem-calc(176)};
+    height: #{rem-calc(176)};
     pointer-events: none;
     opacity: 0;
     transform: translateY(-50%) scale(0.94);

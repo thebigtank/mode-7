@@ -2,7 +2,6 @@
 
 @layer components {
   .a-mv {
-    display: grid;
     gap: 1px;
     background: rgb(var(--color-v2-white-rgb) / 0.14);
     border: var(--v2-hair-dark);
@@ -18,13 +17,11 @@
   .a-mv__cell {
     background: var(--ink);
     padding: #{fluid(28, 46)};
-    display: grid;
-    gap: 16px;
+    gap: #{rem-calc(16)};
     align-content: start;
   }
 
   .a-stats {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.16);
     margin-top: #{fluid(32, 52)};
@@ -35,7 +32,7 @@
   }
 
   .a-stat {
-    padding: #{fluid(22, 30)} 24px #{fluid(22, 30)} 0;
+    padding: #{fluid(22, 30)} #{rem-calc(24)} #{fluid(22, 30)} 0;
     border-bottom: 1px solid rgb(var(--color-v2-white-rgb) / 0.16);
 
     @media (min-width: 860px) {
@@ -53,9 +50,9 @@
 
   .a-stat__l {
     font-weight: 400;
-    font-size: 14px;
+    font-size: #{rem-calc(14)};
     color: var(--color-v2-faint);
-    margin-top: 9px;
+    margin-top: #{rem-calc(9)};
     max-width: 22ch;
   }
 }

@@ -10,16 +10,16 @@ export function StatRow() {
         <div data-rv>
           <Mono dot tone="faint">{stats.eyebrow}</Mono>
         </div>
-        <div className="a-mv">
-          <div className="a-mv__cell" data-rv>
-            <span className="a-label">{stats.mission.label}</span>
+        <div className="a-mv grid">
+          <div className="a-mv__cell grid" data-rv>
+            <span className="a-label uppercase">{stats.mission.label}</span>
             <p className="a-dm">{stats.mission.statement}</p>
             <P color="var(--color-v2-faint)" className="max-w-[66ch]">
               {stats.mission.body}
             </P>
           </div>
-          <div className="a-mv__cell" data-rv>
-            <span className="a-label">{stats.vision.label}</span>
+          <div className="a-mv__cell grid" data-rv>
+            <span className="a-label uppercase">{stats.vision.label}</span>
             <p className="a-dm">{stats.vision.statement}</p>
             <P color="var(--color-v2-faint)" className="max-w-[66ch]">
               {stats.vision.body}
@@ -27,7 +27,7 @@ export function StatRow() {
           </div>
         </div>
 
-        <div className="a-stats">
+        <div className="a-stats grid">
           {stats.stats.map(([n, l]) => (
             <div className="a-stat" data-rv key={l}>
               <div className="a-stat__n a-num">{n}</div>

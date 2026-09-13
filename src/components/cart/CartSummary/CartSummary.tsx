@@ -1,8 +1,6 @@
-import type { CSSProperties } from "react";
 import { ArrowButton } from "@/components/ArrowButton";
 import { CheckoutButton } from "@/components/checkout/CheckoutModal";
 import content from "@/content/cart.json";
-import { stripe } from "@/lib/theme";
 
 export function CartSummary() {
   const c = content.summary;
@@ -10,7 +8,6 @@ export function CartSummary() {
   return (
     <aside
       className="cart-summary"
-      style={{ "--cart-summary-stripe": stripe() } as CSSProperties}
     >
       <div className="cart-summary__title">{c.title}</div>
 

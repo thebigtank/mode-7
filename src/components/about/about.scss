@@ -50,9 +50,8 @@
   .a-label {
     font-family: var(--f-mono);
     font-weight: 400;
-    font-size: 11px;
+    font-size: #{rem-calc(11)};
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--muted);
   }
 
@@ -85,7 +84,6 @@
   }
 
   .a-split {
-    display: grid;
     gap: #{fluid(28, 64)};
     grid-template-columns: 1fr;
   }
@@ -107,13 +105,12 @@
   .a-sticky {
     @media (min-width: 900px) {
       position: sticky;
-      top: 100px;
+      top: #{rem-calc(100)};
     }
   }
 
   .a-stack {
-    display: grid;
-    gap: 20px;
+    gap: #{rem-calc(20)};
   }
 
   .a-stack--lg {

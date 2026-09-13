@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import content from "@/content/shop.json";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
 import { PRODUCTS, priceLabel, type Product } from "@/lib/catalogue";
-import { stripe } from "@/lib/theme";
 
 const ACTION_VARIANT = { fill: "fill", outline: "outline" } as const;
 
@@ -117,10 +116,7 @@ export function ProductGrid() {
 
   return (
     <>
-      <div
-        className="shop-grid grid"
-        style={{ "--shop-card-stripe": stripe() } as CSSProperties}
-      >
+      <div className="shop-grid grid">
         {PRODUCTS.map((p) => (
           <div key={p.id} className="m7-shop-card shop-card relative">
             <Link href="/product" className="shop-card__link flex flex-col">

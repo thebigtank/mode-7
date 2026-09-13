@@ -9,8 +9,8 @@ export function ServeSection() {
   return (
     <section className="a-band">
       <div className="a-wrap">
-        <div className="a-split a-split--wide">
-          <div className="a-stack" data-rv>
+        <div className="a-split a-split--wide grid">
+          <div className="a-stack grid" data-rv>
             <Mono dot>{serve.eyebrow}</Mono>
             <h2 className="a-dl">{serve.h2}</h2>
           </div>

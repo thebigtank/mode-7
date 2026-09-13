@@ -9,7 +9,7 @@
     padding: #{fluid(28, 64)};
     grid-template-columns: 1.2fr 1fr;
     gap: #{fluid(26, 48)};
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe-dark);
 
     @media (max-width: #{rem-calc(900)}) {
       grid-template-columns: minmax(0, 1fr);

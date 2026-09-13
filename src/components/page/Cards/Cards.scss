@@ -22,7 +22,7 @@
   .pgc-category__media {
     position: relative;
     height: var(--pgc-media-h);
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
     border-bottom: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
   }
 
@@ -65,7 +65,7 @@
     border-radius: #{rem-calc(4)};
     border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
     height: var(--pgc-media-h);
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
   }
 
   .pgc-product__label {

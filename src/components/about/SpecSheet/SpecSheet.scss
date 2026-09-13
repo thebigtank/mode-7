@@ -10,17 +10,13 @@
   }
 
   .a-spec__bar {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding: 13px #{fluid(20, 32)};
+    gap: #{rem-calc(16)};
+    padding: #{rem-calc(13)} #{fluid(20, 32)};
     background: var(--wash);
     border-bottom: 1px solid var(--rule);
   }
 
   .a-spec__trip {
-    display: grid;
     grid-template-columns: 1fr;
 
     @media (min-width: 820px) {
@@ -31,8 +27,7 @@
   .a-spec__word {
     padding: #{fluid(26, 42)} #{fluid(20, 32)};
     border-bottom: 1px solid var(--rule);
-    display: grid;
-    gap: 10px;
+    gap: #{rem-calc(10)};
     align-content: start;
   }
 
@@ -52,14 +47,13 @@
 
   .a-spec__d {
     color: var(--body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     line-height: 1.55;
     margin: 0;
     max-width: 34ch;
   }
 
   .a-spec__sheet {
-    display: grid;
     grid-template-columns: 1fr;
 
     @media (min-width: 820px) {
@@ -68,11 +62,9 @@
   }
 
   .a-spec__row {
-    display: flex;
-    justify-content: space-between;
     align-items: baseline;
-    gap: 20px;
-    padding: 13px #{fluid(20, 32)};
+    gap: #{rem-calc(20)};
+    padding: #{rem-calc(13)} #{fluid(20, 32)};
     border-bottom: 1px solid var(--rule);
   }
 
@@ -94,15 +86,14 @@
 
   .a-spec__k {
     font-family: var(--f-mono);
-    font-size: 11px;
+    font-size: #{rem-calc(11)};
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--muted);
   }
 
   .a-spec__v {
     font-family: var(--f-mono);
-    font-size: 13px;
+    font-size: #{rem-calc(13)};
     color: var(--ink);
     font-variant-numeric: tabular-nums;
     text-align: right;

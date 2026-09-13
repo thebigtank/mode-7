@@ -8,8 +8,8 @@ export function ConditionsSection() {
   return (
     <section className="a-band a-band--wash">
       <div className="a-wrap">
-        <div className="a-split a-split--wide">
-          <div className="a-stack" data-rv>
+        <div className="a-split a-split--wide grid">
+          <div className="a-stack grid" data-rv>
             <Mono dot>{conditions.eyebrow}</Mono>
             <h2 className="a-dl">{conditions.h2}</h2>
           </div>

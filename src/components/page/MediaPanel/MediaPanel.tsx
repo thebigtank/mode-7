@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import { Annotation } from "@/components/wireframe/Primitives";
-import { stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 export function MediaPanel({
@@ -22,7 +21,6 @@ export function MediaPanel({
       style={
         {
           "--pg-media-h": heightValue,
-          "--stripe-bg": stripe(),
           ...style,
         } as CSSProperties
       }

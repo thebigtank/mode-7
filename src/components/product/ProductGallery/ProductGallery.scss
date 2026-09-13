@@ -9,7 +9,7 @@
     border-radius: 4px;
     border: 1px solid var(--color-m7-neutral-border);
     height: #{fluid(300, 520)};
-    background: var(--product-gallery-stripe);
+    background: var(--color-m7-stripe);
   }
 
   .product-gallery__label {
@@ -43,6 +43,6 @@
     border-radius: 4px;
     border: 1px solid var(--color-m7-neutral-border);
     height: #{fluid(72, 110)};
-    background: var(--product-gallery-stripe);
+    background: var(--color-m7-stripe);
   }
 }

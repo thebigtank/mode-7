@@ -1,8 +1,6 @@
 import { Annotation } from "@/components/wireframe/Primitives";
 import content from "@/content/product.json";
-import { stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
-import type { CSSProperties } from "react";
 
 const ANNOTATION_SIZE = { fontSize: 10, padding: "6px 13px" };
 
@@ -20,7 +18,6 @@ export function ProductGallery() {
   return (
     <div
       className="product-gallery relative flex flex-col"
-      style={{ "--product-gallery-stripe": stripe() } as CSSProperties}
     >
       <div className="product-gallery__main relative overflow-hidden">
         <div className="product-gallery__label absolute">▣ {c.mainLabel}</div>

@@ -54,7 +54,7 @@
 
   .ui-buttonv2__label {
     font-family: var(--font-v2-body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     font-weight: 500;
   }
 

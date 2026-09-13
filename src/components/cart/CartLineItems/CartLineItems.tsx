@@ -1,8 +1,6 @@
-import type { CSSProperties } from "react";
 import { Stepper } from "@/components/cart/Stepper";
 import { Annotation } from "@/components/wireframe/Primitives";
 import content from "@/content/cart.json";
-import { stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 const ANNOTATION_SIZE = { fontSize: 10, padding: "6px 13px" };
@@ -13,7 +11,6 @@ export function CartLineItems() {
   return (
     <div
       className="relative"
-      style={{ "--cart-line-stripe": stripe() } as CSSProperties}
     >
       {c.items.map((it, i) => (
         <div

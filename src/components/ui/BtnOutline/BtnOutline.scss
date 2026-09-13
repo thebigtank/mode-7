@@ -3,9 +3,9 @@
 @layer components {
   .ui-btn-outline {
     font-family: var(--font-v2-body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     font-weight: 500;
-    line-height: 22px;
+    line-height: #{rem-calc(22)};
     color: var(--ui-btn-outline-color);
     border: 1px solid var(--ui-btn-outline-border);
   }

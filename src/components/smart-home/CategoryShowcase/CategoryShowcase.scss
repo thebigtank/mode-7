@@ -35,7 +35,7 @@
     border-radius: #{rem-calc(4)};
     border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
     height: #{fluid(320, 480)};
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
   }
 
   .sh-cat-hero__label {
@@ -138,7 +138,7 @@
     overflow: hidden;
     border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
     height: #{fluid(200, 260)};
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
   }
 
   .sh-cat-card__label {

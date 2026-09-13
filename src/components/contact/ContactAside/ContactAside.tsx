@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import content from "@/content/contact.json";
-import { stripe } from "@/lib/theme";
 
 export function ContactAside() {
   return (
@@ -10,7 +9,7 @@ export function ContactAside() {
         <div className="contact-channels flex flex-col">
           {content.channels.items.map((c) => (
             <div key={c} className="contact-channel flex items-center">
-              <div className="contact-channel__avatar" style={{ "--stripe-bg": stripe() } as CSSProperties} />
+              <div className="contact-channel__avatar" />
               <div className="contact-channel__name">{c}</div>
             </div>
           ))}

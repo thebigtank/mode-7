@@ -2,9 +2,8 @@
 
 @layer components {
   .a-serve {
-    display: grid;
-    gap: 14px;
-    margin-top: 14px;
+    gap: #{rem-calc(14)};
+    margin-top: #{rem-calc(14)};
 
     @media (min-width: 860px) {
       grid-template-columns: repeat(3, 1fr);
@@ -15,21 +14,20 @@
     border: 1px solid var(--rule);
     border-radius: 4px;
     padding: #{fluid(24, 34)};
-    display: grid;
-    gap: 12px;
+    gap: #{rem-calc(12)};
     align-content: start;
     background: var(--paper);
   }
 
   .a-serve__i {
-    font-size: 13px;
+    font-size: #{rem-calc(13)};
     color: var(--decor);
   }
 
   .a-hs {
     font-family: var(--f-head);
     font-weight: 400;
-    font-size: 21px;
+    font-size: #{rem-calc(21)};
     line-height: 1.3;
     letter-spacing: -0.01em;
     margin: 0;

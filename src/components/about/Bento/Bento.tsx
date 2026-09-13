@@ -9,17 +9,17 @@ export function Bento() {
   return (
     <section className="a-band a-band--wash">
       <div className="a-wrap">
-        <div className="a-split a-split--wide">
-          <div className="a-stack" data-rv>
+        <div className="a-split a-split--wide grid">
+          <div className="a-stack grid" data-rv>
             <Mono dot>{bento.eyebrow}</Mono>
             <h2 className="a-dl">{bento.h2}</h2>
             <P className="text-[17px] max-w-[66ch]">{bento.lede}</P>
           </div>
         </div>
 
-        <div className="a-bento">
+        <div className="a-bento grid">
           {bento.divisions.map((d, i) => (
-            <article className={`a-bcell ${CLS[i]}`} data-rv key={d.t}>
+            <article className={`a-bcell flex flex-col ${CLS[i]}`} data-rv key={d.t}>
               <h3 className="a-bcell__t">{d.t}</h3>
               <p className="a-bcell__b">{d.b}</p>
               {d.image && (

@@ -2,9 +2,8 @@
 
 @layer components {
   .a-bento {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: #{rem-calc(14)};
     margin-top: #{fluid(28, 48)};
 
     @media (min-width: 900px) {
@@ -17,10 +16,8 @@
     border-radius: 4px;
     background: var(--paper);
     padding: #{fluid(24, 34)};
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-height: 212px;
+    gap: #{rem-calc(12)};
+    min-height: #{rem-calc(212)};
   }
 
   .a-bcell__t {
@@ -34,7 +31,7 @@
 
   .a-bcell__b {
     color: var(--body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     line-height: 1.6;
     margin: 0;
     max-width: 52ch;
@@ -42,7 +39,7 @@
 
   .a-bcell__fill {
     flex: 1;
-    min-height: 96px;
+    min-height: #{rem-calc(96)};
     border-radius: 3px;
     background: var(--stripe-soft);
     border: 1px solid var(--rule);

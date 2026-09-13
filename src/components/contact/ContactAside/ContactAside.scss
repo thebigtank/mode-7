@@ -31,7 +31,7 @@
     height: #{rem-calc(36)};
     border-radius: 50%;
     border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
   }
 
   .contact-channel__name {

@@ -11,7 +11,7 @@
     overflow: hidden;
     border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
     height: min(64vh, #{rem-calc(640)});
-    background: var(--stripe-bg);
+    background: var(--color-m7-stripe);
   }
 
   .sh-banner__label {

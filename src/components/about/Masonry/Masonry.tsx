@@ -8,7 +8,7 @@ const M_PER_COL = 3;
 
 export function Masonry() {
   return (
-    <div className="a-mason" data-rv aria-hidden="true">
+    <div className="a-mason grid" data-rv aria-hidden="true">
       {Array.from({ length: M_NCOLS }, (_, col) => {
         const base = Array.from({ length: M_PER_COL }, (_, j) => {
           const k = col * M_PER_COL + j;
@@ -20,7 +20,7 @@ export function Masonry() {
         const tiles = [...base, ...base];
         return (
           <div
-            className="a-mcol"
+            className="a-mcol grid"
             key={col}
             style={
               {
@@ -35,7 +35,7 @@ export function Masonry() {
                 key={ti}
                 style={{ "--a-tile-h": `${t.h}px` } as CSSProperties}
               >
-                <span className="a-tile__tag">▣ {t.label}</span>
+                <span className="a-tile__tag whitespace-nowrap">▣ {t.label}</span>
               </div>
             ))}
           </div>
