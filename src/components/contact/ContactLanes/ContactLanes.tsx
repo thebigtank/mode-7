@@ -5,9 +5,9 @@ export function ContactLanes() {
   return (
     <section className="contact-section" data-lead>
       <div className="contact-eyebrow">{`// ${content.lanes.eyebrow}`}</div>
-      <div className="contact-lanes__grid">
+      <div className="contact-lanes__grid grid">
         {content.lanes.items.map((l) => (
-          <div key={l.title} className="contact-lane">
+          <div key={l.title} className="contact-lane flex flex-col">
             <svg
               className="contact-lane__icon"
               width="30"

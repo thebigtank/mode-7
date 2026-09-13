@@ -6,72 +6,61 @@
   }
 
   .contact-form__fields {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 12px;
+    gap: #{rem-calc(18)};
+    margin-top: #{rem-calc(12)};
   }
 
   .contact-form__row {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: #{rem-calc(16)};
 
-    @media (max-width: 620px) {
+    @media (max-width: #{rem-calc(620)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
   .contact-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: #{rem-calc(8)};
   }
 
   .contact-field__label {
-    font-size: 13px;
+    font-size: #{rem-calc(13)};
     font-family: var(--font-m7-mono);
-    letter-spacing: 1px;
+    letter-spacing: #{rem-calc(1, false)};
     text-transform: uppercase;
     color: var(--color-m7-neutral-muted-soft);
   }
 
   .contact-input {
     background: var(--color-m7-neutral-surface);
-    border: 1px solid var(--color-m7-neutral-border-mid);
-    border-radius: 4px;
-    padding: 13px 15px;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-mid);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(13)} #{rem-calc(15)};
     font-family: var(--font-m7-body);
-    font-size: 16px;
+    font-size: #{rem-calc(16)};
     outline: none;
     color: var(--color-m7-neutral-line);
 
     &[data-variant="select"] {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       color: var(--color-m7-neutral-text);
     }
 
     &[data-variant="textarea"] {
-      min-height: 120px;
+      min-height: #{rem-calc(120)};
     }
   }
 
   .contact-input__chevron {
-    display: inline-flex;
     color: var(--color-m7-neutral-faint);
   }
 
   .contact-form__submit {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 4px;
+    gap: #{rem-calc(16)};
+    margin-top: #{rem-calc(4)};
   }
 
   .contact-form__note {
-    font-size: 13px;
+    font-size: #{rem-calc(13)};
     color: var(--color-m7-neutral-faint);
   }
 }

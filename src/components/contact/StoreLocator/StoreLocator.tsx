@@ -15,7 +15,7 @@ export function StoreLocator() {
         />
       </div>
 
-      <div className="store-locator__grid">
+      <div className="store-locator__grid grid">
         {content.stores.items.map((s) => (
           <div key={s.city} className="store-card">
             <div className="store-card__city">{s.city}</div>

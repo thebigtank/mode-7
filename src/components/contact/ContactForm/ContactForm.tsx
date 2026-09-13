@@ -7,7 +7,7 @@ import { WIREFRAME } from "@/lib/wireframe-config";
 
 function Field({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div className="contact-field">
+    <div className="contact-field flex flex-col">
       <span className="contact-field__label">{name}</span>
       {children}
     </div>
@@ -22,8 +22,8 @@ export function ContactForm() {
       <div className="contact-eyebrow">{`// ${content.form.eyebrow}`}</div>
       <h2 className="contact-h2">{content.form.title}</h2>
 
-      <div className="contact-form__fields">
-        <div className="contact-form__row">
+      <div className="contact-form__fields flex flex-col">
+        <div className="contact-form__row grid">
           <Field name={f.name.label}>
             <div className="contact-input">{f.name.placeholder}</div>
           </Field>
@@ -33,9 +33,9 @@ export function ContactForm() {
         </div>
 
         <Field name={f.enquiry.label}>
-          <div className="contact-input" data-variant="select">
+          <div className="contact-input flex items-center justify-between" data-variant="select">
             {f.enquiry.value}
-            <span className="contact-input__chevron">
+            <span className="contact-input__chevron inline-flex">
               <ChevronDownIcon size={18} />
             </span>
           </div>
@@ -47,7 +47,7 @@ export function ContactForm() {
           </div>
         </Field>
 
-        <div className="contact-form__submit">
+        <div className="contact-form__submit flex items-center">
           <ArrowButton label={content.form.submit} variant="fill" />
           <span className="contact-form__note">{content.form.note}</span>
         </div>

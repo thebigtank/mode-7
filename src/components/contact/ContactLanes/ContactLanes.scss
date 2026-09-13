@@ -2,28 +2,25 @@
 
 @layer components {
   .contact-lanes__grid {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 26px;
+    gap: #{rem-calc(14)};
+    margin-top: #{rem-calc(26)};
 
-    @media (max-width: 1080px) {
+    @media (max-width: #{rem-calc(1080)}) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: #{rem-calc(620)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
   .contact-lane {
     background: var(--color-m7-neutral-white);
-    border: 1px solid var(--color-m7-neutral-border-soft);
-    border-radius: 4px;
-    padding: 32px 30px;
-    display: flex;
-    flex-direction: column;
-    min-height: 250px;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(32)} #{rem-calc(30)};
+    min-height: #{rem-calc(250)};
   }
 
   .contact-lane__icon {
@@ -34,15 +31,15 @@
   .contact-lane__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 22px;
-    margin: 24px 0 10px;
+    font-size: #{rem-calc(22)};
+    margin: #{rem-calc(24)} 0 #{rem-calc(10)};
   }
 
   .contact-lane__body {
     font-size: var(--m7-lede-size);
     line-height: 1.65;
     color: var(--color-m7-neutral-body);
-    margin: 0 0 22px;
+    margin: 0 0 #{rem-calc(22)};
   }
 
   .contact-lane__cta {

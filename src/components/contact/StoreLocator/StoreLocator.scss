@@ -3,35 +3,34 @@
 @layer components {
   .store-locator__map {
     position: relative;
-    margin-top: 26px;
+    margin-top: #{rem-calc(26)};
   }
 
   .store-locator__grid {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 14px;
+    gap: #{rem-calc(14)};
+    margin-top: #{rem-calc(14)};
 
-    @media (max-width: 900px) {
+    @media (max-width: #{rem-calc(900)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
   .store-card {
-    border: 1px solid var(--color-m7-neutral-border-soft);
-    border-radius: 4px;
-    padding: 22px 24px;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(22)} #{rem-calc(24)};
   }
 
   .store-card__city {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 6px;
+    font-size: #{rem-calc(18)};
+    margin-bottom: #{rem-calc(6)};
   }
 
   .store-card__address {
-    font-size: 15px;
+    font-size: #{rem-calc(15)};
     color: var(--color-m7-neutral-muted-soft);
     line-height: 1.5;
   }

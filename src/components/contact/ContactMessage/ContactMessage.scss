@@ -2,12 +2,11 @@
 
 @layer components {
   .contact-message__grid {
-    display: grid;
     grid-template-columns: 1.3fr 1fr;
-    gap: 56px;
+    gap: #{rem-calc(56)};
     align-items: start;
 
-    @media (max-width: 900px) {
+    @media (max-width: #{rem-calc(900)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
