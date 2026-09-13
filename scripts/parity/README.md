@@ -84,6 +84,18 @@ other. `rounded-[50%]` is the exact spelling.
 
 ## Known rare noise
 
+`/green-energy` at 1440 was intermittently off by **~89,000 pixels**, about one
+run in three, with tier 1 completely clean. `EnergyScrolly` calls
+`ScrollTrigger.refresh()` on window load, which re-measures a pinned section;
+a capture landing mid-refresh disagrees with one that does not. The freeze now
+awaits `load` and gives pixel captures a longer settle, which took four
+consecutive byte-identical runs to confirm.
+
+The lesson generalises: **two runs of tier 0 cannot surface a one-in-three
+flake.** If a tier 2 difference appears on a route the change did not touch,
+re-capture before believing it — `prev` and a fresh capture agreeing, with the
+failing run in the middle, means the run was the outlier, not the code.
+
 A capture of `/shop` at 1200 has once produced **6 pixels at delta 1** against
 an otherwise identical build. Re-capturing the same build twice gave zero, and
 re-capturing against the previous build gave zero, so it is a transient in a

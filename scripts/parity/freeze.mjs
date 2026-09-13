@@ -37,6 +37,15 @@ const PIXEL_CSS = `[data-eq] { visibility: hidden !important; }`;
 export async function settle(page, { forPixels = false } = {}) {
   await page.addStyleTag({ content: SETTLE_CSS });
   if (forPixels) await page.addStyleTag({ content: PIXEL_CSS });
+  // EnergyScrolly calls ScrollTrigger.refresh() on window load and again on
+  // its own schedule, which re-measures a pinned section. A capture that lands
+  // mid-refresh disagrees with one that does not, by ~89k pixels on
+  // /green-energy at 1440 -- intermittently, roughly one run in three, which
+  // two runs of tier 0 were never going to surface.
+  await page.evaluate(() => new Promise((r) => {
+    if (document.readyState === "complete") r();
+    else window.addEventListener("load", () => r(), { once: true });
+  }));
 
   await page.evaluate(() => {
     window.scrollTo(0, 0);
@@ -54,5 +63,5 @@ export async function settle(page, { forPixels = false } = {}) {
   );
   await page.waitForTimeout(250);
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(120);
+  await page.waitForTimeout(forPixels ? 600 : 120);
 }
