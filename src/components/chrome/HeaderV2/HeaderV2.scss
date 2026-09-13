@@ -1,0 +1,51 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-navlinks {
+    display:flex;
+
+    @media (max-width: 980px) {
+      display:none;
+    }
+  }
+
+  .v2-nav-link {
+    opacity:1;
+    transition:opacity 220ms ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition:none !important;
+    }
+  }
+
+  .v2-nav-link.is-dimmed {
+    opacity:0.45;
+  }
+
+  .v2-nav-link.is-active {
+    opacity:1;
+  }
+
+  .v2-nav-scrim {
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 220ms ease;
+    background: rgb(var(--color-v2-ink-rgb) / 0.32);
+
+    @media (max-width: 980px) {
+      display:none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition:none !important;
+    }
+  }
+
+  .v2-nav-scrim.is-active {
+    opacity:1;
+  }
+
+}

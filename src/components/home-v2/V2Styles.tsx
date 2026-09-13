@@ -292,22 +292,6 @@ const CSS = `
 /* section 7 — case-study row: text half, image half, image flush to the edge */
 .v2-caserow { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,0.675fr); align-items:stretch; }
 
-/* v1's footer ratio, 1.7fr 1fr 1fr: the brand block is wider than a link
-   column because it carries the wordmark, a paragraph and the social row. */
-.v2-footcols { display:grid; grid-template-columns:minmax(0,1.7fr) repeat(2,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
-/* footer social marks. 42px clears the 40px touch-target floor; the hover is a
-   faint white wash + a brighter ring, the only lift available on ink. */
-.v2-social {
-  display:inline-flex; align-items:center; justify-content:center;
-  width:42px; height:42px; border-radius:50%;
-  border:1px solid rgba(255,255,255,0.2);
-  color:#FFFFFF; cursor:pointer;
-  transition:background .2s ease, border-color .2s ease;
-}
-.v2-social:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.45); }
-.v2-legal { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
-.v2-headrow { display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; }
-
 /* ── the hero headline ────────────────────────────────────────────────────
    ONE sentence, three lines, every line the SAME size and weight. Exactly one
    word moves — the noun on line 1.
@@ -560,51 +544,6 @@ const CSS = `
   pointer-events:none;
 }
 
-/* Header nav links. The display value MUST live here, not inline on the
-   element: the 980px rule below hides them, and an inline display:flex would
-   out-specify it and leave the links (and the Shop action) overflowing the
-   panel on mobile. */
-.v2-navlinks { display:flex; }
-
-/* ── header — nav link focus dimming + page scrim ──────────────────────────
-   Hovering (or keyboard-focusing) a nav link dims its siblings and drops a
-   translucent scrim behind the header so the hovered link reads as the
-   deliberate focus. Which link is active is REACT STATE in HeaderV2 (hover
-   and focus held separately, active = hover ?? focus — the same pattern
-   LifecycleV2 uses and for the same reason: :hover and :focus-within are
-   independent conditions and would otherwise both light up at once). The
-   resting opacity for both lives HERE, not inline — an inline opacity would
-   out-specify .is-dimmed / .is-active and the dim would silently never fire.
-
-   0.45 and 0.32 (below) were picked by eye: light enough that a dimmed link
-   or the page behind the scrim both stay clearly legible, strong enough that
-   the hovered link / undimmed page reads as a deliberate focus rather than a
-   flicker. */
-.v2-nav-link { opacity:1; transition:opacity 220ms ease; }
-.v2-nav-link.is-dimmed { opacity:0.45; }
-.v2-nav-link.is-active { opacity:1; }
-
-/* The scrim is a SIBLING of <header> in HeaderV2, not a descendant: <header>
-   carries a permanent inline transform (for the hide/show slide), and a
-   transformed ancestor becomes the containing block for a position:fixed
-   descendant — nested inside, the scrim would be pinned to the header's own
-   96px-tall box instead of the viewport. As a sibling this is genuinely
-   viewport-fixed. z-index 1000 sits above ordinary page content and below
-   the header's 1001 panel; the announcement strip is separately lifted to
-   1002 in HeaderV2 so it stays fully lit as header chrome rather than
-   dimming as page content. pointer-events:none always, hovered or not, so a
-   click reaches the page underneath exactly as before. */
-.v2-nav-scrim {
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  background:rgba(23,29,29,0.32);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 220ms ease;
-}
-.v2-nav-scrim.is-active { opacity:1; }
-
 /* ── the "trusted by" marquee — a full-bleed gold band of brand names ──────
    .v2-marquee-wrap breaks out of the 1280px container with the standard
    width:100vw + margin:calc(50%-50vw) trick. That formula only centres
@@ -684,7 +623,7 @@ const CSS = `
 }
 
 @media (max-width: 980px) {
-  /* .v2-why-cols and .v2-cta-cols below are PARKED with WhyV2.tsx /
+/* .v2-why-cols and .v2-cta-cols below are PARKED with WhyV2.tsx /
      CtaBandV2.tsx (both unmounted, see page.tsx) — left in this shared
      selector rather than split out, since they simply match nothing while
      parked. .v2-articles, in the next rule down, is PARKED the same way
@@ -692,12 +631,6 @@ const CSS = `
   .v2-hero-cols, .v2-stats-cols, .v2-why-cols, .v2-quote-cols, .v2-cta-cols, .v2-caserow { grid-template-columns:minmax(0,1fr); }
   .v2-stats-cols, .v2-quote-cols, .v2-cta-cols { gap:40px; }
   .v2-services, .v2-articles { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .v2-footcols { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
-  .v2-navlinks { display:none; }
-  /* .v2-navlinks going display:none removes the links from the tab order and
-     from pointer reach, so active can never leave null below 980px — this
-     is belt-and-braces so the scrim cannot render even if that ever changes. */
-  .v2-nav-scrim { display:none !important; }
   /* PARKED with LifecycleV2.tsx (see the section-3 banner above). The
      floating preview needs ~460px sitting past the 52% mark; below this
      it either overflows the container or lands on top of the row's own words.
@@ -740,7 +673,7 @@ const CSS = `
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* the scrub and the stagger are never CREATED under reduced motion (see
+/* the scrub and the stagger are never CREATED under reduced motion (see
      WorkV2), so this is belt-and-braces for a card left mid-tween by a motion
      preference flipped during a scroll */
   .v2-stack__card { transform:none !important; filter:none !important; }
@@ -804,22 +737,17 @@ const CSS = `
      under 4px/s at the plateau width. Hover-pause above still applies on
      top of this. */
   .v2-marquee-track { animation-duration:600s; }
-
-  /* header nav — the dim and the scrim are STATE, so they stay; only the
-     animated fade goes, the same treatment as section 3's gold fill. */
-  .v2-nav-link, .v2-nav-scrim { transition:none !important; }
 }
 
 @media (max-width: 640px) {
-  /* .v2-articles here is PARKED with InsightsV2.tsx (see section 9 above);
+/* .v2-articles here is PARKED with InsightsV2.tsx (see section 9 above);
      left in this shared selector for the same reason .v2-why-cols /
      .v2-cta-cols stay in their shared 980px selector above. */
-  .v2-services, .v2-articles, .v2-figures, .v2-footcols { grid-template-columns:minmax(0,1fr); }
+  .v2-services, .v2-articles, .v2-figures { grid-template-columns:minmax(0,1fr); }
   /* PARKED with LifecycleV2.tsx (see the section-3 banner above). */
   .v2-life-row { gap:16px; padding-left:0; padding-right:0; }
   .v2-life-fill { inset:0 -14px -1px; }
   .v2-reason { grid-template-columns:minmax(0,1fr); gap:8px; }
-  .v2-headrow { align-items:flex-start; }
 }
 `;
 

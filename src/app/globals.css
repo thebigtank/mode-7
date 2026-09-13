@@ -92,6 +92,8 @@
      ground uses --color-v2-accent-text. Never white on gold.
      ----------------------------------------------------------------------- */
   --color-v2-ink: #171d1d;
+  --color-v2-ink-rgb: 23 29 29;
+  --color-v2-white-rgb: 255 255 255;
   --color-v2-wash: #e6eae6;
   --color-v2-wash-soft: #edf0ed;
   --color-v2-white: #ffffff;

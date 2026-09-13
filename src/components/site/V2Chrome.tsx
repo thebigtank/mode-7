@@ -2,8 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState, useEffect, type ReactNode } from "react";
-import { FooterV2 } from "@/components/home-v2/FooterV2";
-import { HeaderV2 } from "@/components/home-v2/HeaderV2";
+import { FooterV2 } from "@/components/chrome/FooterV2";
+import { HeaderV2 } from "@/components/chrome/HeaderV2";
 import { V2Styles } from "@/components/home-v2/V2Styles";
 import { IntroLoader } from "./IntroLoader";
 import { SearchOverlay } from "./SearchOverlay";
