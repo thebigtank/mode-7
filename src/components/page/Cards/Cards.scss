@@ -1,0 +1,106 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .m7-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgb(var(--color-m7-ink-rgb) / 0.08);
+  }
+
+  .pgc-category {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 4px;
+    background: var(--color-m7-neutral-surface-soft);
+  }
+
+  .pgc-category__media {
+    position: relative;
+    border-bottom: 1px solid var(--color-m7-neutral-border-soft);
+  }
+
+  .pgc-category__label {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    font-family: var(--font-m7-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .pgc-category__body {
+    padding: 18px 20px;
+  }
+
+  .pgc-category__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.3px;
+  }
+
+  .pgc-category__sub {
+    font-size: 14px;
+    color: var(--color-m7-neutral-muted-soft);
+    margin-top: 4px;
+  }
+
+  .pgc-product {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .pgc-product__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid var(--color-m7-neutral-border);
+  }
+
+  .pgc-product__label {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    font-family: var(--font-m7-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .pgc-product__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .pgc-product__name {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.2px;
+  }
+
+  .pgc-product__meta {
+    font-size: 13px;
+    color: var(--color-m7-neutral-faint);
+    margin-top: 3px;
+  }
+
+  .pgc-product__price {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: 18px;
+    white-space: nowrap;
+  }
+}

@@ -195,36 +195,14 @@
     line-height: var(--m7-p-line);
   }
 
-  .m7-scroll {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .m7-scroll::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-  }
   .m7-pill:hover {
     background: var(--m7-ink);
     color: var(--m7-card);
     border-color: var(--m7-ink);
   }
-  /* Bento tiles lift slightly on hover. */
-  .m7-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .m7-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 26px rgba(28, 21, 15, 0.08);
-  }
   .m7-lift-dark:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(28, 21, 15, 0.24);
-  }
-
-  /* Category showcase — smooth mask transition between scroll-edge states */
-  .m7-cat-scroll {
-    transition: mask-image 0.35s ease, -webkit-mask-image 0.35s ease;
   }
 
   /* Shop card. The image height is a variable because the "Ask Seven" chip is
@@ -1161,22 +1139,6 @@ input,
     }
 }
 
-  /* Home carousels ----------------------------------------------------------
-     Horizontal scrollers are legitimate here — the fixes are about the track
-     getting a usable width, not about removing the scroll.
-
-     On a phone roughly one card is visible at a time, so a swipe that ends
-     mid-card leaves you reading half a testimonial. Snap makes it settle on a
-     card edge. `proximity` rather than `mandatory` deliberately: useCarouselLoop
-     assigns scrollLeft directly to wrap the infinite copies, and mandatory snap
-     fights a programmatic jump like that. */
-  @media (max-width: 900px) {
-.m7-scroll {
-      scroll-snap-type: x proximity;
-      scroll-padding-left: var(--m7-pad);
-    }
-    .m7-scroll > * { scroll-snap-align: start; }
-}
   @media (max-width: 760px) {
 .m7-brandstrip {
       flex-direction: column;

@@ -57,6 +57,7 @@
 
   /* --- v1: text on cream -------------------------------------------------- */
   --color-m7-ink: #1c150f;
+  --color-m7-ink-rgb: 28 21 15;
   --color-m7-ink-soft: #3c3521;
   --color-m7-body: #5b553d;
   --color-m7-muted: #5b553d;
@@ -85,6 +86,30 @@
   --color-m7-on-espresso-line: rgba(239, 230, 209, 0.16);
   --color-m7-espresso-raise: #2d261e;
   --color-m7-espresso-border: #3a3229;
+
+  /* --- v1: neutral (the commerce-UI grey scale under /shop /product /cart
+     /checkout /smart-home, distinct from the warm ink/body/muted/faint
+     scale above -- true greys, not the cream-tinted ones) --------------- */
+  --color-m7-neutral-black: #000000;
+  --color-m7-neutral-ink: #121212;
+  --color-m7-neutral-strong: #1a1a1a;
+  --color-m7-neutral-text: #3a3a3a;
+  --color-m7-neutral-body: #5a5a5a;
+  --color-m7-neutral-body-soft: #6a6a6a;
+  --color-m7-neutral-muted: #7a7a7a;
+  --color-m7-neutral-muted-soft: #8a8a8a;
+  --color-m7-neutral-faint: #9a9a9a;
+  --color-m7-neutral-line: #b4b4b4;
+  --color-m7-neutral-line-soft: #d6d6d6;
+  --color-m7-neutral-border: #e2e2e2;
+  --color-m7-neutral-border-soft: #ececec;
+  --color-m7-neutral-divider: #f0f0f0;
+  --color-m7-neutral-surface: #fafafa;
+  --color-m7-neutral-surface-soft: #fcfcfc;
+  --color-m7-neutral-white: #ffffff;
+  --color-m7-neutral-black-rgb: 0 0 0;
+  --color-m7-neutral-ink-rgb: 18 18 18;
+  --color-m7-neutral-white-rgb: 255 255 255;
 
   /* --- v2 ------------------------------------------------------------------
      Gold is a GROUND, not a text colour: 1.40:1 on wash, 1.70:1 on white,
