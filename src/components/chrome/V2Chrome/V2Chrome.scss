@@ -4,13 +4,6 @@
   .v2-chrome {
     color: var(--color-v2-ink);
     font-family: var(--font-v2-body);
-
-    &[data-ground='white'] {
-      background: var(--color-v2-white);
-    }
-
-    &[data-ground='wash'] {
-      background: var(--color-v2-wash);
-    }
+    background: var(--color-v2-white);
   }
 }

@@ -1,15 +1,17 @@
 {
   "hero": {
-    "eyebrow": "About Mode 7",
     "h1": "Owning good technology should never be a gamble.",
     "lede": "Mode 7 is a technology hub built on one observation — that buying a device, powering it and upgrading it are separate problems, and almost nobody solves them together.",
     "cta": "Explore Our Services",
+    "ctaHref": "/services",
     "meta": ["Founded 2019", "12 cities", "50K+ devices vetted"],
     "second": {
       "h": "A device is only as good as everything standing behind it.",
       "lede": "Every unit carrying our name is sourced, inspected, sealed and warrantied by us.",
       "ctaPrimary": "Explore Our Services",
+      "ctaPrimaryHref": "/services",
       "ctaSecondary": "Value Your Device",
+      "ctaSecondaryHref": "/trade-in",
       "cardNumber": "50K+",
       "cardLabel": "Devices vetted & sealed",
       "image": {

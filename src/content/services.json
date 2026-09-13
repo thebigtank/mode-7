@@ -1,11 +1,10 @@
 {
   "hero": {
-    "eyebrow": "Services",
     "title": "Everything your tech needs, under one roof.",
     "intro": "From flagship launches to certified refurbished, instant trade-ins to concierge checkout — Mode 7 is the premium tech store built entirely around how you buy.",
     "actions": [
-      { "label": "Shop the Store", "variant": "fill", "href": "/shop" },
-      { "label": "Value Your Device", "variant": "outline", "href": "/trade-in" }
+      { "role": "primary", "label": "Shop the Store", "variant": "fill", "href": "/shop" },
+      { "role": "secondary", "label": "Value Your Device", "variant": "outline", "href": "/trade-in" }
     ],
     "meta": ["100% Vetted & Sealed", "50K+ Devices Vetted"],
     "second": {

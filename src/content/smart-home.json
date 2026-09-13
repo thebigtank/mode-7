@@ -1,14 +1,17 @@
 {
   "hero": {
-    "overline": "Smart Home",
     "title": "Everything you need to make your home smart.",
     "intro": "Smart bulbs, switches, plugs, sensors, cameras and voice control — premium automation gear, vetted and sealed. Build your setup piece by piece.",
+    "cta": "Shop Smart Home",
+    "ctaHref": "/shop",
     "meta": ["Vetted & Sealed", "Cross-Compatible"],
     "second": {
       "h": "Every device, working as one connected home.",
       "lede": "Mix and match across brands — our gear is tested for cross-compatibility, vetted, sealed and warrantied before it ships, with setup support whether you DIY or book a certified install.",
       "ctaPrimary": "Shop Smart Home",
+      "ctaPrimaryHref": "/shop",
       "ctaSecondary": "See How It Works",
+      "ctaSecondaryHref": "#works",
       "cardLabel": "Device categories",
       "image": {
         "src": "/hero/smarthome.webp",

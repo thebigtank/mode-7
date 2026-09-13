@@ -1,8 +1,6 @@
 import { ButtonV2 } from "@/components/ui/ButtonV2";
-import { Mono } from "@/components/ui/Mono";
 
 export interface Hero2Content {
-  eyebrow: string;
   title: string;
   lede: string;
   cta: string;
@@ -13,10 +11,6 @@ export interface Hero2Content {
       src: string;
       portraitSrc: string;
       alt: string;
-      width: number;
-      height: number;
-      portraitWidth: number;
-      portraitHeight: number;
     };
     h: string;
     lede: string;
@@ -36,7 +30,6 @@ export function Hero2({ content }: { content: Hero2Content }) {
         <div className="hero2-wrap">
           <div className="hero2-grid grid">
             <div className="hero2-stack grid" data-rv>
-              <Mono dot>{content.eyebrow}</Mono>
               <h1 className="hero2-h1">{content.title}</h1>
             </div>
             <div className="hero2-stack grid" data-rv>
@@ -60,19 +53,14 @@ export function Hero2({ content }: { content: Hero2Content }) {
           <source
             media="(max-width: 900px)"
             srcSet={content.second.image.portraitSrc}
-            width={content.second.image.portraitWidth}
-            height={content.second.image.portraitHeight}
           />
           <img
             className="hero2-band__img block"
             src={content.second.image.src}
-            width={content.second.image.width}
-            height={content.second.image.height}
             alt={content.second.image.alt}
           />
         </picture>
         <div className="hero2-band__content">
-          <Mono dot tone="white">{content.eyebrow}</Mono>
           <h2 className="hero2-band__h">{content.second.h}</h2>
           <p className="hero2-band__lede">{content.second.lede}</p>
           <div className="hero2-band__actions flex flex-wrap">

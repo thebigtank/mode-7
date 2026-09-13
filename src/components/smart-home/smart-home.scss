@@ -1,6 +1,10 @@
 @use 'utils' as *;
 
 @layer components {
+  .smart-home-page {
+    background: var(--color-v2-wash);
+  }
+
   .sh-section {
     max-width: #{rem-calc(1320)};
     margin: 0 auto;

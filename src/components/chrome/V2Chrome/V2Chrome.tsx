@@ -11,8 +11,6 @@ import { WIREFRAME } from "@/lib/wireframe-config";
 
 let introPlayed = false;
 
-const WHITE_GROUND = new Set(["/", "/about", "/services"]);
-
 export function V2Chrome({ children }: { children: ReactNode }) {
   useLenis();
   const pathname = usePathname();
@@ -55,10 +53,7 @@ export function V2Chrome({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div
-      className="v2-chrome min-h-screen overflow-x-clip"
-      data-ground={WHITE_GROUND.has(pathname) ? "white" : "wash"}
-    >
+    <div className="v2-chrome min-h-screen overflow-x-clip">
       {introActive && <IntroLoader onDone={onIntroDone} />}
       <HeaderV2 onOpenSearch={openSearch} />
 
