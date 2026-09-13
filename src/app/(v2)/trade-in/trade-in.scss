@@ -26,6 +26,11 @@
 
   .tradein-page .t-band { padding-block: clamp(56px, 8vw, 104px); }
 
+  .tradein-page .t-band--valuation {
+    --t-valuation-pt: clamp(40px, 5vw, 72px);
+    padding-top: var(--t-valuation-pt);
+  }
+
   .tradein-page .t-band--wash { background: var(--wash); border-block: 1px solid var(--rule); }
 
   .tradein-page .t-band--ink { background: var(--ink); color: #fff; }
@@ -38,6 +43,11 @@
   .tradein-page .t-dl {
     font-family: var(--f-head); font-weight: 400; margin: 0;
     font-size: clamp(28px, 3.4vw, 44px); line-height: 1.18; letter-spacing: -0.016em; text-wrap: balance;
+  }
+
+  .tradein-page .t-dl--spaced {
+    --t-dl-gap: clamp(24px, 3vw, 40px);
+    margin-bottom: var(--t-dl-gap);
   }
 
   .tradein-page .t-lede { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: var(--body); margin: 0; max-width: 40ch; }

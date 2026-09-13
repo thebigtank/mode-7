@@ -534,9 +534,8 @@ export function ValuationWorkspace() {
             <div className="t-drops t-vid">
               <button
                 type="button"
-                className="t-drop"
+                className="t-drop h-24"
                 data-on={a.photos.video}
-                style={{ height: 96 }}
                 onClick={() => togglePhoto("video")}
               >
                 <span className="t-drop__chk">✓</span>
@@ -673,7 +672,7 @@ export function ValuationWorkspace() {
               <span>Ref {REF}</span>
             </div>
             <div className="t-outcome__b">
-              <div className="t-label" style={{ marginBottom: 12 }}>
+              <div className="t-label mb-3">
                 Estimated value — not yet confirmed
               </div>
               <div className="t-outcome__fig">
@@ -713,7 +712,7 @@ export function ValuationWorkspace() {
               <div className="t-trade">
                 <div className="t-trade__h">
                   <span className="t-label">Option A · how trade-in works</span>
-                  <div className="t-dm" style={{ marginTop: 8 }}>
+                  <div className="t-dm mt-2">
                     Put it toward your next device
                   </div>
                   <P style={{ marginTop: 10, maxWidth: "52ch" }}>
@@ -799,7 +798,7 @@ export function ValuationWorkspace() {
                 <ButtonV2 label="Talk to the team" variant="outline" href="/contact" />
               </div>
 
-              <div style={{ marginTop: 24 }}>
+              <div className="mt-6">
                 <ButtonV2
                   label="Start a new valuation"
                   variant="outline"

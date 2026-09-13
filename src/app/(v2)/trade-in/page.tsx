@@ -34,7 +34,7 @@ export default function TradeInPage() {
     <div className="tradein-page">
       {/* ------------------------------------------------------------- hero */}
       <section className="t-wrap t-hero">
-        <div style={{ maxWidth: "62ch" }}>
+        <div className="max-w-[62ch]">
           <Mono dot style={{ marginBottom: 16 }}>
             Intelligent Trade-In Portal
           </Mono>
@@ -43,7 +43,7 @@ export default function TradeInPage() {
             <br />
             has a value.
           </h1>
-          <p className="t-lede" style={{ marginTop: 22 }}>
+          <p className="t-lede mt-[22px]">
             We just make it the honest one. Answer a few questions and watch the number build
             itself, line by line — no black box, no lowball, no submit-and-pray.
           </p>
@@ -57,15 +57,11 @@ export default function TradeInPage() {
       </section>
 
       {/* -------------------------------------------- the one valuation surface */}
-      <section
-        className="t-wrap t-band"
-        id="value-your-device"
-        style={{ paddingTop: "clamp(40px,5vw,72px)" }}
-      >
+      <section className="t-wrap t-band t-band--valuation" id="value-your-device">
         <Mono dot style={{ marginBottom: 14 }}>
           Value your device
         </Mono>
-        <h2 className="t-dl" style={{ maxWidth: "22ch", marginBottom: "clamp(24px,3vw,40px)" }}>
+        <h2 className="t-dl t-dl--spaced max-w-[22ch]">
           Tell us about it. Watch the number.
         </h2>
         <ValuationWorkspace />
@@ -77,7 +73,7 @@ export default function TradeInPage() {
           <Mono dot style={{ marginBottom: 14 }}>
             How the number is made
           </Mono>
-          <h2 className="t-dl" style={{ maxWidth: "20ch" }}>
+          <h2 className="t-dl max-w-[20ch]">
             Every figure you saw is the whole story.
           </h2>
           <div className="t-price3">
@@ -98,7 +94,7 @@ export default function TradeInPage() {
           <Mono dot color={V2.faint} style={{ marginBottom: 16 }}>
             Before you ask
           </Mono>
-          <h2 className="t-dl" style={{ color: "#fff", maxWidth: "18ch" }}>
+          <h2 className="t-dl max-w-[18ch]">
             Your device, valued the way we’d want ours valued.
           </h2>
           <TradeInFaq />
