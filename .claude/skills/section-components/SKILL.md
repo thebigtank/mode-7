@@ -55,7 +55,13 @@ width, silently.
 Read a CSS variable from Tailwind with the v4 shorthand: `w-(--foo)`,
 `mt-(--foo)`, `text-(length:--foo)`. **`w-[--foo]` compiles to nothing.**
 
-### 2. Breakpoints live inside the block.
+### 2. Everything a block does lives inside that block.
+
+Its base rules, its breakpoints, its reduced-motion override, its `[data-*]`
+variants. **A media query is never written at the end of the file, and never
+grouped with other blocks' queries under a shared breakpoint.** You should be
+able to read a component's entire behaviour in one place, and delete it in one
+place.
 
 Every component stylesheet opens with one line:
 
@@ -70,13 +76,47 @@ which brings `fluid()`, `rem-calc()`, `mq()` and the breakpoint map. Then:
   .thing {
     --thing-pad: #{fluid(24, 48)};
     padding-block: var(--thing-pad);
+    gap: 12px;
 
     @include mq(tablet) {
       --thing-pad: #{fluid(48, 96)};
+      gap: 24px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .thing__col {
+    grid-column: span 12;
+
+    @include mq(tablet) {
+      grid-column: span 4;
     }
   }
 }
 ```
+
+NOT this, which is what a lift out of `legacy.css` gives you:
+
+```scss
+.thing { gap: 12px; }
+.thing__col { grid-column: span 12; }
+/* ... 200 lines of other blocks ... */
+@include mq(tablet) {
+  .thing { gap: 24px; }
+  .thing__col { grid-column: span 4; }
+}
+```
+
+`@keyframes` is the one exception, because it cannot be nested inside a
+selector. The rule that *uses* the animation still goes in its block; only the
+definition stays at the top level.
+
+**Re-homing a query changes the emitted source order**, and two rules of equal
+specificity are settled by source order. Before moving one, check nothing that
+targets the same element moved past it — then gate.
 
 Mobile-first `min-width` for anything new. **Never flip a ported `max-width`
 rule to `min-width`** — that inverts which side is the default and is the
