@@ -1,0 +1,20 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-buttonv2 {
+    background: var(--ui-buttonv2-bg);
+    color: var(--ui-buttonv2-color);
+    border: var(--ui-buttonv2-border);
+    transition: background .18s ease, border-color .18s ease;
+  }
+
+  .ui-buttonv2__label {
+    font-family: var(--font-v2-body);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .ui-buttonv2__tile {
+    background: var(--ui-buttonv2-tile-bg);
+  }
+}

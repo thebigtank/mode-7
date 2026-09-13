@@ -1,0 +1,11 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-p {
+    font-family: var(--font-v2-body);
+    font-weight: 400;
+    font-size: var(--ui-p-size);
+    line-height: 1.55;
+    color: var(--ui-p-color);
+  }
+}

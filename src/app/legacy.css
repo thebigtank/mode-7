@@ -685,7 +685,7 @@
     }
   }
 
-  /* PlusToggle (src/components/home-v2/Ui.tsx) — the shared v2 accordion
+  /* PlusToggle (src/components/ui/PlusToggle/PlusToggle.tsx) — the shared v2 accordion
      icon's rotation transition. Global and palette-free, same reasoning as
      m7arrowLoop/m7arrowLoopUp above: the component renders on more than one
      v2 page (/services, /trade-in), so its cross-cutting CSS lives here
@@ -1447,7 +1447,7 @@
   .about-page p { font-weight: 400; margin: 0; max-width: 66ch; }
   /* `.a-body` and `.a-over` are RETIRED: the page's running copy and its
      eyebrows now render through the shared `P` and `Mono` components in
-     `src/components/home-v2/Ui.tsx` (inline-styled, so nothing here can
+     `P` and `Mono` (`src/components/ui/P`, `src/components/ui/Mono`; class-based, so nothing here can
      out-specify or silently drift from them — see CLAUDE.md trap #2). Do not
      re-add class-based rules for either; add a prop to the shared component
      instead. */

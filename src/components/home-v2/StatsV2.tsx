@@ -1,6 +1,8 @@
 import { logos, pillars } from "@/lib/content";
 import { V2, V2_FONT } from "@/lib/theme-v2";
-import { Band, H2, P } from "./Ui";
+import { Band } from "@/components/ui/Band";
+import { H2 } from "@/components/ui/H2";
+import { P } from "@/components/ui/P";
 
 /**
  * Section 2 — the reference's dark positioning band: a three-line display

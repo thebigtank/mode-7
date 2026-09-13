@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
-import { V2, V2_FONT } from "@/lib/theme-v2";
+import { V2 } from "@/lib/theme-v2";
 
 type Variant = "fill" | "ink" | "outline";
 type Direction = "right" | "up";
@@ -13,47 +13,12 @@ export type ButtonV2Props = {
   direction?: Direction;
   href?: string;
   onClick?: () => void;
-  /** Optional mark rendered to the LEFT of the label, inside the button. */
   icon?: ReactNode;
-  /**
-   * `outline` only. The outline button is drawn for a LIGHT ground by default
-   * (ink label, ink hairline, ink tile). On an `ink` band, or over a dark
-   * photo (About's "HERO 02", `about/page.tsx`), all three would vanish, so
-   * this flips them to white — the footer's secondary action was the first
-   * place it was needed, not the only one any more. Ignored by `fill` and
-   * `ink`.
-   */
   onDark?: boolean;
+  className?: string;
   style?: CSSProperties;
 };
 
-/**
- * The v2 CTA. Same ANATOMY as `@/components/ArrowButton` — label on the left, a
- * 32px icon tile on the right, 4px radius on the button and 3px on the tile,
- * the tile carrying a faint radial dot grid plus a dotted arrow that scrolls
- * and loops on hover — but painted entirely from the `V2` palette.
- *
- * It is a REPRODUCTION, not a wrapper: `ArrowButton` paints from the Mode 7
- * `COLOR` tokens (warm brown, cream), and importing it here would drag the v1
- * palette onto `/homepage-v2`. Nothing in this file imports `@/lib/theme`.
- *
- * The loop is the existing `m7arrowLoop` / `m7arrowLoopUp` keyframes in
- * globals.css — palette-free pure transforms, so they are shared, not
- * duplicated. A second copy of the arrow sits 40 units along the travel axis so
- * exactly one arrow is visible at rest and the loop reads as continuous.
- *
- * THREE treatments, chosen to preserve each call site's weight:
- *  - `fill`     gold ground, INK label (10.02:1 — white on gold is 1.70:1 and
- *               is never used), ink tile carrying a GOLD arrow. The primary.
- *  - `ink`      ink ground, white label (17.07:1), gold tile carrying an INK
- *               arrow. The primary on a light band where gold would over-shout.
- *  - `outline`  transparent ground, ink label, 1px ink hairline, ink tile with
- *               a gold arrow. The secondary.
- *
- * Note which ground each arrow is drawn ON: the tile always inverts against the
- * button, so the arrow follows the TILE, not the button. The dot grid is the
- * same colour as the arrow at ~0.20 alpha so it stays a texture, not a mark.
- */
 export function ButtonV2({
   label,
   variant = "fill",
@@ -62,6 +27,7 @@ export function ButtonV2({
   onClick,
   icon,
   onDark = false,
+  className,
   style,
 }: ButtonV2Props) {
   const [hovered, setHovered] = useState(false);
@@ -72,8 +38,6 @@ export function ButtonV2({
   const arrowAnim = hovered ? `${kf} 0.75s linear infinite` : "none";
   const patternId = `v2agrid-${variant}-${uid}`;
 
-  // Ground / label / border / tile, per variant. `hoverBg` is a lift, never a
-  // press-in: each hover ground is a step LIGHTER than its rest ground.
   let bg: string;
   let labelColor: string;
   let border: string;
@@ -111,7 +75,6 @@ export function ButtonV2({
     dotFill = "rgba(240,192,68,0.20)";
   }
 
-  // The vertical arrow, dotted: a six-dot shaft plus a four-dot chevron head.
   const upDots = (
     <>
       <circle cx="20" cy="10" r="1.45" />
@@ -144,53 +107,30 @@ export function ButtonV2({
   const dots = isUp ? upDots : rightDots;
   const offset = isUp ? "translate(0,40)" : "translate(-40,0)";
 
-  const body: CSSProperties = {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 10,
-    background: bg,
-    color: labelColor,
-    border,
-    borderRadius: 4,
-    padding: "5px 5px 5px 18px",
-    cursor: "pointer",
-    textDecoration: "none",
-    whiteSpace: "nowrap",
-    transition: "background .18s ease, border-color .18s ease",
+  const cls = [
+    "ui-buttonv2 inline-flex items-center gap-[10px] rounded-[4px] py-[5px] pr-[5px] pl-[18px] cursor-pointer no-underline whitespace-nowrap",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const cssVars = {
+    "--ui-buttonv2-bg": bg,
+    "--ui-buttonv2-color": labelColor,
+    "--ui-buttonv2-border": border,
+    "--ui-buttonv2-tile-bg": tileBg,
     ...style,
-  };
+  } as CSSProperties;
 
   const inner = (
     <>
       {icon ? (
-        <span
-          aria-hidden
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            flex: "0 0 auto",
-            /* the icon is currentColor, so it takes the label colour */
-            marginRight: -2,
-          }}
-        >
+        <span aria-hidden className="inline-flex shrink-0 items-center -mr-[2px]">
           {icon}
         </span>
       ) : null}
-      <span style={{ fontFamily: V2_FONT.body, fontSize: 16, fontWeight: 500 }}>
-        {label}
-      </span>
-      <span
-        style={{
-          position: "relative",
-          flex: "0 0 auto",
-          width: 32,
-          height: 32,
-          borderRadius: 3,
-          overflow: "hidden",
-          background: tileBg,
-        }}
-      >
-        <svg width="32" height="32" viewBox="0 0 40 40" style={{ display: "block" }}>
+      <span className="ui-buttonv2__label">{label}</span>
+      <span className="ui-buttonv2__tile relative shrink-0 w-[32px] h-[32px] rounded-[3px] overflow-hidden">
+        <svg width="32" height="32" viewBox="0 0 40 40" className="block">
           <defs>
             <pattern
               id={patternId}
@@ -222,14 +162,14 @@ export function ButtonV2({
 
   if (href) {
     return (
-      <Link href={href} style={body} {...handlers}>
+      <Link href={href} className={cls} style={cssVars} {...handlers}>
         {inner}
       </Link>
     );
   }
 
   return (
-    <span style={body} onClick={onClick} {...handlers}>
+    <span className={cls} style={cssVars} onClick={onClick} {...handlers}>
       {inner}
     </span>
   );

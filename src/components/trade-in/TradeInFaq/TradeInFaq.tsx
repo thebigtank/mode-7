@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PlusToggle } from "@/components/home-v2/Ui";
+import { PlusToggle } from "@/components/ui/PlusToggle";
 import { V2_HAIR_DARK } from "@/lib/theme-v2";
 
 /**
@@ -9,7 +9,7 @@ import { V2_HAIR_DARK } from "@/lib/theme-v2";
  * default, matching the wireframe. Answers restate what the page already shows
  * rather than introducing new promises.
  *
- * The plus/cross indicator is the shared `PlusToggle` (`@/components/home-v2/Ui`),
+ * The plus/cross indicator is the shared `PlusToggle` (`@/components/ui/PlusToggle`),
  * also used by `/services`' `Faq.tsx` — previously this page grew its own
  * `content:"+"` CSS pseudo-element while `/services` drew a bordered SVG
  * circle; now both render the one component. Colour flips to a white-alpha

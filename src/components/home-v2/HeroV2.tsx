@@ -1,6 +1,6 @@
 import { logos } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT } from "@/lib/theme-v2";
-import { ButtonV2 } from "./ButtonV2";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
 // The rotating word's character-scramble ("decode") variant (live). A GSAP
 // wipe alternative is parked, not deleted, at "./HeroHeadlineV2Wipe" — swap
 // this import to that path to bring it back; see the note at the top of

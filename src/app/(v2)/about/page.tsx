@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { ConditionsLedger } from "@/components/about/ConditionsLedger";
 import { RevealController } from "@/components/about/RevealController";
 import { WhyStatement } from "@/components/about/WhyStatement";
-import { ButtonV2 } from "@/components/home-v2/ButtonV2";
-import { Mono, P } from "@/components/home-v2/Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 import { logos } from "@/lib/content";
 import { V2 } from "@/lib/theme-v2";
 

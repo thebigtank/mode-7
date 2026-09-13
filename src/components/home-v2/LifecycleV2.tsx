@@ -4,7 +4,7 @@ import Link from "next/link";
 import { type CSSProperties, useCallback, useState } from "react";
 import { pillars } from "@/lib/content";
 import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
-import { Band } from "./Ui";
+import { Band } from "@/components/ui/Band";
 
 /**
  * Section 3 — the service index.

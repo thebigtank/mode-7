@@ -5,8 +5,10 @@ import { socials } from "@/components/Icons";
 import { scrollPageToTop } from "@/hooks/useLenis";
 import { footerCols, legalLinks } from "@/lib/content";
 import { V2, V2_CONTAINER, V2_FONT, V2_HAIR_DARK } from "@/lib/theme-v2";
-import { ButtonV2 } from "./ButtonV2";
-import { H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { H2 } from "@/components/ui/H2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 
 /**
  * Section 10 — the footer, laid out as v1's homepage footer is (see

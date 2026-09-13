@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { ButtonV2 } from "@/components/home-v2/ButtonV2";
-import { P } from "@/components/home-v2/Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { P } from "@/components/ui/P";
 import { SearchSelect } from "@/components/SearchSelect";
 import {
   MODELS,

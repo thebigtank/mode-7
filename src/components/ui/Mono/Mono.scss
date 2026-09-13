@@ -1,0 +1,16 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-mono {
+    font-family: var(--font-v2-body);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    color: var(--ui-mono-color);
+  }
+
+  .ui-mono__dot {
+    background: var(--ui-mono-dot-color);
+  }
+}

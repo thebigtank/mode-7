@@ -1,0 +1,12 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-band {
+    background: var(--ui-band-ground);
+  }
+
+  .ui-band__inner {
+    max-width: var(--spacing-v2-container);
+    padding: var(--ui-band-pad) clamp(20px, 4vw, 48px) var(--ui-band-pad-bottom);
+  }
+}

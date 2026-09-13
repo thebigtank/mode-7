@@ -1,0 +1,9 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-plus-toggle {
+    width: var(--ui-plus-toggle-size);
+    height: var(--ui-plus-toggle-size);
+    border: var(--ui-plus-toggle-border);
+  }
+}

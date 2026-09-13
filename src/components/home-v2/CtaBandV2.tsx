@@ -1,7 +1,9 @@
 import { pillars } from "@/lib/content";
 import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
-import { ButtonV2 } from "./ButtonV2";
-import { Band, H2, P } from "./Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { Band } from "@/components/ui/Band";
+import { H2 } from "@/components/ui/H2";
+import { P } from "@/components/ui/P";
 
 /**
  * Section 8 — the reference's dark routing band: a mono eyebrow, a two-line

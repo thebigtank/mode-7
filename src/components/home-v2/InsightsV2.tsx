@@ -1,7 +1,11 @@
 import { testimonials } from "@/lib/content";
 import { V2, V2_FONT } from "@/lib/theme-v2";
-import { ButtonV2 } from "./ButtonV2";
-import { ArrowLink, Band, H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { ArrowLink } from "@/components/ui/ArrowLink";
+import { Band } from "@/components/ui/Band";
+import { H2 } from "@/components/ui/H2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 
 /**
  * Section 9 — the reference's closing card row: a large display heading with a

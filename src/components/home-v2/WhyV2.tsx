@@ -1,6 +1,9 @@
 import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
-import { ButtonV2 } from "./ButtonV2";
-import { Band, H2, Mono, P } from "./Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { Band } from "@/components/ui/Band";
+import { H2 } from "@/components/ui/H2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 
 /**
  * Section 5 — the reference's "why us" split: a tall square-ish image on the

@@ -3,7 +3,9 @@
 import { type CSSProperties, type FocusEvent, useCallback, useState } from "react";
 import { heroFeatures } from "@/lib/content";
 import { V2, V2_FONT, V2_TYPE } from "@/lib/theme-v2";
-import { ArrowLink, Band, H2 } from "./Ui";
+import { ArrowLink } from "@/components/ui/ArrowLink";
+import { Band } from "@/components/ui/Band";
+import { H2 } from "@/components/ui/H2";
 
 /**
  * Section 4 — the reference's service grid: a left-aligned two-line display

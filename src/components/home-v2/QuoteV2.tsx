@@ -1,6 +1,7 @@
 import { testimonials } from "@/lib/content";
 import { V2, V2_FONT } from "@/lib/theme-v2";
-import { Band, Mono } from "./Ui";
+import { Band } from "@/components/ui/Band";
+import { Mono } from "@/components/ui/Mono";
 
 /**
  * Section 6 — the reference's dark testimonial band: a dotted mono eyebrow, an

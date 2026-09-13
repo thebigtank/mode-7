@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Mono, P, PlusToggle } from "@/components/home-v2/Ui";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
+import { PlusToggle } from "@/components/ui/PlusToggle";
 import { faqData } from "@/lib/faq";
 import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
 
@@ -13,10 +15,10 @@ import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
  *
  * Re-tokened for `/services`'s v2 port: the "// Questions" eyebrow now renders
  * through the shared `Mono` component and the answer copy through `P` —
- * both from `@/components/home-v2/Ui` — rather than local FONT-styled markup.
+ * both from `@/components/ui/Mono` and `@/components/ui/P` — rather than local FONT-styled markup.
  *
  * The circular plus/cross indicator is `PlusToggle`, also from
- * `@/components/home-v2/Ui` — shared with `/trade-in`'s `TradeInFaq.tsx`
+ * `@/components/ui/PlusToggle` — shared with `/trade-in`'s `TradeInFaq.tsx`
  * rather than each page drawing its own icon, so the ring/stroke/rotation
  * are defined once. The question toggle is now a real `<button
  * aria-expanded>` too (it was a `<div onClick>` with no keyboard support or

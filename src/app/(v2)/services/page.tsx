@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import { ArrowRightIcon } from "@/components/Icons";
-import { ButtonV2 } from "@/components/home-v2/ButtonV2";
-import { Mono, P } from "@/components/home-v2/Ui";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 import { Glyph, ShieldCheck, type GlyphName } from "@/components/page/ServiceIcons";
 import { CategoryNav } from "@/components/services/CategoryNav";
 import { Faq } from "@/components/services/Faq";
@@ -324,7 +325,7 @@ export default function ServicesPage() {
       {/* Full-bleed white ground: the section itself carries no max-width, so
           the background spans the full viewport edge to edge; the 1320px
           site container is an INNER div instead, same split as `Band` in
-          `home-v2/Ui.tsx` and `HeroV2`'s own outer `<section>`. Putting
+          `src/components/ui/Band` and `HeroV2`’s own outer `<section>`. Putting
           max-width/margin on the section itself (the previous version here)
           boxes the background into a centred card with the wash ground
           showing on both sides at wide viewports — measured on the rendered

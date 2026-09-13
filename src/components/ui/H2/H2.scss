@@ -1,0 +1,12 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-h2 {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: var(--ui-h2-size);
+    line-height: var(--ui-h2-line-height);
+    letter-spacing: -0.4px;
+    color: var(--ui-h2-color);
+  }
+}

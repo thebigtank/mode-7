@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { TradeInFaq } from "@/components/trade-in/TradeInFaq";
 import { ValuationWorkspace } from "@/components/trade-in/ValuationWorkspace";
-import { Mono, P } from "@/components/home-v2/Ui";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
 import { V2 } from "@/lib/theme-v2";
 
 export const metadata: Metadata = {
