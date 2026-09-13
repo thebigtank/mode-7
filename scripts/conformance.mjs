@@ -48,6 +48,31 @@ const TW_EXACT = {
 for (const file of scss) {
   const src = readFileSync(file, "utf8");
   const lines = src.split("\n");
+
+  const overridden = new Set();
+  {
+    const st2 = [];
+    let mediaDepth = 0;
+    for (const raw of lines) {
+      const t = raw.trim();
+      if (t.endsWith("{")) {
+        const sel = t.slice(0, -1).trim();
+        st2.push(sel);
+        if (/^@media|^@include mq/.test(sel)) mediaDepth++;
+      } else if (t === "}" || t === "};") {
+        const sel = st2.pop();
+        if (sel && /^@media|^@include mq/.test(sel)) mediaDepth--;
+      }
+      if (mediaDepth > 0) {
+        const m = t.match(/^([a-z-]+)\s*:/);
+        if (m) {
+          const owner = [...st2].reverse().find((x) => !/^@/.test(x));
+          if (owner) overridden.add(`${owner}|${m[1]}`);
+        }
+      }
+    }
+  }
+
   const stack = [];
 
   lines.forEach((raw, idx) => {
@@ -93,7 +118,8 @@ for (const file of scss) {
       if (!pseudo && !media && !isDescendant) {
         const key = `${m[1]}:${m[2].trim()}`;
         const tw = TW_EXACT[key];
-        if (tw) add("should-be-tailwind", file, line, `${key}  ->  className="${tw}"  [${sel}]`);
+        if (tw && !overridden.has(`${sel}|${m[1]}`))
+          add("should-be-tailwind", file, line, `${key}  ->  className="${tw}"  [${sel}]`);
       }
     }
 
