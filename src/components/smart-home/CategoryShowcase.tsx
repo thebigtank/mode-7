@@ -41,7 +41,6 @@ export function CategoryShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = categories[activeIndex];
 
-  // ── Scroll-edge fade ─────────────────────────────────────────────────
   const scrollRef = useRef<HTMLDivElement>(null);
   const [edge, setEdge] = useState<Edge>("start");
 
@@ -74,7 +73,6 @@ export function CategoryShowcase() {
 
   return (
     <>
-      {/* ── Hero — dynamically reflects the hovered category ───────────── */}
       <Link
         href="/shop"
         className="m7-lift"
@@ -97,7 +95,6 @@ export function CategoryShowcase() {
             alignItems: "flex-end",
           }}
         >
-          {/* ▣ label */}
           <div
             style={{
               position: "absolute",
@@ -112,7 +109,6 @@ export function CategoryShowcase() {
             ▣ {active.label.toUpperCase()}
           </div>
 
-          {/* Annotations */}
           {WIREFRAME.showAnnotations && (
             <>
               <Annotation
@@ -140,7 +136,6 @@ export function CategoryShowcase() {
             </>
           )}
 
-          {/* Content overlay */}
           <div
             style={{
               position: "relative",
@@ -190,9 +185,7 @@ export function CategoryShowcase() {
         </div>
       </Link>
 
-      {/* ── Horizontal scroll — all 8 categories ────────────────────────── */}
       <div style={{ marginTop: "clamp(44px, 6vw, 72px)" }}>
-        {/* Row header */}
         <div
           style={{
             display: "flex",
@@ -224,7 +217,6 @@ export function CategoryShowcase() {
           </div>
         </div>
 
-        {/* Scrollable card row */}
         <div
           ref={scrollRef}
           style={{
@@ -257,7 +249,6 @@ export function CategoryShowcase() {
                 flexDirection: "column",
               }}
             >
-              {/* Image area */}
               <div
                 style={{
                   position: "relative",
@@ -284,7 +275,6 @@ export function CategoryShowcase() {
                 </div>
               </div>
 
-              {/* Text below */}
               <div style={{ padding: "16px 4px 0" }}>
                 <div
                   style={{

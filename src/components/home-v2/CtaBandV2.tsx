@@ -5,24 +5,6 @@ import { Band } from "@/components/ui/Band";
 import { H2 } from "@/components/ui/H2";
 import { P } from "@/components/ui/P";
 
-/**
- * Section 8 — the reference's dark routing band: a mono eyebrow, a two-line
- * display heading and a short paragraph on the left; on the right a wrap of
- * mono chips, a hairline, and a single filled action beneath it.
- *
- * Measured against `08-cta.png` at 1440: 100px of band padding, two equal
- * columns on a 116px gutter, chips 38px tall in two rows, the hairline 49px
- * under the last chip row, and the action block 42px under the hairline.
- *
- * Mode 7 content: the four chips are the `pillars` titles; the paragraph is
- * Mode 7's own routing line; the button points at the existing /contact route.
- * The chips are presentational, not controls, so the group is `aria-hidden`.
- *
- * Colour: where the reference uses a near-black block on its dark ground, this
- * uses the gold GROUND with an ink label (10.02:1) — gold as a fill is exactly
- * where the accent rule wants it, and on the ink band it is the strongest the
- * accent gets to be anywhere on the page.
- */
 export function CtaBandV2() {
   return (
     <Band ground={V2.ink} pad="clamp(64px,7vw,100px)">

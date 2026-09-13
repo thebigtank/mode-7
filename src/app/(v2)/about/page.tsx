@@ -14,30 +14,20 @@ export const metadata: Metadata = {
     "Mode 7 is a technology hub built on one observation: buying a device, powering it and upgrading it are separate problems, and almost nobody solves them together.",
 };
 
-/* ------------------------------------------------------------------ data */
-
 const conditions = [
   {
-    /* was "Power is not a given" (5 words) — shortened to fit the icon row's
-       3-word budget. "Unreliable grid power" restates the body's own opening
-       clause ("Grid supply is intermittent") rather than a new claim. */
     t: "Unreliable grid power",
     b: "Grid supply is intermittent, and planning around it is ordinary life rather than an emergency. A device is only as useful as the energy behind it — which is why panels, inverters and batteries sit in our catalogue beside the laptops, not in a separate business.",
   },
   {
-    /* already 3 words — kept as-is. */
     t: "Trust is scarce",
     b: 'Grey imports. Refurbished units sold as new. Warranties that evaporate on first contact. "Sealed" is a claim most of this market cannot actually back, so we made verification a documented process with a paper trail — and only then started using the word.',
   },
   {
-    /* was "Hardware is expensive against income" (5 words) — shortened.
-       "Hardware outpaces income" restates the body's own claim ("cost
-       several months of earnings") without asserting anything new. */
     t: "Hardware outpaces income",
     b: "A flagship device can cost several months of earnings. Certified refurbished is not a lesser tier for people who cannot afford better — for most buyers it is the difference between having the tool and going without it entirely.",
   },
   {
-    /* already 3 words — kept as-is. */
     t: "Devices are livelihoods",
     b: "The phone in your hand or the laptop on your desk is frequently the business itself. Downtime is lost income, not inconvenience. That turns upgrade paths and trade-in liquidity into commercial questions that deserve commercial answers.",
   },
@@ -114,9 +104,6 @@ const specSheet: [string, string][] = [
   ["Volume & fleet orders", "Same standard"],
 ];
 
-/* Masonry reel: 7 columns × 3 tiles, doubled for a seamless -50% loop. Heights
-   and labels cycle by index so no two columns share a rhythm; drift duration and
-   direction vary per column. Deterministic — safe for SSR. */
 const M_LABELS = [
   "STUDENT", "TAILOR", "NURSE", "DRIVER", "TEACHER", "TRADER", "FAMILY", "BARBER",
   "CHEF", "WRITER", "MECHANIC", "STYLIST", "WELDER", "FARMER", "ARTIST", "CASHIER",
@@ -125,27 +112,11 @@ const M_HEIGHTS = [150, 212, 176, 240, 192, 164, 226, 200];
 const M_NCOLS = 7;
 const M_PER_COL = 3;
 
-/* -------------------------------------------------------------------- page */
-
 export default function AboutPage() {
   return (
     <div className="about-page">
-      {/* Chrome (V2Styles, HeaderV2, FooterV2) is mounted once by SiteShell
-          for every v2 route — see the route-decision note there. This page
-          renders only its own sections. */}
       <RevealController />
 
-      {/* ===== HERO =====
-          Full-bleed white ground: `.a-hero` alone on the <section> (no
-          `.a-wrap`), so its background spans edge to edge; the 1320px site
-          container is the INNER div below instead. Carrying both classes on
-          the same element (the previous version here) boxes the white
-          background into a centred `.a-wrap` card with the wash ground
-          showing on both sides at wide viewports — measured on the rendered
-          page, not assumed. Every child keeps the exact layout it had
-          before: `.a-wrap`'s own rule (max-width/margin/padding-inline) now
-          applies one level down, to this wrapper, instead of to the
-          section. */}
       <section className="a-hero">
         <div className="a-wrap">
         <div className="a-hero__grid">
@@ -175,65 +146,12 @@ export default function AboutPage() {
           <span className="a-label">Founded 2019</span>
           <span className="a-label">12 cities</span>
           <span className="a-label">50K+ devices vetted</span>
-          {/* Derived, not asserted — CLAUDE.md's content rule exists because
-              a brief once hardcoded "14" against a 13-entry array. This was
-              the same bug: a literal "13" against `logos`, which now has 20
-              entries. */}
           <span className="a-label">{logos.length} premium brands</span>
         </div>
         </div>
       </section>
 
-      {/* ===== HERO 02 — full-bleed verification-bench photo =====
-          Mirrors the pattern already established in `services/page.tsx`'s
-          own "HERO 02" (search that file for the name): a full-bleed photo,
-          an eyebrow + serif headline + short line + two buttons overlaid
-          bottom-left, one floating frosted-glass stat card bottom-right.
-          Reused rather than reinvented — same card treatment (blur, ring,
-          shadow), same button pair semantics (fill primary, outline
-          secondary).
-
-          WHERE THE WHITE SECTION ENDS: `.a-hero` (white, full-bleed) stops
-          at the bottom of the stats row above — this block is a SEPARATE
-          full-bleed element starting immediately after it with NO gap, its
-          own ground being the photograph. That is deliberately the same
-          zero-seam approach `.a-hero` itself uses: no element in this
-          stretch of the page is allowed to leave a gap that falls through to
-          SiteShell's own root colour.
-
-          COPY, all reused, none invented (CLAUDE.md's content rule):
-          - eyebrow: "About Mode 7", already this page's own hero eyebrow.
-          - headline: `WhyStatement`'s exact line, quoted below it in "Why We
-            Exist" — reused here as plain static text (not the animated
-            gold-to-ink component) because it is the one existing sentence on
-            this page that is actually ABOUT verification, which is what this
-            photograph shows.
-          - supporting line: a verbatim clause from the "Why We Exist" body
-            copy below ("Every unit carrying our name is sourced, inspected,
-            sealed and warrantied by us.").
-          - buttons: the same fill CTA already in the hero above it, paired
-            with "Value Your Device" — the exact secondary-action label/route
-            already used this way on `/services` and the homepage.
-          - stat card: "50K+ / Devices vetted & sealed" is the exact figure
-            and label already used in "Mission & Vision" below (`.a-stats`),
-            not a new number for this one card.
-          The four facts already on the page (founded year, cities, devices,
-          brands) are NOT dropped for one card: they stay exactly where they
-          were, in the `.a-hero__meta` row above, on the plain white ground —
-          the floating card adds a second, single-figure treatment matching
-          the reference pattern; it does not replace the row. */}
       <div className="a-hero2" data-rv>
-        {/* ART-DIRECTED, not just responsive: two separately framed shots of
-            the same bench, 1672x941 landscape and 941x1672 portrait, so the
-            narrow layout gets a crop composed for it rather than a slice cut
-            out of the wide one. The `max-width: 900px` boundary is the SAME
-            breakpoint `.a-hero2` itself restacks at in globals.css — below
-            it the photo stops being an absolute overlay and becomes a static
-            block above a solid ink content panel, which is exactly where a
-            portrait frame earns its keep. Keep the two in step if that
-            breakpoint ever moves.
-            The <img> stays the fallback source and carries the alt text;
-            <source> elements take none. */}
         <picture>
           <source
             media="(max-width: 900px)"
@@ -241,10 +159,6 @@ export default function AboutPage() {
             width={941}
             height={1672}
           />
-          {/* No `@next/next/no-img-element` disable needed here, unlike every
-              other bare <img> in this codebase: that rule deliberately does
-              not fire on an <img> inside a <picture>, since <picture> is the
-              art-direction case next/image cannot express. */}
           <img
             className="a-hero2__img"
             src="/hero/about-hero.webp"
@@ -253,15 +167,6 @@ export default function AboutPage() {
             alt="A technician in white gloves polishing a smartphone at an inspection bench, with precision screwdrivers, a loupe, tweezers and cleaning supplies laid out around them."
           />
         </picture>
-        {/* The scrim is `.a-hero2::after` in globals.css, not a div here: two
-            layers, because the overlay text sits at the BOTTOM — a bottom-up
-            dark gradient protects the headline/lede/buttons, a second,
-            narrower left-anchored gradient adds a little extra depth behind
-            the longest line of text specifically. Measured on the rendered
-            page against the actual photo pixels, not assumed — both gradients
-            together keep the WORST sampled point at white-on-photo AA or
-            better. `.a-hero2__content` and `.a-hero2__card` carry `z-index: 1`
-            so they stay above it. */}
         <div className="a-hero2__content">
           <Mono dot color={V2.white}>About Mode 7</Mono>
           <h2 className="a-hero2__h">
@@ -278,13 +183,6 @@ export default function AboutPage() {
               variant="outline"
               href="/trade-in"
               onDark
-              /* `onDark`'s default border (rgba(255,255,255,0.28), sized for
-                 a solid `ink` band) measured 2.20:1 against this photo's
-                 darkest sampled patch — under the 3:1 non-text/UI-component
-                 floor. 0.5 alpha, verified against the same worst sampled
-                 pixel, clears it with margin (see this pass's verification
-                 notes). Overridden here only — the shared default is
-                 untouched, so the footer's own use of `onDark` is unaffected. */
               style={{ border: "1px solid rgba(255,255,255,0.5)" }}
             />
           </div>
@@ -295,7 +193,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* ===== WHY WE EXIST ===== */}
       <section className="a-band">
         <div className="a-wrap a-split a-split--sticky">
           <div className="a-sticky a-stack" data-rv>
@@ -325,7 +222,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== THE CONDITIONS ===== */}
       <section className="a-band a-band--wash">
         <div className="a-wrap">
           <div className="a-split a-split--wide">
@@ -346,7 +242,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== MISSION & VISION ===== */}
       <section className="a-band a-band--ink">
         <div className="a-wrap">
           <div data-rv>
@@ -394,7 +289,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== WHO WE SERVE ===== */}
       <section className="a-band">
         <div className="a-wrap">
           <div className="a-split a-split--wide">
@@ -421,7 +315,7 @@ export default function AboutPage() {
                   label: M_LABELS[k % M_LABELS.length],
                 };
               });
-              const tiles = [...base, ...base]; // doubled for the seamless loop
+              const tiles = [...base, ...base];
               return (
                 <div
                   className="a-mcol"
@@ -455,7 +349,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== WHAT WE FOCUS ON ===== */}
       <section className="a-band a-band--wash">
         <div className="a-wrap">
           <div className="a-split a-split--wide">
@@ -484,8 +377,7 @@ export default function AboutPage() {
                     className="a-bcell__fill"
                     style={{ position: "relative", overflow: "hidden" }}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element -- see
-                        the hero band note above; matches existing convention. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/hero/devices-flatlay.webp"
                       alt="An iMac, MacBook, iPhone and keyboard arranged together on a desk — the flagship phones, laptops and tablets Mode 7 carries."
@@ -505,7 +397,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== THE STANDARD ===== */}
       <section className="a-band a-band--tight">
         <div className="a-wrap">
           <div className="a-split a-split--wide">

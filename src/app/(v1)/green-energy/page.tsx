@@ -111,7 +111,6 @@ export default function GreenEnergyPage() {
         }
       />
 
-      {/* three-column card grid */}
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "44px var(--m7-pad) 0" }}>
         <div
           className="m7-grid-3"
@@ -204,7 +203,6 @@ export default function GreenEnergyPage() {
         </div>
       </div>
 
-      {/* why it matters */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"
@@ -268,10 +266,8 @@ export default function GreenEnergyPage() {
         </div>
       </section>
 
-      {/* scrollytelling */}
       <EnergyScrolly />
 
-      {/* how solar works */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"
@@ -344,7 +340,6 @@ export default function GreenEnergyPage() {
         </div>
       </section>
 
-      {/* solar power */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"
@@ -355,7 +350,6 @@ export default function GreenEnergyPage() {
             alignItems: "center",
           }}
         >
-          {/* visual — image placeholder with stat card */}
           <Placeholder label="SOLAR PANEL" height="clamp(380px, 46vw, 600px)">
             {WIREFRAME.showAnnotations && (
               <Annotation
@@ -399,7 +393,6 @@ export default function GreenEnergyPage() {
             </div>
           </Placeholder>
 
-          {/* copy */}
           <div>
             <div style={overline}>{"// Solar Power"}</div>
             <h2 style={h2}>The sun does the heavy lifting.</h2>
@@ -457,7 +450,6 @@ export default function GreenEnergyPage() {
         </div>
       </section>
 
-      {/* faq */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div style={{ position: "relative" }}>
           <div style={overline}>{"// Questions"}</div>

@@ -7,17 +7,6 @@ import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
 import { PRODUCTS, priceLabel, type Product } from "@/lib/catalogue";
 import { FONT, stripe } from "@/lib/theme";
 
-/**
- * The shop grid, with an "Ask Seven" affordance on every card.
- *
- * The card itself is a link to the product page, so the AI button has to stop
- * the click from bubbling into it — otherwise asking about a product would
- * navigate away from the grid you were browsing.
- *
- * Seven's copy is authored per product in `@/lib/catalogue`; see the note on
- * `Product.ai` for what swapping in a live model would involve.
- */
-
 function SparkIcon({ size = 14 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -31,7 +20,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(panelRef);
 
-  // Escape closes, and the page behind must not scroll while this is up.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -81,7 +69,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
           animation: "m7aiIn .26s cubic-bezier(.23,1,.32,1) both",
         }}
       >
-        {/* header */}
         <div
           style={{
             display: "flex",
@@ -191,7 +178,6 @@ function AiPanel({ product, onClose }: { product: Product; onClose: () => void }
             ))}
           </div>
 
-          {/* the honest caveat — the reason to trust the rest of it */}
           <div
             style={{
               marginTop: 22,
@@ -379,8 +365,6 @@ export function ProductGrid() {
               </div>
             </Link>
 
-            {/* Sits inside the card's image but outside the <Link>, so it never
-                navigates. Absolute rather than nested for exactly that reason. */}
             <button
               type="button"
               className="m7-ai-chip"

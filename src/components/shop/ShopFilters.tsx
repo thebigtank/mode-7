@@ -7,24 +7,6 @@ import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
 import { PRICE_BANDS } from "@/lib/catalogue";
 import { FONT } from "@/lib/theme";
 
-/**
- * Shop filters.
- *
- * The category list covers everything the team sells — solar and green energy,
- * smart-home automation, phones and the rest — which is far too many rows to
- * leave open at once, so every group collapses and only the two people reach
- * for first are open on load.
- *
- * Below 900px the whole rail becomes a drawer behind a Filters button. The
- * product grid is what someone came for, so it stays at the top of the page
- * rather than being pushed down by a filter stack. Same markup either way —
- * the layout swap is CSS (see .m7-filters in globals.css), and only the drawer
- * behaviours (scroll lock, focus trap, Escape) are gated on the breakpoint.
- *
- * Checkbox state is presentational, matching the rest of the wireframe: this
- * demonstrates the filter shelf, it does not filter the grid yet.
- */
-
 type Group = { title: string; options: string[]; openByDefault?: boolean };
 
 const GROUPS: Group[] = [
@@ -94,7 +76,6 @@ function FilterGroup({ title, options, openByDefault }: Group) {
         </span>
       </button>
 
-      {/* grid-rows 0fr → 1fr animates a height the browser can't otherwise ease */}
       <div
         style={{
           display: "grid",
@@ -121,7 +102,6 @@ function FilterGroup({ title, options, openByDefault }: Group) {
                   fontSize: 15,
                   color: "#3a3a3a",
                   cursor: "pointer",
-                  /* a comfortable tap row, not just the 16px box */
                   padding: "7px 0",
                 }}
               >
@@ -150,8 +130,6 @@ export function ShopFilters() {
   const [isDrawer, setIsDrawer] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Only trap focus when the panel is genuinely a drawer — on desktop it is
-  // static content in the page and trapping would be wrong.
   useFocusTrap(panelRef, isDrawer && open);
 
   useEffect(() => {
@@ -162,7 +140,6 @@ export function ShopFilters() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  // Closing on resize past the breakpoint stops a stuck scroll lock.
   useEffect(() => {
     if (!isDrawer) setOpen(false);
   }, [isDrawer]);
@@ -246,7 +223,6 @@ export function ShopFilters() {
           ))}
         </div>
 
-        {/* drawer-only footer: dismisses without pretending to apply anything */}
         <div className="m7-filters__foot">
           <button
             type="button"

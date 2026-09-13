@@ -3,34 +3,8 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
 
-/**
- * A styled, searchable select.
- *
- * A native `<select>` hands its option list to the OS, which is why the
- * trade-in catalogue looked unstyled the moment it opened — and why a long
- * list was unusable, since you can only type-ahead one character at a time.
- * This renders its own listbox: styled to match the rest of the site, and
- * filterable, so a growing catalogue stays navigable.
- *
- * Desktop gets a popover anchored under the control; below 620px it becomes a
- * bottom sheet, matching the other dialogs on the site and putting the list
- * near the thumb with room for the keyboard.
- *
- * Keyboard: ↑/↓ move, Enter picks, Escape closes, Home/End jump. The control
- * is a combobox over a listbox, with aria-activedescendant tracking the
- * highlighted row so screen readers follow along without focus moving.
- */
-
 export type SelectOption = { v: string; label: string; hint?: string };
 
-/**
- * The search field is always present. An earlier version only showed it past a
- * threshold, but the current catalogue tops out at six devices, so it never
- * appeared — and the list is team-curated and expected to grow. Consistent
- * behaviour beats a field that comes and goes with the stock list.
- */
-
-/** Splits a label around the matched query so it can be emphasised. */
 function highlight(label: string, q: string) {
   if (!q) return label;
   const i = label.toLowerCase().indexOf(q.toLowerCase());
@@ -82,29 +56,23 @@ export function SearchSelect({
     );
   }, [options, q]);
 
-  // Open on the current value so ↓ continues from where you are.
   useEffect(() => {
     if (!open) return;
     setQ("");
     const i = filtered.findIndex((o) => o.v === value);
     setCursor(i >= 0 ? i : 0);
-    // focus the search field so typing filters straight away
     const t = window.setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 10);
     return () => window.clearTimeout(t);
     // filtered is intentionally not a dep: this runs on open, not on filtering
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // Hold the page still while the list is up, so the wheel/touch only moves
-  // the options. Lenis has to be stopped, not just body overflow — see
-  // lockPageScroll.
   useEffect(() => {
     if (!open) return;
     lockPageScroll();
     return unlockPageScroll;
   }, [open]);
 
-  // Close on outside click and on Escape.
   useEffect(() => {
     if (!open) return;
     const onDown = (e: PointerEvent) => {
@@ -125,7 +93,6 @@ export function SearchSelect({
     };
   }, [open]);
 
-  // Keep the highlighted row in view as the cursor moves.
   useEffect(() => {
     if (!open) return;
     const el = listRef.current?.querySelector<HTMLElement>('[data-active="true"]');
@@ -188,7 +155,6 @@ export function SearchSelect({
 
         {open && (
           <>
-            {/* only paints below 620px, where the panel is a sheet */}
             <div className="m7-ss__scrim" onClick={() => setOpen(false)} aria-hidden="true" />
 
             <div className="m7-ss__panel">
@@ -244,8 +210,6 @@ export function SearchSelect({
                 ref={listRef}
                 id={listId}
                 className="m7-ss__list"
-                /* Lenis would otherwise swallow the wheel here and scroll the
-                   page instead of the options */
                 data-lenis-prevent
                 role="listbox"
                 aria-labelledby={`${id}-label`}

@@ -5,20 +5,6 @@ import { ArrowButton } from "@/components/ArrowButton";
 import { readCheckout, type CheckoutDetails } from "@/lib/contact";
 import { FONT } from "@/lib/theme";
 
-/**
- * The order confirmation.
- *
- * Reimagined to read as a moment rather than a receipt: centred, generously
- * spaced, and it greets the customer by name. The palette is locked to ink and
- * greys, so the warmth has to come from the mark, the copy and the rhythm —
- * not from a green tick.
- *
- * Details are read from sessionStorage in an effect, which also means the
- * first paint is the neutral copy — so someone landing here directly (a
- * bookmark, a refresh in a new session) gets a graceful page rather than an
- * empty one.
- */
-
 const STEPS: { n: string; t: string; b: string }[] = [
   {
     n: "01",
@@ -211,7 +197,6 @@ export function OrderReceived() {
         )}
       </div>
 
-      {/* what happens next — a timeline, with a rule running through it */}
       <div style={{ maxWidth: 1000, margin: "clamp(48px, 6vw, 76px) auto 0" }}>
         <div
           style={{

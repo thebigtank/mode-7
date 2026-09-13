@@ -5,31 +5,6 @@ import { H2 } from "@/components/ui/H2";
 import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
 
-/**
- * Section 5 — the reference's "why us" split: a tall square-ish image on the
- * left; on the right a dotted mono eyebrow, a two-line display heading, a dark
- * action block, then a ruled list of numbered reasons.
- *
- * Measured against `05-why.png` at 1440: image 544 wide by 678 tall in the
- * left column, right column 678 wide with a 58px gutter, eyebrow at the image's
- * top edge, heading 36px below it, the button 41px below that, the first
- * hairline 37px below the button, and rows on a ~129px rhythm with the numeral
- * in a 56px column set in mono.
- *
- * Mode 7 content: `/hero/workshop.webp`, the statement "We do far more than
- * supply the latest devices." (from `revealStatement` / v1 `WhyModeSeven.tsx`),
- * the existing /about route, and the four reasons below, copied verbatim from
- * v1 rather than lifted out of it — v1 must not be edited by this exploration.
- * The reference shows three rows; Mode 7 has four, so the column runs longer
- * and the image stretches to match rather than four being cut to three.
- *
- * Colour: the eyebrow dot is a gold FILL (a graphic, not type). The 01–04
- * numerals are `V2.accentText` (5.59:1) where the reference sets them in
- * orange — gold on this ground is 1.70:1 and fails even the 3:1 large-text
- * floor, and these numerals are small anyway.
- */
-
-/** Copied VERBATIM from the `reasons` array in v1 `WhyModeSeven.tsx`. */
 const reasons = [
   {
     num: "01",
@@ -89,11 +64,8 @@ export function WhyV2() {
                   style={{
                     fontFamily: V2_FONT.mono,
                     fontSize: 13,
-                    /* was JetBrains Mono at 0.04em; Outfit's tabular digits
-                       need less air — see CLAUDE.md's Typography table. */
                     letterSpacing: "0.02em",
                     lineHeight: "30px",
-                    /* accentText — gold on wash is 1.40:1, below even 3:1 */
                     color: V2.accentText,
                   }}
                 >

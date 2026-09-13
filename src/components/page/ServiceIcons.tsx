@@ -1,9 +1,5 @@
 import type { ReactNode } from "react";
 
-/**
- * Line-art Lucide glyphs used by the Services / Smart Home / Green Energy
- * category tiles. Rendered at whatever size the tile asks for.
- */
 export function Glyph({
   name,
   size = 26,
@@ -152,7 +148,6 @@ const paths: Record<GlyphName, ReactNode> = {
   chat: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
 };
 
-/** Shield-with-tick, used for the guarantee bullet lists. */
 export function ShieldCheck({
   size = 15,
   stroke = "rgba(255,255,255,0.55)",

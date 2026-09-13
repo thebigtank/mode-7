@@ -12,15 +12,6 @@ export const metadata: Metadata = {
     "Phones, laptops, smart-home kit, solar and certified refurbished — every unit vetted, sealed and guaranteed.",
 };
 
-/**
- * Shop.
- *
- * The hero deliberately carries no CTA: the grid below is the action, and a
- * "View Cart" button at the top of a shopping page sends people away from the
- * thing they came to do. The old category pill row is gone for the same reason
- * — it duplicated the Category filter, and two controls for one job is worse
- * than one.
- */
 export default function ShopPage() {
   return (
     <>
@@ -30,7 +21,6 @@ export default function ShopPage() {
         intro="Phones, laptops, smart-home kit, solar and certified refurbished — every unit vetted, sealed and guaranteed."
       />
 
-      {/* filters + grid */}
       <section className="m7-wrap m7-top-md">
         <div
           className="m7-grid-2"

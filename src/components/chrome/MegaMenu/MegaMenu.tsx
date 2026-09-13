@@ -7,18 +7,6 @@ import { useMenuDots } from "@/hooks/useMenuDots";
 import { legalLinks, menuItems } from "@/lib/content";
 import { COLOR, FONT, containerPad, stripe } from "@/lib/theme";
 
-/**
- * Full-screen mega menu. Opened by the nav hamburger.
- *
- * Opening is a two-curtain draw-down: a black curtain leads and the white panel
- * follows ~0.18s behind, so there is never a full-black flash. Then the left
- * rows stagger in and the right column blur-fades in. Closing reverses all of it
- * (`closing` + a 660ms unmount timeout, owned by the parent).
- *
- * Layout is `1.25fr 1fr`. The left column is full-bleed strips with SOLID grey
- * backgrounds stepping darker down the list — solid, not rgba, because rgba
- * produces subpixel seams that read as borders. Only one row is sharp at a time.
- */
 export function MegaMenu({
   closing,
   onClose,
@@ -68,10 +56,6 @@ export function MegaMenu({
           right: 0,
           height: "100dvh",
           zIndex: 199,
-          /* The menu already opened on a two-stage curtain: a solid sweep, then
-             the light panel over it. Recolouring stage one rust makes an
-             existing transition the page's loudest use of the palette at no
-             motion cost — same curtain, same timing. */
           background: COLOR.rust,
           animation: curtainBlackAnim,
         }}
@@ -102,7 +86,6 @@ export function MegaMenu({
             minHeight: "calc(100dvh - 75px)",
           }}
         >
-          {/* left: full-bleed rows, text aligned to the site container */}
           <div
             onMouseLeave={() => setHover(null)}
             style={{
@@ -175,7 +158,6 @@ export function MegaMenu({
                           {it.label}
                         </span>
                       </div>
-                      {/* arrows point diagonal by default, straighten on hover */}
                       <ArrowRightIcon
                         size={26}
                         strokeWidth={1.9}
@@ -194,10 +176,6 @@ export function MegaMenu({
             })}
           </div>
 
-          {/* right: hover image preview + info over the interactive dot grid.
-              Driven by hover, so it has nothing to show on a touch device —
-              hidden below 900px rather than stacked under the nav as dead
-              decoration. See .m7-menu-aside in globals.css. */}
           <div
             className="m7-menu-aside"
             style={{

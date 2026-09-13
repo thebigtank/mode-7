@@ -5,16 +5,8 @@ import { COLOR, FONT } from "@/lib/theme";
 
 const TARGETS = ["M", "O", "D", "E"];
 const SETTLE_AT = [1500, 2400, 3300, 4200];
-/** Per-glyph widths so the scramble still reads as a real word. */
 const WIDTHS = ["0.8em", "0.78em", "0.72em", "0.6em"];
 
-/**
- * First-load intro loader. Ported from `runIntro()`.
- *
- * M-O-D-E each scramble through random letters and lock in one at a time while a
- * number reel scrolls 1 → 7. On completion the lockup blurs out (~28px + a
- * slight scale) as the white overlay fades and the site is revealed.
- */
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const [letters, setLetters] = useState(["A", "A", "A", "A"]);
   const [num, setNum] = useState(1);

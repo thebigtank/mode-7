@@ -13,76 +13,21 @@ import { P } from "@/components/ui/P";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Section 7 — "What we do". Rebuilt as a STICKY STACKED-CARD SHOWCASE, using
- * the same mechanics as v1's `home/Capabilities.tsx` (read, reproduced, not
- * imported) and repainted entirely from the `V2` palette. Nothing here imports
- * `@/lib/theme`; no v1 component is touched.
- *
- * Mechanics, identical to v1:
- *   - three normal-flow wrappers, each `position: sticky` at an increasing
- *     offset, so each wrapper's own height is exactly the scroll travel its
- *     card gets before the next pins over it. No spacers, no pinning, and no
- *     `scrollerProxy` — Lenis drives native scroll and fires real scroll
- *     events, so ScrollTrigger reads the page directly.
- *   - a scrubbed shrink/dim on every covered card, triggered on the NEXT
- *     card's wrapper travelling from `top bottom` to `top top`.
- *   - a one-shot stagger revealing each card's five `[data-rv]` elements in
- *     order: label -> title -> copy -> cta -> footnote.
- * Both live in one `gsap.context(..., section)` reverted on cleanup, with a
- * `ScrollTrigger.refresh()` immediately and again on `window` load once fonts
- * and images have settled.
- *
- * Under `prefers-reduced-motion: reduce` NEITHER animation is created: cards
- * render at full scale and brightness with content visible. Content is authored
- * VISIBLE and hidden by `gsap.from`, so a JS failure leaves a readable stack
- * rather than three blank cards. The sticky stacking is pure CSS and stays.
- */
-
-/**
- * Card imagery, keyed by the card's title — a lookup rather than a parallel
- * array so reordering `capabilities` cannot mismatch a picture to a card.
- * Same three files the previous case-study rows used.
- */
 const CAPABILITY_IMAGE: Record<string, string> = {
   "The Trade-In & Upgrade Portal": "/hero/cap-tradein.webp",
   "WhatsApp Concierge Checkout": "/hero/cap-chat.webp",
   "Smart Home & Solar Installs": "/hero/cap-solar.webp",
 };
 
-/** Each card's own route, in `capabilities` order. */
 const HREFS = ["/trade-in", "/contact", "/services"];
 
-/**
- * Sticky offsets, one per card, increasing.
- *
- * DERIVED, not carried over from v1 — v1's 92/110/128 were sized against a
- * 77px header. v2's floating nav panel is 88px tall and, since it gained its
- * 14px float gap, parks at y=14 when stuck, so its bottom edge sits at 102.
- * 88 (nav) + 14 (gap) + 10 (breathing margin) = 112, and the same +18px steps
- * v1 used give 112 / 130 / 148. The steps are what make the deck fan: each
- * pinned card parks a little lower than the one beneath it, so the stack reads
- * as a deck rather than one card replacing another in place.
- */
 const STICKY = [112, 130, 148] as const;
 
-/**
- * The scrims, alpha over `V2.ink` (#171D1D = rgb(23,29,29)) — NOT v1's
- * espresso. The left one carries the text column, the bottom one keeps the
- * full-width bullet footer legible over the bright right side of each photo.
- */
 const LEFT_SCRIM =
   "linear-gradient(90deg, rgba(23,29,29,0.92) 0%, rgba(23,29,29,0.86) 34%, rgba(23,29,29,0.55) 62%, rgba(23,29,29,0.12) 88%, rgba(23,29,29,0) 100%)";
 const BOTTOM_SCRIM =
   "linear-gradient(180deg, rgba(23,29,29,0) 0%, rgba(23,29,29,0.55) 45%, rgba(23,29,29,0.90) 100%)";
 
-/**
- * SSR-safe media query. `getServerSnapshot` returns false so hydration never
- * mismatches; the store re-checks on the client right after mount and again on
- * change, and the GSAP effect re-runs when the result flips. Local by design —
- * v1's copy lives inside `home/Capabilities.tsx` and is not exported, and v2
- * must not reach into a v1 module for it.
- */
 function useMediaQuery(query: string) {
   const subscribe = useCallback(
     (onStoreChange: () => void) => {
@@ -116,8 +61,6 @@ export function WorkV2() {
         const card = cardRefs.current[i];
         if (!card) return;
 
-        // A. Stacking scrub — every card but the last gets covered, so it
-        // recedes while its successor climbs into place.
         const next = wrapRefs.current[i + 1];
         if (next) {
           gsap.fromTo(
@@ -138,7 +81,6 @@ export function WorkV2() {
           );
         }
 
-        // B. Staggered content reveal, once, as the card enters.
         gsap.from(card.querySelectorAll("[data-rv]"), {
           y: 18,
           opacity: 0,
@@ -150,7 +92,6 @@ export function WorkV2() {
       });
     }, section);
 
-    // Re-measure once late-loading fonts/images have settled.
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoad);
     ScrollTrigger.refresh();
@@ -207,14 +148,11 @@ export function WorkV2() {
                   overflow: "hidden",
                   transformOrigin: "center top",
                   willChange: "transform",
-                  /* base ground, so nothing flashes wash before the image
-                     paints — ink, not v1's espresso */
                   background: V2.ink,
                   display: "flex",
                   flexDirection: "column",
                 }}
               >
-                {/* 1 — image */}
                 <div
                   aria-hidden
                   style={{
@@ -225,7 +163,6 @@ export function WorkV2() {
                     backgroundPosition: "center",
                   }}
                 />
-                {/* 2 — left text scrim */}
                 <div
                   aria-hidden
                   style={{
@@ -235,8 +172,6 @@ export function WorkV2() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* 3 — bottom scrim, so the full-width bullet footer stays
-                       legible over the bright right side of the picture */}
                 <div
                   aria-hidden
                   style={{
@@ -249,7 +184,6 @@ export function WorkV2() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* 4 — ghosted numeral */}
                 <div
                   aria-hidden
                   style={{
@@ -269,19 +203,12 @@ export function WorkV2() {
                   {`0${i + 1}`}
                 </div>
 
-                {/* 5 — content column. A flex child in normal flow rather than
-                       absolutely positioned, so it can never run underneath the
-                       footer at any width; `position: relative` lifts it above
-                       the absolutely-positioned image and scrim layers. */}
                 <div
                   className="v2-stack__body"
                   style={{
                     position: "relative",
                     flex: "1 1 auto",
                     minHeight: 0,
-                    /* max-width lives in `.v2-stack__body`, not here: the
-                       760px rule widens it to the full card, and an inline
-                       value would out-specify it. */
                     padding: "clamp(28px, 4vw, 56px)",
                     display: "flex",
                     flexDirection: "column",
@@ -291,14 +218,11 @@ export function WorkV2() {
                   <div
                     data-rv="label"
                     style={{
-                      /* was JetBrains Mono at .14em; retuned for Outfit —
-                         see CLAUDE.md's Typography table. */
                       fontFamily: V2_FONT.mono,
                       fontSize: 11,
                       fontWeight: 700,
                       letterSpacing: ".07em",
                       textTransform: "uppercase",
-                      /* faint is 7.75:1 on ink */
                       color: V2.faint,
                       marginBottom: 18,
                     }}
@@ -333,11 +257,6 @@ export function WorkV2() {
                   >
                     {c.desc}
                   </p>
-                  {/* `outline` + `onDark`, not `fill`: a gold block on every
-                      card would put three saturated grounds down the stack and
-                      out-shout the photography that IS the section. The white
-                      hairline + white label reads as the secondary it is, and
-                      white-on-ink under the scrim is 17.07:1. */}
                   <div data-rv="cta">
                     <ButtonV2
                       label={c.cta}
@@ -348,7 +267,6 @@ export function WorkV2() {
                   </div>
                 </div>
 
-                {/* 6 — bullet footer, full card width under the content column */}
                 <div
                   data-rv="footnote"
                   className="v2-stack__foot"
@@ -366,8 +284,6 @@ export function WorkV2() {
                     <div
                       key={b}
                       style={{
-                        /* was JetBrains Mono at .08em; retuned for Outfit —
-                           see CLAUDE.md's Typography table. */
                         fontFamily: V2_FONT.mono,
                         fontSize: 11,
                         letterSpacing: ".04em",

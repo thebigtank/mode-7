@@ -2,12 +2,6 @@ import type { CSSProperties, ReactNode } from "react";
 import { COLOR, FONT, stripe, stripeDark } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
-/**
- * Wireframe primitives — the low-fidelity vocabulary the whole site is drawn in.
- * Images are diagonal light-grey striped placeholders with a monospace `▣ LABEL`;
- * annotations are dashed-border Space Mono pills.
- */
-
 export function Placeholder({
   label,
   height,
@@ -81,8 +75,6 @@ export function Annotation({
         letterSpacing: 1,
         color: dark ? COLOR.onEspressoMuted : COLOR.body,
         background: dark ? "transparent" : "rgba(247,239,221,0.92)",
-        /* nowrap keeps the pill on one line where there is room; .m7-annot
-           lets it wrap on narrow screens instead of running off the edge */
         whiteSpace: "nowrap",
         ...style,
       }}
@@ -92,14 +84,6 @@ export function Annotation({
   );
 }
 
-/**
- * Design-exploration marker: a dashed variant pill plus a one-line description of
- * what the variant is doing. Used when two or more directions for the same
- * section are kept side by side so they can be compared in place, then culled.
- *
- * Tied to `showAnnotations`, so switching annotations off gives a clean look at
- * the variants themselves.
- */
 export function VariantLabel({
   tag,
   note,
@@ -146,7 +130,6 @@ export function VariantLabel({
   );
 }
 
-/** Section overline in the `// Label` form. */
 export function Overline({
   children,
   color = COLOR.muted,
@@ -173,7 +156,6 @@ export function Overline({
   );
 }
 
-/** Section heading: Space Grotesk 600 / -3px. */
 export function SectionHeading({
   children,
   size = 38,
@@ -200,7 +182,6 @@ export function SectionHeading({
   );
 }
 
-/** Standard body paragraph: Outfit 18px. Currently unused (no call sites). */
 export function Body({
   children,
   style,

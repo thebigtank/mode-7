@@ -1,18 +1,5 @@
 import { formatNaira } from "./money";
 
-/**
- * The shop catalogue.
- *
- * Prices are Naira. The original wireframe was drawn in pounds, so — exactly as
- * the trade-in catalogue was — these have been rescaled to plausible Nigerian
- * retail figures rather than having the symbol swapped and leaving a flagship
- * phone priced at ₦999.
- *
- * Everything here is placeholder merchandising for the wireframe. Swap this
- * module for the team's real product feed when there is one; the shape is
- * deliberately flat so that is a small change.
- */
-
 export type Category =
   | "Phones"
   | "Laptops"
@@ -29,20 +16,9 @@ export type Product = {
   price: number;
   meta: string;
   badge?: string;
-  /**
-   * What Seven says about this product in the AI panel.
-   *
-   * Authored copy, not a live model call — this is a wireframe and there is no
-   * key or API route wired up. The panel reads from these fields, so pointing
-   * it at a real completion later means changing where `ai` comes from and
-   * nothing else.
-   */
   ai: {
-    /** One-paragraph plain-language summary. */
     summary: string;
-    /** Three short "why this" points. */
     points: string[];
-    /** The honest caveat — who should NOT buy this. */
     note: string;
   };
 };
@@ -207,7 +183,6 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-/** Price band filters, in Naira. */
 export const PRICE_BANDS = [
   "Under ₦500,000",
   "₦500,000 – ₦1,500,000",

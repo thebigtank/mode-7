@@ -17,10 +17,6 @@ const items = [
   { name: "Smart Hub", variant: "Gen 2", price: "₦340,000" },
 ];
 
-/**
- * Subtotal 2,820,000 − trade-in 700,000 = 2,120,000 taxable.
- * VAT at 7.5% of that is 159,000, so the total is 2,279,000.
- */
 const totals: [string, string][] = [
   ["Subtotal", "₦2,820,000"],
   ["Trade-in estimate applied", "−₦700,000"],
@@ -30,10 +26,8 @@ const totals: [string, string][] = [
 
 const TOTAL = "₦2,279,000";
 
-/** Mirrors the real flow: there is no card form, an agent takes it from here. */
 const steps = ["Bag", "Agent confirms", "Payment & delivery"];
 
-/** Quantity stepper — presentational in the wireframe. */
 function Stepper() {
   return (
     <div
@@ -107,7 +101,6 @@ export default function CartPage() {
           Your bag.
         </h2>
 
-        {/* checkout progress */}
         <div
           style={{
             display: "flex",
@@ -163,7 +156,6 @@ export default function CartPage() {
             alignItems: "start",
           }}
         >
-          {/* line items */}
           <div style={{ position: "relative" }}>
             {items.map((it, i) => (
               <div
@@ -263,7 +255,6 @@ export default function CartPage() {
             )}
           </div>
 
-          {/* order summary */}
           <aside
             className="m7-cart-summary"
             style={{
@@ -327,9 +318,6 @@ export default function CartPage() {
                 alignItems: "flex-start",
               }}
             >
-              {/* Checkout is a WhatsApp handoff, not a card form. It opens a
-                  short KYC form first — an agent still needs to know who you
-                  are and where the bag is going. */}
               <CheckoutButton />
               <ArrowButton
                 label="Continue shopping"

@@ -4,27 +4,6 @@ import { Band } from "@/components/ui/Band";
 import { H2 } from "@/components/ui/H2";
 import { P } from "@/components/ui/P";
 
-/**
- * Section 2 — the reference's dark positioning band: a three-line display
- * statement on the left, and on the right a paragraph, a full-width hairline,
- * then three figures with labels beneath them.
- *
- * Measured against `02-stats.png` at 1440: two equal 560px columns with a
- * 160px gutter, 100px of band padding above, the rule 116px under the top of
- * the paragraph, figures at 40px and their labels at 16px.
- *
- * Mode 7 content: the Mission paragraph from v1 `Mission.tsx`, split at its
- * own sentence boundary — the first sentence becomes the display statement,
- * the remainder the supporting paragraph. Nothing is rewritten. Every figure
- * is derived from something that already exists: the 50K+ counter in
- * `Mission.tsx`, `logos.length` and `pillars.length`. The two counts are
- * computed from the arrays so they cannot drift from the data.
- *
- * Colour: the reference sets these numerals in white. Here they are `V2.accent`
- * gold — the ink band is the ONE ground where the accent rule permits gold as
- * type (10.02:1), and it gives the accent a place to appear at scale that the
- * light bands cannot offer. Labels are `V2.faint` (7.75:1).
- */
 export function StatsV2() {
   const stats = [
     { figure: "50K+", label: "devices vetted & sealed" },
@@ -67,7 +46,6 @@ export function StatsV2() {
                     fontSize: "clamp(34px,3.1vw,40px)",
                     lineHeight: 1.15,
                     letterSpacing: "-0.4px",
-                    /* gold on ink, 10.02:1 — the one legal gold-as-text case */
                     color: V2.accent,
                     marginBottom: 8,
                   }}
@@ -78,8 +56,6 @@ export function StatsV2() {
                   style={{
                     fontFamily: V2_FONT.body,
                     fontWeight: 300,
-                    /* 15px, not 16: at 16 these labels wrap inside a
-                       ~180px column and break the reference's single-line row */
                     fontSize: 15,
                     lineHeight: "22px",
                     color: V2.faint,

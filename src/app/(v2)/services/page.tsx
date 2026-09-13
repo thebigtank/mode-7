@@ -15,28 +15,12 @@ export const metadata: Metadata = {
     "From flagship launches to certified refurbished, instant trade-ins to concierge checkout — the premium tech store built around how you buy.",
 };
 
-/* ------------------------------------------------------------------ shared
-   Re-tokened onto the V2 palette (`src/lib/theme-v2.ts`) and the V2 type
-   stack, following the same approach as the `/about` port: colour and
-   font-family are the things that changed, not the structure. This page
-   never had its own scoped CSS block (unlike `/about`, which was already
-   CSS-classed) — it is, and remains, built from inline styles and local
-   helper components, so the re-tokening happens directly in those styles.
-   THE GOLD RULE: this page has no accent-as-text usage to re-derive, in v1
-   or here — it was always a monochrome ink/paper page, same as `/about`. */
-
-/** Diagonal stripe placeholder, tinted off V2.ink — the v2 equivalent of
-    `stripe()` in `@/lib/theme` (which paints in v1's cream/tan and must not
-    be imported here). Same technique as `--stripe` in `.about-page`. */
 const v2Stripe = (
   a = "rgba(23,29,29,0.07)",
   b = "rgba(23,29,29,0.03)",
   size = 9,
 ) => `repeating-linear-gradient(135deg,${a} 0 ${size}px,${b} ${size}px ${size * 2}px)`;
 
-/** v2-local equivalent of `containerPad()` in `@/lib/theme` — same geometry
-    (align full-bleed content to the page's 1320px container), no colour
-    values, so it is re-derived here rather than imported. */
 const pad = (px = 48) => {
   const gutter = px === 48 ? "var(--m7-pad)" : `clamp(20px,4vw,${px}px)`;
   return `max(${gutter}, calc((100vw - 1320px)/2 + ${gutter}))`;
@@ -95,10 +79,6 @@ function SectionHead({
   );
 }
 
-/** The "▣ LABEL" caption on a stripe placeholder — a real content label (what
-    the eventual photo will show), not a wireframe annotation, so it renders
-    unconditionally. Same distinction `/about` draws between its `a-ph__tag`
-    (kept) and its `a-note` (a `WIREFRAME.showAnnotations`-gated pill, removed). */
 function StripeLabel({ children }: { children: ReactNode }) {
   return (
     <div
@@ -118,7 +98,6 @@ function StripeLabel({ children }: { children: ReactNode }) {
   );
 }
 
-/** Small icon + label + sub-label chip used inside the "Curated retail" card. */
 function MiniRow({
   icon,
   title,
@@ -170,7 +149,6 @@ function MiniRow({
   );
 }
 
-/** Category tile: striped header with a glyph, then a title row with an arrow. */
 function CategoryTile({
   label,
   sub,
@@ -238,7 +216,6 @@ function CategoryTile({
   );
 }
 
-/** Bento cell: glyph top, title + sub pinned bottom. */
 function BentoCell({
   icon,
   title,
@@ -284,8 +261,6 @@ function BentoCell({
   );
 }
 
-/* -------------------------------------------------------------------- data */
-
 const coreRows: { icon: GlyphName; title: string; sub: string }[] = [
   { icon: "phone", title: "Flagship Phones", sub: "iPhone · Galaxy · Pixel" },
   { icon: "laptop", title: "Business Laptops", sub: "MacBook · ThinkPad · XPS" },
@@ -305,31 +280,10 @@ const categories: { label: string; sub: string; icon: GlyphName }[] = [
   { label: "Certified Refurbished", sub: "Renewed · Sealed · Warrantied", icon: "refresh" },
 ];
 
-/* -------------------------------------------------------------------- page */
-
 export default function ServicesPage() {
   return (
     <div className="services-page">
-      {/* Chrome (V2Styles, HeaderV2, FooterV2) is mounted once by SiteShell
-          for every v2 route — see the route-decision note there. This page
-          renders only its own content. */}
 
-      {/* ---------------------------------------------------------------
-          HERO — two directions kept side by side for comparison; which one
-          ships is still an open design call, not something this re-skin
-          makes for it. The design-exploration labels that used to mark them
-          (`VariantLabel`, gated by `WIREFRAME.showAnnotations`) have been
-          removed as part of the annotation clean-up — see CLAUDE.md.
-          --------------------------------------------------------------- */}
-
-      {/* Full-bleed white ground: the section itself carries no max-width, so
-          the background spans the full viewport edge to edge; the 1320px
-          site container is an INNER div instead, same split as `Band` in
-          `src/components/ui/Band` and `HeroV2`’s own outer `<section>`. Putting
-          max-width/margin on the section itself (the previous version here)
-          boxes the background into a centred card with the wash ground
-          showing on both sides at wide viewports — measured on the rendered
-          page, not assumed. */}
       <section style={{ background: V2.white }}>
         <div
           className="m7-grid-2"
@@ -379,10 +333,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* HERO 02 — full-bleed image, content bound to the 1320px container.
-          The image runs edge to edge but the copy block and the stat card stay
-          aligned to the site grid via the `max(48px, …)` calc, so the layout
-          still reads as part of the page rather than a detached banner. */}
       <div style={{ marginTop: 84 }}>
         <div
           style={{
@@ -446,7 +396,6 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          {/* glass stat card, mirrored to the container's right edge */}
           <div
             style={{
               position: "absolute",
@@ -487,11 +436,8 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* Pills sit flush under the hero, balanced on their own 26px padding —
-          no extra top margin, or the row reads as belonging to nothing. */}
       <CategoryNav />
 
-      {/* premium + certified refurbished */}
       <section
         id="sec-premium"
         style={{
@@ -711,7 +657,6 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          {/* business & bulk */}
           <div
             className="svc-lift"
             style={{
@@ -772,7 +717,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* smart home */}
       <section
         id="sec-smarthome"
         style={{
@@ -891,7 +835,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* solar */}
       <section
         id="sec-solar"
         style={{
@@ -1046,7 +989,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* trade-in */}
       <section
         id="sec-tradein"
         style={{

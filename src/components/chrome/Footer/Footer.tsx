@@ -5,15 +5,6 @@ import { socials } from "@/components/Icons";
 import { footerCols } from "@/lib/content";
 import { COLOR, FONT } from "@/lib/theme";
 
-/**
- * The footer: a full-bleed dark-brown band that sits at the bottom of the
- * opaque content layer and slides up over the giant fixed MODE 7 wordmark
- * behind it. It runs edge to edge — no side margin, no radius.
- *
- * Top: closing statement + a "Back to top" ArrowButton pointing up.
- * Mid: brand block (wordmark, copy, social icon circles) + 2 link columns.
- * There is deliberately NO newsletter and NO blog/insights column.
- */
 export function Footer() {
   const scrollTop = () => {
     try {
@@ -28,13 +19,8 @@ export function Footer() {
 
   return (
     <footer
-      /* m7-on-dark flips the global focus ring to cream; an espresso ring on the
-         dark band would be a ring nobody can find. */
       className="m7-on-dark"
       style={{
-        /* dark, not espresso: the reference footer samples #372515, a warm
-           brown. Cream on #3C3521 is 9.83:1, so the onEspresso* text roles all
-           still clear their floors here. */
         background: COLOR.espresso,
         color: COLOR.onEspresso,
         padding: "clamp(52px, 7vw, 88px) 0 40px",
@@ -48,7 +34,6 @@ export function Footer() {
           paddingInline: "clamp(20px, 4vw, 56px)",
         }}
       >
-        {/* top: closing statement + back to top */}
         <div
           style={{
             display: "flex",
@@ -83,7 +68,6 @@ export function Footer() {
           </span>
         </div>
 
-        {/* mid: brand block + link columns */}
         <div
           className="m7-grid-3"
           style={{
@@ -94,7 +78,6 @@ export function Footer() {
             borderTop: `1px solid ${COLOR.onEspressoLine}`,
           }}
         >
-          {/* the brand block's right padding only makes sense beside a column */}
           <div style={{ paddingRight: "clamp(0px, 4vw, 40px)" }}>
             <div
               style={{
@@ -179,16 +162,6 @@ export function Footer() {
           ))}
         </div>
 
-        {/*
-          Mobile wordmark.
-
-          On desktop MODE 7 is the giant black cut-out behind the page that the
-          footer slides up to uncover (see RevealWordmark). That reveal depends
-          on a tall scroll runway and a pointer-tracked spotlight, neither of
-          which a phone has — so below 900px the reveal is switched off and the
-          wordmark is stated plainly here instead: white on the black card, the
-          last thing in the black area, above the divider before the copyright.
-        */}
         <div className="m7-footer-mark" aria-hidden="true">
           MODE&nbsp;7
         </div>

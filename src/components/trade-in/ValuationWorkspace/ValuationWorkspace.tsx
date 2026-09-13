@@ -22,28 +22,6 @@ import {
   valuate,
 } from "@/lib/valuation";
 
-/**
- * The Intelligent Trade-In Portal's valuation workspace.
- *
- * An interview on the left, a live ledger on the right. Every answer posts a
- * named line item and the figure rebuilds in front of the customer — the point
- * being that no deduction is ever applied quietly.
- *
- * This ledger is the ONE place on the page a valuation is shown. The wireframe
- * also teased an empty copy of it up in the hero, which never populated; that
- * has been removed rather than wired up, so there is a single source of truth.
- *
- * TWO RULES THIS FILE EXISTS TO ENFORCE:
- *
- * 1. Nothing here is ever "confirmed". Every figure the customer sees is an
- *    estimate. A confirmed figure comes from the team only — by email once
- *    they have reviewed the photos and video, or in person at the office once
- *    they physically have the device. Do not reintroduce the word.
- *
- * 2. A trade-in cannot be locked in without all four uploads. The team values
- *    from that evidence, so the CTA stays shut until it is all attached.
- */
-
 const CATEGORIES: { id: Category; title: string; sub: string }[] = [
   { id: "phone", title: "Phone", sub: "Most traded" },
   { id: "laptop", title: "Laptop", sub: "Business & pro" },
@@ -56,10 +34,8 @@ const PHOTO_TILES = [
   { key: "screen", label: "PHOTO — SCREEN ON", file: "IMG_4023-screen.jpg" },
 ] as const;
 
-/** Stable reference number — no randomness, so server and client agree. */
 const REF = "M7-4820";
 
-/** Placeholder `[key, value]` bar widths for the pre-answer ledger. */
 const GHOST_ROWS = [
   [78, 62],
   [104, 54],
@@ -115,11 +91,6 @@ function Question({
   );
 }
 
-/**
- * A contact field. Errors only surface once the field has been touched and
- * blurred — validating as someone types tells them they're wrong before
- * they've finished being right.
- */
 function Field({
   label,
   hint,
@@ -163,15 +134,6 @@ function Field({
   );
 }
 
-/**
- * Below 940px the interview runs as a wizard: one question at a time, in
- * place, instead of four stacked panels you scroll between. Desktop keeps the
- * full spine — the whole point there is seeing the ledger rebuild beside every
- * answer, which needs both columns on screen at once.
- *
- * The five mobile steps map onto the four desktop groups; group 01 splits into
- * "which category" and "which model", which is a single card on desktop.
- */
 const WIZARD_STEPS = [
   { key: "category", group: 0, label: "Category" },
   { key: "device", group: 0, label: "Model" },
@@ -190,10 +152,6 @@ export function ValuationWorkspace() {
   const [isWizard, setIsWizard] = useState(false);
   const stepTopRef = useRef<HTMLDivElement | null>(null);
   const ledgerRef = useRef<HTMLElement | null>(null);
-  /**
-   * null means "follow the layout" — collapsed in wizard mode, open on
-   * desktop. Once the customer toggles it, their choice sticks.
-   */
   const [linesOverride, setLinesOverride] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -218,10 +176,6 @@ export function ValuationWorkspace() {
   const evidenceOK = evidenceDone(a);
   const badContact = contactIssues(a);
   const contactOK = badContact.length === 0;
-  /**
-   * Two hard gates: the team cannot value a device they can't see, and they
-   * cannot send a confirmed figure to a customer they can't reach.
-   */
   const canLock =
     v.mid > 0 && conditionAnswered(a) && !ineligible && evidenceOK && contactOK;
 
@@ -230,7 +184,6 @@ export function ValuationWorkspace() {
   const upgrade = UPGRADES.find((u) => u.id === a.upgradeId) ?? null;
   const um = upgrade ? upgradeMath(upgrade.price, v) : null;
 
-  // scroll the locked-in outcome into view once it appears
   useEffect(() => {
     if (!a.locked || !outcomeRef.current) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -240,11 +193,6 @@ export function ValuationWorkspace() {
     });
   }, [a.locked]);
 
-  /**
-   * Switching category restarts the interview, but contact details are about
-   * the person, not the device — retyping your name because you picked Laptop
-   * instead of Phone would be its own small insult.
-   */
   function pickCategory(cat: Category) {
     setA((prev) => ({
       ...emptyAnswers(),
@@ -253,8 +201,6 @@ export function ValuationWorkspace() {
       email: prev.email,
       phone: prev.phone,
     }));
-    // A category is one decisive tap, so it carries you straight on. Every
-    // other step needs several answers and waits for Continue instead.
     if (isWizard) setStep(1);
   }
 
@@ -293,22 +239,13 @@ export function ValuationWorkspace() {
     });
   }
 
-  /**
-   * Always a range. Collapsing to a single number would read as a settled
-   * price, and nothing here is settled — evidence only narrows the spread.
-   */
   const isRange = !ineligible && v.mid > 0;
   const figure = ineligible
     ? formatNaira(v.mid)
     : v.mid > 0
-      /* Thin spaces around the dash on purpose: the ₦ glyph carries two
-         horizontal crossbars at the same optical height as an en dash, so
-         "₦1,010,000–₦1,190,000" set tight reads as a struck-through figure.
-         The gap breaks that chain. */
       ? `${formatNaira(v.lo)}\u2009–\u2009${formatNaira(v.hi)}`
       : "₦ —";
 
-  /** Why the CTA is shut, in the order the customer hits each gate. */
   const waitLabel = !deviceDone
     ? "Choose a device to continue"
     : !condOK
@@ -317,8 +254,6 @@ export function ValuationWorkspace() {
         ? `Attach all 4 uploads — ${uploads}/4 done`
         : "Add your contact details to continue";
 
-  // ------------------------------------------------------------ wizard state
-  /** Whether the current step has been answered well enough to move on. */
   const stepDone = [
     !!a.cat,
     deviceDone,
@@ -329,7 +264,6 @@ export function ValuationWorkspace() {
   const lastStep = WIZARD_STEPS.length - 1;
   const activeGroup = WIZARD_STEPS[step].group;
 
-  /** Why Continue is disabled, phrased for the step you're actually on. */
   const stepHint = [
     "Pick a category to continue",
     !a.model ? "Choose your model" : "Pick a storage size",
@@ -338,13 +272,11 @@ export function ValuationWorkspace() {
     "Fill in your name, email and phone",
   ][step];
 
-  /** Move the step into view without scrolling the page around the customer. */
   const goto = useCallback((next: number) => {
     setStep(next);
     const el = stepTopRef.current;
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // only pull the panel back up if it has drifted off the top of the screen
     const top = el.getBoundingClientRect().top;
     if (top < 0 || top > window.innerHeight * 0.4) {
       el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
@@ -353,7 +285,6 @@ export function ValuationWorkspace() {
 
   return (
     <div className="t-ws">
-      {/* ---------------------------------------------------------- interview */}
       <div>
         <div className="t-rail" aria-hidden="true">
           <span className={`t-rail__s${deviceDone ? " on" : ""}`} />
@@ -362,10 +293,7 @@ export function ValuationWorkspace() {
           <span className={`t-rail__s${contactOK ? " on" : ""}`} />
         </div>
 
-        {/* Frozen once submitted, so the estimate on file can't drift from the
-            answers the team was actually sent. Reset is the way back. */}
         <div className="t-steps" data-sent={a.locked} ref={stepTopRef}>
-          {/* 01 · DEVICE — one card on desktop, two wizard steps on mobile */}
           <div className="t-grp" data-active={activeGroup === 0}>
             <div className="t-sub" data-active={step === 0}>
               <div className="t-grp__h">
@@ -395,7 +323,6 @@ export function ValuationWorkspace() {
 
             {a.cat && (
               <div className="t-sub" data-active={step === 1}>
-                {/* only titled on mobile, where this is a step in its own right */}
                 <div className="t-grp__h t-wiz-only">
                   <span className="t-grp__n">02</span>
                   <h3 className="t-grp__t">Which one is it?</h3>
@@ -425,7 +352,6 @@ export function ValuationWorkspace() {
             )}
           </div>
 
-          {/* 02 · CONDITION */}
           <div className={`t-grp${deviceDone ? "" : " locked"}`} data-active={activeGroup === 1}>
             <div className="t-grp__h">
               <span className="t-grp__n">02</span>
@@ -502,7 +428,6 @@ export function ValuationWorkspace() {
             />
           </div>
 
-          {/* 03 · EVIDENCE */}
           <div className={`t-grp${condOK ? "" : " locked"}`} data-active={activeGroup === 2}>
             <div className="t-grp__h">
               <span className="t-grp__n">03</span>
@@ -546,7 +471,6 @@ export function ValuationWorkspace() {
             </div>
           </div>
 
-          {/* 04 · CONTACT — how the team actually reaches this person */}
           <div className={`t-grp${evidenceOK ? "" : " locked"}`} data-active={activeGroup === 3}>
             <div className="t-grp__h">
               <span className="t-grp__n">04</span>
@@ -593,7 +517,6 @@ export function ValuationWorkspace() {
           </div>
         </div>
 
-        {/* ------------------------------------------------- wizard controls */}
         {!a.locked && (
           <div className="t-wiz">
             <div className="t-wiz__meter" aria-hidden="true">
@@ -622,9 +545,6 @@ export function ValuationWorkspace() {
                 Back
               </button>
 
-              {/* An ineligible device can never satisfy Continue, so the step
-                  would be a dead end. The ledger already explains why and
-                  offers recycling and Seven — send them there instead. */}
               {ineligible ? (
                 <button
                   type="button"
@@ -664,7 +584,6 @@ export function ValuationWorkspace() {
           </div>
         )}
 
-        {/* submitted outcome — still an estimate, never a confirmed figure */}
         {a.locked && !ineligible && (
           <div className="t-outcome" ref={outcomeRef}>
             <div className="t-outcome__h">
@@ -695,8 +614,6 @@ export function ValuationWorkspace() {
                     the evidence and email it to {a.email || "you"} — usually within 24 hours.
                   </p>
                 </div>
-                {/* 02 is the fallback for 01, not a parallel choice — the copy
-                    has to read as "if that doesn't happen, then this does". */}
                 <div className="t-path">
                   <span className="t-path__n">02</span>
                   <div className="t-path__t">If they can’t, we’ll ask you to come in</div>
@@ -708,7 +625,6 @@ export function ValuationWorkspace() {
                 </div>
               </div>
 
-              {/* ------------------------------------------- option A · the trade */}
               <div className="t-trade">
                 <div className="t-trade__h">
                   <span className="t-label">Option A · how trade-in works</span>
@@ -766,10 +682,6 @@ export function ValuationWorkspace() {
                           )} depending on where the team confirms your estimate. Nothing is owed until you agree the final figure.`}
                     </p>
                     <div className="t-calc__act">
-                      {/* outline, not fill — a fill button is ink-on-ink here.
-                          onDark: .t-calc's ground is var(--ink), and an outline
-                          ButtonV2 is drawn for a light ground by default — every
-                          part (label, hairline, tile) would vanish without it. */}
                       <ButtonV2
                         label={`Reserve the ${upgrade.name}`}
                         variant="outline"
@@ -785,7 +697,6 @@ export function ValuationWorkspace() {
                 )}
               </div>
 
-              {/* ------------------------------------- option B · the quiet corner */}
               <div className="t-altb">
                 <div>
                   <span className="t-label">Option B</span>
@@ -810,7 +721,6 @@ export function ValuationWorkspace() {
         )}
       </div>
 
-      {/* ------------------------------------------------------------- ledger */}
       <aside className="t-ledger" aria-label="Live valuation" ref={ledgerRef}>
         <div className="t-rcpt" data-live={!!model && !a.locked}>
           <div className="t-rcpt__h">
@@ -832,9 +742,6 @@ export function ValuationWorkspace() {
             </div>
           </div>
 
-          {/* On a phone the ledger's job is the figure; the line-by-line
-              breakdown is the proof, on demand. Open by default on desktop,
-              where there is room for the whole argument at once. */}
           <button
             type="button"
             className="t-lines__toggle"
@@ -854,7 +761,6 @@ export function ValuationWorkspace() {
           <div className="t-lines" id="t-lines-body" data-open={linesOpen}>
             {v.lines.length === 0 ? (
               <>
-                {/* ghost rows: the card holds its shape before the first answer */}
                 {GHOST_ROWS.map(([k, val], i) => (
                   <div className="t-ghost" key={i} aria-hidden="true">
                     <span className="t-ghost__k" style={{ width: k }} />
@@ -881,10 +787,8 @@ export function ValuationWorkspace() {
           <div className={`t-total${ineligible ? " void" : ""}`} aria-live="polite">
             <div className="t-total__row">
               <span className="t-total__l">Estimated value</span>
-              {/* the chip never changes — this figure is only ever an estimate */}
               {!ineligible && <span className="t-total__chip">Estimate</span>}
             </div>
-            {/* keyed on the figure so each rebuild replays the settle animation */}
             <div className="t-total__fig" key={figure} data-range={isRange}>
               {figure}
             </div>
@@ -902,7 +806,6 @@ export function ValuationWorkspace() {
           {!ineligible && !a.locked && (
             <div className="t-rcpt__act">
               {canLock ? (
-                /* onDark: .t-rcpt__act's ground is var(--ink) too. */
                 <ButtonV2
                   label={checking ? "Running eligibility check…" : "Submit my estimate"}
                   variant="outline"

@@ -3,19 +3,12 @@ import { Annotation } from "@/components/wireframe/Primitives";
 import { FONT, stripe, stripeDark } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
-/**
- * Shared building blocks for the inner pages. Every sub-page in the design is
- * assembled from the same vocabulary — page hero, stat bar, titled section,
- * icon-card row, media panel, dark feature panel — so they live here once.
- */
-
 export const PAGE_SECTION: CSSProperties = {
   maxWidth: 1320,
   margin: "0 auto",
   padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0",
 };
 
-/** Page hero: overline + big heading on the left, intro + CTAs on the right. */
 export function PageHero({
   overline,
   title,
@@ -112,7 +105,6 @@ export function PageHero({
   );
 }
 
-/** Four-up stat bar, open at both ends. */
 export function StatBar({ stats }: { stats: { n: string; label: string }[] }) {
   return (
     <section className="m7-wrap m7-top-sm">
@@ -154,7 +146,6 @@ export function StatBar({ stats }: { stats: { n: string; label: string }[] }) {
   );
 }
 
-/** A titled page section: `// Overline` + heading, then arbitrary content. */
 export function PageSection({
   overline,
   title,
@@ -202,7 +193,6 @@ export function PageSection({
   );
 }
 
-/** Card with a line-art arrow glyph, title, Space Mono accent line and copy. */
 export function IconCard({
   title,
   accent,
@@ -272,7 +262,6 @@ export function IconCard({
   );
 }
 
-/** Striped media panel with a `▣ LABEL` and an optional annotation pill. */
 export function MediaPanel({
   label,
   height = 440,
@@ -326,7 +315,6 @@ export function MediaPanel({
   );
 }
 
-/** Dark striped feature panel — copy on the left, a stat/asset card on the right. */
 export function DarkPanel({
   overline,
   title,
@@ -419,7 +407,6 @@ export function DarkPanel({
   );
 }
 
-/** The glass stat tile used inside `DarkPanel`. */
 export function DarkStat({ n, label }: { n: string; label: string }) {
   return (
     <div

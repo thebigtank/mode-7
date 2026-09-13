@@ -29,11 +29,9 @@ const pricing = [
   },
 ];
 
-/** Never call this the "swap engine" — it is the Intelligent Trade-In Portal. */
 export default function TradeInPage() {
   return (
     <div className="tradein-page">
-      {/* ------------------------------------------------------------- hero */}
       <section className="t-wrap t-hero">
         <div className="max-w-[62ch]">
           <Mono dot style={{ marginBottom: 16 }}>
@@ -57,7 +55,6 @@ export default function TradeInPage() {
         </div>
       </section>
 
-      {/* -------------------------------------------- the one valuation surface */}
       <section className="t-wrap t-band t-band--valuation" id="value-your-device">
         <Mono dot style={{ marginBottom: 14 }}>
           Value your device
@@ -68,7 +65,6 @@ export default function TradeInPage() {
         <ValuationWorkspace />
       </section>
 
-      {/* -------------------------------------------------------- how we price */}
       <section className="t-band t-band--wash">
         <div className="t-wrap">
           <Mono dot style={{ marginBottom: 14 }}>
@@ -89,7 +85,6 @@ export default function TradeInPage() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------- guarantee / faq */}
       <section className="t-band t-band--ink">
         <div className="t-wrap">
           <Mono dot color={V2.faint} style={{ marginBottom: 16 }}>

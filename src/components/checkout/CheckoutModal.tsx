@@ -13,17 +13,6 @@ import {
 } from "@/lib/contact";
 import { COLOR, FONT } from "@/lib/theme";
 
-/**
- * Checkout on WhatsApp.
- *
- * There is no card form and no backend — an agent takes the order from here —
- * but they still need to know who you are and where the bag is going. So the
- * button opens a short KYC form, and only once that is filled does it hand off
- * to the confirmation page.
- *
- * Details travel in sessionStorage rather than the URL; see `@/lib/contact`.
- */
-
 const HINTS: Record<CheckoutField, string> = {
   firstName: "Please enter your first name.",
   lastName: "Please enter your last name.",
@@ -104,7 +93,6 @@ function Field({
       ) : (
         <input {...shared} type={type} />
       )}
-      {/* reserves its line so nothing reflows when an error appears */}
       <div
         style={{
           minHeight: 15,
@@ -137,7 +125,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    // Lenis drives the page itself, so overflow:hidden alone doesn't hold it
     lockPageScroll();
     document.addEventListener("keydown", onKey);
     return () => {
@@ -153,7 +140,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
     setAttempted(true);
     if (!ok || submitting) return;
     setSubmitting(true);
-    // Ref is stamped here, in the handler — never during render.
     saveCheckout({ ...d, ref: makeOrderRef() });
     router.push("/checkout");
   }
@@ -311,7 +297,6 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
             />
           </div>
 
-          {/* only after a blocked submit — never pre-emptively */}
           {attempted && !ok && (
             <div
               style={{
@@ -371,14 +356,11 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-/** The cart's checkout CTA, styled to match ArrowButton's dark treatment. */
 export function CheckoutButton() {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* a real <button>, not a styled span — it has to be reachable by
-          keyboard, and the trap needs something to hand focus back to */}
       <button
         type="button"
         onClick={() => setOpen(true)}

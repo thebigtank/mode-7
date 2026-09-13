@@ -24,22 +24,6 @@ type ScrollyBlock = {
   paras: Para[];
 };
 
-/**
- * Centre-anchored scrollytelling crossfade. One pinned ScrollTrigger pins the
- * wrapper and scrubs a single 100-unit master timeline through the sequence.
- * The four text blocks are overlaid (absolute, inset 0) in the right column
- * and never travel: each fades in at the vertical centre (blur 12→0,
- * opacity 0→1, translateY 16→0), holds crisp, then drifts up a few pixels and
- * fades out (blur 0→12, opacity 1→0, translateY 0→-16) while the next block
- * fades in from that same middle area. Block 3's fade-out ends exactly at pin
- * release. The left column's caption follows whichever block is dominant,
- * flipped at each crossfade midpoint.
- *
- * Falls back to a plain stacked layout (all blocks at full opacity) on narrow
- * screens. Under `prefers-reduced-motion` the scrolly keeps its pin and
- * caption tracking but drops blur + translate, leaving a plain opacity
- * cross-fade — the same DOM, restyled.
- */
 const BLOCKS: ScrollyBlock[] = [
   {
     n: "01",
@@ -103,11 +87,6 @@ const BLOCKS: ScrollyBlock[] = [
   },
 ];
 
-/**
- * SSR-safe media query. `getServerSnapshot` returns false so hydration never
- * mismatches; the store re-checks on the client right after mount and again on
- * change, and the GSAP effect re-runs when `stacked` flips.
- */
 function useMediaQuery(query: string) {
   const subscribe = useCallback(
     (onStoreChange: () => void) => {
@@ -132,9 +111,6 @@ export function EnergyScrolly() {
 
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const narrow = useMediaQuery("(max-width: 900px)");
-  // Narrow screens fully stack. Reduced-motion keeps the scrolly itself (the
-  // pin, nearest-centre tracking, caption swaps) but swaps the blur/slide
-  // reveal for a plain opacity cross-fade.
   const stacked = narrow;
   const fadeOnly = reducedMotion;
 
@@ -145,17 +121,6 @@ export function EnergyScrolly() {
     if (!section || !col) return;
     const blocks = blockRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    /**
-     * Centre-anchored crossfade. The four blocks are overlaid (absolute,
-     * inset 0) in the right column and never travel. One pinned ScrollTrigger
-     * scrubs a single 100-unit master timeline through the whole sequence;
-     * each block's enter → hold → exit windows sit along it so every fade
-     * happens around the vertical centre with a small ±16px drift. Adjacent
-     * enter/exit share a window (a crossfade), and block 3's exit ends exactly
-     * at pin release. The left caption flips at each crossfade midpoint
-     * (t = 27/50/73); the callback reads the last scroll direction so it
-     * resolves correctly when scrubbing backward too.
-     */
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -181,13 +146,6 @@ export function EnergyScrolly() {
       const inEase = fadeOnly ? "power1.out" : "power2.out";
       const outEase = fadeOnly ? "power1.in" : "power2.in";
 
-      // Timeline windows (0–100): enter starts at w.enter, exit starts at
-      // w.exit, hold is the gap between them. Windows are shared so each exit
-      // crossfades with the next block's enter:
-      //   0: enter [0,10]  hold [10,22]  exit [22,32]
-      //   1: enter [22,32] hold [32,45]  exit [45,55]
-      //   2: enter [45,55] hold [55,68]  exit [68,78]
-      //   3: enter [68,78] hold [78,90]  exit [90,100]
       const WINDOWS = [
         { enter: 0, exit: 22 },
         { enter: 22, exit: 45 },
@@ -209,9 +167,6 @@ export function EnergyScrolly() {
         tl.to(el, { ...EXIT_TO, ease: outEase, duration: 10 }, w.exit);
       });
 
-      // Caption follows the dominant block. Each call fires when the scrubbed
-      // playhead crosses a crossfade midpoint in either direction, so pick the
-      // block that is becoming dominant from the last scroll direction.
       const flipCaption = (i: number) => {
         const dir = tl.scrollTrigger?.direction ?? 1;
         setActiveIndex(dir >= 0 ? i + 1 : i);
@@ -221,7 +176,6 @@ export function EnergyScrolly() {
       tl.call(() => flipCaption(2), [], 73);
     }, section);
 
-    // Re-measure once late-loading fonts/layout have settled.
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoad);
     ScrollTrigger.refresh();
@@ -261,7 +215,6 @@ export function EnergyScrolly() {
           overflow: stacked ? "visible" : "hidden",
         }}
       >
-        {/* left — static wireframe visual with the dynamic caption overlay */}
         <div
           style={{
             position: "relative",
@@ -285,7 +238,6 @@ export function EnergyScrolly() {
                 IMAGE — ENERGY FLOW
               </Annotation>
             )}
-            {/* keyed remount replays the fade on every caption swap */}
             <div
               key={activeIndex}
               className="m7-scrolly-caption"
@@ -309,7 +261,6 @@ export function EnergyScrolly() {
           </Placeholder>
         </div>
 
-        {/* right — the four overlaid blocks (centre-anchored crossfade) */}
         <div
           ref={colRef}
           style={{
@@ -332,10 +283,6 @@ export function EnergyScrolly() {
                 blockRefs.current[i] = el;
               }}
               style={{
-                // Scrolly mode: all four blocks are overlaid on the right
-                // column (absolute, inset 0), each flex-centred so its text
-                // sits at the vertical middle; the crossfade is driven by the
-                // master timeline. Stacked mode stays in normal flow.
                 position: stacked ? undefined : "absolute",
                 inset: stacked ? undefined : 0,
                 minHeight: stacked ? "auto" : undefined,
@@ -347,9 +294,6 @@ export function EnergyScrolly() {
                   ? "clamp(28px, 4vh, 44px) clamp(20px, 5vw, 48px)"
                   : "clamp(40px, 6vh, 72px) clamp(20px, 5vw, 48px)",
                 borderTop: stacked && i > 0 ? "1px solid #ececec" : undefined,
-                // No pre-JS flash: every scrolly block starts hidden at the
-                // centre; the master timeline clears it as the user scrolls.
-                // Stacked mode is always fully visible.
                 opacity: stacked ? 1 : 0,
                 filter: stacked || fadeOnly ? "none" : "blur(12px)",
                 transform:

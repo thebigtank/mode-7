@@ -6,15 +6,6 @@ import { BagIcon, SearchIcon } from "@/components/Icons";
 import { useHeaderHide } from "@/hooks/useHeaderHide";
 import { COLOR, FONT } from "@/lib/theme";
 
-/**
- * Global nav. MODE 7 wordmark on the left; on the right ONLY search, the live
- * shopping bag (with its dark count badge) and the hamburger — no nav links, no
- * circle borders on any icon.
- *
- * Sticky and hide-on-scroll (see `useHeaderHide`). When the mega menu opens the
- * header is pinned `fixed` so it stays put above the curtain, and search + bag
- * are hidden so only the hamburger — morphed into an X — remains.
- */
 export function Header({
   menuOpen,
   onToggleMenu,
@@ -31,7 +22,6 @@ export function Header({
   const ref = useRef<HTMLElement>(null);
   const [hamHover, setHamHover] = useState(false);
 
-  // While the menu is open the header is pinned; hide-on-scroll would fight it.
   useHeaderHide(ref, !menuOpen);
 
   const hamUp = menuOpen
@@ -54,9 +44,6 @@ export function Header({
         left: menuOpen ? 0 : undefined,
         right: menuOpen ? 0 : undefined,
         zIndex: 250,
-        /* Translucent cream, not translucent white — the header floats over the
-           rust hero, and a white veil there read as a wash rather than as the
-           page's own ground continuing. */
         background: "rgba(239,230,209,0.9)",
         color: COLOR.ink,
         backdropFilter: "blur(12px)",
@@ -143,9 +130,6 @@ export function Header({
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      /* rust: the page's action colour, and the one badge on the
-                         page. cream on rust is 4.85:1. Ringed in cream so it
-                         separates from the bag icon behind it. */
                       background: COLOR.rust,
                       color: COLOR.cream,
                       border: `1.5px solid ${COLOR.cream}`,
@@ -163,7 +147,6 @@ export function Header({
             </>
           )}
 
-          {/* hamburger — two thin bars that morph into an X */}
           <span
             onClick={onToggleMenu}
             onMouseEnter={() => setHamHover(true)}

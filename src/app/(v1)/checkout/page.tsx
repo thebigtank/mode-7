@@ -9,12 +9,6 @@ export const metadata: Metadata = {
     "Your order has been routed to a Mode 7 agent, who will reach out on WhatsApp to confirm stock, payment and delivery.",
 };
 
-/**
- * The WhatsApp handoff confirmation.
- *
- * A thin server shell so the route keeps its metadata; everything that depends
- * on the details submitted at checkout lives in the client component.
- */
 export default function CheckoutPage() {
   return (
     <>

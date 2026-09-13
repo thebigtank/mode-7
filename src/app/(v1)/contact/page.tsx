@@ -70,7 +70,6 @@ const input = {
   outline: "none",
 };
 
-/** Static wireframe field — the form is presentational, not wired to a backend. */
 function Field({
   name,
   children,
@@ -98,7 +97,6 @@ function Field({
 export default function ContactPage() {
   return (
     <>
-      {/* hero */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(35px, 4.6vw, 64px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"
@@ -156,7 +154,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* lanes */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(38px, 5.0vw, 70px) var(--m7-pad) 0" }}>
         <div
           style={{
@@ -234,7 +231,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* form + side panels */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(53px, 6.9vw, 96px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"
@@ -426,7 +422,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* stores */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(53px, 6.9vw, 96px) var(--m7-pad) 0" }}>
         <div
           style={{

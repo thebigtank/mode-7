@@ -13,25 +13,6 @@ import { searchIndex } from "@/lib/content";
 import { COLOR, FONT } from "@/lib/theme";
 import { V2, V2_FONT } from "@/lib/theme-v2";
 
-/**
- * One search, available everywhere (`SiteShell` mounts it once for every
- * route — see its render). `variant` is the only fork: it repaints this same
- * component for the palette of the surface it's opened on, so v2 routes don't
- * need — and must never grow — a second search implementation. Reading `V2`
- * here is the mirror image of the "v2 must not import COLOR from
- * `@/lib/theme`" rule in CLAUDE.md, not a violation of it: that rule keeps
- * v2's OWN components off the v1 palette; this is a shared component
- * deliberately painting itself on request, and the v1 look (`variant`
- * defaulting to `"v1"`) is byte-for-byte what shipped before v2 existed.
- *
- * The three CSS custom properties in `cssVars` below exist because two
- * `:hover` rules in `globals.css` (`.m7-search-result:hover`,
- * `.m7-search-close:hover`) read `var(--m7-cream)` / `var(--m7-ink)` rather
- * than a literal colour. Overriding those custom properties on this
- * component's own root scopes the override to this subtree only — the global
- * `:root` values that v1 pages rely on elsewhere are untouched — and it means
- * the v2 palette reaches those two hover rules without forking them.
- */
 type Variant = "v1" | "v2";
 
 const THEME: Record<
@@ -66,16 +47,11 @@ const THEME: Record<
     } as CSSProperties,
   },
   v2: {
-    // wash, at v1's backdrop alpha (0.62 read a touch heavy on the cooler
-    // palette next to washSoft's own tone, so eased to 0.7 by eye).
     backdrop: "rgba(230,234,230,0.7)",
     panelBg: V2.white,
     border: "1px solid rgba(23,29,29,0.14)", // V2_HAIR's own value
     ink: V2.ink,
     muted: V2.muted,
-    // no v2 token targets small decorative text on a light ground the way
-    // `hair` does for v1 (`accentText` is gold-derived and reads as a link,
-    // not a neutral count) — `muted` is the closest AA-safe stand-in.
     faintLabel: V2.muted,
     resultBadgeBg: V2.washSoft,
     fontBody: V2_FONT.body,
@@ -88,7 +64,6 @@ const THEME: Record<
   },
 };
 
-/** Highlights the matched run inside a result label. */
 function mark(label: string, q: string, inkColor: string): ReactNode {
   if (!q) return label;
   const i = label.toLowerCase().indexOf(q);
@@ -104,15 +79,6 @@ function mark(label: string, q: string, inkColor: string): ReactNode {
   );
 }
 
-/**
- * Search overlay. Blur-backdrop panel that drops in from above with a slight
- * scale + blur settle; suggestions stagger in underneath. Escape (from
- * anywhere inside the overlay — the listener is on `document`, not the input,
- * so it still fires with focus on the close button or a result row) or a
- * click on the backdrop closes it. Focus moves to the input on open and
- * returns to whatever triggered the overlay on close, so a keyboard user
- * never loses their place.
- */
 export function SearchOverlay({
   closing,
   onClose,
@@ -126,9 +92,6 @@ export function SearchOverlay({
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus the input on open; on unmount (the overlay only unmounts once the
-  // close animation finishes — see SiteShell), hand focus back to whatever
-  // had it before the overlay opened, typically the trigger icon.
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const openTimer = setTimeout(() => inputRef.current?.focus(), 80);
@@ -138,8 +101,6 @@ export function SearchOverlay({
     };
   }, []);
 
-  // Document-level, not input-level: Escape must dismiss the overlay no
-  // matter which element inside it currently holds focus.
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -187,7 +148,6 @@ export function SearchOverlay({
             : "m7searchPanel .55s cubic-bezier(.16,1,.3,1) both",
         }}
       >
-        {/* input bar */}
         <div
           style={{
             display: "flex",
@@ -247,7 +207,6 @@ export function SearchOverlay({
           </button>
         </div>
 
-        {/* suggestions */}
         <div
           style={{
             marginTop: 14,

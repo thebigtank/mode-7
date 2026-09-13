@@ -54,7 +54,6 @@ export default function SmartHomePage() {
         }
       />
 
-      {/* full-bleed lifestyle image */}
       <div style={{ padding: "44px 26px 0" }}>
         <div
           style={{
@@ -94,7 +93,6 @@ export default function SmartHomePage() {
         <CategoryShowcase />
       </PageSection>
 
-      {/* best sellers */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div
           style={{
@@ -149,7 +147,6 @@ export default function SmartHomePage() {
         </div>
       </section>
 
-      {/* works together */}
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(55px, 7.1vw, 100px) var(--m7-pad) 0" }}>
         <div
           className="m7-grid-2"

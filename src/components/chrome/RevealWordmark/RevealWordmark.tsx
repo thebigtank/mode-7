@@ -5,14 +5,6 @@ import { useFooterWordmark } from "@/hooks/useFooterWordmark";
 import { legalLinks } from "@/lib/content";
 import { COLOR, FONT, containerPad } from "@/lib/theme";
 
-/**
- * The sticky-reveal layer that lives BEHIND the page (z-0, fixed to the bottom).
- * All page content sits in an opaque white wrapper that slides up over this, and
- * a 20vw-ish spacer after the wrapper uncovers it at full scroll.
- *
- * The wordmark is two stacked layers: a blur(13px) base plus a sharp copy masked
- * by a small radial spotlight that follows the cursor.
- */
 export function RevealWordmark() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
@@ -42,8 +34,6 @@ export function RevealWordmark() {
         alignItems: "stretch",
       }}
     >
-      {/* Hidden below 900px — the footer states the wordmark directly there
-          instead. The legal row underneath stays on every size. */}
       <div
         className="m7-reveal-mark"
         style={{

@@ -22,7 +22,6 @@ const specs: [string, string][] = [
   ["Warranty", "2 years"],
 ];
 
-/** Pulled from the shared catalogue so prices can't drift from the shop grid. */
 const related = ["studio-headphones", "smart-hub", "pro-tablet", "home-battery"]
   .map((id) => PRODUCTS.find((p) => p.id === id))
   .filter((p) => p !== undefined)
@@ -39,7 +38,6 @@ const optionLabel = {
   marginBottom: 12,
 };
 
-/** Selectable chip. `on` renders the filled (selected) state. */
 function Option({ label, on }: { label: string; on?: boolean }) {
   return (
     <div
@@ -107,7 +105,6 @@ export default function ProductPage() {
             alignItems: "start",
           }}
         >
-          {/* gallery */}
           <div
             style={{
               display: "flex",
@@ -164,7 +161,6 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* buy box */}
           <div className="m7-buybox" style={{ position: "sticky", top: 100 }}>
             <div
               style={{
@@ -219,8 +215,6 @@ export default function ProductPage() {
 
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <ArrowButton label="Add to Cart" variant="fill" href="/cart" />
-              {/* Not an alternative to buying — it's how you lower this price.
-                  Deep-links straight to the valuation, not the trade-in hero. */}
               <ArrowButton
                 label="Trade in toward this"
                 variant="outline"
@@ -259,7 +253,6 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* overview + specs */}
       <section className="m7-wrap m7-top-lg">
         <div
           className="m7-grid-2"
@@ -339,7 +332,6 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* related */}
       <section className="m7-wrap m7-top-lg">
         <div
           style={{

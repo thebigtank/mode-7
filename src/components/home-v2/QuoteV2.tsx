@@ -3,25 +3,6 @@ import { V2, V2_FONT } from "@/lib/theme-v2";
 import { Band } from "@/components/ui/Band";
 import { Mono } from "@/components/ui/Mono";
 
-/**
- * Section 6 — the reference's dark testimonial band: a dotted mono eyebrow, an
- * oversized serif pull-quote, and an attribution row on the left; a square
- * image on the right.
- *
- * Measured against `06-quote.png` at 1440: 64px of band padding, a 516px
- * square in the right column with a 204px gutter, the eyebrow 97px below the
- * band top, the quote at 40/48 wrapping inside 560px, and the attribution
- * ~80px under the last line, separated from the trailing mark by a vertical
- * hairline.
- *
- * Mode 7 content: `testimonials[0]` (quote, name, role) verbatim,
- * `/hero/av-1.webp` for the portrait chip and `/hero/customer.webp` for the
- * square. The reference puts a client logo after the divider; Mode 7's
- * testimonials are from individuals, not brands, so the chip is the person's
- * portrait and nothing brand-shaped is invented to fill the slot.
- *
- * No metrics appear here — Mode 7 publishes none.
- */
 export function QuoteV2() {
   const t = testimonials[0];
 

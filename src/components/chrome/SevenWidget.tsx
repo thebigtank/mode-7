@@ -5,17 +5,6 @@ import { ChevronDownIcon, SendIcon } from "@/components/Icons";
 import { useSevenEyes } from "@/hooks/useSevenEyes";
 import { COLOR, FONT } from "@/lib/theme";
 
-/**
- * The ever-present floating Seven AI chat widget (fixed bottom-right).
- *
- * Closed it is a perfect black circle holding a small white circle; on hover it
- * expands into a stadium pill with the avatar on the LEFT and "Ask Seven AI"
- * filling in on the RIGHT (a `max-width` transition). Click opens the panel;
- * closing resets the hover state so the pill re-collapses.
- *
- * The avatar canvases carry `data-eq` — `useSevenEyes` draws the blinking,
- * cursor-tracking eyes into every one of them from a single rAF loop.
- */
 export function SevenWidget({ hidden }: { hidden: boolean }) {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -26,7 +15,6 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
 
   useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
 
-  // Opening the menu or search dismisses the widget.
   useEffect(() => {
     if (hidden && open) {
       setOpen(false);
@@ -69,7 +57,6 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
       {visible ? (
         <div
           style={{
-            /* 344 + the 28px offset overflowed a 360px phone */
             width: "min(344px, calc(100vw - 24px))",
             background: COLOR.card,
             border: `1px solid ${COLOR.lineStrong}`,
@@ -217,8 +204,6 @@ export function SevenWidget({ hidden }: { hidden: boolean }) {
           style={{
             display: "flex",
             alignItems: "center",
-            /* the site's one dark surface — same as the footer and the ink
-               ArrowButton, so no two dark things disagree */
             background: COLOR.dark,
             color: COLOR.card,
             borderRadius: 999,

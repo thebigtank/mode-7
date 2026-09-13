@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-// Import order IS the cascade order -- see the note in (v2)/layout.tsx.
 import "../scss/base.scss";
 import "../legacy.css";
 import "../scss/main.scss";

@@ -1,11 +1,6 @@
 import Link from "next/link";
 import { FONT, stripe } from "@/lib/theme";
 
-/**
- * Catalogue cards shared by Shop, Smart Home and Green Energy: a striped
- * placeholder with a `▣ LABEL`, then a name/price or name/sub row.
- */
-
 export function CategoryCard({
   label,
   sub,

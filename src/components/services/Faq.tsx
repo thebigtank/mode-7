@@ -7,24 +7,6 @@ import { PlusToggle } from "@/components/ui/PlusToggle";
 import { faqData } from "@/lib/faq";
 import { V2, V2_FONT, V2_HAIR } from "@/lib/theme-v2";
 
-/**
- * FAQ, by category. A sticky topic list on the left drives the question set on
- * the right; each question expands with a `grid-template-rows: 0fr → 1fr`
- * transition (which animates height without hard-coding one) and its `+` icon
- * rotates into an `×`.
- *
- * Re-tokened for `/services`'s v2 port: the "// Questions" eyebrow now renders
- * through the shared `Mono` component and the answer copy through `P` —
- * both from `@/components/ui/Mono` and `@/components/ui/P` — rather than local FONT-styled markup.
- *
- * The circular plus/cross indicator is `PlusToggle`, also from
- * `@/components/ui/PlusToggle` — shared with `/trade-in`'s `TradeInFaq.tsx`
- * rather than each page drawing its own icon, so the ring/stroke/rotation
- * are defined once. The question toggle is now a real `<button
- * aria-expanded>` too (it was a `<div onClick>` with no keyboard support or
- * exposed state before this pass — fixed here rather than left standing
- * while only the icon changed).
- */
 export function Faq() {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<Record<string, boolean>>({});

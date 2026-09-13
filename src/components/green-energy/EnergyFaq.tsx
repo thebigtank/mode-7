@@ -4,10 +4,6 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@/components/Icons";
 import { FONT } from "@/lib/theme";
 
-/**
- * Green Energy FAQ accordion. The first item is open by default, matching the
- * wireframe. Answers restate facts already stated elsewhere on the page.
- */
 const items = [
   {
     q: "Is my roof suitable for solar?",

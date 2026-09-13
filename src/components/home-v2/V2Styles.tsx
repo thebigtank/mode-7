@@ -1,31 +1,3 @@
-/**
- * Media queries and grid rules for `/homepage-v2`.
- *
- * Inline styles cannot express breakpoints, and `globals.css` is a v1 file this
- * exploration must not touch — so every v2 responsive rule lives here, in a
- * scoped <style> rendered once by the v2 page. All selectors are namespaced
- * `.v2-` and appear nowhere in v1.
- *
- * The column ratios are measured off the reference at 1440px, where the
- * container is 1280px wide (80px page margins):
- *   hero     left 710 / gap  80 / right 490   -> 1.45fr 1fr, gap 80
- *   stats    left 560 / gap 160 / right 560   -> 1fr 1fr, gap 160
- *   why      left 544 / gap 58  / right 678   -> 1fr 1.25fr
- *   quote    left 560 / gap 204 / right 516   -> 1fr 0.92fr, gap 204
- *
- * The HERO is the one row that no longer matches the reference's own split, and
- * deliberately so. The reference gave the TEXT the narrow column (558) and the
- * still the wide one (642); at display scale that set the h1 on FOUR lines. The
- * two columns are swapped — text 1.45fr, still 1fr — and the gutter set to 80px,
- * so the text column gets 710px and the still a 490x276 16:9 frame at 1440. The
- * headline is three lines, and 710px is what sets the size they can be: line 1
- * at its RESERVED slot width is the widest of the three. See `.v2-hero-h1`
- * below for the measured fit.
- *
- * Two breakpoints throughout: ~980px collapses multi-column layouts to one (or
- * three to two), ~640px collapses whatever is left. The hero headline resizes
- * at the 980px one, where its column stops being 49vw and becomes ~90vw.
- */
 const CSS = `
 .v2-hero-cols  { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:clamp(32px,5.6vw,80px); align-items:center; }
 .v2-stats-cols { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,11vw,160px); align-items:start; }

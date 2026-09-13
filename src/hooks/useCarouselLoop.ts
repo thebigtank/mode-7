@@ -2,14 +2,6 @@
 
 import { useCallback, useEffect, useState, type RefObject } from "react";
 
-/**
- * Seamless looping carousel. Ported from `setupLoop(ref, trackProgress)` +
- * `step(ref, dir)`.
- *
- * The list is rendered three times; the scroller starts in the middle copy and
- * silently re-centres whenever it crosses a copy boundary, so the loop never
- * shows a seam. `trackProgress` drives the testimonials progress bar.
- */
 export function useCarouselLoop(
   ref: RefObject<HTMLElement | null>,
   trackProgress = false,
@@ -20,17 +12,17 @@ export function useCarouselLoop(
     const el = ref.current;
     if (!el) return;
 
-    const copyWidth = () => el.scrollWidth / 3; // three identical copies
+    const copyWidth = () => el.scrollWidth / 3;
 
     const raf = requestAnimationFrame(() => {
-      el.scrollLeft = copyWidth(); // start in the middle copy
+      el.scrollLeft = copyWidth();
     });
 
     const onScroll = () => {
       const w = copyWidth();
       if (w <= 0) return;
-      if (el.scrollLeft >= w * 2) el.scrollLeft -= w; // wrap forward
-      else if (el.scrollLeft <= 0) el.scrollLeft += w; // wrap backward
+      if (el.scrollLeft >= w * 2) el.scrollLeft -= w;
+      else if (el.scrollLeft <= 0) el.scrollLeft += w;
       if (trackProgress) setProgress((el.scrollLeft % w) / w);
     };
 
