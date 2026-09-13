@@ -4,39 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@/components/Icons";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { lockPageScroll, unlockPageScroll } from "@/hooks/useLenis";
-import { PRICE_BANDS } from "@/lib/catalogue";
+import content from "@/content/shop.json";
 
-type Group = { title: string; options: string[]; openByDefault?: boolean };
+type Group = { title: string; options: string[]; openByDefault: boolean };
 
-const GROUPS: Group[] = [
-  {
-    title: "Category",
-    openByDefault: true,
-    options: [
-      "Phones",
-      "Laptops",
-      "Tablets",
-      "Smart Home & Automation",
-      "Solar & Green Energy",
-      "Home Battery & Inverters",
-      "Audio",
-      "Wearables",
-      "Accessories",
-    ],
-  },
-  { title: "Price", openByDefault: true, options: PRICE_BANDS },
-  { title: "Condition", options: ["New — sealed", "Certified Refurbished", "Open Box"] },
-  {
-    title: "Brand",
-    options: ["Apple", "Samsung", "Google", "Sony", "Bose", "Anker", "Hikvision"],
-  },
-  { title: "Availability", options: ["In stock", "Installed by Mode 7", "Pre-order"] },
-];
+const DRAWER_QUERY = "(max-width: 56.25rem)";
 
-const DRAWER_QUERY = "(max-width: 900px)";
+const GROUPS: Group[] = content.filters.groups;
 
 function FilterGroup({ title, options, openByDefault }: Group) {
-  const [open, setOpen] = useState(!!openByDefault);
+  const [open, setOpen] = useState(openByDefault);
 
   return (
     <div className="filter-group">
@@ -44,21 +21,27 @@ function FilterGroup({ title, options, openByDefault }: Group) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="filter-group__toggle"
+        className="filter-group__toggle flex items-center justify-between text-left uppercase cursor-pointer"
       >
         {title}
-        <span className="filter-group__toggle-icon" data-open={open || undefined}>
+        <span
+          className="filter-group__toggle-icon inline-flex"
+          data-open={open || undefined}
+        >
           <ChevronDownIcon size={15} />
         </span>
       </button>
 
-      <div className="filter-group__panel" data-open={open || undefined}>
-        <div className="filter-group__panel-inner">
-          <div className="filter-group__options">
+      <div className="filter-group__panel grid" data-open={open || undefined}>
+        <div className="overflow-hidden">
+          <div className="filter-group__options flex flex-col">
             {options.map((o, i) => (
-              <label key={o} className="filter-group__option">
+              <label
+                key={o}
+                className="filter-group__option flex items-center cursor-pointer"
+              >
                 <span
-                  className="filter-group__option-box"
+                  className="filter-group__option-box shrink-0"
                   data-checked={i === 0 || undefined}
                 />
                 {o}
@@ -111,12 +94,15 @@ export function ShopFilters() {
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <span className="shop-filters__toggle-icon" aria-hidden="true">
+        <span
+          className="shop-filters__toggle-icon inline-flex flex-col"
+          aria-hidden="true"
+        >
           <span />
           <span />
           <span />
         </span>
-        Filters
+        {content.filters.toggleLabel}
       </button>
 
       <div
@@ -133,15 +119,17 @@ export function ShopFilters() {
         tabIndex={-1}
         role={isDrawer ? "dialog" : undefined}
         aria-modal={isDrawer && open ? true : undefined}
-        aria-label={isDrawer ? "Filters" : undefined}
+        aria-label={isDrawer ? content.filters.headTitle : undefined}
       >
         <div className="m7-filters__head">
-          <span className="shop-filters__head-title">Filters</span>
+          <span className="shop-filters__head-title">
+            {content.filters.headTitle}
+          </span>
           <button
             type="button"
             className="m7-filters__close"
             onClick={() => setOpen(false)}
-            aria-label="Close filters"
+            aria-label={content.filters.closeLabel}
           >
             ×
           </button>
@@ -159,7 +147,7 @@ export function ShopFilters() {
             className="m7-filters__apply"
             onClick={() => setOpen(false)}
           >
-            Show results
+            {content.filters.applyLabel}
           </button>
         </div>
       </div>

@@ -1,0 +1,73 @@
+{
+  "browse": {
+    "countPrefix": "Showing",
+    "countValue": "48",
+    "countSuffix": "products",
+    "sortLabel": "Sort",
+    "sortValue": "Featured",
+    "pages": ["1", "2", "3", "4", "→"],
+    "filterNote": "LIVE FILTER + SORT — GRID UPDATES",
+    "aiNote": "ASK SEVEN — AI PRODUCT BRIEF ON EVERY CARD"
+  },
+  "filters": {
+    "toggleLabel": "Filters",
+    "headTitle": "Filters",
+    "closeLabel": "Close filters",
+    "applyLabel": "Show results",
+    "groups": [
+      {
+        "title": "Category",
+        "openByDefault": true,
+        "options": [
+          "Phones",
+          "Laptops",
+          "Tablets",
+          "Smart Home & Automation",
+          "Solar & Green Energy",
+          "Home Battery & Inverters",
+          "Audio",
+          "Wearables",
+          "Accessories"
+        ]
+      },
+      {
+        "title": "Price",
+        "openByDefault": true,
+        "options": [
+          "Under ₦500,000",
+          "₦500,000 – ₦1,500,000",
+          "₦1,500,000 – ₦3,000,000",
+          "Over ₦3,000,000"
+        ]
+      },
+      {
+        "title": "Condition",
+        "openByDefault": false,
+        "options": ["New — sealed", "Certified Refurbished", "Open Box"]
+      },
+      {
+        "title": "Brand",
+        "openByDefault": false,
+        "options": ["Apple", "Samsung", "Google", "Sony", "Bose", "Anker", "Hikvision"]
+      },
+      {
+        "title": "Availability",
+        "openByDefault": false,
+        "options": ["In stock", "Installed by Mode 7", "Pre-order"]
+      }
+    ]
+  },
+  "grid": {
+    "chipLabel": "Ask Seven",
+    "panel": {
+      "headLabel": "Seven on this product",
+      "closeLabel": "Close",
+      "caveatLabel": "Who this isn’t for",
+      "actions": [
+        { "label": "View full details", "href": "/product", "variant": "fill" },
+        { "label": "Trade in toward it", "href": "/trade-in", "variant": "outline" }
+      ],
+      "disclaimer": "Seven summarises product information to help you choose. Confirm specifications with the team before you buy."
+    }
+  }
+}
