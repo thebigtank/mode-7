@@ -142,11 +142,28 @@ for (const file of tsx) {
   });
 }
 
+if (root === "src" || root.startsWith("src/components")) {
+  const aggFiles = [
+    "src/app/scss/components/_baseComponents.scss",
+    "src/app/scss/templates/_baseTemplates.scss",
+    "src/app/scss/blocks/_baseBlocks.scss",
+  ];
+  let agg = "";
+  for (const f of aggFiles) {
+    try { agg += readFileSync(f, "utf8"); } catch {}
+  }
+  for (const file of globSync("src/components/**/*.scss")) {
+    const ref = file.replace(/^src\/components\//, "").replace(/\.scss$/, "");
+    if (!agg.includes(`components/${ref}'`))
+      add("unregistered-sheet", file, 1, "never @use'd by any aggregator, so its CSS never loads");
+  }
+}
+
 const byRule = {};
 for (const f of findings) (byRule[f.rule] ??= []).push(f);
 
 const order = [
-  "no-interpolation", "grouped-media", "should-be-tailwind", "raw-clamp",
+  "no-interpolation", "unregistered-sheet", "grouped-media", "should-be-tailwind", "raw-clamp",
   "hex", "rgb-literal", "font-literal", "raw-px", "inline-style",
   "theme-import", "comment",
 ];
@@ -157,8 +174,8 @@ for (const rule of order) {
   if (!list) continue;
   total += list.length;
   console.log(`\n${rule}  (${list.length})`);
-  if (!quiet) for (const f of list.slice(0, 200)) console.log(`  ${f.file}:${f.line}  ${f.detail}`);
-  if (!quiet && list.length > 200) console.log(`  … ${list.length - 200} more`);
+  if (!quiet) for (const f of list.slice(0, 12)) console.log(`  ${f.file}:${f.line}  ${f.detail}`);
+  if (!quiet && list.length > 12) console.log(`  … ${list.length - 12} more`);
 }
 
 console.log(`\n${total} findings across ${scss.length} stylesheets and ${tsx.length} components in ${root}`);

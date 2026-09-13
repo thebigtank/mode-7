@@ -50,12 +50,14 @@
 @use '../../../components/smart-home/MediaBanner/MediaBanner';
 @use '../../../components/smart-home/BestSellers/BestSellers';
 @use '../../../components/smart-home/WorksTogether/WorksTogether';
+@use '../../../components/cart/cart';
 @use '../../../components/cart/CartHeading/CartHeading';
 @use '../../../components/cart/CartSteps/CartSteps';
 @use '../../../components/cart/Stepper/Stepper';
 @use '../../../components/cart/CartLineItems/CartLineItems';
 @use '../../../components/cart/CartSummary/CartSummary';
 @use '../../../components/checkout/CheckoutModal/CheckoutModal';
+@use '../../../components/product/product';
 @use '../../../components/product/ProductBreadcrumb/ProductBreadcrumb';
 @use '../../../components/product/ProductGallery/ProductGallery';
 @use '../../../components/product/ProductOption/ProductOption';
