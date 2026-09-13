@@ -5,7 +5,7 @@ import "../legacy.css";
 import "../scss/main.scss";
 import "../globals.css";
 import { Document, siteMetadata } from "../document";
-import { V1Chrome } from "@/components/site/V1Chrome";
+import { V1Chrome } from "@/components/chrome/V1Chrome";
 
 export const metadata = siteMetadata;
 

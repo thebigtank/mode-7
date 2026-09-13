@@ -19,7 +19,7 @@ import "../legacy.css";
 import "../scss/main.scss";
 import "../globals.css";
 import { Document, siteMetadata } from "../document";
-import { V2Chrome } from "@/components/site/V2Chrome";
+import { V2Chrome } from "@/components/chrome/V2Chrome";
 
 export const metadata = siteMetadata;
 

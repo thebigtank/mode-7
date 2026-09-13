@@ -12,7 +12,7 @@ import { P } from "@/components/ui/P";
 
 /**
  * Section 10 — the footer, laid out as v1's homepage footer is (see
- * `@/components/site/Footer`), in TWO full-bleed grounds:
+ * `@/components/chrome/Footer`), in TWO full-bleed grounds:
  *
  *   dark band (`V2.ink`)
  *     1. closing statement left, "Back to top" right
