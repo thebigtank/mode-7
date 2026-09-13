@@ -824,5 +824,5 @@ const CSS = `
 `;
 
 export function V2Styles() {
-  return <style>{CSS}</style>;
+  return <style>{"@layer legacy {" + CSS + "}"}</style>;
 }
