@@ -6,7 +6,6 @@
       { "role": "primary", "label": "Shop the Store", "variant": "fill", "href": "/shop" },
       { "role": "secondary", "label": "Value Your Device", "variant": "outline", "href": "/trade-in" }
     ],
-    "meta": ["100% Vetted & Sealed", "50K+ Devices Vetted"],
     "second": {
       "h": "Curated premium retail, under one roof.",
       "lede": "Phones, laptops and tablets, complete smart-home systems, solar and portable power — every unit inspected, vetted and factory-sealed before it reaches your cart.",
@@ -18,17 +17,6 @@
         "alt": "A modern living room with white sofas, a grey armchair and a glass coffee table, furnished as part of a connected home."
       }
     }
-  },
-  "lifestyle": {
-    "badge": "▣ STOREFRONT / LIFESTYLE — FULL BLEED",
-    "eyebrow": "Services",
-    "title": "Everything for the connected home.",
-    "intro": "Devices, smart home and solar — curated, sealed and delivered by Mode 7.",
-    "actions": [
-      { "label": "Shop the Store", "variant": "fill", "href": "/shop" },
-      { "label": "Value Your Device", "variant": "outline", "href": "/trade-in" }
-    ],
-    "stat": { "value": "50K+", "label": "devices vetted, sealed & guaranteed" }
   },
   "nav": {
     "pills": [

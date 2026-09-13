@@ -2,7 +2,7 @@ import { Hero2 } from "@/components/page/Hero2";
 import content from "@/content/smart-home.json";
 
 export function SmartHomeHero() {
-  const { hero, categories } = content;
+  const { hero } = content;
   return (
     <Hero2
       content={{
@@ -10,7 +10,8 @@ export function SmartHomeHero() {
         lede: hero.intro,
         cta: hero.cta,
         ctaHref: hero.ctaHref,
-        meta: [...hero.meta, `${categories.length} categories`],
+        showMeta: false,
+        showCard: false,
         second: {
           image: {
             src: hero.second.image.src,
@@ -23,8 +24,6 @@ export function SmartHomeHero() {
           ctaPrimaryHref: hero.second.ctaPrimaryHref,
           ctaSecondary: hero.second.ctaSecondary,
           ctaSecondaryHref: hero.second.ctaSecondaryHref,
-          cardNumber: `${categories.length}`,
-          cardLabel: hero.second.cardLabel,
         },
       }}
     />

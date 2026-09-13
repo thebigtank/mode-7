@@ -4,6 +4,10 @@
   .hero2-top {
     padding-block: #{fluid(44, 80)} #{fluid(40, 64)};
     background: var(--color-v2-white);
+
+    &[data-meta="hidden"] {
+      padding-bottom: #{fluid(28, 44)};
+    }
   }
 
   .hero2-wrap {

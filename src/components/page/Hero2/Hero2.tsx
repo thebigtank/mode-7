@@ -5,7 +5,9 @@ export interface Hero2Content {
   lede: string;
   cta: string;
   ctaHref: string;
-  meta: string[];
+  meta?: string[];
+  showMeta?: boolean;
+  showCard?: boolean;
   second: {
     image: {
       src: string;
@@ -18,15 +20,15 @@ export interface Hero2Content {
     ctaPrimaryHref: string;
     ctaSecondary: string;
     ctaSecondaryHref: string;
-    cardNumber: string;
-    cardLabel: string;
+    cardNumber?: string;
+    cardLabel?: string;
   };
 }
 
 export function Hero2({ content }: { content: Hero2Content }) {
   return (
     <>
-      <section className="hero2-top">
+      <section className="hero2-top" data-meta={content.showMeta === false ? "hidden" : undefined}>
         <div className="hero2-wrap">
           <div className="hero2-grid grid">
             <div className="hero2-stack grid" data-rv>
@@ -40,11 +42,13 @@ export function Hero2({ content }: { content: Hero2Content }) {
             </div>
           </div>
 
-          <div className="hero2-meta flex flex-wrap" data-rv>
-            {content.meta.map((m) => (
-              <span className="hero2-label uppercase" key={m}>{m}</span>
-            ))}
-          </div>
+          {content.showMeta !== false && (
+            <div className="hero2-meta flex flex-wrap" data-rv>
+              {content.meta?.map((m) => (
+                <span className="hero2-label uppercase" key={m}>{m}</span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -78,10 +82,12 @@ export function Hero2({ content }: { content: Hero2Content }) {
             />
           </div>
         </div>
-        <div className="hero2-band__card">
-          <div className="hero2-band__card-n">{content.second.cardNumber}</div>
-          <div className="hero2-band__card-l">{content.second.cardLabel}</div>
-        </div>
+        {content.showCard !== false && (
+          <div className="hero2-band__card">
+            <div className="hero2-band__card-n">{content.second.cardNumber}</div>
+            <div className="hero2-band__card-l">{content.second.cardLabel}</div>
+          </div>
+        )}
       </div>
     </>
   );

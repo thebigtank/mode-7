@@ -2,7 +2,7 @@ import { Hero2 } from "@/components/page/Hero2";
 import content from "@/content/services.json";
 
 export function ServicesHero() {
-  const { hero, core } = content;
+  const { hero } = content;
   const primaryAction = hero.actions.find((a) => a.role === "primary")!;
   const secondaryAction = hero.actions.find((a) => a.role === "secondary")!;
   return (
@@ -12,7 +12,8 @@ export function ServicesHero() {
         lede: hero.intro,
         cta: primaryAction.label,
         ctaHref: primaryAction.href,
-        meta: [...hero.meta, `${core.categories.length} categories`],
+        showMeta: false,
+        showCard: false,
         second: {
           image: {
             src: hero.second.image.src,
@@ -25,8 +26,6 @@ export function ServicesHero() {
           ctaPrimaryHref: primaryAction.href,
           ctaSecondary: hero.second.ctaSecondary,
           ctaSecondaryHref: secondaryAction.href,
-          cardNumber: core.wallStat.value,
-          cardLabel: core.wallStat.label,
         },
       }}
     />
