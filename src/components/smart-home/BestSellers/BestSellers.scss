@@ -1,12 +1,26 @@
 @use 'utils' as *;
 
 @layer components {
+  .sh-bestsellers__head {
+    gap: #{rem-calc(40)};
+    margin-bottom: #{rem-calc(34)};
+  }
+
+  .sh-bestsellers__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: #{rem-calc(14)} #{rem-calc(18)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
   .sh-bestsellers__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(24px, 3.3vw, 38px);
+    font-size: #{fluid(24, 38)};
     line-height: 1.02;
-    letter-spacing: -3px;
+    letter-spacing: #{rem-calc(-3, false)};
     margin: 0;
   }
 }

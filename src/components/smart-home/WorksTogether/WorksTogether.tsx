@@ -1,61 +1,23 @@
 import { ArrowButton } from "@/components/ArrowButton";
 import { MediaPanel } from "@/components/page/MediaPanel";
-
-const assurances = [
-  {
-    title: "Vetted & Sealed",
-    body: "Every smart device is tested, sealed and warrantied before it ships.",
-  },
-  {
-    title: "Cross-Compatible",
-    body: "Works across the major ecosystems and voice assistants.",
-  },
-  {
-    title: "Setup Support",
-    body: "DIY with guides, or book certified install — Seven helps either way.",
-  },
-];
+import content from "@/content/smart-home.json";
 
 export function WorksTogether() {
+  const { works } = content;
   return (
     <section className="sh-section">
-      <div
-        className="m7-grid-2"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 56,
-          alignItems: "center",
-        }}
-      >
+      <div className="sh-works__grid grid items-center">
         <div>
-          <div className="sh-eyebrow">{"// Works Together"}</div>
-          <h2 className="sh-works__title text-balance">
-            Every device speaks the same language.
-          </h2>
-          <p className="sh-works__lede">
-            Mix and match across brands — our gear is tested for cross-compatibility
-            so your bulbs, switches, sensors and cameras just work as one connected
-            home. Start with a single room and expand whenever you like.
-          </p>
-          <ArrowButton label="Start with a room" variant="fill" href="/shop" />
+          <div className="sh-eyebrow">{`// ${works.eyebrow}`}</div>
+          <h2 className="sh-works__title text-balance">{works.title}</h2>
+          <p className="sh-works__lede">{works.lede}</p>
+          <ArrowButton label={works.cta} variant="fill" href="/shop" />
         </div>
-        <MediaPanel
-          label="ECOSYSTEM — DEVICES CONNECTED"
-          annotation="PARALLAX IMAGE REVEAL"
-        />
+        <MediaPanel label={works.mediaLabel} annotation={works.mediaAnnotation} />
       </div>
 
-      <div
-        className="m7-grid-3"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3,1fr)",
-          gap: 14,
-          marginTop: 34,
-        }}
-      >
-        {assurances.map((a) => (
+      <div className="sh-works__assurances grid">
+        {works.assurances.map((a) => (
           <div key={a.title} className="sh-assurance">
             <svg
               width="30"

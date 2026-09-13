@@ -12,7 +12,7 @@
     height: 0;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: #{rem-calc(900)}) {
     .m7-scroll {
       scroll-snap-type: x proximity;
       scroll-padding-left: var(--m7-pad);
@@ -32,18 +32,19 @@
     overflow: hidden;
     display: flex;
     align-items: flex-end;
-    border-radius: 4px;
-    border: 1px solid var(--color-m7-neutral-border);
-    height: clamp(320px, 42vw, 480px);
+    border-radius: #{rem-calc(4)};
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: #{fluid(320, 480)};
+    background: var(--stripe-bg);
   }
 
   .sh-cat-hero__label {
     position: absolute;
-    top: 22px;
-    left: 26px;
+    top: #{rem-calc(22)};
+    left: #{rem-calc(26)};
     font-family: var(--font-m7-mono);
-    font-size: 11px;
-    letter-spacing: 1px;
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
     color: var(--color-m7-neutral-faint);
   }
 
@@ -51,7 +52,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: clamp(28px, 4vw, 48px) clamp(26px, 4vw, 40px);
+    padding: #{fluid(28, 48)} #{fluid(26, 40)};
     background: linear-gradient(
       to top,
       rgb(var(--color-m7-neutral-white-rgb) / 0.92) 0%,
@@ -64,66 +65,66 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 24px;
+    gap: #{rem-calc(24)};
     flex-wrap: wrap;
   }
 
   .sh-cat-hero__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(26px, 3.6vw, 42px);
-    letter-spacing: -2px;
+    font-size: #{fluid(26, 42)};
+    letter-spacing: #{rem-calc(-2, false)};
     line-height: 1.05;
     color: var(--color-m7-neutral-ink);
   }
 
   .sh-cat-hero__sub {
-    font-size: 17px;
+    font-size: #{rem-calc(17)};
     color: var(--color-m7-neutral-body);
-    margin-top: 8px;
+    margin-top: #{rem-calc(8)};
     line-height: 1.5;
   }
 
   .sh-cat-more {
-    margin-top: clamp(44px, 6vw, 72px);
+    margin-top: #{fluid(44, 72)};
   }
 
   .sh-cat-more__head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 22px;
+    margin-bottom: #{rem-calc(22)};
   }
 
   .sh-cat-more__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(18px, 2.2vw, 24px);
-    letter-spacing: -0.5px;
+    font-size: #{fluid(18, 24)};
+    letter-spacing: #{rem-calc(-0.5, false)};
   }
 
   .sh-cat-more__hint {
     font-family: var(--font-m7-mono);
-    font-size: 10px;
-    letter-spacing: 1.5px;
+    font-size: #{rem-calc(10)};
+    letter-spacing: #{rem-calc(1.5, false)};
     color: var(--color-m7-neutral-faint);
     text-transform: uppercase;
   }
 
   .sh-cat-scroll {
     display: flex;
-    gap: 14px;
+    gap: #{rem-calc(14)};
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    padding-bottom: #{rem-calc(4)};
     margin-right: calc(var(--m7-pad) * -1);
     padding-right: var(--m7-pad);
   }
 
   .sh-cat-card {
-    flex: 0 0 clamp(220px, 28vw, 280px);
+    flex: 0 0 #{fluid(220, 280)};
     text-decoration: none;
     color: inherit;
     scroll-snap-align: start;
@@ -133,38 +134,39 @@
 
   .sh-cat-card__media {
     position: relative;
-    border-radius: 4px;
+    border-radius: #{rem-calc(4)};
     overflow: hidden;
-    border: 1px solid var(--color-m7-neutral-border);
-    height: clamp(200px, 26vw, 260px);
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: #{fluid(200, 260)};
+    background: var(--stripe-bg);
   }
 
   .sh-cat-card__label {
     position: absolute;
-    top: 16px;
-    left: 18px;
+    top: #{rem-calc(16)};
+    left: #{rem-calc(18)};
     font-family: var(--font-m7-mono);
-    font-size: 10px;
-    letter-spacing: 0.8px;
+    font-size: #{rem-calc(10)};
+    letter-spacing: #{rem-calc(0.8, false)};
     color: var(--color-m7-neutral-faint);
     z-index: 1;
   }
 
   .sh-cat-card__body {
-    padding: 16px 4px 0;
+    padding: #{rem-calc(16)} #{rem-calc(4)} 0;
   }
 
   .sh-cat-card__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: 18px;
-    letter-spacing: -0.3px;
+    font-size: #{rem-calc(18)};
+    letter-spacing: #{rem-calc(-0.3, false)};
   }
 
   .sh-cat-card__sub {
-    font-size: 14px;
+    font-size: #{rem-calc(14)};
     color: var(--color-m7-neutral-muted-soft);
-    margin-top: 4px;
+    margin-top: #{rem-calc(4)};
     line-height: 1.4;
   }
 }

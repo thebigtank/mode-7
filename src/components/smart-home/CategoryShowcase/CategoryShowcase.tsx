@@ -1,27 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowButton } from "@/components/ArrowButton";
 import { Annotation } from "@/components/wireframe/Primitives";
+import content from "@/content/smart-home.json";
 import { stripe } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
-interface Category {
-  label: string;
-  sub: string;
-}
-
-const categories: Category[] = [
-  { label: "Smart Lighting", sub: "Bulbs, strips & panels" },
-  { label: "Switches & Plugs", sub: "Wall switches, smart plugs" },
-  { label: "Voice & Control", sub: "Assistants, remotes, hubs" },
-  { label: "Sensors", sub: "Motion, door, temperature" },
-  { label: "Cameras & Security", sub: "Indoor, outdoor, doorbells" },
-  { label: "Climate", sub: "Thermostats & radiator valves" },
-  { label: "Hubs & Bridges", sub: "Connect every device" },
-  { label: "Accessories", sub: "Mounts, cables, power" },
-];
+const categories = content.categories;
 
 type Edge = "start" | "mid" | "end";
 
@@ -74,7 +61,7 @@ export function CategoryShowcase() {
   return (
     <>
       <Link href="/shop" className="m7-lift block no-underline text-inherit mt-[34px]">
-        <div className="sh-cat-hero__media" style={{ background: stripe() }}>
+        <div className="sh-cat-hero__media" style={{ "--stripe-bg": stripe() } as CSSProperties}>
           <div className="sh-cat-hero__label">▣ {active.label.toUpperCase()}</div>
 
           {WIREFRAME.showAnnotations && (
@@ -135,7 +122,7 @@ export function CategoryShowcase() {
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(0)}
             >
-              <div className="sh-cat-card__media" style={{ background: stripe() }}>
+              <div className="sh-cat-card__media" style={{ "--stripe-bg": stripe() } as CSSProperties}>
                 <div className="sh-cat-card__label">▣ {c.label.toUpperCase()}</div>
               </div>
 

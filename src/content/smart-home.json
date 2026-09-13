@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "overline": "Smart Home",
+    "title": "Everything you need to make your home smart.",
+    "intro": "Smart bulbs, switches, plugs, sensors, cameras and voice control — premium automation gear, vetted and sealed. Build your setup piece by piece."
+  },
+  "categories": [
+    { "label": "Smart Lighting", "sub": "Bulbs, strips & panels" },
+    { "label": "Switches & Plugs", "sub": "Wall switches, smart plugs" },
+    { "label": "Voice & Control", "sub": "Assistants, remotes, hubs" },
+    { "label": "Sensors", "sub": "Motion, door, temperature" },
+    { "label": "Cameras & Security", "sub": "Indoor, outdoor, doorbells" },
+    { "label": "Climate", "sub": "Thermostats & radiator valves" },
+    { "label": "Hubs & Bridges", "sub": "Connect every device" },
+    { "label": "Accessories", "sub": "Mounts, cables, power" }
+  ],
+  "mediaBanner": {
+    "label": "WebGL Parallax Background"
+  },
+  "bestSellers": {
+    "eyebrow": "Popular Right Now",
+    "title": "Smart-home best sellers.",
+    "cta": "View all products",
+    "items": [
+      { "name": "Smart Bulb A60", "meta": "Smart Lighting", "price": "£19" },
+      { "name": "Dimmer Wall Switch", "meta": "Switches & Plugs", "price": "£34" },
+      { "name": "Smart Plug Mini", "meta": "Switches & Plugs", "price": "£15" },
+      { "name": "Voice Hub Speaker", "meta": "Voice & Control", "price": "£89" },
+      { "name": "Motion Sensor", "meta": "Sensors", "price": "£24" },
+      { "name": "Indoor Camera 2K", "meta": "Cameras & Security", "price": "£79" },
+      { "name": "Smart Thermostat", "meta": "Climate", "price": "£149" },
+      { "name": "Bridge Hub", "meta": "Hubs & Bridges", "price": "£59" }
+    ]
+  },
+  "works": {
+    "eyebrow": "Works Together",
+    "title": "Every device speaks the same language.",
+    "lede": "Mix and match across brands — our gear is tested for cross-compatibility so your bulbs, switches, sensors and cameras just work as one connected home. Start with a single room and expand whenever you like.",
+    "cta": "Start with a room",
+    "mediaLabel": "ECOSYSTEM — DEVICES CONNECTED",
+    "mediaAnnotation": "PARALLAX IMAGE REVEAL",
+    "assurances": [
+      {
+        "title": "Vetted & Sealed",
+        "body": "Every smart device is tested, sealed and warrantied before it ships."
+      },
+      {
+        "title": "Cross-Compatible",
+        "body": "Works across the major ecosystems and voice assistants."
+      },
+      {
+        "title": "Setup Support",
+        "body": "DIY with guides, or book certified install — Seven helps either way."
+      }
+    ]
+  }
+}

@@ -2,17 +2,17 @@
 
 @layer components {
   .sh-section {
-    max-width: 1320px;
+    max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: clamp(55px, 7.1vw, 100px) var(--m7-pad) 0;
+    padding: #{fluid(55, 100)} var(--m7-pad) 0;
   }
 
   .sh-eyebrow {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: #{rem-calc(16)};
   }
 }

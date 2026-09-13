@@ -1,37 +1,20 @@
 import { ArrowButton } from "@/components/ArrowButton";
 import { ProductCard } from "@/components/page/Cards";
-
-const bestSellers = [
-  { name: "Smart Bulb A60", meta: "Smart Lighting", price: "£19" },
-  { name: "Dimmer Wall Switch", meta: "Switches & Plugs", price: "£34" },
-  { name: "Smart Plug Mini", meta: "Switches & Plugs", price: "£15" },
-  { name: "Voice Hub Speaker", meta: "Voice & Control", price: "£89" },
-  { name: "Motion Sensor", meta: "Sensors", price: "£24" },
-  { name: "Indoor Camera 2K", meta: "Cameras & Security", price: "£79" },
-  { name: "Smart Thermostat", meta: "Climate", price: "£149" },
-  { name: "Bridge Hub", meta: "Hubs & Bridges", price: "£59" },
-];
+import content from "@/content/smart-home.json";
 
 export function BestSellers() {
   return (
     <section className="sh-section">
-      <div className="flex justify-between items-end gap-[40px] flex-wrap mb-[34px]">
+      <div className="sh-bestsellers__head flex justify-between items-end flex-wrap">
         <div>
-          <div className="sh-eyebrow">{"// Popular Right Now"}</div>
-          <h2 className="sh-bestsellers__title">Smart-home best sellers.</h2>
+          <div className="sh-eyebrow">{`// ${content.bestSellers.eyebrow}`}</div>
+          <h2 className="sh-bestsellers__title">{content.bestSellers.title}</h2>
         </div>
-        <ArrowButton label="View all products" variant="outline" href="/shop" />
+        <ArrowButton label={content.bestSellers.cta} variant="outline" href="/shop" />
       </div>
 
-      <div
-        className="m7-grid-2"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4,1fr)",
-          gap: "14px 18px",
-        }}
-      >
-        {bestSellers.map((p) => (
+      <div className="sh-bestsellers__grid grid">
+        {content.bestSellers.items.map((p) => (
           <ProductCard key={p.name} {...p} />
         ))}
       </div>
