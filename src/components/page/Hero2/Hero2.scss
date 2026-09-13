@@ -1,12 +1,18 @@
 @use 'utils' as *;
 
 @layer components {
-  .a-hero {
+  .hero2-top {
     padding-block: #{fluid(44, 80)} #{fluid(40, 64)};
-    background: var(--paper);
+    background: var(--color-v2-white);
   }
 
-  .a-hero__grid {
+  .hero2-wrap {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding-inline: var(--v2-pad);
+  }
+
+  .hero2-grid {
     gap: #{fluid(24, 48)};
     grid-template-columns: 1fr;
 
@@ -16,47 +22,56 @@
     }
   }
 
-  .a-hero__meta {
+  .hero2-meta {
     gap: #{rem-calc(10)} #{rem-calc(34)};
     padding-top: #{rem-calc(24)};
     margin-top: #{fluid(28, 44)};
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
   }
 
-  .a-hero-h1 {
-    font-family: var(--f-head);
+  .hero2-h1 {
+    font-family: var(--font-v2-display);
     font-weight: 400;
     margin: 0;
     font-size: #{fluid(38, 66)};
     line-height: 1.04;
     letter-spacing: -0.02em;
+    color: var(--color-v2-ink);
     text-wrap: balance;
   }
 
-  .a-lede {
+  .hero2-lede {
+    font-family: var(--font-v2-body);
     font-size: #{fluid(18, 21)};
     line-height: 1.6;
-    color: var(--body);
+    color: var(--color-v2-muted);
     max-width: 36ch;
     margin: 0;
   }
 
-  .a-hero2 {
+  .hero2-label {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(12)};
+    letter-spacing: 0.06em;
+    color: var(--color-v2-muted);
+  }
+
+  .hero2-band {
     position: relative;
     overflow: hidden;
     height: min(70vh, #{rem-calc(680)});
-    --gutter: max(var(--pad), calc((100% - var(--max)) / 2 + var(--pad)));
+    --gutter: max(var(--v2-pad), calc((100% - #{rem-calc(1320)}) / 2 + var(--v2-pad)));
 
     @media (max-width: 900px) {
       height: auto;
     }
   }
 
-  .a-hero2 picture {
+  .hero2-band picture {
     display: block;
   }
 
-  .a-hero2__img {
+  .hero2-band__img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -70,7 +85,7 @@
     }
   }
 
-  .a-hero2::after {
+  .hero2-band::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -90,11 +105,11 @@
     }
   }
 
-  .a-hero2__content, .a-hero2__card {
+  .hero2-band__content, .hero2-band__card {
     z-index: 1;
   }
 
-  .a-hero2__content {
+  .hero2-band__content {
     position: absolute;
     left: var(--gutter);
     right: var(--gutter);
@@ -104,13 +119,13 @@
     @media (max-width: 900px) {
       position: static;
       max-width: none;
-      padding: #{rem-calc(28)} var(--pad) #{rem-calc(24)};
-      background: var(--ink);
+      padding: #{rem-calc(28)} var(--v2-pad) #{rem-calc(24)};
+      background: var(--color-v2-ink);
     }
   }
 
-  .a-hero2__h {
-    font-family: var(--f-head);
+  .hero2-band__h {
+    font-family: var(--font-v2-display);
     font-weight: 400;
     margin: 0 0 #{rem-calc(16)};
     font-size: #{fluid(28, 42)};
@@ -120,8 +135,8 @@
     text-wrap: pretty;
   }
 
-  .a-hero2__lede {
-    font-family: var(--f-body);
+  .hero2-band__lede {
+    font-family: var(--font-v2-body);
     font-weight: 400;
     margin: 0 0 #{rem-calc(26)};
     max-width: #{rem-calc(460)};
@@ -134,11 +149,11 @@
     }
   }
 
-  .a-hero2__actions {
+  .hero2-band__actions {
     gap: #{rem-calc(12)};
   }
 
-  .a-hero2__card {
+  .hero2-band__card {
     position: absolute;
     right: var(--gutter);
     bottom: #{fluid(40, 64)};
@@ -152,28 +167,28 @@
 
     @media (max-width: 900px) {
       position: static;
-      margin: 0 var(--pad) #{rem-calc(28)};
-      background: var(--paper);
+      margin: 0 var(--v2-pad) #{rem-calc(28)};
+      background: var(--color-v2-white);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       box-shadow: none;
-      border: 1px solid var(--rule);
+      border: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
     }
   }
 
-  .a-hero2__card-n {
-    font-family: var(--f-head);
+  .hero2-band__card-n {
+    font-family: var(--font-v2-display);
     font-weight: 400;
     font-size: #{fluid(22, 34)};
     line-height: 1;
     letter-spacing: -0.018em;
-    color: var(--ink);
+    color: var(--color-v2-ink);
   }
 
-  .a-hero2__card-l {
-    font-family: var(--f-body);
+  .hero2-band__card-l {
+    font-family: var(--font-v2-body);
     font-size: #{rem-calc(13)};
-    color: var(--muted);
+    color: var(--color-v2-muted);
     margin-top: 2px;
   }
 }

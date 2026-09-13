@@ -1,40 +1,41 @@
-import { ArrowButton } from "@/components/ArrowButton";
-import { MediaPanel } from "@/components/page/MediaPanel";
+import { ButtonV2 } from "@/components/ui/ButtonV2";
+import { Mono } from "@/components/ui/Mono";
+import { P } from "@/components/ui/P";
+import { Glyph, type GlyphName } from "@/components/page/ServiceIcons";
 import content from "@/content/smart-home.json";
+
+const ASSURANCE_ICONS: GlyphName[] = ["lock", "wifi", "chat"];
 
 export function WorksTogether() {
   const { works } = content;
   return (
-    <section className="sh-section">
+    <section className="sh-section" id="works">
       <div className="sh-works__grid grid items-center">
         <div>
-          <div className="sh-eyebrow uppercase">{`// ${works.eyebrow}`}</div>
+          <Mono dot className="mb-4">
+            {works.eyebrow}
+          </Mono>
           <h2 className="sh-works__title text-balance">{works.title}</h2>
-          <p className="sh-works__lede">{works.lede}</p>
-          <ArrowButton label={works.cta} variant="fill" href="/shop" />
+          <P size={18} className="sh-works__lede">
+            {works.lede}
+          </P>
+          <ButtonV2 label={works.cta} variant="fill" href="/shop" />
         </div>
-        <MediaPanel label={works.mediaLabel} annotation={works.mediaAnnotation} />
+
+        <div className="sh-works__media relative overflow-hidden">
+          <div className="sh-works__media-label absolute">▣ {works.mediaLabel}</div>
+          <div className="sh-works__media-annotation absolute uppercase">
+            {works.mediaAnnotation}
+          </div>
+        </div>
       </div>
 
       <div className="sh-works__assurances grid">
-        {works.assurances.map((a) => (
+        {works.assurances.map((a, i) => (
           <div key={a.title} className="sh-assurance flex flex-col">
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--color-m7-neutral-ink)"
-              strokeWidth={1.7}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="sh-assurance__icon"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
+            <Glyph name={ASSURANCE_ICONS[i]} size={28} stroke="var(--color-v2-ink)" />
             <div className="sh-assurance__title">{a.title}</div>
-            <p className="sh-assurance__body">{a.body}</p>
+            <P className="sh-assurance__body">{a.body}</P>
           </div>
         ))}
       </div>

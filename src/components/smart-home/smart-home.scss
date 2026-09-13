@@ -4,14 +4,6 @@
   .sh-section {
     max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: #{fluid(55, 100)} var(--m7-pad) 0;
-  }
-
-  .sh-eyebrow {
-    font-family: var(--font-m7-head);
-    font-size: #{rem-calc(12)};
-    letter-spacing: #{rem-calc(2, false)};
-    color: var(--color-m7-neutral-faint);
-    margin-bottom: #{rem-calc(16)};
+    padding: #{fluid(55, 100)} var(--v2-pad) 0;
   }
 }
