@@ -2,16 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Seven's avatar: two blinking, cursor-tracking eyes. Ported from
- * `setupEqualizer()`.
- *
- * One rAF loop draws two vertical ovals into every `[data-eq]` canvas on the
- * page (the closed pill and the open panel header share the same treatment).
- * They blink on a loose cadence and shift toward the global pointer —
- * left/up/right move out, looking-down stays put. Eyes sit slightly above
- * centre; dpr is capped at 3 for crispness.
- */
 export function useSevenEyes() {
   useEffect(() => {
     const pointer = { x: -99999, y: -99999 };
@@ -57,7 +47,6 @@ export function useSevenEyes() {
       const H = canvas._eqH!;
       const M = Math.min(W, H);
 
-      // gaze target from this canvas's own centre toward the pointer
       const rect = canvas.getBoundingClientRect();
       const ccx = rect.left + rect.width / 2;
       const ccy = rect.top + rect.height / 2;
@@ -67,11 +56,11 @@ export function useSevenEyes() {
         const dx = pointer.x - ccx,
           dy = pointer.y - ccy;
         const d = Math.hypot(dx, dy) || 1;
-        const reach = Math.min(1, d / 140); // more deflection as it approaches, capped
+        const reach = Math.min(1, d / 140);
         tgx = (dx / d) * reach;
         tgy = (dy / d) * reach;
       }
-      canvas._gx! += (tgx - canvas._gx!) * 0.4; // snappier tracking
+      canvas._gx! += (tgx - canvas._gx!) * 0.4;
       canvas._gy! += (tgy - canvas._gy!) * 0.4;
 
       const eyeW = M * 0.185,
@@ -79,12 +68,11 @@ export function useSevenEyes() {
         gap = M * 0.3;
       const maxShift = M * 0.16;
       const cx = W / 2 + canvas._gx! * maxShift;
-      // shift up only — stay put when looking down
       const cy = H / 2 - M * 0.06 + Math.min(canvas._gy!, 0) * maxShift;
 
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = "#1C150F";
-      const ry = Math.max(eyeW * 0.5, (eyeH / 2) * openK); // collapse to a slit on blink
+      const ry = Math.max(eyeW * 0.5, (eyeH / 2) * openK);
       ctx.beginPath();
       ctx.ellipse(cx - gap / 2, cy, eyeW / 2, ry, 0, 0, 6.2832);
       ctx.fill();
@@ -105,7 +93,7 @@ export function useSevenEyes() {
           nextBlink = now + blinkAt();
           openK = 1;
         } else {
-          openK = Math.abs(Math.cos(p * Math.PI)); // 1 -> 0 -> 1 (close then open)
+          openK = Math.abs(Math.cos(p * Math.PI));
         }
       }
       document

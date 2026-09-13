@@ -1,0 +1,41 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-iconcard {
+    background: var(--color-m7-neutral-surface-soft);
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(32)} #{rem-calc(30)} #{rem-calc(34)};
+    min-height: var(--pg-iconcard-min-h);
+    box-shadow: 0 #{rem-calc(1)} 0 rgb(var(--color-m7-neutral-black-rgb) / 0.02);
+  }
+
+  .pg-iconcard__icon {
+    margin-bottom: auto;
+    stroke: var(--color-m7-neutral-ink);
+  }
+
+  .pg-iconcard__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(22)};
+    letter-spacing: #{rem-calc(-0.3, false)};
+    margin: #{rem-calc(26)} 0 #{rem-calc(10)};
+  }
+
+  .pg-iconcard__accent {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-ink);
+    font-weight: 700;
+    margin-bottom: #{rem-calc(12)};
+  }
+
+  .pg-iconcard__body {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 0;
+  }
+}

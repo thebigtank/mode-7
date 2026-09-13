@@ -1,0 +1,33 @@
+@use 'utils' as *;
+
+@layer components {
+  .t-hero {
+    padding-top: #{fluid(40, 72)};
+    padding-bottom: 0;
+  }
+
+  .t-dhero {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    margin: 0;
+    font-size: #{fluid(40, 84)};
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .tradein-page .t-lede {
+    font-size: #{fluid(18, 21)};
+    line-height: 1.55;
+    color: var(--color-v2-muted);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  .t-tick {
+    gap: #{rem-calc(8)} #{rem-calc(30)};
+    margin-top: #{rem-calc(26)};
+    padding-top: #{rem-calc(20)};
+    border-top: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+  }
+}

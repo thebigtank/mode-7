@@ -1,0 +1,60 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-solarworks__grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: #{rem-calc(56)};
+    align-items: start;
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .ge-solarworks__sticky {
+    position: sticky;
+    top: #{rem-calc(110)};
+  }
+
+  .ge-solarworks__title {
+    font-size: #{fluid(22, 34)};
+  }
+
+  .ge-step {
+    grid-template-columns: #{rem-calc(64)} minmax(0, 1fr);
+    gap: #{fluid(10, 26)};
+    padding: #{fluid(22, 30)} 0;
+    border-bottom: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+
+    @media (max-width: #{rem-calc(620)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &[data-last] {
+      border-bottom: 0;
+    }
+  }
+
+  .ge-step__n {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(15)};
+    color: var(--color-m7-neutral-line);
+    padding-top: #{rem-calc(4)};
+  }
+
+  .ge-step__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(24)};
+    letter-spacing: #{rem-calc(-0.5, false)};
+    margin-bottom: #{rem-calc(10)};
+  }
+
+  .ge-step__body {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 0;
+    max-width: #{rem-calc(640)};
+  }
+}

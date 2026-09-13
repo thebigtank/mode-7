@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
 
-/**
- * Inline Lucide SVGs (24×24, stroke 2, round caps) plus the social marks.
- * Kept inline rather than pulled from a package so the wireframe stays
- * dependency-free and every stroke matches the source design.
- */
-
 const lucide = {
   fill: "none",
   stroke: "currentColor",
@@ -22,7 +16,6 @@ export const SearchIcon = ({ size = 21 }: { size?: number }) => (
   </svg>
 );
 
-/** Lucide `handbag` — the live shopping cart. */
 export const BagIcon = ({ size = 22 }: { size?: number }) => (
   <svg width={size} height={size} {...lucide}>
     <path d="M2.048 18.566A2 2 0 0 0 4.041 21h15.918a2 2 0 0 0 1.993-2.434l-1.43-10A2 2 0 0 0 18.55 6H5.45a2 2 0 0 0-1.982 1.566z" />
@@ -30,11 +23,6 @@ export const BagIcon = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
-/**
- * A storefront: a scalloped awning over a shopfront with a door — reads as
- * "shop" without borrowing the bag's silhouette, so the two sit next to each
- * other in the header without being confusable.
- */
 export const StoreIcon = ({ size = 22 }: { size?: number }) => (
   <svg width={size} height={size} {...lucide}>
     <path d="M3 10 4 4h16l1 6" />
@@ -103,7 +91,6 @@ export const SendIcon = ({ size = 17 }: { size?: number }) => (
   </svg>
 );
 
-/** The brand-strip asterisk mark. */
 export const AsteriskMark = ({ size = 34 }: { size?: number }) => (
   <svg
     width={size}
@@ -113,7 +100,7 @@ export const AsteriskMark = ({ size = 34 }: { size?: number }) => (
     stroke="#121212"
     strokeWidth={2}
     strokeLinecap="round"
-    style={{ flex: "0 0 auto" }}
+    className="flex-none"
   >
     <line x1="17" y1="3" x2="17" y2="31" />
     <line x1="3" y1="17" x2="31" y2="17" />

@@ -1,0 +1,93 @@
+@use 'utils' as *;
+
+@layer components {
+  .shop-browse {
+    grid-template-columns: #{rem-calc(260)} 1fr;
+    gap: #{fluid(18, 40)};
+    align-items: start;
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .shop-browse__aside {
+    position: sticky;
+    top: #{rem-calc(100)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      position: static;
+    }
+  }
+
+  .shop-browse__note {
+    margin-top: #{rem-calc(18)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      display: none;
+    }
+  }
+
+  .shop-browse__toolbar {
+    gap: #{rem-calc(16)};
+    margin-bottom: #{rem-calc(26)};
+    border-bottom: 1px solid var(--color-m7-neutral-border-soft);
+    padding-bottom: #{rem-calc(18)};
+  }
+
+  .shop-browse__count {
+    font-size: #{rem-calc(15)};
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .shop-browse__count-n {
+    color: var(--color-m7-neutral-ink);
+    font-weight: 600;
+  }
+
+  .shop-browse__sort {
+    gap: #{rem-calc(10)};
+    font-size: #{rem-calc(15)};
+  }
+
+  .shop-browse__sort-label {
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .shop-browse__sort-control {
+    gap: #{rem-calc(10)};
+    border: 1px solid var(--color-m7-neutral-border);
+    border-radius: 4px;
+    padding: #{rem-calc(9)} #{rem-calc(14)};
+    color: var(--color-m7-neutral-text);
+  }
+
+  .shop-browse__sort-icon {
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .shop-browse__pagination {
+    gap: #{rem-calc(8)};
+    margin-top: #{rem-calc(44)};
+  }
+
+  .shop-browse__page {
+    width: #{rem-calc(42)};
+    height: #{rem-calc(42)};
+    border: 1px solid var(--color-m7-neutral-border);
+    background: var(--color-m7-neutral-white);
+    color: var(--color-m7-neutral-text);
+    border-radius: 4px;
+    font-size: #{rem-calc(15)};
+
+    &[data-active] {
+      border-color: var(--color-m7-neutral-ink);
+      background: var(--color-m7-neutral-ink);
+      color: var(--color-m7-neutral-white);
+    }
+  }
+
+  .shop-browse__ai-note {
+    margin-top: #{rem-calc(26)};
+  }
+}

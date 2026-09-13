@@ -1,0 +1,88 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-bento {
+    grid-template-columns: 1fr;
+    gap: #{rem-calc(14)};
+    margin-top: #{fluid(28, 48)};
+
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+
+  .a-bcell {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    padding: #{fluid(24, 34)};
+    gap: #{rem-calc(12)};
+    min-height: #{rem-calc(212)};
+  }
+
+  .a-bcell__t {
+    font-family: var(--f-head);
+    font-weight: 400;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    margin: 0;
+    font-size: #{fluid(21, 28)};
+  }
+
+  .a-bcell__b {
+    color: var(--body);
+    font-size: #{rem-calc(16)};
+    line-height: 1.6;
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .a-bcell__fill {
+    flex: 1;
+    min-height: #{rem-calc(96)};
+    border-radius: 3px;
+    background: var(--stripe-soft);
+    border: 1px solid var(--rule);
+  }
+
+  .a-bcell--ink {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--color-v2-white);
+  }
+
+  .a-bcell--ink .a-bcell__b {
+    color: var(--color-v2-faint);
+  }
+
+  .a-b1 {
+    @media (min-width: 900px) {
+      grid-column: span 7;
+      grid-row: span 2;
+    }
+  }
+
+  .a-b2 {
+    @media (min-width: 900px) {
+      grid-column: span 5;
+    }
+  }
+
+  .a-b3 {
+    @media (min-width: 900px) {
+      grid-column: span 5;
+    }
+  }
+
+  .a-b4 {
+    @media (min-width: 900px) {
+      grid-column: span 4;
+    }
+  }
+
+  .a-b5 {
+    @media (min-width: 900px) {
+      grid-column: span 8;
+    }
+  }
+}

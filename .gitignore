@@ -21,3 +21,10 @@ tsconfig.tsbuildinfo
 /*.jpg
 /*.jpeg
 /Screenshot*
+.next-parity
+scripts/parity/captures
+.env
+payload-types.ts
+/public/media
+.claude/worktrees
+.next-*

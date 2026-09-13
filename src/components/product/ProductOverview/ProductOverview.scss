@@ -1,0 +1,52 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-overview__eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: #{rem-calc(16)};
+  }
+
+  .product-overview__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(24, 32)};
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    margin: 0 0 #{rem-calc(22)};
+  }
+
+  .product-overview__lede {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 4px 0 0;
+  }
+
+  .product-specs__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(18)};
+    margin-bottom: #{rem-calc(8)};
+  }
+
+  .product-specs__row {
+    padding: #{rem-calc(14)} 0;
+    border-bottom: 1px solid var(--color-m7-neutral-divider);
+
+    &[data-last] {
+      border-bottom: none;
+    }
+  }
+
+  .product-specs__key {
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .product-specs__value {
+    color: var(--color-m7-neutral-strong);
+    font-weight: 500;
+  }
+}

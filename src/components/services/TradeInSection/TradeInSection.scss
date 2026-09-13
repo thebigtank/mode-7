@@ -1,0 +1,178 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-tradein {
+    background: var(--color-v2-wash);
+    padding-block: #{rem-calc(100)};
+    scroll-margin-top: #{rem-calc(80)};
+  }
+
+  .svc-tradein__wrap {
+    max-width: #{rem-calc(1320)};
+    padding-inline: var(--v2-pad);
+  }
+
+  .svc-tradein__mosaic {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(#{rem-calc(232)}, auto);
+    gap: #{rem-calc(14)};
+
+    @media (max-width: #{rem-calc(1080)}) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: #{rem-calc(900)}) {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        min-height: #{rem-calc(200)};
+      }
+    }
+  }
+
+  .svc-tradein__refurb {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    background: var(--color-v2-ink);
+    color: var(--color-v2-white);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(34)} #{rem-calc(30)};
+  }
+
+  .svc-tradein__refurb-top {
+    gap: #{rem-calc(12)};
+  }
+
+  .svc-tradein__refurb-tag {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-faint);
+  }
+
+  .svc-tradein__refurb-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(24)};
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    margin: #{rem-calc(26)} 0 #{rem-calc(12)};
+  }
+
+  .svc-tradein__refurb-body {
+    line-height: 1.55;
+  }
+
+  .svc-tradein__refurb-bullets {
+    margin-top: #{rem-calc(26)};
+    gap: #{rem-calc(11)};
+  }
+
+  .svc-tradein__refurb-bullet {
+    gap: #{rem-calc(11)};
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(15)};
+    color: var(--color-v2-faint);
+  }
+
+  .svc-tradein__refurb-stat {
+    margin-top: auto;
+    padding-top: #{rem-calc(26)};
+    border-top: 1px solid rgb(var(--color-v2-white-rgb) / 0.14);
+  }
+
+  .svc-tradein__refurb-stat-value {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(24, 38)};
+    line-height: 1;
+    letter-spacing: -0.018em;
+    color: var(--color-v2-white);
+  }
+
+  .svc-tradein__refurb-stat-label {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(13)};
+    color: var(--color-v2-faint);
+    margin-top: #{rem-calc(5)};
+  }
+
+  .svc-tradein__card {
+    grid-row: 1;
+    padding: #{rem-calc(30)} #{rem-calc(28)};
+
+    &[data-slot='first'] {
+      grid-column: 2;
+    }
+
+    &[data-slot='second'] {
+      grid-column: 3;
+    }
+  }
+
+  .svc-tradein__card-top {
+    gap: #{rem-calc(12)};
+  }
+
+  .svc-tradein__card-tag {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-muted);
+  }
+
+  .svc-tradein__card-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(21)};
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--color-v2-ink);
+    margin: #{rem-calc(24)} 0 #{rem-calc(10)};
+  }
+
+  .svc-tradein__card-body {
+    line-height: 1.55;
+  }
+
+  .svc-tradein__card-foot {
+    margin-top: auto;
+    padding-top: #{rem-calc(20)};
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-ink);
+    font-weight: 400;
+  }
+
+  .svc-tradein__wide {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+    padding: #{rem-calc(34)};
+  }
+
+  .svc-tradein__wide-eyebrow {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-muted);
+    margin-bottom: #{rem-calc(12)};
+  }
+
+  .svc-tradein__wide-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(25)};
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+    margin-bottom: #{rem-calc(10)};
+  }
+
+  .svc-tradein__wide-body {
+    line-height: 1.55;
+    margin: 0 0 #{rem-calc(22)};
+    max-width: #{rem-calc(560)};
+  }
+}

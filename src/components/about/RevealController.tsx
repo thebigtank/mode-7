@@ -2,13 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Entrance reveals for the About page. Mounts once and observes every
- * `[data-rv]` element inside `.about-page`, adding `.in` as each scrolls into
- * view — with a small per-sibling stagger so grouped items cascade rather than
- * pop together. Honours `prefers-reduced-motion` by revealing everything up
- * front. The fade/translate itself lives in globals.css.
- */
 export function RevealController() {
   useEffect(() => {
     const items = Array.from(

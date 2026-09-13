@@ -1,0 +1,66 @@
+@use 'utils' as *;
+
+@layer components {
+  .tradein-page {
+    font-family: var(--font-v2-body);
+    color: var(--color-v2-ink);
+  }
+
+  .t-wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-inline: var(--pad);
+  }
+
+  .t-band {
+    padding-block: #{fluid(56, 104)};
+  }
+
+  .t-band--valuation {
+    --t-valuation-pt: #{fluid(40, 72)};
+    padding-top: var(--t-valuation-pt);
+  }
+
+  .t-band--wash {
+    background: var(--color-v2-wash);
+    border-block: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+  }
+
+  .t-band--ink {
+    background: var(--color-v2-ink);
+    color: var(--color-v2-white);
+  }
+
+  .t-dl {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    margin: 0;
+    font-size: #{fluid(28, 44)};
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+    text-wrap: balance;
+  }
+
+  .t-dl--spaced {
+    --t-dl-gap: #{fluid(24, 40)};
+    margin-bottom: var(--t-dl-gap);
+  }
+
+  .tradein-page p {
+    margin: 0;
+    max-width: 66ch;
+  }
+
+  .t-label {
+    font-family: var(--font-v2-label);
+    font-weight: 400;
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.07em;
+    color: var(--color-v2-muted);
+  }
+
+  .tradein-page :focus-visible {
+    outline: 2px solid var(--color-v2-ink);
+    outline-offset: #{rem-calc(3)};
+  }
+}

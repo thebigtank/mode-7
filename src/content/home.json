@@ -1,0 +1,222 @@
+{
+  "quote": {
+    "label": "Customer review",
+    "portrait": { "src": "/hero/customer.webp", "alt": "" },
+    "avatar": { "src": "/hero/av-1.webp", "alt": "" }
+  },
+  "testimonials": [
+    {
+      "quote": "Seven walked me through trading in my old phone and setting up my whole smart home in one afternoon. Every device arrived sealed and works flawlessly.",
+      "name": "Daniel Okafor",
+      "role": "Smart-Home Owner"
+    },
+    {
+      "quote": "The refurbished laptop looks and runs brand new — and the WhatsApp checkout made buying it effortless. This is how premium tech retail should feel.",
+      "name": "Amara Eze",
+      "role": "Creative Director"
+    },
+    {
+      "quote": "I cut my energy bill in half after Mode 7’s solar install. The team was certified, fast, and the whole system runs from one app.",
+      "name": "Tunde Bello",
+      "role": "Homeowner"
+    },
+    {
+      "quote": "Got an instant, fair trade-in value through the portal and upgraded the same day. No haggling, no surprises — just a sealed, guaranteed device.",
+      "name": "Grace Adeyemi",
+      "role": "Product Manager"
+    }
+  ],
+  "insightsImages": [
+    { "src": "/hero/team-2.webp", "alt": "" },
+    { "src": "/hero/team-4.webp", "alt": "" },
+    { "src": "/hero/team-6.webp", "alt": "" }
+  ],
+  "logos": [
+    { "name": "Apple", "display": "Apple" },
+    { "name": "Samsung", "display": "Samsung" },
+    { "name": "Sony", "display": "Sony" },
+    { "name": "Google", "display": "Google" },
+    { "name": "Bose", "display": "Bose" },
+    { "name": "Lenovo", "display": "Lenovo" },
+    { "name": "Dell", "display": "Dell" },
+    { "name": "HP", "display": "Hewlett Packard" },
+    { "name": "JBL", "display": "JBL" },
+    { "name": "Anker", "display": "Anker" },
+    { "name": "Dyson", "display": "Dyson" },
+    { "name": "Xiaomi", "display": "Xiaomi" },
+    { "name": "Jackery", "display": "Jackery" },
+    { "name": "LG", "display": "LG" },
+    { "name": "Philips Hue", "display": "Philips Hue" },
+    { "name": "EcoFlow", "display": "EcoFlow" },
+    { "name": "Sonos", "display": "Sonos" },
+    { "name": "Logitech", "display": "Logitech" },
+    { "name": "Belkin", "display": "Belkin" },
+    { "name": "Microsoft", "display": "Microsoft" }
+  ],
+  "pillars": [
+    {
+      "title": "Premium Devices",
+      "sub": "Laptops, tablets and phones, fully vetted.",
+      "image": "/hero/lifecycle-devices.webp",
+      "href": "/shop"
+    },
+    {
+      "title": "Certified Refurbished",
+      "sub": "Renewed, sealed and guaranteed like new.",
+      "image": "/hero/lifecycle-refurb.webp",
+      "href": "/shop"
+    },
+    {
+      "title": "Smart Home Automation",
+      "sub": "One app to run your entire connected home.",
+      "image": "/hero/lifecycle-smarthome.webp",
+      "href": "/smart-home"
+    },
+    {
+      "title": "Solar & Green Energy",
+      "sub": "Clean-energy systems, installed and managed.",
+      "image": "/hero/lifecycle-solar.webp",
+      "href": "/green-energy"
+    }
+  ],
+  "heroFeatures": [
+    {
+      "title": "Premium Devices",
+      "blurb": "Laptops, tablets and phones, fully vetted.",
+      "image": "/hero/lifecycle-devices.webp"
+    },
+    {
+      "title": "Certified Refurbished",
+      "blurb": "Renewed, sealed and guaranteed like new.",
+      "image": "/hero/lifecycle-refurb.webp"
+    },
+    {
+      "title": "Smart Home Automation",
+      "blurb": "One app to run your entire connected home.",
+      "image": "/hero/lifecycle-smarthome.webp"
+    },
+    {
+      "title": "Solar & Green Energy",
+      "blurb": "Clean-energy systems, installed and managed.",
+      "image": "/hero/lifecycle-solar.webp"
+    },
+    {
+      "title": "Accessories",
+      "blurb": "",
+      "image": ""
+    }
+  ],
+  "capabilities": [
+    {
+      "title": "The Trade-In & Upgrade Portal",
+      "desc": "Upload your diagnostic data and let our system calculate your device's exact upgrade value in seconds — then upgrade the same day.",
+      "cta": "Value a device",
+      "href": "/trade-in",
+      "image": "/hero/cap-tradein.webp",
+      "bullets": [
+        "AI-driven device diagnostics",
+        "Instant, fair trade-in value",
+        "Sealed, guaranteed upgrades"
+      ]
+    },
+    {
+      "title": "WhatsApp Concierge Checkout",
+      "desc": "Browse the shop on the web, then finalize your premium purchase instantly through secure, personalized chat.",
+      "cta": "Start a chat",
+      "href": "/contact",
+      "image": "/hero/cap-chat.webp",
+      "bullets": [
+        "Secure personalized checkout",
+        "Browse on web, buy in chat",
+        "Real human + AI support"
+      ]
+    },
+    {
+      "title": "Smart Home & Solar Installs",
+      "desc": "Full home automation and a clean-energy transition, designed and deployed by certified Mode 7 engineers.",
+      "cta": "Book an install",
+      "href": "/services",
+      "image": "/hero/cap-solar.webp",
+      "bullets": [
+        "Certified Mode 7 engineers",
+        "Whole-home automation",
+        "Clean-energy transition"
+      ]
+    }
+  ],
+  "hero": {
+    "wordPool": ["Pocket", "Home", "Office", "Studio", "Commute", "Future"],
+    "ariaLabel": "Powering your pocket with tech that's vetted, sealed and guaranteed.",
+    "paragraph": "The trusted ecosystem for certified refurbished devices, smart home automation, and solar energy. Every unit vetted, sealed, and guaranteed.",
+    "ctaShop": { "label": "Shop now", "href": "/shop" },
+    "ctaTradeIn": { "label": "Value your device", "href": "/trade-in" },
+    "image": "/hero/bleed.webp"
+  },
+  "stats": {
+    "heading": "Mode Seven is a comprehensive technology hub designed to power your home and your everyday life.",
+    "body": "Our offerings span premium smart-home automation, solar energy solutions, elite gadgets, and certified refurbished devices. We pair this with a premium repair division, where our expert engineers provide precision diagnostics and restoration. From purchase to repair, every unit is rigorously vetted, sealed, and guaranteed.",
+    "highlight": { "figure": "50K+", "label": "devices vetted & sealed" },
+    "partnersLabel": "premium brand partners",
+    "pillarsLabel": "ecosystem pillars"
+  },
+  "capabilityGrid": {
+    "heading": "Built around you, from first tap to upgrade.",
+    "cta": { "heading": "Not sure where to start?", "label": "Explore Our Online Shop", "href": "/shop" }
+  },
+  "work": {
+    "label": "What we do",
+    "heading": "Built for every part of the lifecycle.",
+    "body": "Mode 7 powers homes and pockets, curating premium hardware, sustainable energy and effortless upgrades under one trusted roof.",
+    "ctaLabel": "See all services",
+    "ctaHref": "/services",
+    "hrefs": ["/trade-in", "/contact", "/services"]
+  },
+  "why": {
+    "label": "Why Mode 7",
+    "heading": "We do far more than supply the latest devices.",
+    "ctaLabel": "About us",
+    "ctaHref": "/about",
+    "image": "/hero/workshop.webp",
+    "reasons": [
+      {
+        "num": "01",
+        "title": "Vetted & Sealed",
+        "body": "Each device is rigorously tested, sealed and warrantied before it ships — whether brand new or certified refurbished."
+      },
+      {
+        "num": "02",
+        "title": "Intelligent Trade-In",
+        "body": "AI-driven diagnostics calculate your device’s exact upgrade value in seconds, so trading up is effortless."
+      },
+      {
+        "num": "03",
+        "title": "Powered by Seven",
+        "body": "Our assistant Seven helps you navigate, shop and evaluate devices anytime, anywhere across the ecosystem."
+      },
+      {
+        "num": "04",
+        "title": "Home & Energy",
+        "body": "Smart-home automation and solar energy, designed and installed by certified engineers to power your whole home."
+      }
+    ]
+  },
+  "insights": {
+    "heading": "What our customers say",
+    "body": "Every unit is vetted, sealed and guaranteed — this isn't retail, it's a complete technology lifecycle engineered around you.",
+    "ctaLabel": "All reviews",
+    "ctaHref": "/about",
+    "readLabel": "Read the story"
+  },
+  "lifecycle": {
+    "label": "The ecosystem",
+    "heading": "A fully integrated technology lifecycle.",
+    "body": "From the moment you buy to the day you upgrade, every part of the Mode 7 ecosystem works together."
+  },
+  "cta": {
+    "label": "Let's get specific",
+    "heading": "What are you looking to power?",
+    "body": "Pick the part of the ecosystem you want to start with — we will take it from there.",
+    "ctaLabel": "Talk to our team",
+    "ctaHref": "/contact"
+  }
+}

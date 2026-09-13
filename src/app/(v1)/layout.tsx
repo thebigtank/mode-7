@@ -1,0 +1,17 @@
+import type { ReactNode } from "react";
+import "../scss/base.scss";
+import "../legacy.css";
+import "../scss/main.scss";
+import "../globals.css";
+import { Document, siteMetadata } from "../document";
+import { V1Chrome } from "@/components/chrome/V1Chrome";
+
+export const metadata = siteMetadata;
+
+export default function V1Layout({ children }: { children: ReactNode }) {
+  return (
+    <Document>
+      <V1Chrome>{children}</V1Chrome>
+    </Document>
+  );
+}

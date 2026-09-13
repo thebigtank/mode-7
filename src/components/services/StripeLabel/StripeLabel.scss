@@ -1,0 +1,12 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-stripe-label {
+    top: #{rem-calc(16)};
+    left: #{rem-calc(18)};
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+    color: var(--color-v2-muted);
+  }
+}

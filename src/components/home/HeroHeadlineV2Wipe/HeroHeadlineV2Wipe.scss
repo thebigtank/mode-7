@@ -1,0 +1,25 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-hero-word {
+    grid-area: 1 / 1;
+  }
+
+  .v2-hero-wipe {
+    position:absolute;
+    left:0;
+    top:50%;
+    height:1.04em;
+    margin-top:-0.52em;
+    width:0;
+    background:var(--color-v2-accent);
+    transform:scaleX(0);
+    transform-origin:left center;
+    z-index:1;
+    pointer-events:none;
+
+    @media (prefers-reduced-motion: reduce) {
+      transform:scaleX(0) !important;
+    }
+  }
+}

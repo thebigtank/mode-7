@@ -1,0 +1,460 @@
+/* ==========================================================================
+   Mode 7 — the original global stylesheet, in its own cascade layer.
+
+   @layer legacy sits between base and components, which is what lets a ported
+   component stylesheet override a rule still in here. Before the layer
+   existed this file was unlayered, so it beat every layered rule regardless of
+   specificity: /trade-in's lede went from 18px to 15px because a bare
+   `p { font-size }` in here outranked `.tradein-page .t-lede` in
+   @layer components, and `:focus-visible { border-radius: 3px }` did the same
+   to `.t-input`'s 4px.
+
+   Nothing in here is authored any more. It shrinks as routes are ported out of
+   it and is deleted in Phase 5.
+   ========================================================================== */
+@layer legacy {
+  /* ==========================================================================
+     Mode 7 — global styles
+     Ported 1:1 from the "Mode 7 Wireframe" Claude Design component.
+     Colour roles live in :root below and mirror COLOR in src/lib/theme.ts.
+     ========================================================================== */
+
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    /* Site gutter. 48px on desktop exactly as before, but it gives way on small
+       screens — a fixed 48px cost 96px of a 360px phone, over a quarter of it. */
+    --m7-pad: clamp(20px, 4vw, 48px);
+    --m7-max: 1320px;
+
+    /* Colour roles. These are the single source of truth: src/lib/theme.ts
+       mirrored them until the conformance sweep moved every component onto
+       tokens, and that file has been deleted.
+
+       The palette is used as full-width SECTION GROUNDS, after the reference:
+       cream is the default, and rust / ember / sage / gold / espresso punctuate
+       it. Nothing here is pure white or pure black. Gold and sage are light
+       grounds, never accents — gold on cream is 1.37:1. */
+
+    /* section grounds */
+    --m7-cream: #efe6d1;
+    --m7-card: #f7efdd;
+    --m7-sage: #cbc5aa;
+    --m7-rust: #9e4b2a;
+    --m7-ember: #b75a24;
+    --m7-gold: #f0c044;
+    --m7-espresso: #1c150f;
+    /* The one dark SURFACE: footer ground + every dark button. Espresso stays a
+       text colour — as a surface it reads black rather than brown. */
+    --m7-dark: #3c3521;
+    --m7-dark-raise: #4a4229;
+
+    /* text on cream */
+    --m7-ink: #1c150f;
+    --m7-ink-soft: #3c3521;
+    --m7-body: #5b553d;
+    --m7-muted: #5b553d;
+    --m7-faint: #7a765b;
+
+    /* lines */
+    --m7-line: #dcd1b6;
+    --m7-line-strong: #cec3a8;
+    --m7-hair: #a39a7e;
+
+    /* type — the <p> default (see the "Global paragraph type" rule below) and
+       the one size repeated verbatim, as a literal, across the homepage's
+       Hero/Mission/Ecosystem intros and every sub-page's PageHero lede
+       (Blocks.tsx). Line-height is NOT unified into a token: each of those
+       keeps its own (1.5–1.65), chosen per section, so only the genuinely
+       repeated number is centralised here. */
+    --m7-p-size: 15px;
+    --m7-p-line: 1.6;
+    --m7-lede-size: 18px;
+
+    /* on the bands */
+    --m7-on-rust: #efe6d1;
+    --m7-on-rust-faint: #ddbfa2;
+    --m7-rust-deep: #743a21;
+    --m7-rust-hover: #894226;
+    --m7-on-sage: #1c150f;
+    --m7-on-sage-muted: #514a3e;
+    --m7-on-sage-line: #aea88f;
+    --m7-on-gold: #1c150f;
+    --m7-on-gold-muted: #5c481f;
+    --m7-on-gold-line: #cca43d;
+    --m7-gold-deep: #b99436;
+
+    /* on espresso */
+    --m7-on-espresso: #efe6d1;
+    --m7-on-espresso-muted: #b2a792;
+    --m7-on-espresso-faint: #928876;
+    --m7-on-espresso-line: rgba(239, 230, 209, 0.16);
+    --m7-espresso-raise: #2d261e;
+    --m7-espresso-border: #3a3229;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--m7-cream);
+  }
+
+  /* Nothing may push the page sideways. Individually scrollable things (tables,
+     wide diagrams) opt into their own overflow rather than escaping the body.
+
+     `clip`, not `hidden`: overflow-x hidden on <body> makes overflow-y compute
+     to auto, which turns <body> into a scroll container. position: sticky then
+     sticks relative to that non-scrolling container instead of the viewport, so
+     every sticky element (the trade-in ledger, the site header) silently stops
+     sticking. `clip` clips the same overflow without creating a scroll container. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  /* Lenis smooth scroll ------------------------------------------------------ */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  /* Scrollbars --------------------------------------------------------------- */
+  ::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--m7-line-strong);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Browser surfaces ---------------------------------------------------------
+     The parts we don't draw still carry the design: selection, the caret, focus
+     rings and tabular numerals all ship with browser defaults belonging to no
+     design system. None of these existed before this pass.
+
+     The focus ring is espresso rather than rust, and that is deliberate: rust on
+     cream is 4.27:1 but on the sage and gold bands it drops to 3.05:1 and 3.11:1,
+     right at the edge. Espresso clears every ground we use (14.57:1 on cream,
+     10.4:1 on sage, 10.6:1 on gold), and inverts to cream on the dark bands. */
+  ::selection {
+    background: var(--m7-rust);
+    color: var(--m7-on-rust);
+  }
+  ::-moz-selection {
+    background: var(--m7-rust);
+    color: var(--m7-on-rust);
+  }
+  html {
+    caret-color: var(--m7-rust);
+    accent-color: var(--m7-rust);
+  }
+  :focus-visible {
+    outline: 2px solid var(--m7-ink);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  /* Global paragraph type ------------------------------------------------------
+     The site-wide <p> default, as tokens rather than a literal — the same
+     convention as --m7-pad/--m7-max above and the colour roles in :root.
+     A component that genuinely needs something else (a lede, a caption, a
+     hero standfirst) keeps its own size/line-height; it does not restate these two.
+
+     Every page-scoped block (.about-page, .tradein-page, and any <p> carrying
+     an inline style) sets its own font-size and/or line-height with higher
+     specificity than this bare element selector, so this rule only reaches a
+     <p> that names no deviation of its own — which is the point.
+     Tokens declared in :root above: --m7-p-size, --m7-p-line. */
+  p {
+    font-size: var(--m7-p-size);
+    line-height: var(--m7-p-line);
+  }
+
+  @keyframes m7sheetIn {
+from { transform: translateY(100%); }
+    to { transform: none; }
+}
+
+
+  @keyframes m7aiFade {
+from { opacity: 0; }
+    to { opacity: 1; }
+}
+  @keyframes m7aiIn {
+from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+}
+  /* Keyframes ---------------------------------------------------------------- */
+  @keyframes sevenIn {
+from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.86);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+}
+  @keyframes sevenOut {
+from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(16px) scale(0.9);
+    }
+}
+  @keyframes sevenPillIn {
+from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+}
+  @keyframes m7arrowLoop {
+from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(40px);
+    }
+}
+  @keyframes m7arrowLoopUp {
+from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-40px);
+    }
+}
+
+  @keyframes m7menuIn {
+from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+  @keyframes m7menuOut {
+from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+}
+  @keyframes m7menuRow {
+from {
+      opacity: 0;
+      transform: translateX(-90px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
+  @keyframes m7menuRowOut {
+from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+}
+  @keyframes m7panelDown {
+from {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+  @keyframes m7panelUp {
+from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-18px);
+    }
+}
+  @keyframes m7searchPanel {
+from {
+      opacity: 0;
+      transform: translateY(-22px) scale(0.965);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+}
+  @keyframes m7searchPanelOut {
+from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-14px) scale(0.98);
+      filter: blur(4px);
+    }
+}
+  @keyframes m7suggIn {
+from {
+      opacity: 0;
+      transform: translateY(9px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+  @keyframes m7sevenOut {
+0% {
+      transform: translateY(0);
+    }
+    22% {
+      transform: translateY(-18px);
+    }
+    100% {
+      transform: translateY(170px);
+      opacity: 0;
+    }
+}
+  @keyframes m7sevenIn {
+0% {
+      transform: translateY(170px);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+  @keyframes m7curtainDown {
+from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+  @keyframes m7curtainUp {
+from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+}
+  @keyframes m7blurfade {
+from {
+      opacity: 0;
+      filter: blur(16px);
+      transform: scale(1.06);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1);
+    }
+}
+  @keyframes m7blurfadeOut {
+from {
+      opacity: 1;
+      filter: blur(0);
+    }
+    to {
+      opacity: 0;
+      filter: blur(10px);
+    }
+}
+
+  /* ==========================================================================
+     Responsive primitives
+     --------------------------------------------------------------------------
+     Most pages here are inline-styled, which can't express a media query. These
+     few classes carry the responsive behaviour so a page only has to say which
+     shape it wants, not how it degrades.
+
+     Breakpoints, and what each is for:
+       1080  tablet landscape — 4-up becomes 2-up, 3-up becomes 2-up
+        900  tablet portrait  — asymmetric two-column splits stack
+        620  phone            — everything is one column
+        420  small phone      — tighten the last few things
+     ========================================================================== */
+
+  /* Container. Replaces `maxWidth: 1320, margin: "0 auto", padding: "… 48px"`.
+     Horizontal only — vertical rhythm differs per section and stays inline. */
+  .m7-wrap {
+    max-width: var(--m7-max);
+    margin-inline: auto;
+    padding-inline: var(--m7-pad);
+  }
+
+  /* Vertical rhythm, matching the values already used across the pages. */
+  .m7-top-lg { padding-top: clamp(52px, 7vw, 96px); }
+  .m7-top-md { padding-top: clamp(40px, 5vw, 64px); }
+  .m7-top-sm { padding-top: clamp(26px, 3.4vw, 44px); }
+
+  /* iOS Safari zooms the whole page when a focused field is under 16px. Our form
+     fields are 15px by design, so lift them on touch devices only — the desktop
+     type scale is untouched. */
+  @media (pointer: coarse) {
+input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+}
+
+  /* Wireframe annotation pills are nowrap so they read as one line on desktop.
+     On a phone a long one runs clean off the edge, so let them wrap. */
+  @media (max-width: 620px) {
+.m7-annot {
+      white-space: normal !important;
+      max-width: calc(100vw - 2 * var(--m7-pad));
+      text-align: left;
+      line-height: 1.45;
+    }
+}
+
+  @keyframes m7drift {
+from { transform: translateY(0); } to { transform: translateY(-50%); }
+}
+}

@@ -1,0 +1,108 @@
+@use 'utils' as *;
+
+@layer components {
+  .wf-placeholder {
+    position: relative;
+    height: var(--wf-placeholder-height);
+    border-radius: var(--wf-placeholder-radius);
+    overflow: hidden;
+    background: var(--color-m7-stripe);
+    border: 1px solid var(--color-m7-line-strong);
+
+    &[data-dark] {
+      background: var(--color-m7-stripe-dark);
+      border-color: var(--color-m7-espresso-border);
+    }
+  }
+
+  .wf-placeholder__label {
+    position: absolute;
+    top: #{rem-calc(20)};
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 1px;
+    color: var(--color-m7-muted);
+
+    &[data-position='top-left'] {
+      left: #{rem-calc(22)};
+    }
+
+    &[data-position='top-right'] {
+      right: #{rem-calc(22)};
+    }
+
+    .wf-placeholder[data-dark] & {
+      color: var(--color-m7-on-espresso-faint);
+    }
+  }
+
+  .wf-annot {
+    border: 1px dashed var(--color-m7-hair);
+    border-radius: #{rem-calc(99)};
+    padding: #{rem-calc(7)} #{rem-calc(15)};
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 1px;
+    color: var(--color-m7-body);
+    background: rgb(var(--color-m7-card-rgb) / 0.92);
+
+    &[data-dark] {
+      color: var(--color-m7-on-espresso-muted);
+      background: transparent;
+      border-color: var(--color-m7-on-espresso-faint);
+    }
+  }
+
+  .wf-variant-label {
+    max-width: var(--spacing-m7-container);
+    margin: 0 auto #{rem-calc(20)};
+    padding-inline: var(--m7-pad);
+  }
+
+  .wf-variant-label__row {
+    gap: #{rem-calc(12)};
+  }
+
+  .wf-variant-label__tag {
+    border: 1px dashed var(--color-m7-hair);
+    border-radius: #{rem-calc(99)};
+    padding: #{rem-calc(5)} #{rem-calc(12)};
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 1.5px;
+    color: var(--color-m7-ink);
+    background: var(--color-m7-card);
+  }
+
+  .wf-variant-label__note {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.5px;
+    color: var(--color-m7-muted);
+  }
+
+  .wf-overline {
+    --wf-overline-color: var(--color-m7-muted);
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(12)};
+    letter-spacing: 2px;
+    color: var(--wf-overline-color);
+    margin-bottom: #{rem-calc(16)};
+  }
+
+  .wf-heading {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: var(--wf-heading-size);
+    line-height: 1;
+    letter-spacing: #{rem-calc(-3)};
+    margin: 0;
+  }
+
+  .wf-body {
+    font-size: var(--m7-lede-size);
+    line-height: 1.6;
+    color: var(--color-m7-body);
+    margin: 0;
+  }
+}

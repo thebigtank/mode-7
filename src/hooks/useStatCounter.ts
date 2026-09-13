@@ -2,17 +2,6 @@
 
 import { useEffect, type RefObject } from "react";
 
-/**
- * Dot-matrix "50K+" counter card. Ported from `setupStatCounter()`.
- *
- * Draws a 5×7 dot font on a flex-sized canvas: faint background dots fill the
- * card edge-to-edge, bright white dots spell the number. On scroll-in the value
- * counts 00K+ → 50K+ ("K+" is always shown, only the number animates), then the
- * finished readout blinks.
- *
- * Uses IntersectionObserver plus a rAF-poll fallback — the observer does not
- * fire reliably in every embedding.
- */
 const FONT: Record<string, string[]> = {
   "0": ["01110", "10001", "10011", "10101", "11001", "10001", "01110"],
   "1": ["00100", "01100", "00100", "00100", "00100", "00100", "01110"],

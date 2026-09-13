@@ -1,0 +1,34 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-section {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding: #{fluid(55, 100)} var(--m7-pad) 0;
+  }
+
+  .ge-eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: #{rem-calc(16)};
+  }
+
+  .ge-h2 {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(24, 38)};
+    line-height: 1.02;
+    letter-spacing: #{rem-calc(-3, false)};
+    margin: 0 0 #{rem-calc(22)};
+    text-wrap: balance;
+  }
+
+  .ge-lede {
+    font-size: var(--m7-lede-size);
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: 0;
+  }
+}

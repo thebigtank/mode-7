@@ -1,0 +1,6 @@
+// The base layer, on its own so that legacy.css can register @layer legacy
+// after it and before components. Layer position is fixed by first mention and
+// cannot be declared -- Tailwind's PostCSS plugin strips a bare ordering
+// statement -- so the order is arranged through the import order in the route
+// group layouts.
+@use 'utils/layout';

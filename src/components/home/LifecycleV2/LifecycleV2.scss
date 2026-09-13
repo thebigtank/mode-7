@@ -1,0 +1,177 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-life-eyebrow {
+    padding: #{rem-calc(7)} #{rem-calc(16)};
+    border-radius: 99px;
+    border: 1px solid var(--color-v2-ink);
+    background: transparent;
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+  }
+
+  .v2-life-heading {
+    margin: #{fluid(20, 30)} auto 0;
+    max-width: #{rem-calc(900)};
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(34, 56)};
+    line-height: 1.2;
+    letter-spacing: #{rem-calc(-1.1, false)};
+    color: var(--color-v2-ink);
+  }
+
+  .v2-life-body {
+    margin: #{fluid(14, 20)} auto 0;
+    max-width: #{rem-calc(560)};
+    font-family: var(--font-v2-body);
+    font-weight: 300;
+    font-size: #{rem-calc(16)};
+    line-height: 1.55;
+    color: var(--color-v2-muted);
+  }
+
+  .v2-life-list {
+    margin-top: #{fluid(40, 64)};
+    border-top: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+
+    @media (min-width: #{rem-calc(981)}) {
+      margin-top: #{rem-calc(123)};
+    }
+
+    @media (min-width: #{rem-calc(1100)}) {
+      margin-top: #{rem-calc(120)};
+    }
+
+    @media (min-width: #{rem-calc(1280)}) {
+      margin-top: #{rem-calc(113)};
+    }
+
+    @media (min-width: #{rem-calc(1440)}) {
+      margin-top: #{rem-calc(110)};
+    }
+  }
+
+  .v2-life-row {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: #{fluid(16, 32)};
+    padding: #{fluid(20, 30)} #{fluid(14, 24)};
+    border-bottom: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--color-v2-ink);
+    transition: color .22s ease;
+
+    @media (max-width: #{rem-calc(640)}) {
+      gap: #{rem-calc(16)};
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .v2-life-fill {
+    position: absolute;
+    inset: 0 0 -1px 0;
+    z-index: 0;
+    border-radius: 4px;
+    background: var(--color-v2-accent);
+    opacity: 0;
+    transition: opacity .22s ease;
+
+    @media (max-width: #{rem-calc(640)}) {
+      inset: 0 #{rem-calc(-14)} -1px;
+    }
+  }
+
+  .v2-life-shot {
+    position: absolute;
+    z-index: 2;
+    left: 52%;
+    top: 50%;
+    width: #{rem-calc(460)};
+    height: #{rem-calc(307)};
+    border-radius: 4px;
+    background-image: var(--v2-life-shot);
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.97);
+    transition: opacity .24s ease, transform .24s ease;
+
+    @media (max-width: #{rem-calc(980)}) {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: translateY(-50%) !important;
+    }
+  }
+
+  .v2-life-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .v2-life-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(24, 34)};
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .v2-life-sub {
+    margin-top: #{rem-calc(8)};
+    font-family: var(--font-v2-body);
+    font-weight: 300;
+    font-size: #{rem-calc(14)};
+    line-height: 1.5;
+    color: var(--color-v2-muted);
+    transition: color .22s ease;
+  }
+
+  .v2-life-arrow {
+    position: relative;
+    z-index: 1;
+  }
+
+  .v2-life-row.is-active {
+    z-index: 3;
+    color: var(--color-v2-accent-on);
+    border-bottom-color: transparent;
+  }
+
+  .v2-life-row.is-active .v2-life-fill {
+    opacity: 1;
+  }
+
+  .v2-life-row.is-active .v2-life-shot {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+
+  .v2-life-row.is-active .v2-life-sub {
+    color: var(--color-v2-accent-on);
+  }
+
+  .v2-life-row:focus-visible {
+    outline: 2px solid var(--color-v2-ink);
+    outline-offset: -2px;
+  }
+
+  .v2-life-row, .v2-life-fill, .v2-life-shot, .v2-life-sub {
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
+  }
+
+  .v2-life-band {
+    --ui-band-pad: #{fluid(64, 96)};
+    --ui-band-pad-bottom: #{fluid(64, 90)};
+  }
+}

@@ -1,0 +1,37 @@
+@use 'utils' as *;
+
+@layer components {
+  .t-price3 {
+    gap: #{rem-calc(14)};
+    margin-top: #{fluid(26, 42)};
+    grid-template-columns: 1fr;
+
+    @media (min-width: #{rem-calc(820)}) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .t-pc {
+    border: 1px solid rgb(var(--color-v2-ink-rgb) / 0.14);
+    border-radius: #{rem-calc(4)};
+    background: var(--color-v2-white);
+    padding: #{fluid(24, 32)};
+    gap: #{rem-calc(12)};
+    align-content: start;
+    min-height: #{rem-calc(210)};
+  }
+
+  .t-pc__n {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(12)};
+    color: rgb(var(--color-v2-ink-rgb) / 0.32);
+  }
+
+  .t-pc__t {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(20)};
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+}

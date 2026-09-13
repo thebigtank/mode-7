@@ -1,7 +1,3 @@
-/**
- * Copy + data for the Mode 7 landing page, lifted verbatim from the
- * `renderVals()` block of the source design component.
- */
 
 export type Testimonial = { quote: string; name: string; role: string };
 
@@ -72,7 +68,6 @@ export const capabilities: Capability[] = [
   },
 ];
 
-/** The scroll-reveal statement in the "Why Mode 7" section. */
 export const revealStatement =
   "We do far more than supply the latest devices — we redefine how you live with technology, energy and devices. Mode 7 powers homes and pockets, curating premium hardware, sustainable energy and effortless upgrades under one trusted roof. Every unit is vetted, sealed and guaranteed — this isn't retail, it's a complete technology lifecycle engineered around you.";
 
@@ -91,18 +86,6 @@ export const heroFeatures = [
   "Accessories",
 ];
 
-/**
- * Brand marks. `src` + `name` is the original shape v1's `BrandStrip` renders
- * as small logo images — untouched, so it still shows exactly the 13 brands it
- * always has (`BrandStrip` filters to entries that carry a `src`). `display`
- * is the full, properly spelled brand name for TEXT-ONLY contexts — the
- * homepage gold marquee, which spells everything out rather than showing a
- * wordmark, so the 7 brands added there need no logo asset and carry no `src`.
- *
- * `logos.length` is read by `StatsV2` for the "premium brand partners" figure
- * (see `content rules` in the v2 CLAUDE.md) — it is derived, never asserted,
- * so growing this array from 13 to 20 for the marquee is safe by design.
- */
 export const logos: { src?: string; name: string; display: string }[] = [
   { src: "/brands/apple.svg", name: "Apple", display: "Apple" },
   { src: "/brands/samsung.svg", name: "Samsung", display: "Samsung" },
@@ -111,14 +94,12 @@ export const logos: { src?: string; name: string; display: string }[] = [
   { src: "/brands/bose.svg", name: "Bose", display: "Bose" },
   { src: "/brands/lenovo.svg", name: "Lenovo", display: "Lenovo" },
   { src: "/brands/dell.svg", name: "Dell", display: "Dell" },
-  // HP's wordmark logo stays "HP"; the marquee spells the initialism out.
   { src: "/brands/hp.svg", name: "HP", display: "Hewlett Packard" },
   { src: "/brands/jbl.svg", name: "JBL", display: "JBL" },
   { src: "/brands/anker.svg", name: "Anker", display: "Anker" },
   { src: "/brands/dyson.svg", name: "Dyson", display: "Dyson" },
   { src: "/brands/xiaomi.svg", name: "Xiaomi", display: "Xiaomi" },
   { src: "/brands/jackery.png", name: "Jackery", display: "Jackery" },
-  // Marquee-only additions below — text names, no logo asset.
   { name: "LG", display: "LG" },
   { name: "Philips Hue", display: "Philips Hue" },
   { name: "EcoFlow", display: "EcoFlow" },
@@ -128,7 +109,6 @@ export const logos: { src?: string; name: string; display: string }[] = [
   { name: "Microsoft", display: "Microsoft" },
 ];
 
-/** Mega-menu items. `href` targets the App Router routes. */
 export const menuItems = [
   { label: "About Us", href: "/about" },
   { label: "Shop", href: "/shop" },
@@ -149,7 +129,6 @@ export const footerCols = [
 
 export const legalLinks = ["Privacy Policy", "Terms of Service", "Cookie Policy"];
 
-/** Search overlay index. `pop` items are the default "Popular" suggestions. */
 export const searchIndex = [
   { label: "Premium Smartphones", type: "Phones", pop: true },
   { label: "Smart Home Automation", type: "Smart Home", pop: true },

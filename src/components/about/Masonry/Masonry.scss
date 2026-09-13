@@ -1,0 +1,62 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-mason {
+    grid-template-columns: repeat(3, 1fr);
+    gap: #{rem-calc(10)};
+    height: #{fluid(320, 560)};
+    overflow: hidden;
+    margin-top: #{fluid(28, 48)};
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, var(--ink) 11%, var(--ink) 89%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, var(--ink) 11%, var(--ink) 89%, transparent 100%);
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (min-width: 1040px) {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+
+  .a-mcol {
+    gap: #{rem-calc(10)};
+    align-content: start;
+    animation-name: m7drift;
+    animation-duration: var(--a-mcol-duration, 46s);
+    animation-direction: var(--a-mcol-direction, normal);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .a-mason:hover .a-mcol {
+    animation-play-state: paused;
+  }
+
+  .a-tile {
+    position: relative;
+    height: var(--a-tile-h);
+    background: var(--stripe-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .a-tile__tag {
+    position: absolute;
+    left: #{rem-calc(10)};
+    right: 8px;
+    bottom: 9px;
+    font-family: var(--f-mono);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.03em;
+    color: var(--decor);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

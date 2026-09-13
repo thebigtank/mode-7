@@ -1,0 +1,22 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-plus-toggle {
+    width: var(--ui-plus-toggle-size);
+    height: var(--ui-plus-toggle-size);
+    border: var(--ui-plus-toggle-border);
+  }
+
+  .v2-plus-toggle {
+    transform: rotate(0deg);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &[data-open] {
+      transform: rotate(45deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}

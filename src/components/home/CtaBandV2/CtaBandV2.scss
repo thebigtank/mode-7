@@ -1,0 +1,53 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-cta-cols {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: #{fluid(32, 116)};
+
+    @media (max-width: #{rem-calc(980)}) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: #{rem-calc(40)};
+    }
+  }
+
+  .v2-cta-label {
+    margin-bottom: #{fluid(24, 39)};
+  }
+
+  .v2-cta-heading {
+    max-width: #{rem-calc(520)};
+  }
+
+  .v2-cta-body {
+    margin-top: #{rem-calc(29)};
+    max-width: #{rem-calc(520)};
+    line-height: #{rem-calc(26)};
+  }
+
+  .v2-cta-pills {
+    gap: #{rem-calc(12)};
+  }
+
+  .v2-cta-pill {
+    min-height: #{rem-calc(38)};
+    padding: 0 #{rem-calc(22)};
+    border-radius: 999px;
+    background: rgb(var(--color-v2-white-rgb) / 0.06);
+    border: 1px solid rgb(var(--color-v2-white-rgb) / 0.28);
+    color: var(--color-v2-white);
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+  }
+
+  .v2-cta-rule {
+    height: 1px;
+    background: rgb(var(--color-v2-white-rgb) / 0.22);
+    margin: #{fluid(32, 49)} 0 #{fluid(28, 42)};
+  }
+
+  .v2-cta-band {
+    --ui-band-pad: #{fluid(64, 100)};
+  }
+}

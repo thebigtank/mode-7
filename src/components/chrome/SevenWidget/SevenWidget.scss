@@ -1,0 +1,158 @@
+@use 'utils' as *;
+
+@layer components {
+  .seven-widget {
+    right: #{fluid(12, 28)};
+    bottom: #{fluid(12, 28)};
+    z-index: 60;
+    font-family: var(--font-m7-body);
+
+    &[data-hidden='true'] {
+      animation: m7sevenOut .5s cubic-bezier(.5, 0, .6, 1) both;
+    }
+
+    &[data-hidden='false'] {
+      animation: m7sevenIn .6s cubic-bezier(.34, 1.4, .64, 1) both;
+    }
+  }
+
+  .seven-widget__panel {
+    width: min(#{rem-calc(344)}, calc(100vw - #{rem-calc(24)}));
+    background: var(--color-m7-card);
+    border: 1px solid var(--color-m7-line-strong);
+    border-radius: #{rem-calc(20)} #{rem-calc(20)} #{rem-calc(2)} #{rem-calc(20)};
+    box-shadow: 0 #{rem-calc(28)} #{rem-calc(70)} rgb(var(--color-m7-ink-rgb) / 0.22);
+    transform-origin: bottom right;
+
+    &[data-closing='true'] {
+      animation: sevenOut .22s cubic-bezier(.4, 0, .7, .3) both;
+    }
+
+    &[data-closing='false'] {
+      animation: sevenIn .38s cubic-bezier(.18, .89, .32, 1.12) both;
+    }
+  }
+
+  .seven-widget__head {
+    gap: #{rem-calc(12)};
+    padding: #{rem-calc(16)} #{rem-calc(18)};
+    border-bottom: 1px solid var(--color-m7-line);
+  }
+
+  .seven-widget__eq {
+    width: #{rem-calc(34)};
+    height: #{rem-calc(34)};
+    border-radius: 50%;
+    background: var(--color-m7-card);
+  }
+
+  .seven-widget__eq-canvas {
+    width: #{rem-calc(24)};
+    height: #{rem-calc(24)};
+  }
+
+  .seven-widget__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(16)};
+    line-height: 1;
+  }
+
+  .seven-widget__collapse {
+    cursor: pointer;
+    color: var(--color-m7-muted);
+    padding: #{rem-calc(2)};
+  }
+
+  .seven-widget__body {
+    padding: #{rem-calc(18)};
+    background: var(--color-m7-cream);
+    gap: #{rem-calc(12)};
+  }
+
+  .seven-widget__bubble {
+    align-self: flex-start;
+    max-width: 80%;
+    background: var(--color-m7-card);
+    border: 1px solid var(--color-m7-line);
+    border-radius: #{rem-calc(14)} #{rem-calc(14)} #{rem-calc(14)} #{rem-calc(4)};
+    padding: #{rem-calc(12)} #{rem-calc(15)};
+    font-size: #{rem-calc(14)};
+    line-height: 1.45;
+
+    &[data-tone='user'] {
+      align-self: flex-end;
+      background: var(--color-m7-rust);
+      color: var(--color-m7-cream);
+      border: none;
+      border-radius: #{rem-calc(14)} #{rem-calc(14)} #{rem-calc(4)} #{rem-calc(14)};
+    }
+  }
+
+  .seven-widget__footer {
+    gap: #{rem-calc(8)};
+    padding: #{rem-calc(12)} #{rem-calc(14)};
+    border-top: 1px solid var(--color-m7-line);
+  }
+
+  .seven-widget__input {
+    background: var(--color-m7-cream);
+    border: none;
+    outline: none;
+    border-radius: 99px;
+    padding: #{rem-calc(12)} #{rem-calc(16)};
+    font-family: var(--font-m7-body);
+    font-size: #{rem-calc(14)};
+  }
+
+  .seven-widget__send {
+    width: #{rem-calc(42)};
+    height: #{rem-calc(42)};
+    background: var(--color-m7-rust);
+    color: var(--color-m7-cream);
+    border-radius: 99px;
+    cursor: pointer;
+  }
+
+  .seven-widget__pill {
+    background: var(--color-m7-dark);
+    color: var(--color-m7-card);
+    border-radius: 999px;
+    padding: #{rem-calc(6)};
+    box-shadow: 0 #{rem-calc(18)} #{rem-calc(44)} rgb(var(--color-m7-ink-rgb) / 0.28);
+    cursor: pointer;
+    transform-origin: bottom right;
+    animation: sevenPillIn .32s cubic-bezier(.18, .89, .32, 1.1) both;
+  }
+
+  .seven-widget__pill-eq {
+    width: #{rem-calc(38)};
+    height: #{rem-calc(38)};
+    border-radius: 50%;
+    background: var(--color-m7-card);
+  }
+
+  .seven-widget__pill-eq-canvas {
+    width: #{rem-calc(26)};
+    height: #{rem-calc(26)};
+  }
+
+  .seven-widget__pill-label {
+    max-width: 0;
+    opacity: 0;
+    transition: max-width .42s cubic-bezier(.4, 0, .2, 1), opacity .3s ease;
+
+    &[data-hover='true'] {
+      max-width: #{rem-calc(180)};
+      opacity: 1;
+    }
+  }
+
+  .seven-widget__pill-label-text {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(15)};
+    line-height: 1;
+    padding: 0 #{rem-calc(16)} 0 #{rem-calc(12)};
+  }
+}

@@ -1,0 +1,60 @@
+@use 'utils' as *;
+
+@layer components {
+  .contact-aside {
+    gap: #{rem-calc(26)};
+  }
+
+  .contact-card {
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(26)} #{rem-calc(28)};
+  }
+
+  .contact-card__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(18)};
+    margin-bottom: #{rem-calc(18)};
+  }
+
+  .contact-channels {
+    gap: #{rem-calc(16)};
+  }
+
+  .contact-channel {
+    gap: #{rem-calc(14)};
+  }
+
+  .contact-channel__avatar {
+    width: #{rem-calc(36)};
+    height: #{rem-calc(36)};
+    border-radius: 50%;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    background: var(--color-m7-stripe);
+  }
+
+  .contact-channel__name {
+    font-size: #{rem-calc(16)};
+    color: var(--color-m7-neutral-strong-soft);
+  }
+
+  .contact-hours {
+    gap: #{rem-calc(12)};
+    font-size: #{rem-calc(15)};
+  }
+
+  .contact-hours__row {
+    border-bottom: #{rem-calc(1)} solid var(--color-m7-neutral-divider-soft);
+    padding-bottom: #{rem-calc(10)};
+  }
+
+  .contact-hours__day {
+    color: var(--color-m7-neutral-muted);
+  }
+
+  .contact-hours__time {
+    color: var(--color-m7-neutral-strong);
+    font-weight: 500;
+  }
+}

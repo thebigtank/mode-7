@@ -1,0 +1,31 @@
+@use 'utils' as *;
+
+@layer components {
+  .contact-section {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding: #{fluid(53, 96)} var(--m7-pad) 0;
+
+    &[data-lead] {
+      padding-top: #{fluid(38, 70)};
+    }
+  }
+
+  .contact-eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: #{rem-calc(16)};
+  }
+
+  .contact-h2 {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(22, 34)};
+    line-height: 1.02;
+    letter-spacing: #{rem-calc(-3, false)};
+    margin: 0 0 #{rem-calc(22)};
+    text-wrap: balance;
+  }
+}

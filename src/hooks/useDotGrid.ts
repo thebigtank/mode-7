@@ -2,24 +2,9 @@
 
 import { useEffect, type RefObject } from "react";
 
-/**
- * Proximity dot-grid canvas background. Ported from `setupDotGrid(section, canvas)`
- * — shared by the "Why Mode 7" and "Our Team" sections.
- *
- * 20px dot grid; dots within ~180px of the cursor grow in size AND opacity with
- * an eased falloff, then lerp back. The canvas is full-viewport width behind
- * content that stays constrained to the 1320px container.
- *
- * `tint` is required because this hook now runs on two different grounds — the
- * ember band under "Why Mode 7" and the cream ground under "Our Team". One fixed
- * colour cannot serve both: the old value was a slate grey that belonged to
- * neither. Pass the rgb triple that reads against the section it sits on.
- */
 export function useDotGrid(
   sectionRef: RefObject<HTMLElement | null>,
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  /* A "r,g,b" string rather than a tuple on purpose: an array literal at the
-     call site would be a fresh reference every render and re-run the effect. */
   tint = "91,85,61",
 ) {
   useEffect(() => {
@@ -88,7 +73,7 @@ export function useDotGrid(
         const dy = d.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         let t = dist < RADIUS ? 1 - dist / RADIUS : 0;
-        t = t * t; // ease falloff: tight bright core, soft edge
+        t = t * t;
         d.o += (BASE + (MAXO - BASE) * t - d.o) * LERP;
         d.r += (BASE_R + (MAX_R - BASE_R) * t - d.r) * LERP;
         ctx.beginPath();

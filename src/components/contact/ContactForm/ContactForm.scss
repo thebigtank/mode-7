@@ -1,0 +1,65 @@
+@use 'utils' as *;
+
+@layer components {
+  .contact-form {
+    position: relative;
+  }
+
+  .contact-form__fields {
+    gap: #{rem-calc(18)};
+    margin-top: #{rem-calc(12)};
+  }
+
+  .contact-form__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: #{rem-calc(16)};
+
+    @media (max-width: #{rem-calc(620)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .contact-field {
+    gap: #{rem-calc(8)};
+  }
+
+  .contact-field__label {
+    font-size: #{rem-calc(13)};
+    font-family: var(--font-m7-mono);
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .contact-input {
+    background: var(--color-m7-neutral-surface);
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-mid);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(13)} #{rem-calc(15)};
+    font-family: var(--font-m7-body);
+    font-size: #{rem-calc(16)};
+    outline: none;
+    color: var(--color-m7-neutral-line);
+
+    &[data-variant="select"] {
+      color: var(--color-m7-neutral-text);
+    }
+
+    &[data-variant="textarea"] {
+      min-height: #{rem-calc(120)};
+    }
+  }
+
+  .contact-input__chevron {
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .contact-form__submit {
+    gap: #{rem-calc(16)};
+    margin-top: #{rem-calc(4)};
+  }
+
+  .contact-form__note {
+    font-size: #{rem-calc(13)};
+    color: var(--color-m7-neutral-faint);
+  }
+}

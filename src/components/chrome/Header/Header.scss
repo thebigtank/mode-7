@@ -1,0 +1,105 @@
+@use 'utils' as *;
+
+@layer components {
+  .m7-header {
+    position: sticky;
+    top: 0;
+    z-index: 250;
+    background: color-mix(in srgb, var(--color-m7-cream) 90%, transparent);
+    color: var(--color-m7-ink);
+    backdrop-filter: blur(#{rem-calc(12)});
+    border-bottom: 1px solid var(--color-m7-line);
+    transition: transform 0.35s ease, background 0.3s ease;
+    will-change: transform;
+
+    &[data-open='true'] {
+      position: fixed;
+      left: 0;
+      right: 0;
+      transform: translateY(0);
+    }
+  }
+
+  .m7-header__nav {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding: #{rem-calc(18)} var(--m7-pad);
+    gap: #{rem-calc(24)};
+  }
+
+  .m7-header__logo {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: #{fluid(17, 21)};
+    letter-spacing: #{fluid(3, 5)};
+  }
+
+  .m7-header__actions {
+    gap: #{rem-calc(8)};
+  }
+
+  .m7-header__iconbtn {
+    width: #{rem-calc(40)};
+    height: #{rem-calc(40)};
+    font: inherit;
+  }
+
+  .m7-header__cart {
+    width: #{rem-calc(40)};
+    height: #{rem-calc(40)};
+  }
+
+  .m7-header__badge {
+    top: #{rem-calc(2)};
+    right: 0;
+    min-width: #{rem-calc(18)};
+    height: #{rem-calc(18)};
+    padding: 0 #{rem-calc(4)};
+    background: var(--color-m7-rust);
+    color: var(--color-m7-cream);
+    border: 1.5px solid var(--color-m7-cream);
+    border-radius: 99px;
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(10)};
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .m7-header__burger {
+    gap: #{rem-calc(7)};
+    width: #{rem-calc(42)};
+    height: #{rem-calc(40)};
+  }
+
+  .m7-header__bar {
+    width: #{rem-calc(27)};
+    height: #{rem-calc(2, false)};
+    background: currentColor;
+    border-radius: #{rem-calc(2)};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .m7-header__burger[data-state='idle'] .m7-header__bar--up {
+    transform: translateY(0);
+  }
+
+  .m7-header__burger[data-state='idle'] .m7-header__bar--down {
+    transform: translateY(0);
+  }
+
+  .m7-header__burger[data-state='hover'] .m7-header__bar--up {
+    transform: translateY(-1.5px);
+  }
+
+  .m7-header__burger[data-state='hover'] .m7-header__bar--down {
+    transform: translateY(1.5px);
+  }
+
+  .m7-header__burger[data-state='open'] .m7-header__bar--up {
+    transform: translateY(4.5px) rotate(45deg);
+  }
+
+  .m7-header__burger[data-state='open'] .m7-header__bar--down {
+    transform: translateY(-4.5px) rotate(-45deg);
+  }
+}

@@ -1,0 +1,80 @@
+@use 'utils' as *;
+
+@layer components {
+  .product-buybox {
+    position: sticky;
+    top: #{rem-calc(100)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      position: static;
+    }
+  }
+
+  .product-buybox__kicker {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: #{rem-calc(14)};
+  }
+
+  .product-buybox__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(28, 40)};
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    margin: 0 0 #{rem-calc(14)};
+  }
+
+  .product-buybox__price {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: #{fluid(24, 30)};
+    margin-bottom: #{rem-calc(6)};
+  }
+
+  .product-buybox__financing {
+    font-size: #{rem-calc(14)};
+    color: var(--color-m7-neutral-muted-soft);
+    margin-bottom: #{rem-calc(26)};
+  }
+
+  .product-buybox__label {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-muted-soft);
+    margin-bottom: #{rem-calc(12)};
+  }
+
+  .product-buybox__options {
+    gap: #{rem-calc(10)};
+    margin-bottom: #{rem-calc(24)};
+
+    &[data-group='condition'] {
+      margin-bottom: #{rem-calc(30)};
+    }
+  }
+
+  .product-buybox__actions {
+    gap: #{rem-calc(12)};
+  }
+
+  .product-buybox__trade-note {
+    margin-top: #{rem-calc(16)};
+    font-size: #{rem-calc(13.5)};
+    line-height: 1.6;
+    color: var(--color-m7-neutral-muted-soft);
+  }
+
+  .product-buybox__delivery {
+    margin-top: #{rem-calc(26)};
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 4px;
+    padding: #{rem-calc(18)} #{rem-calc(20)};
+    font-size: #{rem-calc(14)};
+    color: var(--color-m7-neutral-muted);
+    line-height: 1.6;
+  }
+}

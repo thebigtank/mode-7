@@ -1,0 +1,32 @@
+@use '../utils' as *;
+
+// Tailwind's Preflight is the reset. The boilerplate shipped Eric Meyer's on
+// top of it; two full resets fighting, with Meyer's `font: inherit` and
+// `line-height: 1` flattening Tailwind's own typographic defaults. Dropped.
+//
+// What survives is the handful of declarations Preflight does not cover, and
+// two that are load-bearing for this site in particular.
+@layer base {
+  html {
+    // NOT `scroll-behavior: smooth`. Lenis owns scrolling here; a native
+    // smooth scroll fights it for the same gesture.
+    box-sizing: border-box;
+  }
+
+  body {
+    // `clip`, NEVER `hidden`. `overflow-x: hidden` makes <body> a scroll
+    // container, and every `position: sticky` on the site then resolves
+    // against it instead of the viewport -- the header, the shop aside, the
+    // buybox, the trade-in ledger and the about rail all stop sticking.
+    overflow-x: clip;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

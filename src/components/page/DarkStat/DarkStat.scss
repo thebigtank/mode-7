@@ -1,0 +1,24 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-dark-stat {
+    background: rgb(var(--color-m7-neutral-white-rgb) / 0.06);
+    border: #{rem-calc(1)} solid rgb(var(--color-m7-neutral-white-rgb) / 0.12);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(24)} #{rem-calc(26)};
+  }
+
+  .pg-dark-stat__n {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: #{fluid(27, 44)};
+    line-height: 1;
+    color: var(--color-m7-neutral-white);
+  }
+
+  .pg-dark-stat__label {
+    font-size: #{rem-calc(14)};
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.5);
+    margin-top: #{rem-calc(8)};
+  }
+}

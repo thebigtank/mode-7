@@ -1,0 +1,22 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-media {
+    position: relative;
+    border-radius: #{rem-calc(4)};
+    overflow: hidden;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: var(--pg-media-h);
+    background: var(--color-m7-stripe);
+  }
+
+  .pg-media__label {
+    position: absolute;
+    top: #{rem-calc(18)};
+    left: #{rem-calc(20)};
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-faint);
+  }
+}

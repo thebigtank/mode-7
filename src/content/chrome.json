@@ -1,0 +1,208 @@
+{
+  "headerV2": {
+    "announcement": {
+      "text": "Every unit vetted, sealed and guaranteed",
+      "linkLabel": "Read more",
+      "linkHref": "/about"
+    },
+    "nav": [
+      {
+        "label": "About Us",
+        "href": "/about"
+      },
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
+        "label": "Trade-In",
+        "href": "/trade-in"
+      },
+      {
+        "label": "Smart Home",
+        "href": "/smart-home"
+      }
+    ],
+    "logoLabel": "Mode 7",
+    "cartCount": 12
+  },
+  "footer": {
+    "heading": "Powering your home, your pocket, and your future.",
+    "description": "A comprehensive technology hub for your home and everyday life — premium devices, smart-home automation, solar energy and a certified repair division. Every unit vetted, sealed and guaranteed.",
+    "cols": [
+      {
+        "title": "Services",
+        "links": [
+          "Swap Program",
+          "Smart Home",
+          "Green Energy"
+        ]
+      },
+      {
+        "title": "Explore",
+        "links": [
+          "About Us",
+          "Sustainability",
+          "Contact Us",
+          "Find a Store"
+        ]
+      }
+    ]
+  },
+  "footerV2": {
+    "heading": "Powering your home, your pocket, and your future.",
+    "description": "A comprehensive technology hub for your home and everyday life — premium devices, smart-home automation, solar energy and a certified repair division. Every unit vetted, sealed and guaranteed.",
+    "cols": [
+      {
+        "title": "Services",
+        "links": [
+          "Swap Program",
+          "Smart Home",
+          "Green Energy"
+        ]
+      },
+      {
+        "title": "Explore",
+        "links": [
+          "About Us",
+          "Sustainability",
+          "Contact Us",
+          "Find a Store"
+        ]
+      }
+    ],
+    "legalLinks": [
+      "Privacy Policy",
+      "Terms of Service",
+      "Cookie Policy"
+    ],
+    "copyright": "© 2026 Mode 7. Powering homes and pockets."
+  },
+  "sevenWidget": {
+    "title": "Seven AI",
+    "botMessage": "Hi! I'm Seven. Looking for a device, a trade-in, or a store?",
+    "userMessage": "What's my old phone worth?",
+    "inputPlaceholder": "Message Seven…",
+    "pillLabel": "Ask Seven AI"
+  },
+  "introLoader": {
+    "letters": [
+      "M",
+      "O",
+      "D",
+      "E"
+    ]
+  },
+  "revealWordmark": {
+    "wordmark": "MODE 7",
+    "copyright": "© 2026 Mode 7. Powering homes and pockets.",
+    "legalLinks": [
+      "Privacy Policy",
+      "Terms of Service",
+      "Cookie Policy"
+    ]
+  },
+  "megaMenu": {
+    "items": [
+      {
+        "label": "About Us",
+        "href": "/about"
+      },
+      {
+        "label": "Shop",
+        "href": "/shop"
+      },
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
+        "label": "Trade-In",
+        "href": "/trade-in"
+      },
+      {
+        "label": "Smart Home",
+        "href": "/smart-home"
+      },
+      {
+        "label": "Green Energy",
+        "href": "/green-energy"
+      },
+      {
+        "label": "Contact Us",
+        "href": "/contact"
+      }
+    ],
+    "previewFallbackLabel": "Mode 7",
+    "blurb": "A complete technology hub — premium devices, smart-home automation, solar energy and a certified repair division. Every unit vetted, sealed and guaranteed.",
+    "legalLinks": [
+      "Privacy Policy",
+      "Terms of Service",
+      "Cookie Policy"
+    ]
+  },
+  "searchOverlay": {
+    "placeholder": "Search devices, energy, services…",
+    "closeLabel": "Close search",
+    "resultsLabel": "Results",
+    "popularLabel": "Popular",
+    "matchLabel": "match",
+    "matchesLabel": "matches",
+    "emptyTitlePrefix": "No results for",
+    "emptyHint": "Try a device, service or energy term.",
+    "index": [
+      {
+        "label": "Premium Smartphones",
+        "type": "Phones",
+        "pop": true
+      },
+      {
+        "label": "Smart Home Automation",
+        "type": "Smart Home",
+        "pop": true
+      },
+      {
+        "label": "Business Laptops",
+        "type": "Laptops"
+      },
+      {
+        "label": "Pro Tablets",
+        "type": "Tablets"
+      },
+      {
+        "label": "Audio & Headphones",
+        "type": "Audio"
+      },
+      {
+        "label": "Solar & Green Energy",
+        "type": "Energy",
+        "pop": true
+      },
+      {
+        "label": "Certified Refurbished",
+        "type": "Refurbished",
+        "pop": true
+      },
+      {
+        "label": "Intelligent Trade-In Portal",
+        "type": "Service"
+      },
+      {
+        "label": "Device Valuation",
+        "type": "Service"
+      },
+      {
+        "label": "Upgrade Program",
+        "type": "Service"
+      },
+      {
+        "label": "Repair & Diagnostics",
+        "type": "Support"
+      },
+      {
+        "label": "Seven AI Assistant",
+        "type": "Support"
+      }
+    ]
+  }
+}

@@ -1,0 +1,195 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-core {
+    background: var(--color-v2-white);
+    padding-block: #{rem-calc(100)};
+    scroll-margin-top: #{rem-calc(80)};
+  }
+
+  .svc-core__wrap {
+    max-width: #{rem-calc(1320)};
+    padding-inline: var(--v2-pad);
+  }
+
+  .svc-core__card {
+    border: var(--v2-hair);
+    border-radius: #{rem-calc(4)};
+    background: var(--color-v2-white);
+    grid-template-columns: 1.05fr 0.95fr;
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .svc-core__panel {
+    padding: #{rem-calc(44)};
+  }
+
+  .svc-core__badges {
+    gap: #{rem-calc(10)};
+    margin-bottom: #{rem-calc(22)};
+  }
+
+  .svc-core__badge {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+    color: var(--color-v2-white);
+    background: var(--color-v2-ink);
+    border-radius: 99px;
+    padding: #{rem-calc(6)} #{rem-calc(13)};
+  }
+
+  .svc-core__badge-sub {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+    color: var(--color-v2-muted);
+  }
+
+  .svc-core__title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(30)};
+    line-height: 1.2;
+    letter-spacing: -0.014em;
+    color: var(--color-v2-ink);
+    margin: 0 0 #{rem-calc(14)};
+  }
+
+  .svc-core__body {
+    line-height: 1.6;
+    margin: 0 0 #{rem-calc(26)};
+    max-width: #{rem-calc(520)};
+  }
+
+  .svc-core__rows {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: #{rem-calc(10)};
+    margin-bottom: #{rem-calc(30)};
+
+    @media (max-width: #{rem-calc(620)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .svc-core__footer {
+    margin-top: auto;
+    gap: #{rem-calc(22)};
+  }
+
+  .svc-core__note {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.04em;
+    color: var(--color-v2-muted);
+  }
+
+  .svc-core__wall {
+    background: var(--v2-stripe);
+    border-left: var(--v2-hair);
+    min-height: #{rem-calc(460)};
+  }
+
+  .svc-core__wall-stat {
+    left: #{rem-calc(22)};
+    bottom: #{rem-calc(22)};
+    background: var(--color-v2-white);
+    border: var(--v2-hair);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(16)} #{rem-calc(20)};
+    box-shadow: 0 #{rem-calc(12)} #{rem-calc(30)} rgb(var(--color-v2-ink-rgb) / 0.08);
+  }
+
+  .svc-core__wall-stat-value {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(22, 34)};
+    line-height: 1;
+    letter-spacing: -0.018em;
+    color: var(--color-v2-ink);
+  }
+
+  .svc-core__wall-stat-label {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(13)};
+    color: var(--color-v2-muted);
+    margin-top: #{rem-calc(2)};
+  }
+
+  .svc-core__categories {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: #{rem-calc(14)};
+    margin-top: #{rem-calc(14)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .svc-core__plus {
+    background: var(--color-v2-ink);
+    color: var(--color-v2-white);
+    border-radius: #{rem-calc(4)};
+    padding: #{rem-calc(24)};
+  }
+
+  .svc-core__plus-eyebrow {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-faint);
+  }
+
+  .svc-core__plus-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(19)};
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: #{rem-calc(10)} 0;
+  }
+
+  .svc-core__plus-cta {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(14)};
+    color: var(--color-v2-faint);
+    gap: #{rem-calc(8)};
+  }
+
+  .svc-core__fleet {
+    padding: #{rem-calc(30)} #{rem-calc(34)};
+    gap: #{rem-calc(32)};
+    margin-top: #{rem-calc(14)};
+  }
+
+  .svc-core__fleet-lead {
+    gap: #{rem-calc(22)};
+    flex: 1 1 #{rem-calc(460)};
+  }
+
+  .svc-core__fleet-eyebrow {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(10)};
+    letter-spacing: 0.05em;
+    color: var(--color-v2-muted);
+    margin-bottom: #{rem-calc(8)};
+  }
+
+  .svc-core__fleet-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(22)};
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+    margin-bottom: #{rem-calc(8)};
+  }
+
+  .svc-core__fleet-body {
+    line-height: 1.55;
+    max-width: #{rem-calc(660)};
+  }
+}

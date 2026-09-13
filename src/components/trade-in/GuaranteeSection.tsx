@@ -1,0 +1,18 @@
+import { Mono } from "@/components/ui/Mono";
+import { TradeInFaq } from "@/components/trade-in/TradeInFaq";
+
+export function GuaranteeSection() {
+  return (
+    <section className="t-band t-band--ink">
+      <div className="t-wrap">
+        <Mono dot tone="faint" className="mb-4">
+          Before you ask
+        </Mono>
+        <h2 className="t-dl max-w-[18ch]">
+          Your device, valued the way we’d want ours valued.
+        </h2>
+        <TradeInFaq />
+      </div>
+    </section>
+  );
+}

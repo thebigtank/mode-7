@@ -2,14 +2,6 @@
 
 import { useEffect, type RefObject } from "react";
 
-/**
- * Per-logo blur/fade on the brand marquee. Ported from `setupBrandBlur()`.
- *
- * Deliberately NOT a flat mask-fade tunnel: a rAF loop tracks each
- * `[data-logo]`'s x-position inside the viewport window and applies its own
- * `grayscale(1) blur()` + opacity with a smoothstep falloff, so each logo blurs
- * out individually as it exits and blurs back in as it enters.
- */
 export function useBrandBlur(ref: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const FADE = 150,
@@ -29,7 +21,7 @@ export function useBrandBlur(ref: RefObject<HTMLElement | null>) {
           if (cx < FADE) t = cx / FADE;
           else if (cx > W - FADE) t = (W - cx) / FADE;
           t = Math.max(0, Math.min(1, t));
-          const e = t * t * (3 - 2 * t); // smoothstep
+          const e = t * t * (3 - 2 * t);
           item.style.filter = `grayscale(1) blur(${((1 - e) * MAXBLUR).toFixed(2)}px)`;
           item.style.opacity = (FULLOP * e).toFixed(3);
         });

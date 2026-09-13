@@ -1,0 +1,13 @@
+@use 'utils' as *;
+
+@layer components {
+  .contact-message__grid {
+    grid-template-columns: 1.3fr 1fr;
+    gap: #{rem-calc(56)};
+    align-items: start;
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

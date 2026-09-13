@@ -1,0 +1,38 @@
+@use 'utils' as *;
+
+@layer components {
+  .ui-mono {
+    --ui-mono-color: var(--color-v2-muted);
+    --ui-mono-dot-color: var(--color-v2-accent);
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(12)};
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    color: var(--ui-mono-color);
+
+    &[data-tone='faint'] {
+      --ui-mono-color: var(--color-v2-faint);
+    }
+
+    &[data-tone='white'] {
+      --ui-mono-color: var(--color-v2-white);
+    }
+
+    &[data-tone='ink'] {
+      --ui-mono-color: var(--color-v2-ink);
+    }
+
+    &[data-tone='accent-text'] {
+      --ui-mono-color: var(--color-v2-accent-text);
+    }
+
+    &[data-tone='accent-on'] {
+      --ui-mono-color: var(--color-v2-accent-on);
+    }
+  }
+
+  .ui-mono__dot {
+    background: var(--ui-mono-dot-color);
+  }
+}

@@ -2,14 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Interactive proximity dot-grid behind the mega menu's right column. Ported
- * from `setupMenuDots()` — dark dots on white that grow and brighten near the
- * cursor.
- *
- * A persistent rAF loop queries `[data-menudot]` each frame rather than binding
- * to a ref, because the canvas mounts and unmounts with the menu.
- */
 export function useMenuDots() {
   useEffect(() => {
     const SP = 20,

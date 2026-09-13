@@ -1,0 +1,225 @@
+@use 'utils' as *;
+
+@layer components {
+  @keyframes m7ocRise {
+    from {
+      opacity: 0;
+      transform: translateY(#{rem-calc(14)});
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes m7ocPop {
+    from {
+      opacity: 0;
+      transform: scale(0.82);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes m7ocTick {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .oc-rise {
+    animation-name: m7ocRise;
+    animation-duration: 0.62s;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: both;
+    animation-delay: var(--oc-rise-delay, 0s);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: m7aiFade;
+      animation-duration: 0.3s;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+    }
+  }
+
+  .oc {
+    padding-top: #{fluid(48, 96)};
+  }
+
+  .oc__intro {
+    max-width: #{rem-calc(720)};
+    margin: 0 auto;
+  }
+
+  .oc-mark {
+    width: #{rem-calc(76)};
+    height: #{rem-calc(76)};
+    border-radius: 50%;
+    background: var(--color-m7-neutral-ink);
+    color: var(--color-m7-neutral-white);
+    animation: m7ocPop 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: m7aiFade 0.3s ease both;
+    }
+  }
+
+  .oc-tick {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: m7ocTick 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.26s both;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .oc__title {
+    --oc-rise-delay: 0.06s;
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(34, 58)};
+    line-height: 1.02;
+    letter-spacing: #{rem-calc(-2.4, false)};
+    margin: #{rem-calc(28)} 0 0;
+  }
+
+  .oc__lede {
+    --oc-rise-delay: 0.12s;
+    font-size: #{fluid(17, 19)};
+    line-height: 1.65;
+    color: var(--color-m7-neutral-body);
+    margin: #{rem-calc(22)} auto 0;
+    max-width: 54ch;
+  }
+
+  .oc-summary {
+    --oc-rise-delay: 0.18s;
+    margin-top: #{rem-calc(34)};
+    border: 1px solid var(--color-m7-neutral-border-soft);
+    border-radius: 6px;
+    background: var(--color-m7-neutral-surface-soft);
+    padding: #{rem-calc(8)} #{rem-calc(24)} #{rem-calc(20)};
+  }
+
+  .oc-summary__row {
+    gap: #{rem-calc(20)};
+    padding: #{rem-calc(11)} 0;
+    border-bottom: 1px solid var(--color-m7-neutral-border-soft);
+
+    &[data-last] {
+      padding: #{rem-calc(11)} 0 0;
+      border-bottom: none;
+    }
+  }
+
+  .oc-summary__key {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(10)};
+    letter-spacing: #{rem-calc(1.2, false)};
+    color: var(--color-m7-neutral-faint);
+  }
+
+  .oc-summary__value {
+    font-size: #{rem-calc(15)};
+    color: var(--color-m7-neutral-strong);
+    line-height: 1.5;
+    white-space: pre-line;
+
+    &[data-last] {
+      line-height: 1.55;
+    }
+  }
+
+  .oc-next {
+    max-width: #{rem-calc(1000)};
+    margin: #{fluid(48, 76)} auto 0;
+  }
+
+  .oc-next__eyebrow {
+    font-family: var(--font-m7-head);
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
+    color: var(--color-m7-neutral-faint);
+    margin-bottom: #{rem-calc(26)};
+  }
+
+  .oc-steps {
+    gap: #{rem-calc(28)} #{rem-calc(24)};
+    grid-template-columns: 1fr;
+
+    @media (min-width: #{rem-calc(780)}) {
+      grid-template-columns: repeat(3, 1fr);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 12%;
+        right: 12%;
+        height: 1px;
+        background: var(--color-m7-line);
+      }
+    }
+  }
+
+  .oc-step {
+    padding-top: #{rem-calc(26)};
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        --oc-rise-delay: #{0.24 + ($i - 1) * 0.06}s;
+      }
+    }
+
+    &:nth-child(n + 7) {
+      --oc-rise-delay: 0.54s;
+    }
+  }
+
+  .oc-step__dot {
+    width: #{rem-calc(11)};
+    height: #{rem-calc(11)};
+    border-radius: #{rem-calc(99)};
+    background: var(--color-m7-card);
+    border: 1px solid var(--color-m7-ink);
+    box-shadow: 0 0 0 4px var(--color-m7-card);
+
+    @media (min-width: #{rem-calc(780)}) {
+      .oc-step:first-child & {
+        background: var(--color-m7-ink);
+      }
+    }
+  }
+
+  .oc-step__num {
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    color: var(--color-m7-neutral-line);
+    letter-spacing: #{rem-calc(1, false)};
+  }
+
+  .oc-step__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(18)};
+    letter-spacing: #{rem-calc(-0.4, false)};
+    margin: #{rem-calc(10)} 0 #{rem-calc(8)};
+    line-height: 1.25;
+  }
+
+  .oc-step__body {
+    font-size: #{rem-calc(15)};
+    line-height: 1.6;
+    color: var(--color-m7-neutral-body);
+  }
+
+  .oc-actions {
+    --oc-rise-delay: 0.42s;
+    gap: #{rem-calc(12)};
+    margin-top: #{fluid(40, 64)};
+  }
+}

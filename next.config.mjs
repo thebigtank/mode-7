@@ -1,6 +1,32 @@
+import { fileURLToPath } from "node:url";
+
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // Next regenerates AGENTS.md and CLAUDE.md on every dev run. CLAUDE.md here is
+  // hand-written project guidance -- the only record of the traps documented in
+  // it -- so the generator is off to stop it being overwritten.
+  agentRules: false,
+
+  // The dev overlay badge paints into the bottom-left of the viewport and would
+  // otherwise land in every parity screenshot.
+  devIndicators: false,
+
+  // Component stylesheets are colocated with their components and each opens
+  // with a bare `@use 'utils' as *;`. loadPaths is what makes that one line
+  // resolve from anywhere in the tree instead of a ../../../ chain, and it is
+  // honoured by Turbopack in both `next dev` and `next build`.
+  //
+  // fileURLToPath, never URL.pathname: this project lives under a directory
+  // with spaces in its name, and .pathname hands back a percent-encoded string
+  // that Sass cannot resolve -- the import fails with "Can't find stylesheet to
+  // import" pointing at the @use line rather than at the path.
+  sassOptions: {
+    loadPaths: [fileURLToPath(new URL("./src/app/scss", import.meta.url))],
+  },
 
   // A `next dev` server and a `next build` cannot share a build directory — the
   // build clobbers the CSS chunk next/font generates, which silently drops the
@@ -23,4 +49,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// withPayload wires the admin's own webpack/Turbopack needs and its server
+// externals. It wraps rather than replaces, so everything above still applies.
+export default withPayload(nextConfig);

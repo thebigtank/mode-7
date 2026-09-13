@@ -1,0 +1,70 @@
+@use 'utils' as *;
+
+@layer components {
+  .v2-why-cols {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: #{fluid(32, 58)};
+
+    @media (max-width: #{rem-calc(980)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .v2-why-shot {
+    min-height: #{fluid(320, 678)};
+    background-image: var(--v2-why-shot);
+  }
+
+  .v2-why-heading {
+    margin-top: #{rem-calc(36)};
+    max-width: #{rem-calc(620)};
+  }
+
+  .v2-why-cta {
+    margin: #{fluid(28, 41)} 0 #{fluid(26, 37)};
+  }
+
+  .v2-why-list {
+    border-top: var(--v2-hair);
+  }
+
+  .v2-reason {
+    grid-template-columns: #{rem-calc(44)} minmax(0, 1fr);
+    gap: #{fluid(10, 16)};
+    padding: #{rem-calc(26)} 0;
+    border-bottom: var(--v2-hair);
+
+    @media (max-width: #{rem-calc(640)}) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: #{rem-calc(8)};
+    }
+  }
+
+  .v2-reason-num {
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(13)};
+    letter-spacing: 0.02em;
+    line-height: #{rem-calc(30)};
+    color: var(--color-v2-accent-text);
+  }
+
+  .v2-reason-title {
+    margin: 0;
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(24)};
+    line-height: #{rem-calc(30)};
+    letter-spacing: #{rem-calc(-0.24, false)};
+    color: var(--color-v2-ink);
+  }
+
+  .v2-reason-body {
+    margin-top: #{rem-calc(12)};
+    line-height: #{rem-calc(26)};
+    max-width: #{rem-calc(560)};
+  }
+
+  .v2-why-band {
+    --ui-band-pad: #{fluid(64, 96)};
+  }
+}

@@ -1,4 +1,3 @@
-/** FAQ content for the Services page, grouped by topic tab. */
 export type FaqGroup = { tab: string; title: string; qs: { q: string; a: string }[] };
 
 export const faqData: FaqGroup[] = [

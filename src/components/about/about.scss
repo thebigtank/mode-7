@@ -1,0 +1,136 @@
+@use 'utils' as *;
+
+@layer components {
+  .about-page {
+    font-family: var(--f-body);
+    color: var(--ink);
+  }
+
+  .about-page :where(p) {
+    font-weight: 400;
+    margin: 0;
+    max-width: 66ch;
+  }
+
+  .a-wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-inline: var(--pad);
+  }
+
+  .a-band {
+    padding-block: #{fluid(64, 120)};
+    background: var(--wash);
+  }
+
+  .a-band--wash {
+    background: var(--wash);
+    border-block: 1px solid var(--rule);
+  }
+
+  .a-band--ink {
+    background: var(--ink);
+    color: var(--color-v2-white);
+  }
+
+  .a-band--tight {
+    padding-block: #{fluid(52, 88)};
+  }
+
+  .a-dl {
+    font-family: var(--f-head);
+    font-weight: 400;
+    margin: 0;
+    text-wrap: balance;
+    font-size: #{fluid(30, 44)};
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+  }
+
+  .a-label {
+    font-family: var(--f-mono);
+    font-weight: 400;
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .a-band--ink .a-label {
+    color: var(--color-v2-faint);
+  }
+
+  .a-num {
+    font-family: var(--f-mono);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .a-dm {
+    font-family: var(--f-head);
+    font-weight: 400;
+    margin: 0;
+    text-wrap: balance;
+    font-size: #{fluid(23, 34)};
+    line-height: 1.2;
+    letter-spacing: -0.014em;
+  }
+
+  .a-band--ink .a-dm {
+    color: var(--color-v2-white);
+  }
+
+  .a-dm__ch {
+    color: var(--color-v2-accent);
+  }
+
+  .a-split {
+    gap: #{fluid(28, 64)};
+    grid-template-columns: 1fr;
+  }
+
+  .a-split--sticky {
+    @media (min-width: 900px) {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      align-items: start;
+    }
+  }
+
+  .a-split--wide {
+    @media (min-width: 900px) {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      align-items: end;
+    }
+  }
+
+  .a-sticky {
+    @media (min-width: 900px) {
+      position: sticky;
+      top: #{rem-calc(100)};
+    }
+  }
+
+  .a-stack {
+    gap: #{rem-calc(20)};
+  }
+
+  .a-stack--lg {
+    gap: #{fluid(28, 46)};
+  }
+
+  .about-page [data-rv] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+    @media (prefers-reduced-motion: reduce) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .about-page [data-rv].in {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,101 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-spec {
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--paper);
+    margin-top: #{fluid(28, 46)};
+  }
+
+  .a-spec__bar {
+    gap: #{rem-calc(16)};
+    padding: #{rem-calc(13)} #{fluid(20, 32)};
+    background: var(--wash);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .a-spec__trip {
+    grid-template-columns: 1fr;
+
+    @media (min-width: 820px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .a-spec__word {
+    padding: #{fluid(26, 42)} #{fluid(20, 32)};
+    border-bottom: 1px solid var(--rule);
+    gap: #{rem-calc(10)};
+    align-content: start;
+  }
+
+  .a-spec__word + .a-spec__word {
+    @media (min-width: 820px) {
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .a-spec__w {
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: #{fluid(30, 46)};
+    line-height: 1;
+    letter-spacing: -0.018em;
+  }
+
+  .a-spec__d {
+    color: var(--body);
+    font-size: #{rem-calc(16)};
+    line-height: 1.55;
+    margin: 0;
+    max-width: 34ch;
+  }
+
+  .a-spec__sheet {
+    grid-template-columns: 1fr;
+
+    @media (min-width: 820px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .a-spec__row {
+    align-items: baseline;
+    gap: #{rem-calc(20)};
+    padding: #{rem-calc(13)} #{fluid(20, 32)};
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .a-spec__row:nth-child(even) {
+    @media (min-width: 820px) {
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .a-spec__row:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .a-spec__row:last-child {
+    @media (max-width: 819px) {
+      border-bottom: 0;
+    }
+  }
+
+  .a-spec__k {
+    font-family: var(--f-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .a-spec__v {
+    font-family: var(--f-mono);
+    font-size: #{rem-calc(13)};
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+}

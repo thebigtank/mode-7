@@ -1,0 +1,181 @@
+{
+  "hero": {
+    "overline": "Own your power. Cut your bills. Clean the grid.",
+    "titleLine1": "The Future Runs",
+    "titleLine2": "on Green Power",
+    "intro": "Premium green energy solutions, home batteries and EV charging — designed, installed and monitored by certified Mode 7 engineers. Energy that pays you back.",
+    "primaryCta": "Book a Call",
+    "secondaryCta": "Explore Solutions"
+  },
+  "heroCards": [
+    {
+      "icon": "sun",
+      "title": "Solar Power",
+      "sub": "High-efficiency panels, installed to code"
+    },
+    {
+      "icon": "battery",
+      "title": "Home Battery",
+      "sub": "Store cheap daytime energy for the peak"
+    },
+    {
+      "icon": "home",
+      "title": "Home Backup",
+      "sub": "Keep the whole home running through outages"
+    }
+  ],
+  "whyItMatters": {
+    "eyebrow": "Why It Matters",
+    "title": "Energy prices only go one way. Your bills don’t have to.",
+    "lede": "Grid electricity keeps climbing and supply keeps wobbling. Generating your own clean power is no longer a luxury — it’s the smartest hedge a household can make.",
+    "stats": [
+      { "n": "3×", "label": "grid prices have risen over the last decade" },
+      { "n": "70%+", "label": "of daytime energy a typical home can self-supply" },
+      { "n": "50%", "label": "Average bill reduction" }
+    ]
+  },
+  "solarWorks": {
+    "eyebrow": "How Solar Works",
+    "title": "The Power of Energy Independence",
+    "lede": "Switching to solar isn’t just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Free home survey",
+        "body": "We assess your roof, shading, usage patterns and goals — remotely or on-site."
+      },
+      {
+        "n": "02",
+        "title": "Custom system design",
+        "body": "A tailored panel, battery and inverter layout with clear, honest savings projections."
+      },
+      {
+        "n": "03",
+        "title": "Certified install",
+        "body": "Accredited engineers install and commission everything to code, usually in a day."
+      },
+      {
+        "n": "04",
+        "title": "Monitor & save",
+        "body": "Track generation, storage and savings live — and let the system optimise itself."
+      }
+    ]
+  },
+  "solarLifting": {
+    "eyebrow": "Solar Power",
+    "title": "The sun does the heavy lifting.",
+    "lede": "Solar power is beautifully simple. Your roof catches daylight and turns it into the electricity your home runs on — no fuel to buy, nothing to burn. Just clean, quiet energy, on tap every day.",
+    "captionTitle": "The sun doesn’t send a bill.",
+    "captionSub": "No fuel to buy, nothing to burn — just free daylight.",
+    "points": [
+      {
+        "icon": "sun",
+        "title": "Effortless",
+        "text": "No moving parts, nothing to maintain — panels just quietly do their job."
+      },
+      {
+        "icon": "bolt",
+        "title": "Always working",
+        "text": "From dawn to dusk, your roof keeps turning light into power."
+      },
+      {
+        "icon": "refresh",
+        "title": "Kind to the planet",
+        "text": "No smoke, no emissions — just clean electricity from sunlight."
+      }
+    ]
+  },
+  "scrolly": {
+    "mediaLabel": "ENERGY SYSTEM",
+    "annotationLabel": "IMAGE — ENERGY FLOW",
+    "blocks": [
+      {
+        "n": "01",
+        "title": "The Power of Energy Independence",
+        "caption": "[Animated visual: Sun illuminating the roof]",
+        "paras": [
+          {
+            "text": "Switching to solar isn't just about placing panels on a roof; it is about taking complete control of your energy consumption. By harnessing clean, renewable power directly from the sun, you drastically reduce your reliance on unpredictable utility companies, shield yourself from rising electricity rates, and significantly lower your carbon footprint."
+          }
+        ]
+      },
+      {
+        "n": "02",
+        "title": "How the System Connects",
+        "caption": "[Animated visual: Energy flowing to smart inverter]",
+        "lead": "To truly benefit from green energy, it helps to understand how the components work together to power a home seamlessly:",
+        "paras": [
+          {
+            "label": "Solar Array:",
+            "text": "These panels act as a personal power plant, capturing sunlight throughout the day and generating raw electricity."
+          },
+          {
+            "label": "Smart Inverters:",
+            "text": "The brain of the operation. This equipment safely converts the raw solar energy into the usable alternating current (AC) electricity that household appliances require."
+          },
+          {
+            "label": "Charge Controllers:",
+            "text": "Advanced Maximum Power Point Tracking (MPPT) ensures the energy moving from the panels into the storage system flows at peak efficiency, extracting the most power possible regardless of cloud cover."
+          }
+        ]
+      },
+      {
+        "n": "03",
+        "title": "Battery Storage: Your 24/7 Power Reserve",
+        "caption": "[Animated visual: Power routing to battery bank]",
+        "lead": "Generating solar power is only half the equation. Connecting a solar array to a modern, high-capacity battery system (like reliable lithium iron phosphate technology) is what unlocks true freedom.",
+        "paras": [
+          {
+            "label": "Daytime Storage:",
+            "text": "Excess power generated during peak sunlight hours is routed straight to the battery bank instead of being wasted."
+          },
+          {
+            "label": "Nighttime Usage:",
+            "text": "When the sun goes down, the home seamlessly shifts to battery power, keeping everything running without drawing from the main grid."
+          },
+          {
+            "label": "Outage Protection:",
+            "text": "Advanced battery management systems monitor reserves, ensuring homes have reliable backup power during grid failures or rolling blackouts."
+          }
+        ]
+      },
+      {
+        "n": "04",
+        "title": "Breaking Free from the Grid",
+        "caption": "[Animated visual: Home fully disconnected from the grid]",
+        "paras": [
+          {
+            "text": "By combining efficient solar generation with robust battery storage, users create a self-sustaining micro-grid. This setup provides immunity to grid instability and massive long-term financial savings."
+          }
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "title": "Everything you’re wondering.",
+    "annotation": "ACCORDION — EXPAND / COLLAPSE",
+    "items": [
+      {
+        "q": "Is my roof suitable for solar?",
+        "a": "Most homes are viable. Our free survey checks roof direction, shading and usage, then models exactly what you’d generate and save before you commit anything."
+      },
+      {
+        "q": "How long does an install take?",
+        "a": "Accredited engineers install and commission a typical system in a single day, then hand over a working, monitored setup."
+      },
+      {
+        "q": "What happens on cloudy days or at night?",
+        "a": "Paired with a home battery you store cheap daytime energy for the evening peak, and the grid covers anything left over."
+      },
+      {
+        "q": "Can I add a battery or EV charger later?",
+        "a": "Yes — systems are designed to expand. A hybrid inverter leaves headroom for storage and 7kW home charging whenever you’re ready."
+      },
+      {
+        "q": "What warranties are included?",
+        "a": "25-year panel performance warranties, plus a written generation guarantee on the system as installed — not just the hardware."
+      }
+    ]
+  }
+}

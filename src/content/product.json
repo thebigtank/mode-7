@@ -1,0 +1,59 @@
+{
+  "productId": "flagship-x",
+  "breadcrumb": {
+    "rootLabel": "Shop",
+    "rootHref": "/shop",
+    "category": "Phones"
+  },
+  "gallery": {
+    "mainLabel": "PRODUCT — MAIN VIEW",
+    "thumbs": ["VIEW 1", "VIEW 2", "VIEW 3", "VIEW 4"],
+    "annotation": "IMAGE GALLERY — THUMBNAIL SWITCH"
+  },
+  "buybox": {
+    "kicker": "Premium · Sealed · Guaranteed",
+    "title": "Mode Flagship X",
+    "financing": "or around ₦77,000/mo over 24 months · trade in to bring this down",
+    "storageLabel": "Storage",
+    "storageOptions": [
+      { "label": "128GB", "on": false },
+      { "label": "256GB", "on": true },
+      { "label": "512GB", "on": false }
+    ],
+    "conditionLabel": "Condition",
+    "conditionOptions": [
+      { "label": "New", "on": true },
+      { "label": "Certified Refurbished", "on": false }
+    ],
+    "actions": [
+      { "label": "Add to Cart", "href": "/cart", "variant": "fill" },
+      {
+        "label": "Trade in toward this",
+        "href": "/trade-in#value-your-device",
+        "variant": "outline"
+      }
+    ],
+    "tradeNoteBefore": "Have a device to trade? Value it in about a minute and we take the estimate off this price — you bring the difference, not",
+    "tradeNoteAfter": ".",
+    "delivery": "Free next-day delivery · 2-year warranty · 30-day returns. Ask Seven for setup help any time."
+  },
+  "overview": {
+    "eyebrow": "// Overview",
+    "title": "Engineered for the everyday premium.",
+    "lede": "A flagship device vetted, sealed and guaranteed by Mode 7 — with a trade-in route and Seven support built in from day one.",
+    "specsTitle": "Specifications",
+    "specs": [
+      { "key": "Display", "value": "6.7\" OLED 120Hz" },
+      { "key": "Chip", "value": "Mode A-series" },
+      { "key": "Storage", "value": "128 / 256 / 512 GB" },
+      { "key": "Camera", "value": "Triple 50MP system" },
+      { "key": "Battery", "value": "All-day, fast charge" },
+      { "key": "Warranty", "value": "2 years" }
+    ]
+  },
+  "related": {
+    "eyebrow": "// You May Also Like",
+    "title": "Complete the setup.",
+    "productIds": ["studio-headphones", "smart-hub", "pro-tablet", "home-battery"]
+  }
+}

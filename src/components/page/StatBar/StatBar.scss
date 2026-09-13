@@ -1,0 +1,40 @@
+@use 'utils' as *;
+
+@layer components {
+  .pg-statbar {
+    grid-template-columns: repeat(var(--pg-statbar-cols), minmax(0, 1fr));
+    border-top: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-bottom: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: #{rem-calc(460)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .pg-statbar__cell {
+    padding: #{rem-calc(26)} #{rem-calc(28)};
+    border-right: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+
+    &[data-last] {
+      border-right: 0;
+    }
+  }
+
+  .pg-statbar__n {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: #{fluid(27, 44)};
+    line-height: 1;
+    letter-spacing: #{rem-calc(-2, false)};
+  }
+
+  .pg-statbar__label {
+    font-size: #{rem-calc(14)};
+    color: var(--color-m7-neutral-muted-soft);
+    margin-top: #{rem-calc(8)};
+  }
+}

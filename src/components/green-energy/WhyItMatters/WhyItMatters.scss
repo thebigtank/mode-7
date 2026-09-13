@@ -1,0 +1,39 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-why__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: #{rem-calc(56)};
+
+    @media (max-width: #{rem-calc(900)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .ge-why__stats {
+    gap: #{rem-calc(14)};
+  }
+
+  .ge-why__stat {
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border-soft);
+    border-radius: #{rem-calc(4)};
+    background: var(--color-m7-neutral-surface-soft);
+    padding: #{rem-calc(24)} #{rem-calc(28)};
+    gap: #{rem-calc(20)};
+  }
+
+  .ge-why__stat-n {
+    font-family: var(--font-m7-head);
+    font-weight: 700;
+    font-size: #{fluid(24, 38)};
+    line-height: 1;
+    letter-spacing: #{rem-calc(-2, false)};
+    min-width: #{rem-calc(110)};
+  }
+
+  .ge-why__stat-label {
+    font-size: #{rem-calc(16)};
+    color: var(--color-m7-neutral-body-soft);
+    line-height: 1.5;
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "hero": {
+    "eyebrow": "Intelligent Trade-In Portal",
+    "titleLine1": "Your device already",
+    "titleLine2": "has a value.",
+    "lede": "We just make it the honest one. Answer a few questions and watch the number build itself, line by line — no black box, no lowball, no submit-and-pray.",
+    "ticks": [
+      "≈ 60 seconds",
+      "Live market data",
+      "Trade toward any device",
+      "Vetted · Sealed · Guaranteed"
+    ]
+  },
+  "pricing": [
+    {
+      "n": "01",
+      "t": "Live market data",
+      "b": "Base values track what devices actually resell for this week — not a stale table. The market line moves with real demand."
+    },
+    {
+      "n": "02",
+      "t": "One number, one party",
+      "b": "The estimate you build is the offer we take to the valuations team. Same figure or better in most cases — you approve before anything moves."
+    },
+    {
+      "n": "03",
+      "t": "No lowball, ever",
+      "b": "Every deduction is a named line item you can see and question. Nothing is subtracted quietly after you commit."
+    }
+  ],
+  "faq": [
+    {
+      "q": "How accurate is the live estimate?",
+      "a": "It’s a real range built from your answers and current market data — but it stays an estimate. Your photos and video narrow the range; only the valuations team can confirm a figure, and they do that after they’ve assessed the device."
+    },
+    {
+      "q": "When does the estimate become a confirmed figure?",
+      "a": "Two ways. If the photos and video tell the team enough, they confirm the value from that evidence and email it to you, usually within 24 hours. Otherwise you bring the device to the office, they inspect it in person, and the value is confirmed on the spot."
+    },
+    {
+      "q": "Why do I have to upload a video?",
+      "a": "The team values the device from what they can actually see. Three photos and a short video of all sides are required before an estimate can be submitted — without them there’s nothing to assess."
+    },
+    {
+      "q": "How does the trade actually work?",
+      "a": "Your estimate comes off the price of the device you’re trading toward, and you bring the difference. Trade a device we estimate at ₦700,000 toward a ₦1,800,000 phone and you bring ₦1,100,000 — not the full price. Account credit isn’t automatic; if you’d rather have credit than a device, speak to the team."
+    },
+    {
+      "q": "Why might a device be turned down?",
+      "a": "A device that won’t power on, has liquid damage, or is locked to a carrier or account can’t be valued automatically — you’ll see that the moment you tell us, with no wasted effort, plus a free responsible-recycling route."
+    },
+    {
+      "q": "Is my data wiped?",
+      "a": "Every device we take in is securely wiped with certified data destruction before it’s renewed or recycled — whether or not it ends up eligible for trade."
+    }
+  ],
+  "workspace": {
+    "ref": "M7-4820",
+    "categories": [
+      { "id": "phone", "title": "Phone", "sub": "Most traded" },
+      { "id": "laptop", "title": "Laptop", "sub": "Business & pro" },
+      { "id": "tablet", "title": "Tablet", "sub": "Pro tablets" }
+    ],
+    "photoTiles": [
+      { "key": "front", "label": "PHOTO — FRONT", "file": "IMG_4021-front.jpg" },
+      { "key": "back", "label": "PHOTO — BACK", "file": "IMG_4022-back.jpg" },
+      { "key": "screen", "label": "PHOTO — SCREEN ON", "file": "IMG_4023-screen.jpg" }
+    ],
+    "steps": {
+      "device": {
+        "n": "01",
+        "title": "What are you trading in?",
+        "hint": "Pick a category, then choose your device from the list we currently accept for trade-in.",
+        "subN": "02",
+        "subTitle": "Which one is it?",
+        "modelPlaceholder": "Choose your device…",
+        "searchPlaceholder": "Search devices…",
+        "storageLabel": "Storage"
+      },
+      "condition": {
+        "n": "02",
+        "title": "What condition is it in?",
+        "hint": "Answer honestly — the ledger adjusts either way, and photos back it up next.",
+        "power": {
+          "label": "Powers on & boots normally?",
+          "options": [
+            { "v": "yes", "label": "Yes" },
+            { "v": "no", "label": "No / won’t boot", "warn": true }
+          ]
+        },
+        "battery": {
+          "label": "Battery health",
+          "options": [
+            { "v": "high", "label": "85%+" },
+            { "v": "mid", "label": "70–84%" },
+            { "v": "low", "label": "Below 70%" },
+            { "v": "unsure", "label": "Not sure" }
+          ]
+        },
+        "cosmetic": {
+          "label": "Body & cosmetics",
+          "options": [
+            { "v": "likenew", "label": "Like new" },
+            { "v": "good", "label": "Good — light marks" },
+            { "v": "worn", "label": "Well used" }
+          ]
+        },
+        "keys": {
+          "label": "Keyboard, trackpad & ports",
+          "options": [
+            { "v": "ok", "label": "All working" },
+            { "v": "issues", "label": "Some issues" }
+          ]
+        },
+        "liquid": {
+          "label": "Any liquid damage?",
+          "options": [
+            { "v": "no", "label": "No" },
+            { "v": "yes", "label": "Yes", "warn": true }
+          ]
+        },
+        "lock": {
+          "label": "Locked to a carrier or account?",
+          "options": [
+            { "v": "no", "label": "No — fully unlocked" },
+            { "v": "yes", "label": "Yes / not sure", "warn": true }
+          ]
+        },
+        "screenLabel": "Screen"
+      },
+      "evidence": {
+        "n": "03",
+        "title": "Show us the device.",
+        "req": "attached",
+        "hint": "Three photos and a short video, all four required. The team values from what they can see, so nothing is submitted without them — and a clearer view usually means a tighter estimate.",
+        "videoOn": "✓ CLIP_0342.mov",
+        "videoOff": "▣ ADD SHORT VIDEO — REQUIRED, ALL SIDES"
+      },
+      "contact": {
+        "n": "04",
+        "title": "Where do we send the figure?",
+        "req": "Required",
+        "hint": "A confirmed value comes back by email, and the team may call if they need anything else. Without these we’d have a valuation and no one to give it to.",
+        "fullName": { "label": "Full name", "hint": "Please enter your full name." },
+        "email": { "label": "Email address", "hint": "That doesn’t look like an email address." },
+        "phone": { "label": "Phone number", "hint": "Please enter a reachable phone number." },
+        "fine": "Used only to handle this trade-in. We don’t add you to a mailing list."
+      }
+    },
+    "wizard": {
+      "back": "Back",
+      "seeOptions": "See your options",
+      "continue": "Continue",
+      "submit": "Submit my estimate",
+      "checking": "Running eligibility check…",
+      "hints": {
+        "category": "Pick a category to continue",
+        "modelChoose": "Choose your model",
+        "storageChoose": "Pick a storage size",
+        "ineligible": "This device can’t be valued automatically",
+        "condition": "Answer every question to continue",
+        "contact": "Fill in your name, email and phone"
+      }
+    },
+    "receipt": {
+      "title": "Device Valuation",
+      "refPending": "Ref pending",
+      "noDevice": "No device yet",
+      "pickDevice": "Pick a device to begin",
+      "linesToggle": "How this is worked out",
+      "linesEmpty": "Nothing yet",
+      "linesEmptyBody": "Line items post here as you answer",
+      "totalLabel": "Estimated value",
+      "totalChip": "Estimate",
+      "subIneligible": "This device can’t be valued automatically",
+      "subTightened": "Evidence attached — the team confirms from here",
+      "subUntightened": "Add your 4 uploads to tighten this range",
+      "subDefault": "Backed by live market data",
+      "waitDevice": "Choose a device to continue",
+      "waitCondition": "Answer condition to continue",
+      "waitContact": "Add your contact details to continue",
+      "noteReady": "Goes to the team — they confirm the figure",
+      "noteNotReady": "Photos, video and contact details required"
+    },
+    "void": {
+      "title": "We can’t value this device right now.",
+      "recycleTitle": "Recycle it responsibly",
+      "recycleBody": "We’ll take it off your hands at no cost with certified data destruction. Zero landfill.",
+      "askTitle": "Ask Seven",
+      "askBody": "Our assistant can suggest a repair that could make it eligible, or your best upgrade path without a trade-in."
+    },
+    "outcome": {
+      "submitted": "// Estimate submitted",
+      "subLabel": "Estimated value — not yet confirmed",
+      "intro": "Your ledger, photos and video are with the valuations team. This figure stays an estimate until a person has actually assessed the device — there are two ways that happens.",
+      "path1Title": "We email you a confirmed figure",
+      "path1Body": "If the photos and video tell the team enough, they confirm the value from the evidence and email it to {email} — usually within 24 hours.",
+      "path2Title": "If they can’t, we’ll ask you to come in",
+      "path2Body": "When the evidence isn’t conclusive, we’ll ask you to bring the device to one of our outlets. The team inspects it in front of you and locks the value there and then.",
+      "optionALabel": "Option A · how trade-in works",
+      "optionATitle": "Put it toward your next device",
+      "optionABody": "Choose what you want. We take the estimate off its price, and you bring the difference — not the full amount.",
+      "reserve": "Reserve the {name}",
+      "youBring": "You bring",
+      "calcEmpty": "Pick a device above to see exactly what you would bring.",
+      "surplusNote": "Your estimate covers the {name} outright. The team will settle the balance with you when they confirm the figure.",
+      "payRangeNote": "Between {lo} and {hi} depending on where the team confirms your estimate. Nothing is owed until you agree the final figure.",
+      "optionBLabel": "Option B",
+      "optionBTitle": "Credit my account instead",
+      "optionBBody": "Credit isn’t issued automatically — the team arranges it case by case. Talk to us if you’d rather not trade toward a device.",
+      "talkToTeam": "Talk to the team",
+      "startNew": "Start a new valuation"
+    }
+  }
+}

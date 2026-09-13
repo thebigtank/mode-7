@@ -1,0 +1,26 @@
+@use 'utils' as *;
+
+@layer components {
+  .sh-banner {
+    padding: #{rem-calc(44)} #{rem-calc(26)} 0;
+  }
+
+  .sh-banner__media {
+    position: relative;
+    border-radius: #{rem-calc(4)};
+    overflow: hidden;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: min(64vh, #{rem-calc(640)});
+    background: var(--color-m7-stripe);
+  }
+
+  .sh-banner__label {
+    position: absolute;
+    top: #{rem-calc(22)};
+    left: #{rem-calc(24)};
+    font-family: var(--font-m7-mono);
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
+    color: var(--color-m7-neutral-faint);
+  }
+}

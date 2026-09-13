@@ -1,0 +1,81 @@
+@use 'utils' as *;
+
+@layer components {
+  .ge-herocards {
+    max-width: #{rem-calc(1320)};
+    margin: 0 auto;
+    padding: #{rem-calc(44)} var(--m7-pad) 0;
+  }
+
+  .ge-herocards__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: #{rem-calc(18)};
+
+    @media (max-width: #{rem-calc(1080)}) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: #{rem-calc(620)}) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .ge-herocard {
+    position: relative;
+    border-radius: #{rem-calc(4)};
+    overflow: hidden;
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
+    height: min(64vh, #{rem-calc(620)});
+    background: var(--color-m7-stripe);
+    --ge-scrim-rgb: 10 22 14;
+  }
+
+  .ge-herocard__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 45%,
+      rgb(var(--ge-scrim-rgb) / 0.85) 100%
+    );
+  }
+
+  .ge-herocard__icon {
+    position: absolute;
+    top: #{rem-calc(18)};
+    left: #{rem-calc(18)};
+    width: #{rem-calc(46)};
+    height: #{rem-calc(46)};
+    border-radius: #{rem-calc(99)};
+    background: var(--color-m7-neutral-white);
+  }
+
+  .ge-herocard__body {
+    position: absolute;
+    left: #{rem-calc(20)};
+    right: #{rem-calc(20)};
+    bottom: #{rem-calc(20)};
+  }
+
+  .ge-herocard__title {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{rem-calc(24)};
+    line-height: 1.15;
+    letter-spacing: #{rem-calc(-0.5, false)};
+    color: var(--color-m7-neutral-white);
+  }
+
+  .ge-herocard__sub {
+    font-size: #{rem-calc(14)};
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.75);
+    margin-top: #{rem-calc(6)};
+  }
+
+  .ge-herocard__cta {
+    gap: #{rem-calc(6)};
+    font-size: #{rem-calc(14)};
+    color: rgb(var(--color-m7-neutral-white-rgb) / 0.9);
+    margin-top: #{rem-calc(14)};
+  }
+}

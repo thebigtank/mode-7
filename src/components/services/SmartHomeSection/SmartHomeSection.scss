@@ -1,0 +1,95 @@
+@use 'utils' as *;
+
+@layer components {
+  .svc-smarthome {
+    background: var(--color-v2-wash);
+    padding-block: #{rem-calc(100)};
+    scroll-margin-top: #{rem-calc(80)};
+  }
+
+  .svc-smarthome__wrap {
+    max-width: #{rem-calc(1320)};
+    padding-inline: var(--v2-pad);
+  }
+
+  .svc-smarthome__mosaic {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(#{rem-calc(200)}, auto);
+    gap: #{rem-calc(14)};
+
+    @media (max-width: #{rem-calc(1080)}) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: #{rem-calc(900)}) {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        min-height: #{rem-calc(200)};
+      }
+    }
+  }
+
+  .svc-smarthome__feature {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+
+  .svc-smarthome__feature-copy {
+    left: #{rem-calc(26)};
+    bottom: #{rem-calc(26)};
+    right: #{rem-calc(26)};
+  }
+
+  .svc-smarthome__feature-title {
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{rem-calc(26)};
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    color: var(--color-v2-ink);
+    margin-bottom: #{rem-calc(14)};
+  }
+
+  .svc-smarthome__scenes {
+    gap: #{rem-calc(8)};
+    margin-bottom: #{rem-calc(18)};
+  }
+
+  .svc-smarthome__scene {
+    background: var(--color-v2-white);
+    border: var(--v2-hair);
+    border-radius: 99px;
+    padding: #{rem-calc(7)} #{rem-calc(14)};
+    font-family: var(--font-v2-label);
+    font-size: #{rem-calc(11)};
+    letter-spacing: 0.02em;
+    color: var(--color-v2-ink);
+  }
+
+  .svc-smarthome__mosaic .svc-bento[data-slot='lighting'] {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .svc-smarthome__mosaic .svc-bento[data-slot='climate'] {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .svc-smarthome__mosaic .svc-bento[data-slot='security'] {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .svc-smarthome__mosaic .svc-bento[data-slot='entertainment'] {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .svc-smarthome__mosaic .svc-bento[data-slot='energy'] {
+    grid-column: 3;
+    grid-row: 3;
+  }
+}
