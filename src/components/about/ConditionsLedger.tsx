@@ -1,7 +1,6 @@
 "use client";
 
 import { type CSSProperties, useCallback, useState } from "react";
-import { Briefcase, ShieldCheck, Wallet, Zap, type LucideIcon } from "lucide-react";
 
 /**
  * The interactive four-row list in "The Conditions We Build For" (below the
@@ -14,11 +13,16 @@ import { Briefcase, ShieldCheck, Wallet, Zap, type LucideIcon } from "lucide-rea
  * ── What is load-bearing here ────────────────────────────────────────────
  *
  *  1. NOTHING IS RESERVED AND NOTHING SHIFTS. The gold fill and the floating
- *     image are both absolutely-positioned overlays inside the row (see the
- *     `.a-cond*` rules in globals.css), so the row's border-box height is
+ *     image stack are both absolutely-positioned overlays inside the row (see
+ *     the `.a-cond*` rules in globals.css), so the row's border-box height is
  *     byte-identical at rest and active — confirmed by measuring the
  *     rendered page, not by reading this diff (CLAUDE.md's working
- *     practice).
+ *     practice). The row's THIRD grid column is nonetheless a real, reserved
+ *     224px track: the stack floats inside it rather than being laid out by
+ *     it, but reserving the track is what keeps the paragraph from running
+ *     under the photo on hover. That was the actual defect in the previous
+ *     layout — the card sat between the title and body columns and landed on
+ *     top of the running copy.
  *
  *  2. THE RESTING STATE LIVES IN globals.css, NEVER INLINE. The only inline
  *     value a row carries is the custom property `--a-cond-shot`, naming its
@@ -41,17 +45,18 @@ import { Briefcase, ShieldCheck, Wallet, Zap, type LucideIcon } from "lucide-rea
  * so it takes an explicit `tabIndex` to be reachable by keyboard at all
  * (a `<Link>`, as in LifecycleV2, is focusable for free).
  *
- * ICONS replace the 01–04 numerals, one per condition, picked to fit its
- * subject: `Zap` (an unreliable grid — the row is literally about power),
- * `ShieldCheck` (scarce trust — verification, warranties, a paper trail),
- * `Wallet` (hardware priced against income), `Briefcase` (a device that
- * doubles as somebody's livelihood).
+ * NO ICONS. The 64px leading icon column (lucide `Zap`/`ShieldCheck`/
+ * `Wallet`/`Briefcase`, which had themselves replaced 01–04 numerals) was
+ * removed at the user's request; the row now reads title -> paragraph ->
+ * image, left to right, with nothing before the title. `lucide-react` went
+ * with it — this file no longer imports it. Do not reintroduce a leading
+ * column here without re-deriving `.a-cond`'s grid, which is written against
+ * three tracks, and the stack's own clearance maths in globals.css.
  *
  * THE FLOATING IMAGE is keyed by title, exactly like `PILLAR_IMAGE` in
- * LifecycleV2, so reordering `conditions` can't mismatch a picture. Only
- * three of the four rows get one. `public/hero/lifecycle-*.webp` has four
- * candidates (devices, refurb, smarthome, solar) and they were matched by
- * what is actually IN the photo, not by filename:
+ * LifecycleV2, so reordering `conditions` can't mismatch a picture. All four
+ * rows now have one. Matched by what is actually IN the photo, not by
+ * filename:
  *   - lifecycle-solar.webp is solar panels in scrubland -> "Unreliable grid
  *     power" (the row is literally about off-grid power).
  *   - lifecycle-devices.webp is a laptop and a spread of phones/tablets on a
@@ -59,58 +64,57 @@ import { Briefcase, ShieldCheck, Wallet, Zap, type LucideIcon } from "lucide-rea
  *     exact hardware).
  *   - lifecycle-refurb.webp is a man checking a phone in his hand -> "Devices
  *     are livelihoods" (the row's own line is "the phone in your hand").
- *   - lifecycle-smarthome.webp is a couch with cushions — a cozy-interior
- *     shot with no connection to any of the four conditions, "Trust is
- *     scarce" included. Forcing it onto a row would misrepresent that row's
- *     claim (CLAUDE.md's content rules), so it is not used here, and "Trust
- *     is scarce" renders with no card at any width.
+ *   - workshop.webp is a CPU seated in a motherboard socket, shot close -> 
+ *     "Trust is scarce". This row used to render with NO card at all, because
+ *     the only unused lifecycle-* file (smarthome: a couch with cushions) had
+ *     no honest connection to it and forcing it on would have misrepresented
+ *     the row's claim (CLAUDE.md's content rules). Once the image moved into
+ *     its own reserved column an empty slot became visible rather than
+ *     invisible, so a real match was sourced instead: bench-level hardware
+ *     inspection is precisely what "we made verification a documented process
+ *     with a paper trail" describes. It also carries recorded CC0 provenance
+ *     (StockSnap PUWNNLCU1C, see public/hero/CREDITS.md) — which the four
+ *     lifecycle-* files, per that same file, do NOT.
  */
 
 type Condition = { t: string; b: string };
 
-const ICON: Record<string, LucideIcon> = {
-  "Unreliable grid power": Zap,
-  "Trust is scarce": ShieldCheck,
-  "Hardware outpaces income": Wallet,
-  "Devices are livelihoods": Briefcase,
-};
-
 const SHOT: Record<string, string> = {
   "Unreliable grid power": "/hero/lifecycle-solar.webp",
+  "Trust is scarce": "/hero/workshop.webp",
   "Hardware outpaces income": "/hero/lifecycle-devices.webp",
   "Devices are livelihoods": "/hero/lifecycle-refurb.webp",
-  // "Trust is scarce" intentionally has no entry — see the note above.
 };
 
 /**
- * The card is now portrait (170x255, 2:3) while every source photo is
- * 640x427 landscape (3:2) — `background-size:cover` into a portrait box is
- * height-bound (scale = boxHeight / imgHeight = 255/427 = 0.597), so the
- * FULL height shows but only ~44.7% of the image's WIDTH survives (270px of
- * 640px); vertical position never crops anything here, only horizontal does,
- * and it does so hard. A plain `data-shot` attribute (not a style, so
- * `--a-cond-shot` stays the only inline value) selects a per-image
- * `background-position` rule in globals.css, chosen by opening each photo
- * and checking what a 270px-wide vertical slice keeps:
- *   - solar: panels run in three diagonal rows across nearly the whole
- *     frame, so a near-centre slice keeps two-plus full panel rows and the
- *     hillside above them, without drifting into the sky-heavy right edge
- *     or the out-of-focus foreground twigs that get worse at the far left
- *     and right. 44% keeps that densest cluster.
- *   - devices: the laptop is the frame's one unambiguous subject and sits
- *     entirely in the left ~45% (0-288px of 640) — almost exactly the
- *     270px-wide slice this crop keeps if anchored left. 12% nudges just
- *     enough right to also catch the first phone's edge, so the crop reads
- *     as "a laptop and a phone," not "a laptop" cropped tight.
- *   - refurb: the hands and the phone he is checking sit in the frame's
- *     horizontal middle, with his head to their left and his leg to their
- *     right providing context either side — a centred slice keeps the
- *     phone whole with both, so no override is needed beyond the default.
- * None of the three needed a vertical adjustment (see above), and none are
- * upscaled — the box is smaller than the source in both axes.
+ * The card is now a 176px SQUARE (it was portrait, 170x255). Three of the
+ * four sources are 640x427 landscape, so `background-size:cover` into a
+ * square box is height-bound (scale = 176/427 = 0.412, scaled width = 264px)
+ * and ~66.7% of the image's width survives — a much gentler crop than the
+ * portrait box's ~44.7%, so the old per-image `background-position` values
+ * were re-derived against the wider slice rather than carried over. A plain
+ * `data-shot` attribute (not a style, so `--a-cond-shot` stays the only
+ * inline value) selects the per-image rule in globals.css:
+ *   - solar: the panel rows run right across the frame; the wider slice now
+ *     keeps the full cluster from a centred crop, so the old 44% nudge is no
+ *     longer needed and would only push toward the sky-heavy right edge.
+ *   - devices: the laptop occupies the left ~45% (0-288px of 640). A 427px
+ *     slice at 12% spans 26-453px, which keeps the laptop whole plus the
+ *     first phone — the same framing intent as before, still correct at the
+ *     new width, so this one is kept.
+ *   - refurb: hands and phone sit in the horizontal middle with head and leg
+ *     either side; centred keeps all three. Unchanged.
+ *   - workshop: 900x720, the only non-640x427 source. Height-bound the same
+ *     way (scale = 176/720 = 0.244, scaled width = 220px), so ~80% of the
+ *     width survives and the socketed CPU — dead centre in the frame — is
+ *     never near an edge. Centred, no override.
+ * None needed a vertical adjustment (a height-bound cover crops only
+ * horizontally) and none are upscaled — every source is larger than 176px in
+ * both axes.
  */
 const SHOT_KEY: Record<string, string> = {
   "Unreliable grid power": "solar",
+  "Trust is scarce": "workshop",
   "Hardware outpaces income": "devices",
   "Devices are livelihoods": "refurb",
 };
@@ -133,7 +137,6 @@ export function ConditionsLedger({ conditions }: { conditions: Condition[] }) {
   return (
     <div className="a-ledger">
       {conditions.map((c, i) => {
-        const Icon = ICON[c.t];
         const shot = SHOT[c.t];
         const shotKey = SHOT_KEY[c.t];
         return (
@@ -169,19 +172,18 @@ export function ConditionsLedger({ conditions }: { conditions: Condition[] }) {
               {/* the gold ground — an overlay, so it adds no height */}
               <span className="a-cond__fill" aria-hidden />
 
-              {/* the floating preview — overlay, never a hit target, and
-                  absent entirely for rows with no SHOT entry above */}
+              <h3 className="a-cond__t">{c.t}</h3>
+              <p className="a-cond__b">{c.b}</p>
+
+              {/* The floating preview: ONE span, two squares. `::before` is
+                  the solid white square behind, `::after` the photo in front
+                  — both pseudo-elements, so the stack costs no extra markup
+                  and neither half can ever become a hit target. Overlay
+                  only, absent entirely for a row with no SHOT entry. Lives
+                  in the row's reserved third column; see globals.css. */}
               {shot && (
                 <span className="a-cond__shot" data-shot={shotKey} aria-hidden />
               )}
-
-              {Icon && (
-                <span className="a-cond__icon" aria-hidden>
-                  <Icon size={26} strokeWidth={1.75} />
-                </span>
-              )}
-              <h3 className="a-cond__t">{c.t}</h3>
-              <p className="a-cond__b">{c.b}</p>
             </article>
           </div>
         );

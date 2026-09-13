@@ -13,3 +13,11 @@ next-env.d.ts
 tsconfig.tsbuildinfo
 .next-verify
 /examples-color-design-usage
+# tool output (playwright MCP traces/screenshots)
+.playwright-mcp
+
+# stray reference images dropped in the repo root
+/*.png
+/*.jpg
+/*.jpeg
+/Screenshot*

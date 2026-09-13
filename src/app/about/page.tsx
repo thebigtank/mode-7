@@ -222,24 +222,45 @@ export default function AboutPage() {
           the floating card adds a second, single-figure treatment matching
           the reference pattern; it does not replace the row. */}
       <div className="a-hero2" data-rv>
-        {/* eslint-disable-next-line @next/next/no-img-element -- the
-            codebase uses plain <img>/CSS background-image throughout
-            (no next/image usage exists elsewhere); see CREDITS.md. */}
-        <img
-          className="a-hero2__img"
-          src="/hero/workshop-bench.webp"
-          alt="Close-up of an opened laptop's internal circuit board, cooling fans and battery packs during a hardware inspection."
-        />
-        {/* Scrim: two layers, because the overlay text now sits at the
-            BOTTOM (the old top-anchored tag is gone with it) — a bottom-up
+        {/* ART-DIRECTED, not just responsive: two separately framed shots of
+            the same bench, 1672x941 landscape and 941x1672 portrait, so the
+            narrow layout gets a crop composed for it rather than a slice cut
+            out of the wide one. The `max-width: 900px` boundary is the SAME
+            breakpoint `.a-hero2` itself restacks at in globals.css — below
+            it the photo stops being an absolute overlay and becomes a static
+            block above a solid ink content panel, which is exactly where a
+            portrait frame earns its keep. Keep the two in step if that
+            breakpoint ever moves.
+            The <img> stays the fallback source and carries the alt text;
+            <source> elements take none. */}
+        <picture>
+          <source
+            media="(max-width: 900px)"
+            srcSet="/hero/about-hero-portrait.webp"
+            width={941}
+            height={1672}
+          />
+          {/* No `@next/next/no-img-element` disable needed here, unlike every
+              other bare <img> in this codebase: that rule deliberately does
+              not fire on an <img> inside a <picture>, since <picture> is the
+              art-direction case next/image cannot express. */}
+          <img
+            className="a-hero2__img"
+            src="/hero/about-hero.webp"
+            width={1672}
+            height={941}
+            alt="A technician in white gloves polishing a smartphone at an inspection bench, with precision screwdrivers, a loupe, tweezers and cleaning supplies laid out around them."
+          />
+        </picture>
+        {/* The scrim is `.a-hero2::after` in globals.css, not a div here: two
+            layers, because the overlay text sits at the BOTTOM — a bottom-up
             dark gradient protects the headline/lede/buttons, a second,
             narrower left-anchored gradient adds a little extra depth behind
             the longest line of text specifically. Measured on the rendered
-            page against the actual photo pixels, not assumed — see the
-            component's verification notes for the sampled ratios; both
-            gradients together keep the WORST sampled point at white-on-photo
-            AA or better. */}
-        <div className="a-hero2__scrim" aria-hidden="true" />
+            page against the actual photo pixels, not assumed — both gradients
+            together keep the WORST sampled point at white-on-photo AA or
+            better. `.a-hero2__content` and `.a-hero2__card` carry `z-index: 1`
+            so they stay above it. */}
         <div className="a-hero2__content">
           <Mono dot color={V2.white}>About Mode 7</Mono>
           <h2 className="a-hero2__h">

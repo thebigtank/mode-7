@@ -52,7 +52,7 @@ below rather than upscaling if a slot ever needs to be larger.
 
 | file | used by | source | licence |
 |---|---|---|---|
-| `workshop-bench.webp` | About hero — "Workshop — intake & verification bench" band | [Teardown of MacBook Pro 16 inch laptop.jpg](https://commons.wikimedia.org/wiki/File:Teardown_of_MacBook_Pro_16_inch_laptop.jpg), own work by Netha Hussain | CC0 (Wikimedia Commons) |
+| `workshop-bench.webp` | **NOW UNUSED** — was the About hero band until it was replaced by `about-hero*.webp` below. No code references it; kept rather than deleted so the cleared CC0 source stays to hand. | [Teardown of MacBook Pro 16 inch laptop.jpg](https://commons.wikimedia.org/wiki/File:Teardown_of_MacBook_Pro_16_inch_laptop.jpg), own work by Netha Hussain | CC0 (Wikimedia Commons) |
 | `devices-flatlay.webp` | About "What We Focus On" — Premium Devices bento cell | [Gadgets on a desk (Unsplash).jpg](https://commons.wikimedia.org/wiki/File:Gadgets_on_a_desk_(Unsplash).jpg), original: [unsplash.com/photos/rhVD9wlnO_I](https://unsplash.com/photos/rhVD9wlnO_I) by Niklas Veenhuis | CC0 (Unsplash, mirrored & confirmed CC0 on Wikimedia Commons) |
 
 Both are crops of the original (landscape slices taken from a larger frame) —
@@ -61,6 +61,37 @@ an identifiable person: the MacBook shot is internals-only against a plain
 background, and the desk shot shows only a knee/leg fragment in one corner,
 consistent with the "unidentifiable hands/objects" allowance in CLAUDE.md's
 content rules.
+
+## AI-GENERATED — `about-hero*.webp`
+
+**These two are not stock photography and not CC0.** They are synthetic images
+generated with OpenAI's ChatGPT image model and supplied directly by the site
+owner on 2026-09-13; they are the only generated images in this folder, and
+everything else here is CC0 stock. Recorded separately rather than folded into
+the CC0 tables above, because the licensing question is a different one: CC0 is
+a licence someone granted, whereas these carry whatever terms the generating
+service's own output policy sets, plus the open question of whether the output
+is copyrightable at all in a given jurisdiction.
+
+| file | used by | dimensions | source |
+|---|---|---|---|
+| `about-hero.webp` | About "HERO 02" full-bleed band, **≥901px** | 1672x941 (landscape) | ChatGPT-generated, supplied by the site owner |
+| `about-hero-portrait.webp` | About "HERO 02" full-bleed band, **≤900px** | 941x1672 (portrait) | ChatGPT-generated, supplied by the site owner |
+
+Art-directed pair, not one image at two sizes — the portrait is a separately
+framed shot of the same scene, served via `<picture>` at the same 900px
+breakpoint `.a-hero2` restacks at. Converted from the supplied PNGs with
+`cwebp -q 82` at native resolution; neither is upscaled or cropped here.
+
+**Two things a human should confirm before launch:**
+1. The depicted technician has **no visible face** — gloved hands, forearms and
+   a lab coat only — so this does not raise the identifiable-person problem
+   that `team-*.webp` and `av-*.webp` do. Worth re-checking if the images are
+   ever regenerated or reframed.
+2. The scene depicts a Mode 7 inspection bench. It is a *representative*
+   illustration, not a photograph of an actual Mode 7 facility. If the page's
+   surrounding copy is ever read as claiming it documents a real bench, either
+   the copy or the image needs to change.
 
 ## Known gap — `lifecycle-*.webp` (unattributed)
 

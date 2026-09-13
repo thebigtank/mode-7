@@ -251,7 +251,11 @@ section shape was **repurposed with real content, never filled with invented fac
   descending word would be fine for it even though it is not fine for the scramble
   currently on the page.
 
-**Imagery:** 25 CC0 files in `public/hero/`, provenance in `public/hero/CREDITS.md`.
+**Imagery:** CC0 files in `public/hero/`, provenance in `public/hero/CREDITS.md`.
+Two exceptions, both recorded there: `about-hero.webp` / `about-hero-portrait.webp`
+are **AI-generated, not CC0** (supplied by the site owner), and the four
+`lifecycle-*.webp` files have **no traced provenance at all**. Neither group is
+cleared for commercial use on the strength of this folder alone.
 The team and testimonial faces are **stock models beside invented names and quotes** — fine
 for a prototype, **must be replaced with real people before launch**, because a real face
 attached to a fabricated endorsement reads as a real endorsement.
