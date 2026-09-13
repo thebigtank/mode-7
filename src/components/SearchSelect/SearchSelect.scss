@@ -69,7 +69,6 @@
 
     &:focus-visible,
     &[aria-expanded="true"] {
-      outline: none;
       border-color: var(--ss-ink);
       box-shadow: 0 0 0 3px var(--ss-ring);
     }
@@ -213,7 +212,6 @@
     color: var(--ss-ink);
 
     &:focus-visible {
-      outline: none;
       border-color: var(--ss-ink);
       background: var(--ss-surface);
     }
@@ -244,10 +242,6 @@
     padding: 6px;
     list-style: none;
     scrollbar-width: thin;
-
-    &:focus-visible {
-      outline: none;
-    }
   }
 
   .m7-ss__opt {

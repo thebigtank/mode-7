@@ -92,8 +92,35 @@ touched it. `.m7-ss*` (SearchSelect) is the known case: 54 targets, none of
 them that control. The mega menu, checkout modal and search overlay are the
 same shape.
 
-For those, drive the component by hand on both builds and compare computed
-styles. Automated discovery cannot reach them.
+For those, `drive-states.mjs` scripts the interaction instead of discovering
+it. Each scenario names a route, a list of steps that open and work the
+control, and either an explicit selector list or a walk of every element under
+a root:
+
+```sh
+node scripts/parity/drive-states.mjs --url http://localhost:3101 --out /tmp/parity/driven-base.json
+node scripts/parity/drive-states.mjs --url http://localhost:3102 --out /tmp/parity/driven-branch.json
+node scripts/parity/drive-states.mjs --compare 1 --a /tmp/parity/driven-base.json --b /tmp/parity/driven-branch.json
+```
+
+It borrows `preparePage` and the settle stylesheet from `freeze.mjs`, so
+animations and transitions are off and two runs of one build differ by zero
+across 153,216 properties. It prints the element count for every state it
+captures: **a scenario whose trigger no longer matches reports 0 and must be
+fixed, not read as clean** -- the same failure that made tier 3 look green
+over a control it had never touched.
+
+It found the case it was written for. Moving
+`.m7-ss__input:focus-visible { outline: none }` out of `legacy.css` and into a
+component sheet flipped it from losing to the global
+`:focus-visible { outline: 2px solid }` to beating it, and the focus ring
+disappeared from the SearchSelect button and its filter field. Tier 3 could
+not see it; tiers 1 and 2 gated clean either side of it.
+
+**Its keys are structural below the leaves, so it only compares builds whose
+DOM is the same shape.** Run it against the rolling baseline -- the commit
+before the change -- never across a restructure, where a reshaped page reports
+every node as a difference and means nothing by it.
 
 ## Gating something that renders nowhere
 
