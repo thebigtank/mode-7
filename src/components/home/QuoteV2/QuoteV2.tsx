@@ -1,100 +1,38 @@
-import { testimonials } from "@/lib/content";
-import { V2, V2_FONT } from "@/lib/theme-v2";
 import { Band } from "@/components/ui/Band";
 import { Mono } from "@/components/ui/Mono";
+import content from "@/content/home.json";
 
 export function QuoteV2() {
-  const t = testimonials[0];
+  const t = content.testimonials[0];
 
   return (
     <Band ground="ink" className="v2-quote-band">
-      <div className="v2-quote-cols">
+      <div className="v2-quote__cols grid items-center">
         <div>
           <Mono dot tone="white" className="v2-quote__label">
-            Customer review
+            {content.quote.label}
           </Mono>
 
-          <blockquote
-            style={{
-              margin: 0,
-              maxWidth: 560,
-              fontFamily: V2_FONT.display,
-              fontWeight: 400,
-              fontSize: "clamp(26px,3.1vw,40px)",
-              lineHeight: 1.2,
-              letterSpacing: "-0.4px",
-              color: V2.white,
-              textWrap: "pretty",
-            }}
-          >
-            “{t.quote}”
-          </blockquote>
+          <blockquote className="v2-quote__text">{`“${t.quote}”`}</blockquote>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-              marginTop: "clamp(40px,5.5vw,80px)",
-            }}
-          >
+          <div className="v2-quote__by flex items-center">
             <div>
-              <div
-                style={{
-                  fontFamily: V2_FONT.body,
-                  fontSize: 16,
-                  fontWeight: 500,
-                  lineHeight: "24px",
-                  color: V2.white,
-                }}
-              >
-                {t.name}
-              </div>
-              <div
-                style={{
-                  fontFamily: V2_FONT.body,
-                  fontSize: 15,
-                  fontWeight: 300,
-                  lineHeight: "22px",
-                  color: V2.faint,
-                }}
-              >
-                {t.role}
-              </div>
+              <div className="v2-quote__name">{t.name}</div>
+              <div className="v2-quote__role">{t.role}</div>
             </div>
+
+            <span aria-hidden className="v2-quote__rule shrink-0" />
+
             <span
               aria-hidden
-              style={{
-                width: 1,
-                height: 46,
-                background: "rgba(255,255,255,0.28)",
-                flex: "0 0 auto",
-              }}
-            />
-            <span
-              aria-hidden
-              style={{
-                width: 46,
-                height: 46,
-                borderRadius: "50%",
-                flex: "0 0 auto",
-                backgroundImage: "url(/hero/av-1.webp)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              className="v2-quote__avatar shrink-0 bg-cover bg-center"
             />
           </div>
         </div>
 
         <div
           aria-hidden
-          className="v2-quote-portrait"
-          style={{
-            aspectRatio: "1 / 1",
-            backgroundImage: "url(/hero/customer.webp)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="v2-quote__portrait bg-cover bg-center"
         />
       </div>
     </Band>

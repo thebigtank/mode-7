@@ -1,28 +1,76 @@
 @use 'utils' as *;
 
 @layer components {
-  .v2-quote-cols {
-    display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,0.92fr);
-    gap:clamp(32px,14vw,204px);
-    align-items:center;
-
-    @media (max-width: 980px) {
-      grid-template-columns:minmax(0,1fr);
-    }
-
-    @media (max-width: 980px) {
-      gap:40px;
-    }
-  }
-
-  .v2-quote-portrait {
-    @media (max-width: 980px) {
-      max-width:420px;
-    }
-  }
-
   .v2-quote-band {
     --ui-band-pad: #{fluid(56, 64)};
+  }
+
+  .v2-quote__cols {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+    gap: #{fluid(32, 204)};
+
+    @media (max-width: #{rem-calc(980)}) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: #{rem-calc(40)};
+    }
+  }
+
+  .v2-quote__label {
+    margin-bottom: #{fluid(24, 34)};
+  }
+
+  .v2-quote__text {
+    margin: 0;
+    max-width: #{rem-calc(560)};
+    font-family: var(--font-v2-display);
+    font-weight: 400;
+    font-size: #{fluid(26, 40)};
+    line-height: 1.2;
+    letter-spacing: #{rem-calc(-0.4, false)};
+    color: var(--color-v2-white);
+    text-wrap: pretty;
+  }
+
+  .v2-quote__by {
+    gap: #{rem-calc(20)};
+    margin-top: #{fluid(40, 80)};
+  }
+
+  .v2-quote__name {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(16)};
+    font-weight: 500;
+    line-height: #{rem-calc(24)};
+    color: var(--color-v2-white);
+  }
+
+  .v2-quote__role {
+    font-family: var(--font-v2-body);
+    font-size: #{rem-calc(15)};
+    font-weight: 300;
+    line-height: #{rem-calc(22)};
+    color: var(--color-v2-faint);
+  }
+
+  .v2-quote__rule {
+    width: 1px;
+    height: #{rem-calc(46)};
+    background: rgb(var(--color-v2-white-rgb) / 0.28);
+  }
+
+  .v2-quote__avatar {
+    width: #{rem-calc(46)};
+    height: #{rem-calc(46)};
+    border-radius: 50%;
+    background-image: url('/hero/av-1.webp');
+  }
+
+  .v2-quote__portrait {
+    aspect-ratio: 1 / 1;
+    background-image: url('/hero/customer.webp');
+
+    @media (max-width: #{rem-calc(980)}) {
+      max-width: #{rem-calc(420)};
+    }
   }
 }

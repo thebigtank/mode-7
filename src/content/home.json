@@ -1,0 +1,19 @@
+{
+  "quote": {
+    "label": "Customer review",
+    "portrait": { "src": "/hero/customer.webp", "alt": "" },
+    "avatar": { "src": "/hero/av-1.webp", "alt": "" }
+  },
+  "testimonials": [
+    {
+      "quote": "Seven walked me through trading in my old phone and setting up my whole smart home in one afternoon. Every device arrived sealed and works flawlessly.",
+      "name": "Daniel Okafor",
+      "role": "Smart-Home Owner"
+    },
+    {
+      "quote": "The refurbished laptop looks and runs brand new — and the WhatsApp checkout made buying it effortless. This is how premium tech retail should feel.",
+      "name": "Amara Eze",
+      "role": "Creative Director"
+    }
+  ]
+}
