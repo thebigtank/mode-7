@@ -5,6 +5,12 @@ export function collect({ styleProps, pseudoProps }) {
     return m ? m[0] : String(u).slice(0, 60);
   };
 
+  // getComputedStyle resolves url() against the document, so every background
+  // image carries the serving origin. Baseline and branch are necessarily on
+  // different ports, and the origin is never what is being compared.
+  const deOrigin = (v) =>
+    typeof v === "string" ? v.replace(/https?:\/\/[^/"')]+/g, "") : v;
+
   const seen = new Map();
   const keyFor = (el, cs) => {
     let raw = "";
@@ -51,12 +57,12 @@ export function collect({ styleProps, pseudoProps }) {
         rect: [r.x, r.y, r.width, r.height].map((v) => Math.round(v * 1000) / 1000),
         style: {},
       };
-      for (const p of styleProps) rec.style[p] = cs[p];
+      for (const p of styleProps) rec.style[p] = deOrigin(cs[p]);
       for (const which of ["::before", "::after"]) {
         const ps = getComputedStyle(el, which);
         if (ps.content && ps.content !== "none") {
           rec[which] = {};
-          for (const p of pseudoProps) rec[which][p] = ps[p];
+          for (const p of pseudoProps) rec[which][p] = deOrigin(ps[p]);
         }
       }
       out.push(rec);

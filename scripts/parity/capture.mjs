@@ -174,7 +174,10 @@ async function main() {
     }
     const page = await newPage(1440);
     const r = await page.goto(URL_BASE + "/homepage-v2", { waitUntil: "domcontentloaded" });
-    const redirect = { finalUrl: page.url(), status: r?.status() ?? 0 };
+    const redirect = {
+      finalUrl: new URL(page.url()).pathname,
+      status: r?.status() ?? 0,
+    };
     await page.close();
     await write(join(OUT, "tier4", "fonts.json"), JSON.stringify({ fonts, redirect }, null, 2));
   }
