@@ -23,7 +23,7 @@ export function PricingBand() {
   return (
     <section className="t-band t-band--wash">
       <div className="t-wrap">
-        <Mono dot style={{ marginBottom: 14 }}>
+        <Mono dot className="mb-[14px]">
           How the number is made
         </Mono>
         <h2 className="t-dl max-w-[20ch]">

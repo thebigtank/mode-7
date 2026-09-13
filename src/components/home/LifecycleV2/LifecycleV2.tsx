@@ -34,7 +34,7 @@ export function LifecycleV2() {
   }, []);
 
   return (
-    <Band ground={V2.wash} pad="clamp(64px,6.7vw,96px)" padBottom="clamp(64px,6.3vw,90px)">
+    <Band ground="wash" className="v2-life-band">
       <div style={{ textAlign: "center" }}>
         <span
           style={{

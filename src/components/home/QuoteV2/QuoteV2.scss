@@ -21,4 +21,8 @@
       max-width:420px;
     }
   }
+
+  .v2-quote-band {
+    --ui-band-pad: #{fluid(56, 64)};
+  }
 }

@@ -108,7 +108,7 @@ export function FooterV2() {
 
             {footerCols.map((col) => (
               <div key={col.title}>
-                <Mono color={V2.faint} style={{ marginBottom: 22 }}>
+                <Mono tone="faint" className="mb-[22px]">
                   {col.title}
                 </Mono>
                 <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>

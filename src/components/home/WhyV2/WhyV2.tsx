@@ -30,7 +30,7 @@ const reasons = [
 
 export function WhyV2() {
   return (
-    <Band ground={V2.wash} pad="clamp(64px,6.7vw,96px)">
+    <Band ground="wash" className="v2-why-band">
       <div className="v2-why-cols" style={{ alignItems: "stretch" }}>
         <div
           aria-hidden
@@ -43,7 +43,7 @@ export function WhyV2() {
         />
 
         <div>
-          <Mono dot color={V2.ink}>
+          <Mono dot tone="ink">
             Why Mode 7
           </Mono>
           <H2 style={{ marginTop: 36, maxWidth: 620 }}>

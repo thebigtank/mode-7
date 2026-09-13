@@ -1,12 +1,30 @@
 @use 'utils' as *;
 
 @layer components {
+  :where(.ui-band) {
+    --ui-band-pad: #{fluid(64, 104)};
+    --ui-band-pad-bottom: var(--ui-band-pad);
+  }
+
   .ui-band {
+    --ui-band-ground: var(--color-v2-white);
     background: var(--ui-band-ground);
+
+    &[data-ground='ink'] {
+      --ui-band-ground: var(--color-v2-ink);
+    }
+
+    &[data-ground='wash'] {
+      --ui-band-ground: var(--color-v2-wash);
+    }
+
+    &[data-ground='wash-soft'] {
+      --ui-band-ground: var(--color-v2-wash-soft);
+    }
   }
 
   .ui-band__inner {
     max-width: var(--spacing-v2-container);
-    padding: var(--ui-band-pad) clamp(20px, 4vw, 48px) var(--ui-band-pad-bottom);
+    padding: var(--ui-band-pad) var(--v2-pad) var(--ui-band-pad-bottom);
   }
 }

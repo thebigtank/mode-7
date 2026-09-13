@@ -15,4 +15,8 @@
       gap:40px;
     }
   }
+
+  .v2-cta-band {
+    --ui-band-pad: #{fluid(64, 100)};
+  }
 }

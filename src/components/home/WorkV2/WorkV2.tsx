@@ -103,9 +103,9 @@ export function WorkV2() {
   }, [reducedMotion]);
 
   return (
-    <Band ground={V2.wash} pad="clamp(64px,7.7vw,111px)" padBottom="clamp(64px,6.7vw,96px)">
+    <Band ground="wash" className="v2-work-band">
       <div ref={sectionRef}>
-        <Mono dot color={V2.ink}>
+        <Mono dot tone="ink">
           What we do
         </Mono>
         <H2 style={{ marginTop: 24, maxWidth: 760 }}>

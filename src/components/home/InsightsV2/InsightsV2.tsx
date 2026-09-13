@@ -13,7 +13,7 @@ export function InsightsV2() {
   const items = testimonials.slice(1, 4);
 
   return (
-    <Band ground={V2.wash} pad="clamp(64px,8.7vw,126px)" padBottom="clamp(64px,7vw,100px)">
+    <Band ground="wash" className="v2-insights-band">
       <div className="v2-headrow" style={{ marginBottom: "clamp(44px,4.8vw,69px)" }}>
         <div>
           <H2 size="clamp(34px,3.7vw,48px)" lineHeight={1.1}>
@@ -30,7 +30,7 @@ export function InsightsV2() {
       <div className="v2-articles">
         {items.map((t, i) => (
           <article key={t.name}>
-            <Mono dot color={V2.accentText}>
+            <Mono dot tone="accent-text">
               {t.role}
             </Mono>
             <div

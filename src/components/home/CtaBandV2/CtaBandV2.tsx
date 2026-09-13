@@ -7,7 +7,7 @@ import { P } from "@/components/ui/P";
 
 export function CtaBandV2() {
   return (
-    <Band ground={V2.ink} pad="clamp(64px,7vw,100px)">
+    <Band ground="ink" className="v2-cta-band">
       <div className="v2-cta-cols">
         <div>
           <div

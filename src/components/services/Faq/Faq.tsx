@@ -24,7 +24,7 @@ export function Faq() {
     >
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 var(--m7-pad)" }}>
         <div style={{ maxWidth: 860, marginBottom: 44 }}>
-          <Mono dot style={{ marginBottom: 16 }}>
+          <Mono dot className="mb-4">
             Questions
           </Mono>
           <h2

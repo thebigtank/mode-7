@@ -12,7 +12,7 @@ export function StatsV2() {
   ];
 
   return (
-    <Band ground={V2.ink} pad="clamp(64px,7vw,100px)" padBottom="clamp(56px,6vw,88px)">
+    <Band ground="ink" className="v2-stats-band">
       <div className="v2-stats-cols">
         <H2 color={V2.white} style={{ maxWidth: 460 }}>
           Mode Seven is a comprehensive technology hub designed to power your home

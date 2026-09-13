@@ -1,31 +1,38 @@
-import type { CSSProperties, ReactNode } from "react";
-import { V2 } from "@/lib/theme-v2";
+import type { ReactNode } from "react";
+
+const TONES = {
+  muted: "muted",
+  faint: "faint",
+  white: "white",
+  ink: "ink",
+  "accent-text": "accent-text",
+  "accent-on": "accent-on",
+} as const;
+
+export type MonoTone = keyof typeof TONES;
 
 export function Mono({
   children,
-  color = V2.muted,
+  tone = "muted",
   dot = false,
-  dotColor,
   className,
-  style,
 }: {
   children: ReactNode;
-  color?: string;
+  tone?: MonoTone;
   dot?: boolean;
-  dotColor?: string;
   className?: string;
-  style?: CSSProperties;
 }) {
   return (
     <div
-      className={["ui-mono flex items-center gap-3 uppercase", className].filter(Boolean).join(" ")}
-      style={{ "--ui-mono-color": color, ...style } as CSSProperties}
+      className={["ui-mono flex items-center gap-3 uppercase", className]
+        .filter(Boolean)
+        .join(" ")}
+      data-tone={TONES[tone] ?? "muted"}
     >
       {dot ? (
         <span
           aria-hidden
           className="ui-mono__dot h-[7px] w-[7px] shrink-0 rounded-[50%]"
-          style={{ "--ui-mono-dot-color": dotColor ?? V2.accent } as CSSProperties}
         />
       ) : null}
       <span>{children}</span>

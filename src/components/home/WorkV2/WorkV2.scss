@@ -31,4 +31,9 @@
       filter:none !important;
     }
   }
+
+  .v2-work-band {
+    --ui-band-pad: #{fluid(64, 111)};
+    --ui-band-pad-bottom: #{fluid(64, 96)};
+  }
 }

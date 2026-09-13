@@ -57,7 +57,7 @@ export function AboutHero() {
           />
         </picture>
         <div className="a-hero2__content">
-          <Mono dot color={V2.white}>About Mode 7</Mono>
+          <Mono dot tone="white">About Mode 7</Mono>
           <h2 className="a-hero2__h">
             A device is only as good as everything standing behind it.
           </h2>

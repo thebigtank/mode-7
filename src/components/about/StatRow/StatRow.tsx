@@ -14,7 +14,7 @@ export function StatRow() {
     <section className="a-band a-band--ink">
       <div className="a-wrap">
         <div data-rv>
-          <Mono dot color={V2.faint}>Mission &amp; Vision</Mono>
+          <Mono dot tone="faint">Mission &amp; Vision</Mono>
         </div>
         <div className="a-mv">
           <div className="a-mv__cell" data-rv>

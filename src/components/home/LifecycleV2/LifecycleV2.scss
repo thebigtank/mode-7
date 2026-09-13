@@ -142,4 +142,9 @@
       transition:none !important;
     }
   }
+
+  .v2-life-band {
+    --ui-band-pad: #{fluid(64, 96)};
+    --ui-band-pad-bottom: #{fluid(64, 90)};
+  }
 }

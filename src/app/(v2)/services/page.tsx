@@ -56,7 +56,7 @@ export default function ServicesPage() {
           }}
         >
           <div>
-            <Mono dot style={{ marginBottom: 16 }}>
+            <Mono dot className="mb-4">
               Services
             </Mono>
             <h1
@@ -125,7 +125,7 @@ export default function ServicesPage() {
               maxWidth: 540,
             }}
           >
-            <Mono dot style={{ marginBottom: 16 }}>
+            <Mono dot className="mb-4">
               Services
             </Mono>
             <h1

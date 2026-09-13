@@ -23,4 +23,8 @@
       gap:8px;
     }
   }
+
+  .v2-why-band {
+    --ui-band-pad: #{fluid(64, 96)};
+  }
 }

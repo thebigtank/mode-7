@@ -25,4 +25,9 @@
       grid-template-columns:minmax(0,1fr);
     }
   }
+
+  .v2-stats-band {
+    --ui-band-pad: #{fluid(64, 100)};
+    --ui-band-pad-bottom: #{fluid(56, 88)};
+  }
 }

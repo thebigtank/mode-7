@@ -6,7 +6,7 @@ export function GuaranteeSection() {
   return (
     <section className="t-band t-band--ink">
       <div className="t-wrap">
-        <Mono dot color={V2.faint} style={{ marginBottom: 16 }}>
+        <Mono dot tone="faint" className="mb-4">
           Before you ask
         </Mono>
         <h2 className="t-dl max-w-[18ch]">

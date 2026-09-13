@@ -7,10 +7,10 @@ export function QuoteV2() {
   const t = testimonials[0];
 
   return (
-    <Band ground={V2.ink} pad="clamp(56px,4.4vw,64px)">
+    <Band ground="ink" className="v2-quote-band">
       <div className="v2-quote-cols">
         <div>
-          <Mono dot color={V2.white} style={{ marginBottom: "clamp(24px,2.3vw,34px)" }}>
+          <Mono dot tone="white" className="v2-quote__label">
             Customer review
           </Mono>
 

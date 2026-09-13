@@ -62,4 +62,9 @@
     outline:2px solid #171D1D;
     outline-offset:-2px;
   }
+
+  .v2-cap-band {
+    --ui-band-pad: #{fluid(64, 126)};
+    --ui-band-pad-bottom: #{fluid(64, 90)};
+  }
 }

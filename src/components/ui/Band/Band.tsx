@@ -1,36 +1,29 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
+
+const GROUNDS = {
+  ink: "ink",
+  wash: "wash",
+  "wash-soft": "wash-soft",
+  white: "white",
+} as const;
+
+export type BandGround = keyof typeof GROUNDS;
 
 export function Band({
-  ground,
+  ground = "white",
   children,
   className,
-  style,
-  pad = "clamp(64px,7vw,104px)",
-  padBottom,
 }: {
-  ground: string;
+  ground?: BandGround;
   children: ReactNode;
   className?: string;
-  style?: CSSProperties;
-  pad?: string;
-  padBottom?: string;
 }) {
   return (
     <section
       className={["ui-band", className].filter(Boolean).join(" ")}
-      style={{ "--ui-band-ground": ground, ...style } as CSSProperties}
+      data-ground={GROUNDS[ground] ?? "white"}
     >
-      <div
-        className="ui-band__inner box-content mx-auto"
-        style={
-          {
-            "--ui-band-pad": pad,
-            "--ui-band-pad-bottom": padBottom ?? pad,
-          } as CSSProperties
-        }
-      >
-        {children}
-      </div>
+      <div className="ui-band__inner box-content mx-auto">{children}</div>
     </section>
   );
 }

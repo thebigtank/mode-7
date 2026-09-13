@@ -4,7 +4,7 @@ export function TradeInHero() {
   return (
     <section className="t-wrap t-hero">
       <div className="max-w-[62ch]">
-        <Mono dot style={{ marginBottom: 16 }}>
+        <Mono dot className="mb-4">
           Intelligent Trade-In Portal
         </Mono>
         <h1 className="t-dhero">

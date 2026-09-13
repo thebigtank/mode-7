@@ -76,7 +76,7 @@ export function CapabilityGridV2() {
   }, []);
 
   return (
-    <Band ground={V2.wash} pad="clamp(64px,8.7vw,126px)" padBottom="clamp(64px,6.3vw,90px)">
+    <Band ground="wash" className="v2-cap-band">
       <H2
         size="clamp(34px,3.9vw,56px)"
         lineHeight={1.06}
