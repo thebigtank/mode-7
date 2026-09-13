@@ -4,7 +4,7 @@ export function StatBar({ stats }: { stats: { n: string; label: string }[] }) {
   return (
     <section className="m7-wrap m7-top-sm">
       <div
-        className="pg-statbar"
+        className="pg-statbar grid"
         style={{ "--pg-statbar-cols": stats.length } as CSSProperties}
       >
         {stats.map((s, i) => (

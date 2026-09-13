@@ -22,7 +22,7 @@ export function MediaPanel({
       style={
         {
           "--pg-media-h": heightValue,
-          background: stripe(),
+          "--stripe-bg": stripe(),
           ...style,
         } as CSSProperties
       }

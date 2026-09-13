@@ -2,51 +2,55 @@
 
 @layer components {
   .pg-hero {
-    max-width: 1320px;
+    max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: clamp(35px, 4.6vw, 64px) var(--m7-pad) 0;
+    padding: #{fluid(35, 64)} var(--m7-pad) 0;
   }
 
   .pg-hero__grid {
-    display: grid;
     grid-template-columns: 1.4fr 1fr;
-    gap: 48px;
-    align-items: end;
+    gap: #{rem-calc(48)};
 
-    @media (max-width: 900px) {
+    @media (max-width: #{rem-calc(900)}) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
   .pg-hero__overline {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: #{rem-calc(16)};
   }
 
   .pg-hero-h1 {
     font-family: var(--font-m7-head);
-    font-weight: var(--pg-hero-title-weight);
-    font-size: var(--pg-hero-title-size);
-    line-height: var(--pg-hero-title-lh);
-    letter-spacing: -3px;
+    font-weight: 600;
+    font-size: #{fluid(41, 66)};
+    line-height: 1;
+    letter-spacing: #{rem-calc(-3, false)};
     margin: 0;
 
-    @media (max-width: 900px) {
-      font-size: clamp(40px, 11.5vw, 60px);
+    &[data-title-variant="wide"] {
+      font-weight: 500;
+      font-size: #{fluid(64, 120)};
+      line-height: 0.8;
+    }
+
+    @media (max-width: #{rem-calc(900)}) {
+      font-size: #{fluid-phone(40, 60)};
       line-height: 1.04;
       letter-spacing: -0.045em;
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: #{rem-calc(620)}) {
       br {
         display: none;
       }
 
-      font-size: clamp(44px, 13.2vw, 64px);
+      font-size: #{fluid-phone(44, 64)};
       text-wrap: balance;
     }
   }
@@ -55,11 +59,11 @@
     font-size: var(--m7-lede-size);
     line-height: 1.65;
     color: var(--color-m7-neutral-body);
-    margin: 0 0 24px;
+    margin: 0 0 #{rem-calc(24)};
   }
 
   .pg-hero__intro--centered {
-    max-width: 640px;
-    margin: 24px auto 24px;
+    max-width: #{rem-calc(640)};
+    margin: #{rem-calc(24)} auto #{rem-calc(24)};
   }
 }

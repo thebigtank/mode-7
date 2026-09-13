@@ -13,7 +13,7 @@ export function IconCard({
 }) {
   return (
     <div
-      className="pg-iconcard"
+      className="pg-iconcard flex flex-col"
       style={{ "--pg-iconcard-min-h": `${minHeight}px` } as CSSProperties}
     >
       <svg

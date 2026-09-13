@@ -2,27 +2,27 @@
 
 @layer components {
   .pg-section {
-    max-width: 1320px;
+    max-width: #{rem-calc(1320)};
     margin: 0 auto;
-    padding: clamp(55px, 7.1vw, 100px) var(--m7-pad) 0;
+    padding: #{fluid(55, 100)} var(--m7-pad) 0;
   }
 
   .pg-section__overline {
     font-family: var(--font-m7-head);
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: #{rem-calc(12)};
+    letter-spacing: #{rem-calc(2, false)};
     color: var(--color-m7-neutral-faint);
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: #{rem-calc(16)};
   }
 
   .pg-section__title {
     font-family: var(--font-m7-head);
     font-weight: 600;
-    font-size: clamp(24px, 3.3vw, 38px);
+    font-size: #{fluid(24, 38)};
     line-height: 1.02;
-    letter-spacing: -3px;
-    margin: 0 0 22px;
+    letter-spacing: #{rem-calc(-3, false)};
+    margin: 0 0 #{rem-calc(22)};
     text-wrap: balance;
   }
 }

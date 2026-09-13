@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { stripe } from "@/lib/theme";
 
@@ -13,10 +14,10 @@ export function CategoryCard({
   height?: number;
 }) {
   return (
-    <Link href={href} className="m7-lift pgc-category">
+    <Link href={href} className="m7-lift pgc-category block">
       <div
         className="pgc-category__media"
-        style={{ height, background: stripe() }}
+        style={{ "--pgc-media-h": `${height}px`, "--stripe-bg": stripe() } as CSSProperties}
       >
         <div className="pgc-category__label">▣ {label.toUpperCase()}</div>
       </div>
@@ -42,14 +43,14 @@ export function ProductCard({
   height?: number;
 }) {
   return (
-    <Link href={href} className="pgc-product">
+    <Link href={href} className="pgc-product flex flex-col">
       <div
         className="pgc-product__media"
-        style={{ height, background: stripe() }}
+        style={{ "--pgc-media-h": `${height}px`, "--stripe-bg": stripe() } as CSSProperties}
       >
         <div className="pgc-product__label">▣ {name.toUpperCase()}</div>
       </div>
-      <div className="pgc-product__row">
+      <div className="pgc-product__row flex justify-between items-baseline">
         <div>
           <div className="pgc-product__name">{name}</div>
           <div className="pgc-product__meta">{meta}</div>

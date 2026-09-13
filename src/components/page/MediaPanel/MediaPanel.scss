@@ -3,19 +3,20 @@
 @layer components {
   .pg-media {
     position: relative;
-    border-radius: 4px;
+    border-radius: #{rem-calc(4)};
     overflow: hidden;
-    border: 1px solid var(--color-m7-neutral-border);
+    border: #{rem-calc(1)} solid var(--color-m7-neutral-border);
     height: var(--pg-media-h);
+    background: var(--stripe-bg);
   }
 
   .pg-media__label {
     position: absolute;
-    top: 18px;
-    left: 20px;
+    top: #{rem-calc(18)};
+    left: #{rem-calc(20)};
     font-family: var(--font-m7-mono);
-    font-size: 11px;
-    letter-spacing: 1px;
+    font-size: #{rem-calc(11)};
+    letter-spacing: #{rem-calc(1, false)};
     color: var(--color-m7-neutral-faint);
   }
 }

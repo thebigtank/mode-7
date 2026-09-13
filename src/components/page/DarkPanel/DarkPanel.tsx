@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Annotation } from "@/components/wireframe/Primitives";
 import { stripeDark } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
@@ -19,7 +19,10 @@ export function DarkPanel({
   annotation?: string;
 }) {
   return (
-    <div className="pg-dark-panel" style={{ background: stripeDark() }}>
+    <div
+      className="pg-dark-panel grid items-center"
+      style={{ "--stripe-bg": stripeDark() } as CSSProperties}
+    >
       <div>
         <div className="pg-dark-panel__overline">{`// ${overline}`}</div>
         <h2 className="pg-dark-panel__title">{title}</h2>
