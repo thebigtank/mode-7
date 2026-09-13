@@ -1,5 +1,8 @@
+@use '../../../components/trade-in/trade-in';
 @use '../../../components/trade-in/TradeInFaq/TradeInFaq';
 @use '../../../components/trade-in/ValuationWorkspace/ValuationWorkspace';
+@use '../../../components/trade-in/TradeInHero/TradeInHero';
+@use '../../../components/trade-in/PricingBand/PricingBand';
 @use '../../../components/ui/Band/Band';
 @use '../../../components/ui/Mono/Mono';
 @use '../../../components/ui/H2/H2';

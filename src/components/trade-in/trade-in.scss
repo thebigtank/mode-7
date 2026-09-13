@@ -1,0 +1,67 @@
+@use 'utils' as *;
+
+@layer components {
+  .tradein-page {
+    font-family: var(--f-body);
+    color: var(--ink);
+  }
+
+  .t-wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-inline: var(--pad);
+  }
+
+  .t-band {
+    padding-block: clamp(56px, 8vw, 104px);
+  }
+
+  .t-band--valuation {
+    --t-valuation-pt: clamp(40px, 5vw, 72px);
+    padding-top: var(--t-valuation-pt);
+  }
+
+  .t-band--wash {
+    background: var(--wash);
+    border-block: 1px solid var(--rule);
+  }
+
+  .t-band--ink {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .t-dl {
+    font-family: var(--f-head);
+    font-weight: 400;
+    margin: 0;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+    text-wrap: balance;
+  }
+
+  .t-dl--spaced {
+    --t-dl-gap: clamp(24px, 3vw, 40px);
+    margin-bottom: var(--t-dl-gap);
+  }
+
+  .tradein-page p {
+    margin: 0;
+    max-width: 66ch;
+  }
+
+  .t-label {
+    font-family: var(--f-mono);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tradein-page :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+}
