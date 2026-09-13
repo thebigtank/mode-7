@@ -533,12 +533,6 @@ from { opacity: 0; transform: translateY(-6px); }
     .m7-ss__caret { transition: none; }
 }
 
-  /* The checkout KYC grid: two columns, one on a phone. */
-  .m7-kyc { grid-template-columns: 1fr 1fr; gap: 2px 16px; }
-  @media (max-width: 560px) {
-.m7-kyc { grid-template-columns: minmax(0, 1fr); }
-}
-
   @keyframes m7aiFade {
 from { opacity: 0; }
     to { opacity: 1; }
@@ -877,11 +871,6 @@ input,
     }
 }
 
-  /* Touch targets: a 34px stepper button is below the 44px comfortable minimum. */
-  @media (pointer: coarse) {
-.m7-tap { min-width: 44px; min-height: 44px; }
-}
-
   /* Shop filters ------------------------------------------------------------
      One markup tree, two layouts. Desktop: a static rail. Below 900px: a drawer
      behind a Filters button, so the product grid stays at the top of the page. */
@@ -1216,29 +1205,9 @@ input,
      Sticky panels only make sense beside something that scrolls past them. Once
      the layout is stacked they'd pin over the content below, so they let go. */
   @media (max-width: 900px) {
-.m7-buybox,
-    .m7-cart-summary { position: static !important; }
+.m7-buybox { position: static !important; }
 }
 
-  /* Cart line: thumb | details | price. Below 560px the price drops under the
-     details rather than squeezing the middle column to nothing. */
-  .m7-cart-line {
-    grid-template-columns: 96px minmax(0, 1fr) auto;
-    gap: 20px;
-  }
-  .m7-cart-line__img { height: 96px; }
-  @media (max-width: 560px) {
-.m7-cart-line {
-      grid-template-columns: 72px minmax(0, 1fr);
-      gap: 14px 16px;
-      align-items: start;
-    }
-    .m7-cart-line__img { height: 72px; }
-    .m7-cart-line__price {
-      grid-column: 2;
-      font-size: 17px;
-    }
-}
   @keyframes m7drift {
 from { transform: translateY(0); } to { transform: translateY(-50%); }
 }

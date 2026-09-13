@@ -11,7 +11,6 @@ import {
   saveCheckout,
   type CheckoutField,
 } from "@/lib/contact";
-import { COLOR, FONT } from "@/lib/theme";
 
 const HINTS: Record<CheckoutField, string> = {
   firstName: "Please enter your first name.",
@@ -57,35 +56,13 @@ function Field({
     onBlur: () => setTouched(true),
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       onChange(e.target.value),
-    style: {
-      width: "100%",
-      fontFamily: FONT.body,
-      fontSize: 15,
-      lineHeight: 1.4,
-      color: "#121212",
-      background: "#fff",
-      border: `1px solid ${show ? "#121212" : "#d6d6d6"}`,
-      borderStyle: show ? ("dashed" as const) : ("solid" as const),
-      borderRadius: 4,
-      padding: "11px 14px",
-      resize: "vertical" as const,
-    },
+    className: "checkout-field__input",
+    "data-invalid": show || undefined,
   };
 
   return (
-    <div style={{ gridColumn: span ? "1 / -1" : undefined }}>
-      <label
-        htmlFor={id}
-        style={{
-          display: "block",
-          fontFamily: FONT.mono,
-          fontSize: 10,
-          letterSpacing: 1.2,
-          textTransform: "uppercase",
-          color: "#8a8a8a",
-          marginBottom: 7,
-        }}
-      >
+    <div className="checkout-field" data-span={span || undefined}>
+      <label htmlFor={id} className="checkout-field__label">
         {label}
       </label>
       {multiline ? (
@@ -93,16 +70,7 @@ function Field({
       ) : (
         <input {...shared} type={type} />
       )}
-      <div
-        style={{
-          minHeight: 15,
-          marginTop: 5,
-          fontFamily: FONT.mono,
-          fontSize: 10,
-          letterSpacing: 0.5,
-          color: show ? "#121212" : "transparent",
-        }}
-      >
+      <div className="checkout-field__hint" data-shown={show || undefined}>
         {show ? hint : " "}
       </div>
     </div>
@@ -150,18 +118,7 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label="Checkout details"
       onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 90000,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(18,18,18,0.42)",
-        backdropFilter: "blur(3px)",
-        animation: "m7aiFade .2s ease both",
-      }}
-      className="m7-modal"
+      className="m7-modal checkout-modal"
     >
       <form
         ref={panelRef}
@@ -169,86 +126,29 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
         onSubmit={submit}
         noValidate
-        className="m7-modal__panel"
+        className="m7-modal__panel checkout-modal__panel"
         data-lenis-prevent
-        style={{
-          outline: "none",
-          width: "min(600px, 100%)",
-          maxHeight: "min(88dvh, 860px)",
-          overflowY: "auto",
-          background: "#fff",
-          border: "1px solid #121212",
-          borderRadius: 6,
-          boxShadow: "0 32px 80px -28px rgba(0,0,0,.5)",
-          animation: "m7aiIn .26s cubic-bezier(.23,1,.32,1) both",
-        }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-            padding: "14px 22px",
-            borderBottom: "1px solid #ececec",
-            background: "#fafafa",
-            position: "sticky",
-            top: 0,
-            zIndex: 1,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: FONT.mono,
-              fontSize: 10,
-              letterSpacing: 1.4,
-              textTransform: "uppercase",
-              color: "#8a8a8a",
-            }}
-          >
-            Checkout · your details
-          </span>
+        <div className="checkout-modal__head">
+          <span className="checkout-modal__head-label">Checkout · your details</span>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            style={{
-              background: "none",
-              border: 0,
-              cursor: "pointer",
-              fontSize: 20,
-              lineHeight: 1,
-              color: "#8a8a8a",
-              padding: 4,
-            }}
+            className="checkout-modal__close"
           >
             ×
           </button>
         </div>
 
-        <div style={{ padding: "24px 26px 26px" }}>
-          <div
-            style={{
-              fontFamily: FONT.head,
-              fontWeight: 600,
-              fontSize: 24,
-              letterSpacing: "-0.8px",
-            }}
-          >
-            Where should we send it?
-          </div>
-          <p
-            style={{
-              color: "#6a6a6a",
-              margin: "10px 0 0",
-              maxWidth: "48ch",
-            }}
-          >
+        <div className="checkout-modal__body">
+          <div className="checkout-modal__title">Where should we send it?</div>
+          <p className="checkout-modal__lede">
             An agent picks this up and messages you on WhatsApp to confirm stock,
             the final figure and delivery. Nothing is charged here.
           </p>
 
-          <div className="m7-kyc" style={{ display: "grid", marginTop: 22 }}>
+          <div className="m7-kyc checkout-modal__kyc">
             <Field
               label="First name"
               hint={HINTS.firstName}
@@ -298,16 +198,7 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {attempted && !ok && (
-            <div
-              style={{
-                marginTop: 6,
-                marginBottom: 4,
-                fontFamily: FONT.mono,
-                fontSize: 10.5,
-                letterSpacing: 0.6,
-                color: "#121212",
-              }}
-            >
+            <div className="checkout-modal__warning">
               {bad.length} field{bad.length > 1 ? "s" : ""} still to fill in.
             </div>
           )}
@@ -315,39 +206,13 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
           <button
             type="submit"
             disabled={submitting}
-            style={{
-              width: "100%",
-              marginTop: 16,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 10,
-              background: "#121212",
-              color: "#fff",
-              border: 0,
-              borderRadius: 4,
-              padding: "15px 20px",
-              fontFamily: FONT.body,
-              fontSize: 16,
-              fontWeight: 500,
-              cursor: submitting ? "default" : "pointer",
-              opacity: submitting ? 0.7 : 1,
-            }}
+            className="checkout-modal__submit"
+            data-submitting={submitting || undefined}
           >
             {submitting ? "Sending to an agent…" : "Send my order to an agent"}
           </button>
 
-          <div
-            style={{
-              marginTop: 14,
-              fontFamily: FONT.mono,
-              fontSize: 10,
-              letterSpacing: 0.6,
-              color: "#b4b4b4",
-              lineHeight: 1.6,
-              textAlign: "center",
-            }}
-          >
+          <div className="checkout-modal__foot">
             Used only to fulfil this order. No card details are taken on this site.
           </div>
         </div>
@@ -361,24 +226,7 @@ export function CheckoutButton() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 10,
-          background: COLOR.dark,
-          color: COLOR.cream,
-          border: 0,
-          borderRadius: 4,
-          padding: "13px 20px",
-          fontFamily: FONT.body,
-          fontSize: 16,
-          fontWeight: 500,
-          cursor: "pointer",
-        }}
-      >
+      <button type="button" onClick={() => setOpen(true)} className="checkout-button">
         Checkout on WhatsApp
       </button>
       {open && <CheckoutModal onClose={() => setOpen(false)} />}
