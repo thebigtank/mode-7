@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { socials } from "@/components/Icons";
 import { scrollPageToTop } from "@/hooks/useLenis";
-import { footerCols, legalLinks } from "@/lib/content";
-import { V2, V2_CONTAINER, V2_FONT, V2_HAIR_DARK } from "@/lib/theme-v2";
 import { ButtonV2 } from "@/components/ui/ButtonV2";
 import { H2 } from "@/components/ui/H2";
 import { Mono } from "@/components/ui/Mono";
 import { P } from "@/components/ui/P";
+import content from "@/content/chrome.json";
 
 const LINK_HREF: Record<string, string> = {
   "Swap Program": "/trade-in",
@@ -18,39 +17,22 @@ const LINK_HREF: Record<string, string> = {
   "Contact Us": "/contact",
 };
 
-const LEGAL_TYPE = {
-  fontFamily: V2_FONT.body,
-  fontWeight: 300,
-  fontSize: 13.6,
-  lineHeight: "18px",
-  color: V2.muted,
-} as const;
-
 export function FooterV2() {
   return (
     <footer>
-      <div style={{ background: V2.ink }}>
-        <div
-          style={{
-            ...V2_CONTAINER,
-            padding:
-              "clamp(56px,7vw,92px) clamp(20px,4vw,48px) clamp(40px,5vw,72px)",
-          }}
-        >
-          <div
-            className="v2-headrow"
-            style={{ paddingBottom: "clamp(30px,3.6vw,42px)" }}
-          >
+      <div className="v2-footer__top">
+        <div className="v2-footer__container mx-auto box-content">
+          <div className="v2-headrow v2-footer__headrow flex justify-between flex-wrap">
             <H2
               as="p"
-              color={V2.white}
+              color="var(--color-v2-white)"
               size="clamp(28px,4.4vw,46px)"
               lineHeight={1.16}
-              style={{ maxWidth: 680, letterSpacing: "-0.02em" }}
+              className="v2-footer__heading"
             >
-              Powering your home, your pocket, and your future.
+              {content.footerV2.heading}
             </H2>
-            <span style={{ flex: "0 0 auto" }}>
+            <span className="flex-none">
               <ButtonV2
                 label="Back to top"
                 direction="up"
@@ -61,42 +43,21 @@ export function FooterV2() {
             </span>
           </div>
 
-          <div
-            className="v2-footcols"
-            style={{
-              borderTop: V2_HAIR_DARK,
-              padding: "clamp(40px,5vw,64px) 0 8px",
-            }}
-          >
-            <div style={{ paddingRight: "clamp(0px,4vw,40px)" }}>
-              <div
-                style={{
-                  fontFamily: V2_FONT.mono,
-                  fontWeight: 700,
-                  fontSize: 30,
-                  letterSpacing: 2,
-                  lineHeight: 1.1,
-                  color: V2.white,
-                  marginBottom: 20,
-                }}
-              >
-                MODE&nbsp;7
-              </div>
+          <div className="v2-footcols v2-footer__cols grid">
+            <div className="v2-footer__brandcol">
+              <div className="v2-footer__brand">MODE&nbsp;7</div>
               <P
-                color={V2.faint}
+                color="var(--color-v2-faint)"
                 size={15}
-                style={{ maxWidth: 330, lineHeight: 1.75, marginBottom: 30 }}
+                className="v2-footer__desc"
               >
-                A comprehensive technology hub for your home and everyday life —
-                premium devices, smart-home automation, solar energy and a
-                certified repair division. Every unit vetted, sealed and
-                guaranteed.
+                {content.footerV2.description}
               </P>
-              <div style={{ display: "flex", gap: 11, color: V2.white }}>
+              <div className="v2-footer__socials flex">
                 {socials.map((s) => (
                   <span
                     key={s.name}
-                    className="v2-social"
+                    className="v2-social inline-flex items-center justify-center"
                     role="img"
                     aria-label={s.name}
                   >
@@ -106,29 +67,22 @@ export function FooterV2() {
               </div>
             </div>
 
-            {footerCols.map((col) => (
+            {content.footerV2.cols.map((col) => (
               <div key={col.title}>
                 <Mono tone="faint" className="mb-[22px]">
                   {col.title}
                 </Mono>
-                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                <ul className="v2-footer__linklist">
                   {col.links.map((l) => {
                     const href = LINK_HREF[l];
-                    const type = {
-                      fontFamily: V2_FONT.body,
-                      fontSize: 15,
-                      fontWeight: 300,
-                      color: V2.white,
-                      textDecoration: "none",
-                    } as const;
                     return (
-                      <li key={l} style={{ marginBottom: 14 }}>
+                      <li key={l} className="v2-footer__linkitem">
                         {href ? (
-                          <Link href={href} style={type}>
+                          <Link href={href} className="v2-footer__link">
                             {l}
                           </Link>
                         ) : (
-                          <span style={type}>{l}</span>
+                          <span className="v2-footer__link">{l}</span>
                         )}
                       </li>
                     );
@@ -137,24 +91,15 @@ export function FooterV2() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
 
-      <div style={{ background: V2.wash }}>
-        <div
-          className="v2-legal"
-          style={{
-            ...V2_CONTAINER,
-            padding: "22px clamp(20px,4vw,48px) 30px",
-          }}
-        >
-          <span style={LEGAL_TYPE}>
-            © 2026 Mode 7. Powering homes and pockets.
-          </span>
-          <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
-            {legalLinks.map((l) => (
-              <span key={l} style={LEGAL_TYPE}>
+      <div className="v2-footer__bottom">
+        <div className="v2-legal v2-footer__container mx-auto box-content flex justify-between items-center flex-wrap">
+          <span className="v2-footer__legaltext">{content.footerV2.copyright}</span>
+          <div className="v2-footer__legallinks flex flex-wrap">
+            {content.footerV2.legalLinks.map((l) => (
+              <span key={l} className="v2-footer__legaltext">
                 {l}
               </span>
             ))}

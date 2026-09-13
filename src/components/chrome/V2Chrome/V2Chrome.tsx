@@ -4,10 +4,9 @@ import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState, useEffect, type ReactNode } from "react";
 import { FooterV2 } from "@/components/chrome/FooterV2";
 import { HeaderV2 } from "@/components/chrome/HeaderV2";
-import { IntroLoader } from "./IntroLoader";
-import { SearchOverlay } from "./SearchOverlay";
+import { IntroLoader } from "@/components/chrome/IntroLoader";
+import { SearchOverlay } from "@/components/chrome/SearchOverlay";
 import { lockPageScroll, unlockPageScroll, useLenis } from "@/hooks/useLenis";
-import { V2, V2_FONT } from "@/lib/theme-v2";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 let introPlayed = false;
@@ -57,13 +56,8 @@ export function V2Chrome({ children }: { children: ReactNode }) {
 
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        background: WHITE_GROUND.has(pathname) ? V2.white : V2.wash,
-        color: V2.ink,
-        fontFamily: V2_FONT.body,
-        overflowX: "clip",
-      }}
+      className="v2-chrome min-h-screen overflow-x-clip"
+      data-ground={WHITE_GROUND.has(pathname) ? "white" : "wash"}
     >
       {introActive && <IntroLoader onDone={onIntroDone} />}
       <HeaderV2 onOpenSearch={openSearch} />

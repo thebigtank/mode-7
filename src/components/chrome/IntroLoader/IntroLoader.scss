@@ -1,0 +1,67 @@
+@use 'utils' as *;
+
+@layer components {
+  .intro-loader {
+    z-index: 9999;
+    background: var(--color-m7-card);
+    opacity: 1;
+    transition: opacity .85s ease;
+    pointer-events: none;
+
+    &[data-fade='true'] {
+      opacity: 0;
+    }
+  }
+
+  .intro-loader__word {
+    font-family: var(--font-m7-head);
+    font-weight: 600;
+    font-size: #{fluid(40, 84)};
+    letter-spacing: 0;
+    color: var(--color-m7-ink);
+    line-height: 1;
+    filter: blur(0px);
+    transform: scale(1);
+    transition: filter .9s ease, transform .9s ease;
+
+    .intro-loader[data-fade='true'] & {
+      filter: blur(#{rem-calc(28)});
+      transform: scale(1.12);
+    }
+  }
+
+  .intro-loader__letter {
+    width: 0.8em;
+
+    &:nth-child(2) {
+      width: 0.78em;
+    }
+
+    &:nth-child(3) {
+      width: 0.72em;
+    }
+
+    &:nth-child(4) {
+      width: 0.6em;
+    }
+  }
+
+  .intro-loader__gap {
+    width: 0.34em;
+  }
+
+  .intro-loader__reel-window {
+    height: 1.3em;
+    width: 0.74em;
+  }
+
+  .intro-loader__reel-track {
+    transition: transform .4s cubic-bezier(.5, 0, .18, 1);
+    transform: translateY(calc((var(--intro-loader-num) - 1) * -1.3em));
+  }
+
+  .intro-loader__reel-digit {
+    height: 1.3em;
+    line-height: 1;
+  }
+}

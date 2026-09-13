@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { COLOR, FONT } from "@/lib/theme";
+import content from "@/content/chrome.json";
 
-const TARGETS = ["M", "O", "D", "E"];
+const TARGETS = content.introLoader.letters;
 const SETTLE_AT = [1500, 2400, 3300, 4200];
-const WIDTHS = ["0.8em", "0.78em", "0.72em", "0.6em"];
 
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const [letters, setLetters] = useState(["A", "A", "A", "A"]);
@@ -62,69 +61,25 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        background: COLOR.card,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        opacity: fade ? 0 : 1,
-        transition: "opacity .85s ease",
-        pointerEvents: "none",
-      }}
+      className="intro-loader fixed inset-0 flex items-center justify-center pointer-events-none"
+      data-fade={fade ? "true" : "false"}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          fontFamily: FONT.head,
-          fontWeight: 600,
-          fontSize: "clamp(40px, 11vw, 84px)",
-          letterSpacing: 0,
-          color: COLOR.ink,
-          lineHeight: 1,
-          filter: fade ? "blur(28px)" : "blur(0px)",
-          transform: `scale(${fade ? 1.12 : 1})`,
-          transition: "filter .9s ease, transform .9s ease",
-        }}
-      >
+      <div className="intro-loader__word flex items-center">
         {letters.map((c, i) => (
-          <span
-            key={i}
-            style={{ display: "inline-block", width: WIDTHS[i], textAlign: "center" }}
-          >
+          <span key={i} className="intro-loader__letter inline-block text-center">
             {c}
           </span>
         ))}
-        <span style={{ display: "inline-block", width: "0.34em" }} />
-        <span
-          style={{
-            display: "inline-block",
-            height: "1.3em",
-            width: "0.74em",
-            overflow: "hidden",
-            textAlign: "center",
-          }}
-        >
+        <span className="intro-loader__gap inline-block" />
+        <span className="intro-loader__reel-window inline-block overflow-hidden text-center">
           <span
-            style={{
-              display: "block",
-              transition: "transform .4s cubic-bezier(.5,0,.18,1)",
-              transform: `translateY(-${(num - 1) * 1.3}em)`,
-            }}
+            className="intro-loader__reel-track block"
+            style={{ "--intro-loader-num": num } as React.CSSProperties}
           >
             {[1, 2, 3, 4, 5, 6, 7].map((d) => (
               <span
                 key={d}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "1.3em",
-                  lineHeight: 1,
-                }}
+                className="intro-loader__reel-digit flex items-center justify-center"
               >
                 {d}
               </span>

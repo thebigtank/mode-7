@@ -8,7 +8,6 @@ import { RevealWordmark } from "../RevealWordmark";
 import { SearchOverlay } from "../SearchOverlay";
 import { SevenWidget } from "../SevenWidget";
 import { lockPageScroll, unlockPageScroll, useLenis } from "@/hooks/useLenis";
-import { COLOR, FONT } from "@/lib/theme";
 import { WIREFRAME } from "@/lib/wireframe-config";
 
 export function V1Chrome({ children }: { children: ReactNode }) {
@@ -77,18 +76,8 @@ export function V1Chrome({ children }: { children: ReactNode }) {
   }, [searchClosing, lockScroll]);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        minHeight: "100vh",
-        background: COLOR.cream,
-        color: COLOR.ink,
-        fontFamily: FONT.body,
-        overflowX: "clip",
-        position: "relative",
-      }}
-    >
-      <div style={{ position: "relative", zIndex: 1, background: COLOR.cream }}>
+    <div className="v1-chrome w-full min-h-screen relative overflow-x-clip">
+      <div className="v1-chrome__stack relative">
         <Header
           menuOpen={menuOpen}
           onToggleMenu={toggleMenu}
@@ -102,12 +91,12 @@ export function V1Chrome({ children }: { children: ReactNode }) {
 
         {children}
 
-        <div style={{ height: 104 }} />
+        <div className="v1-chrome__footer-gap" />
 
         <Footer />
       </div>
 
-      <div className="m7-reveal-spacer" style={{ height: "calc(17vw + 150px)" }} />
+      <div className="m7-reveal-spacer" />
       <RevealWordmark />
 
       {WIREFRAME.showSeven && <SevenWidget hidden={menuOpen || searchOpen} />}

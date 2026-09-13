@@ -1,9 +1,26 @@
 @use 'utils' as *;
 
 @layer components {
+  .v1-chrome {
+    background: var(--color-m7-cream);
+    color: var(--color-m7-ink);
+    font-family: var(--font-m7-body);
+  }
+
+  .v1-chrome__stack {
+    z-index: 1;
+    background: var(--color-m7-cream);
+  }
+
+  .v1-chrome__footer-gap {
+    height: #{rem-calc(104)};
+  }
+
   .m7-reveal-spacer {
+    height: calc(17vw + #{rem-calc(150)});
+
     @media (max-width: 900px) {
-      height: 118px !important;
+      height: #{rem-calc(118)} !important;
     }
   }
 }

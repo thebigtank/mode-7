@@ -1,9 +1,66 @@
 @use 'utils' as *;
 
 @layer components {
+  .reveal-wordmark {
+    z-index: 0;
+  }
+
   .m7-reveal-mark {
-    @media (max-width: 900px) {
+    line-height: 0;
+    padding-top: #{rem-calc(34)};
+    padding-bottom: #{rem-calc(42)};
+
+    @media (max-width: #{rem-calc(900)}) {
       display: none !important;
     }
+  }
+
+  .reveal-wordmark__wrap {
+    will-change: transform;
+    pointer-events: auto;
+    cursor: default;
+  }
+
+  .reveal-wordmark__word {
+    font-family: var(--font-m7-body);
+    font-weight: 700;
+    font-size: 22vw;
+    line-height: 0.78;
+    letter-spacing: -0.04em;
+    color: var(--color-m7-espresso);
+  }
+
+  .reveal-wordmark__word--blur {
+    filter: blur(#{rem-calc(13)});
+  }
+
+  .reveal-wordmark__word--spotlight {
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: radial-gradient(circle 18vw at 50% 50%, rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / 0) 100%);
+    mask-image: radial-gradient(circle 18vw at 50% 50%, rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / 0) 100%);
+  }
+
+  .reveal-wordmark__bar {
+    gap: #{rem-calc(24)};
+    padding: #{rem-calc(26)} #{fluid(20, 38)} #{rem-calc(22)};
+    padding-inline: max(#{fluid(20, 38)}, calc((100vw - #{rem-calc(1320)}) / 2 + #{fluid(20, 38)}));
+    border-top: 1px solid var(--color-m7-line);
+    pointer-events: auto;
+  }
+
+  .reveal-wordmark__copyright {
+    font-size: #{rem-calc(13)};
+    color: var(--color-m7-muted);
+  }
+
+  .reveal-wordmark__legal {
+    gap: #{rem-calc(28)};
+  }
+
+  .reveal-wordmark__legal-link {
+    font-size: #{rem-calc(13)};
+    color: var(--color-m7-body);
+    cursor: pointer;
   }
 }

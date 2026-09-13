@@ -2,103 +2,33 @@
 
 import { useRef } from "react";
 import { useFooterWordmark } from "@/hooks/useFooterWordmark";
-import { legalLinks } from "@/lib/content";
-import { COLOR, FONT, containerPad } from "@/lib/theme";
+import content from "@/content/chrome.json";
 
 export function RevealWordmark() {
+  const c = content.revealWordmark;
   const wrapRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   useFooterWordmark(wrapRef, spotlightRef);
 
-  const wordmarkStyle = {
-    textAlign: "center" as const,
-    whiteSpace: "nowrap" as const,
-    fontFamily: FONT.body,
-    fontWeight: 700,
-    fontSize: "22vw",
-    lineHeight: 0.78,
-    letterSpacing: "-0.04em",
-    color: COLOR.espresso,
-  };
-
   return (
-    <div
-      style={{
-        position: "fixed",
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "stretch",
-      }}
-    >
-      <div
-        className="m7-reveal-mark"
-        style={{
-          overflow: "hidden",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          lineHeight: 0,
-          paddingTop: 34,
-          paddingBottom: 42,
-        }}
-      >
-        <div
-          ref={wrapRef}
-          style={{
-            position: "relative",
-            display: "inline-block",
-            willChange: "transform",
-            pointerEvents: "auto",
-            cursor: "default",
-          }}
-        >
-          <div style={{ ...wordmarkStyle, filter: "blur(13px)" }}>MODE&nbsp;7</div>
+    <div className="reveal-wordmark fixed inset-x-0 bottom-0 flex flex-col items-stretch">
+      <div className="m7-reveal-mark reveal-wordmark__stage overflow-hidden flex items-end justify-center">
+        <div ref={wrapRef} className="reveal-wordmark__wrap relative inline-block">
+          <div className="reveal-wordmark__word reveal-wordmark__word--blur text-center whitespace-nowrap">{c.wordmark}</div>
           <div
             ref={spotlightRef}
-            style={{
-              ...wordmarkStyle,
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: "100%",
-              height: "100%",
-              WebkitMaskImage:
-                "radial-gradient(circle 18vw at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 100%)",
-              maskImage:
-                "radial-gradient(circle 18vw at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 100%)",
-            }}
+            className="reveal-wordmark__word reveal-wordmark__word--spotlight text-center whitespace-nowrap absolute inset-0"
           >
-            MODE&nbsp;7
+            {c.wordmark}
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 24,
-          flexWrap: "wrap",
-          padding: `26px ${containerPad(38)} 22px`,
-          borderTop: `1px solid ${COLOR.line}`,
-          pointerEvents: "auto",
-        }}
-      >
-        <div style={{ fontSize: 13, color: COLOR.muted }}>
-          © 2026 Mode 7. Powering homes and pockets.
-        </div>
-        <div style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
-          {legalLinks.map((l) => (
-            <span
-              key={l}
-              className="m7-muted-link"
-              style={{ fontSize: 13, color: COLOR.body, cursor: "pointer" }}
-            >
+      <div className="reveal-wordmark__bar flex items-center justify-between flex-wrap">
+        <div className="reveal-wordmark__copyright">{c.copyright}</div>
+        <div className="reveal-wordmark__legal flex flex-wrap">
+          {c.legalLinks.map((l) => (
+            <span key={l} className="m7-muted-link reveal-wordmark__legal-link">
               {l}
             </span>
           ))}
