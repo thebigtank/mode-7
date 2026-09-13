@@ -1,0 +1,110 @@
+@use 'utils' as *;
+
+@layer components {
+  .a-spec {
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--paper);
+    margin-top: clamp(28px, 3.5vw, 46px);
+  }
+
+  .a-spec__bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 13px clamp(20px, 2.4vw, 32px);
+    background: var(--wash);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .a-spec__trip {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 820px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .a-spec__word {
+    padding: clamp(26px, 3vw, 42px) clamp(20px, 2.4vw, 32px);
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .a-spec__word + .a-spec__word {
+    @media (min-width: 820px) {
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .a-spec__w {
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 46px);
+    line-height: 1;
+    letter-spacing: -0.018em;
+  }
+
+  .a-spec__d {
+    color: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 34ch;
+  }
+
+  .a-spec__sheet {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 820px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .a-spec__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    padding: 13px clamp(20px, 2.4vw, 32px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .a-spec__row:nth-child(even) {
+    @media (min-width: 820px) {
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .a-spec__row:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .a-spec__row:last-child {
+    @media (max-width: 819px) {
+      border-bottom: 0;
+    }
+  }
+
+  .a-spec__k {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .a-spec__v {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+}
