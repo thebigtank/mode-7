@@ -187,33 +187,9 @@
     line-height: var(--m7-p-line);
   }
 
-  /* Modals ------------------------------------------------------------------
-     Centred cards on desktop. On phones they become bottom sheets: full width,
-     anchored to the bottom so the panel sits near the thumb and the on-screen
-     keyboard pushes it up rather than covering the middle of a floating card. */
-  /* Scrollable dialog panels contain their own scroll. The [data-lenis-prevent]
-     rule only applies while Lenis has its .lenis-smooth class, which it drops
-     when stopped — so state this outright rather than depend on that. */
-  .m7-modal__panel { overscroll-behavior: contain; }
-
-  .m7-modal { padding: 24px; }
-  @media (max-width: 620px) {
-.m7-modal { padding: 0; align-items: flex-end !important; }
-    .m7-modal__panel {
-      width: 100% !important;
-      max-height: 92dvh !important;
-      border-radius: 12px 12px 0 0 !important;
-      border-bottom: 0 !important;
-      padding-bottom: env(safe-area-inset-bottom);
-      animation: m7sheetIn 0.3s cubic-bezier(0.32, 0.72, 0, 1) both !important;
-    }
-}
   @keyframes m7sheetIn {
 from { transform: translateY(100%); }
     to { transform: none; }
-}
-  @media (prefers-reduced-motion: reduce) {
-.m7-modal__panel { animation: m7aiFade 0.2s ease both !important; }
 }
 
 
@@ -226,31 +202,6 @@ from { opacity: 0; transform: translateY(10px) scale(0.98); }
     to { opacity: 1; transform: none; }
 }
   /* Keyframes ---------------------------------------------------------------- */
-  @keyframes m7marL {
-from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-}
-  @keyframes m7marR {
-from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0);
-    }
-}
-  @keyframes m7float {
-0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-9px);
-    }
-}
   @keyframes sevenIn {
 from {
       opacity: 0;
@@ -298,21 +249,6 @@ from {
     }
 }
 
-  /* PlusToggle (src/components/ui/PlusToggle/PlusToggle.tsx) — the shared v2 accordion
-     icon's rotation transition. Global and palette-free, same reasoning as
-     m7arrowLoop/m7arrowLoopUp above: the component renders on more than one
-     v2 page (/services, /trade-in), so its cross-cutting CSS lives here
-     rather than in any one page's scoped block. The transition sits in this
-     class, not inline on the element, so this reduced-motion override can
-     actually win — an inline transition would out-specify it. */
-  .v2-plus-toggle {
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  @media (prefers-reduced-motion: reduce) {
-.v2-plus-toggle {
-      transition: none;
-    }
-}
   @keyframes m7menuIn {
 from {
       opacity: 0;

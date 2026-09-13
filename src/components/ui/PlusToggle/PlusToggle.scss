@@ -6,4 +6,12 @@
     height: var(--ui-plus-toggle-size);
     border: var(--ui-plus-toggle-border);
   }
+
+  .v2-plus-toggle {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
 }

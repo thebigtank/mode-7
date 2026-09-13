@@ -196,4 +196,30 @@
     font-weight: 500;
     cursor: pointer;
   }
+
+  .m7-modal {
+    padding: 24px;
+
+    @media (max-width: 620px) {
+      padding: 0;
+      align-items: flex-end !important;
+    }
+  }
+
+  .m7-modal__panel {
+    overscroll-behavior: contain;
+
+    @media (max-width: 620px) {
+      width: 100% !important;
+      max-height: 92dvh !important;
+      border-radius: 12px 12px 0 0 !important;
+      border-bottom: 0 !important;
+      padding-bottom: env(safe-area-inset-bottom);
+      animation: m7sheetIn 0.3s cubic-bezier(0.32, 0.72, 0, 1) both !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: m7aiFade 0.2s ease both !important;
+    }
+  }
 }
