@@ -26,3 +26,4 @@ scripts/parity/captures
 .env
 payload-types.ts
 /public/media
+.claude/worktrees
