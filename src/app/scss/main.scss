@@ -1,0 +1,13 @@
+// The cascade order for everything this project authors.
+//
+// Component stylesheets are colocated with their components and registered in
+// one of the three aggregators below, rather than imported from a .tsx. With
+// ~50 sheets in one layer, source order is the tie-breaker, and Turbopack
+// chunks CSS per route and per RSC boundary -- an import-driven order is not
+// something you can assert, and dev and build can disagree.
+//
+// Generic to specific: shared primitives, then chrome, then page sections.
+@use 'utils/baseUtils';
+@use 'components/baseComponents';
+@use 'templates/baseTemplates';
+@use 'blocks/baseBlocks';

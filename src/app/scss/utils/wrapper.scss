@@ -1,0 +1,33 @@
+@use '../utils' as *;
+
+@layer components {
+  .wrapper {
+    width: 100%;
+    max-width: rem-calc(1920, false);
+    margin-inline: auto;
+    // #{} is mandatory. Without it Sass emits the literal text `fluid(20, 40)`
+    // and the browser drops the declaration, silently.
+    --wrapper-gutter: #{fluid(20, 40)};
+    padding-inline: var(--wrapper-gutter);
+
+    &.no-padding {
+      padding-inline: 0;
+    }
+
+    &.full {
+      max-width: 100%;
+    }
+
+    &.xlarge {
+      max-width: rem-calc(1800, false);
+    }
+
+    &.large {
+      max-width: rem-calc(1600, false);
+    }
+
+    &.medium {
+      max-width: rem-calc(1400, false);
+    }
+  }
+}

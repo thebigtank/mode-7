@@ -1,0 +1,25 @@
+@use 'sass:map';
+
+// Authored in px and emitted in rem so a user's own font size scales the
+// breakpoints with the type.
+//
+// phone-xsmall is NOT a layout breakpoint and is not mirrored into Tailwind's
+// @theme. It exists because it is fluid()'s ramp origin -- the viewport width
+// at which a ramp sits on its minimum.
+$breakpoints: (
+  'phone-xsmall': calc(320 / 16) * 1rem,
+  'phone-small': calc(425 / 16) * 1rem,
+  'phone-medium': calc(600 / 16) * 1rem,
+  'phone': calc(768 / 16) * 1rem,
+  'tablet': calc(1024 / 16) * 1rem,
+  'desktop-small': calc(1200 / 16) * 1rem,
+  'desktop-medium': calc(1440 / 16) * 1rem,
+  'desktop-large': calc(1800 / 16) * 1rem,
+);
+
+@function bp($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error 'Unknown breakpoint "#{$name}". Known: #{map.keys($breakpoints)}.';
+  }
+  @return map.get($breakpoints, $name);
+}

@@ -1,0 +1,98 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'breakpoints' as *;
+
+$rem-base: 16px;
+
+@function strip-unit($number) {
+  @if meta.type-of($number) != 'number' {
+    @error 'strip-unit() expects a number, got #{meta.type-of($number)}: #{$number}.';
+  }
+  @if math.is-unitless($number) {
+    @return $number;
+  }
+  @return math.div($number, ($number * 0 + 1));
+}
+
+// Values under 8px stay in px on purpose: hairlines, borders and small radii
+// should not scale with the root font size. Pass $limit: false to convert
+// anyway.
+@function convert-to-rem($value, $base-value: $rem-base, $limit: true) {
+  @if $limit and math.abs($value) < 8 {
+    @return $value * 1px;
+  }
+  @return math.div(strip-unit($value), strip-unit($base-value)) * 1rem;
+}
+
+@function rem-calc($values, $limit: true, $base-value: $rem-base) {
+  @if meta.type-of($values) != 'list' {
+    @return convert-to-rem($values, $base-value, $limit);
+  }
+  $out: ();
+  @each $value in $values {
+    $out: list.append($out, convert-to-rem($value, $base-value, $limit));
+  }
+  @return $out;
+}
+
+@function _fluid-edge($edge) {
+  @if map.has-key($breakpoints, $edge) {
+    @return map.get($breakpoints, $edge);
+  }
+  @return math.div(strip-unit($edge), 16) * 1rem;
+}
+
+// A viewport-interpolated ramp between two breakpoints.
+//
+// Emits the SYMBOLIC form -- the delta and the span stay as separate short
+// literals rather than being pre-divided into a single vw coefficient. That is
+// deliberate: a pre-divided coefficient is what makes a ramp land a hair under
+// its own bound at an endpoint, and losing a whole LayoutUnit to it.
+//
+// Assign the result to a custom property through #{} and read it back with
+// var(). Without the interpolation Sass treats the call as opaque text, emits
+// the literal string `fluid(20, 40)`, and the declaration is silently dropped.
+@function fluid($min-value, $max-value, $min-breakpoint: 'phone-xsmall', $max-breakpoint: 'desktop-large') {
+  $min-vw: _fluid-edge($min-breakpoint);
+  $max-vw: _fluid-edge($max-breakpoint);
+
+  @if $min-vw == $max-vw {
+    @error 'fluid() needs two different breakpoints, got #{$min-breakpoint} twice.';
+  }
+  @if $min-value == $max-value {
+    @return rem-calc($min-value, false);
+  }
+
+  $from: rem-calc($min-value, false);
+  $to: rem-calc($max-value, false);
+  $delta: strip-unit($to) - strip-unit($from);
+  $span: strip-unit($max-vw - $min-vw);
+  $ramp: calc(#{$from} + #{$delta} * ((100vw - #{$min-vw}) / #{$span}));
+
+  @if $min-value < $max-value {
+    @return min(max($ramp, $from), $to);
+  }
+  @return min(max($ramp, $to), $from);
+}
+
+@function fluid-phone($min-value, $max-value) {
+  @return fluid($min-value, $max-value, 'phone-xsmall', 'desktop-small');
+}
+
+@function fluid-tablet($min-value, $max-value) {
+  @return fluid($min-value, $max-value, 'tablet', 'desktop-small');
+}
+
+@function fluid-desktop($min-value, $max-value) {
+  @return fluid($min-value, $max-value, 'desktop-small', 'desktop-large');
+}
+
+// The gutter left outside a centred wrapper of $wrapper-width.
+@function remaining-side($wrapper-width, $canvas: null) {
+  @if $canvas != null {
+    @return math.div(strip-unit($canvas) - strip-unit($wrapper-width), 2) * 1px;
+  }
+  @return calc((100% - #{rem-calc($wrapper-width, false)}) / 2);
+}

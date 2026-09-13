@@ -1,0 +1,14 @@
+// The one line every component stylesheet opens with:
+//
+//   @use 'utils' as *;
+//
+// Resolved through sassOptions.loadPaths, so it is the same line at any depth.
+//
+// THIS FILE AND EVERYTHING IT FORWARDS MUST EMIT ZERO CSS. It is @use'd from
+// ~50 places; anything that emits would emit from whichever of them Sass
+// loaded first, and land wherever that happened to be in the cascade.
+// Emitting partials belong in utils/_baseUtils.scss, which main.scss loads
+// exactly once.
+@forward 'utils/breakpoints';
+@forward 'utils/functions';
+@forward 'utils/mixins';
